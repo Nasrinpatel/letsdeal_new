@@ -3,8 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 // require 'vendor/autoload.php';
 
-// use phpoffice\PhpSpreadsheet\Spreadsheet;
-// use phpoffice\PhpSpreadsheet\Writer\Xlsx;
+use phpoffice\PhpSpreadsheet\Spreadsheet;
+use phpoffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Sourcecategory extends CI_Controller {
 
 	public function __construct()
@@ -84,8 +85,7 @@ class Sourcecategory extends CI_Controller {
 		$sourcecategory = $this->soucat->getSourcecategory($id);
 		$data = array();
 		$data['soucat'] = $sourcecategory;
-		// $data['question'] = $this->mas->getQuestion();
-		$data->option_data= $this->db->get_where('source_option_master',array('source_cat_id'=>$id))->result_array();
+		$data['souoption'] = $this->soucat->getSourceoption($id);
 
 		$data['page_name'] = 'source_category_edit';
 		$this->load->view('admin/index', $data);
@@ -100,9 +100,9 @@ class Sourcecategory extends CI_Controller {
 		$formArrayoptions = $this->input->post('option[]');
 		$response = $this->soucat->updaterecords($id,$formArray,$formArrayoptions);
 		if ($response == true) {
-			echo json_encode(array('success'=>true,'message'=>'Source category Updated Successfully.'));
+			$this->session->set_flashdata('success', 'Source category Updated Successfully.');
 		} else {
-			echo json_encode(array('success'=>false,'message'=>'Something went wrong. Please try again'));
+			$this->session->set_flashdata('error', 'Something went wrong. Please try again');
 		}
 		return redirect('admin/Sourcecategory/');
 	}
@@ -122,82 +122,62 @@ class Sourcecategory extends CI_Controller {
 
 	}
 	//import excel
-	// public function spreadsheet_import()
-	// {
-	// 	$upload_file=$_FILES['upload_file']['name'];
-	// 	$extension=pathinfo($upload_file,PATHINFO_EXTENSION);
-	// 	if($extension=='csv')
-	// 	{
-	// 		$reader= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-	// 	} else if($extension=='xls')
-	// 	{
-	// 		$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xls();
-	// 	} else
-	// 	{
-	// 		$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-	// 	}
-	// 	$spreadsheet=$reader->load($_FILES['upload_file']['tmp_name']);
-	// 	$sheetdata=$spreadsheet->getActiveSheet()->toArray();
-	// 	$sheetcount=count($sheetdata);
-	// 	if($sheetcount>1)
-	// 	{
-	// 		$validation_error=false;
-	// 		$data=array();
-	// 		$validate_data=[];
-	// 		for ($i=1; $i < $sheetcount; $i++) { 
-	// 			$customer_first_name=$sheetdata[$i][0];
-	// 			$customer_last_name=$sheetdata[$i][1];
-	// 			$customer_address=$sheetdata[$i][2];
-	// 			$customer_email=$sheetdata[$i][3];
-	// 			$customer_phone=$sheetdata[$i][4];
-	// 			$cust_code=$sheetdata[$i][5];
-	// 			$ref_reason=$sheetdata[$i][6];
-	// 			$cus_data=$this->db->get_where('tb_customer',array('customer_code'=>$cust_code))->row();
-	// 			if(!empty($cus_data)){
-	// 				$cus_id=$cus_data->cus_id;
-	// 			}else{
-	// 				$cus_id=null;
-	// 			}
-	// 			$custCode = $this->customer->gen_customer_code();
-	// 			$data[]=$validate_data=array(
-	// 				'ur_id'				=>2,
-	// 				'plan_id'			=>1,//signup plan 1
-	// 				'customer_code'		=>$custCode,
-	// 				'customer_first_name'=>$customer_first_name,
-	// 				'customer_last_name'=>$customer_last_name,
-	// 				'customer_address'=>$customer_address,
-	// 				'customer_email'=>$customer_email,
-	// 				'customer_phone_no'=>$customer_phone,
-	// 				'cus_ref_id'		=>$cus_id,
-	// 				'referral_check'	=>(($cus_id == '')?0:1),
-	// 				'refer_date'		=>(($cus_id == '')?null:date('Y-m-d H:i:s')),
-	// 				'ref_reason'		=>$ref_reason,
-	// 				'user_id'			=>$this->user_id,
-	// 				'user_type'         =>(($this->session->userdata('is_admin') == 1)?'admin':'referral')
-	// 			);
-	// 			$this->form_validation->set_data($validate_data);
-	// 			$this->form_validation->set_error_delimiters("<p class='text-danger'>","</p>");
-	// 			if (!$this->form_validation->run('import_excel')) //validation success 
-	// 			{
-	// 				$validation_error=true;
+	public function spreadsheet_import()
+	{
+		$upload_file=$_FILES['upload_file']['name'];
+		$source_cat_id=$_POST['source_cat_id'];
+		$extension=pathinfo($upload_file,PATHINFO_EXTENSION);
+		if($extension=='csv')
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+		} else if($extension=='xls')
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+		} else
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+		}
+		$spreadsheet=$reader->load($_FILES['upload_file']['tmp_name']);
+		$sheetdata=$spreadsheet->getActiveSheet()->toArray();
+		$sheetcount=count($sheetdata);
+		if($sheetcount>1)
+		{
+			$validation_error=false;
+			$data=array();
+			$validate_data=[];
+			for ($i=1; $i < $sheetcount; $i++) { 
+				$name=$sheetdata[$i][0];
+			
+				
+				$data[]=$validate_data=array(
+				
+					'source_cat_id'	=>$source_cat_id,
+					'name'		=>$name
 					
-	// 			}
-	// 		}
-	// 		if($validation_error == false){
-	// 			$inserdata=$this->customer->insert_batch($data);
-	// 			if($inserdata)
-	// 			{
-	// 				$this->session->set_flashdata('success','Successfully Imported');
-	// 				redirect('front/Customer');
-	// 			} else {
-	// 				$this->session->set_flashdata('error','Data Not uploaded. Please Try Again.');
-	// 				redirect('front/Customer');
-	// 			}	
-	// 		}else{
-	// 			$data['page_name'] = 'customer/import';	
-    //    			$this->load->view('front/index',$data);
-	// 		}			
-	// 	}
-	// }
+				);
+				$this->form_validation->set_data($validate_data);
+				$this->form_validation->set_error_delimiters("<p class='text-danger'>","</p>");
+				if (!$this->form_validation->run('import_excel')) //validation success 
+				{
+					$validation_error=true;
+					
+				}
+			}
+			if($validation_error == false){
+				$inserdata=$this->soucat->insert_batch($data);
+				if($inserdata)
+				{
+					$this->session->set_flashdata('success','Successfully Imported');
+					redirect('admin/sourcecategory/edit/'.$source_cat_id);
+				} else {
+					$this->session->set_flashdata('error','Data Not uploaded. Please Try Again.');
+					redirect('admin/sourcecategory/edit/'.$source_cat_id);
+				}	
+			}else{
+				$data['page_name'] = 'source_category_edit';	
+       			$this->load->view('admin/index',$data);
+			}			
+		}
+	}
 	
 }

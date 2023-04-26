@@ -1,4 +1,29 @@
-			<!-- ============================================================== -->
+<!-- Import excel source options modal -->
+<div class="modal fade" id="sourceoptionimport-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title" id="myCenterModalLabel">Add New</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+			</div>
+			<div class="modal-body p-4">
+			<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/Sourcecategory/spreadsheet_import'; ?>" enctype="multipart/form-data">					
+					<div class="mb-3">
+						<input type="hidden" name="source_cat_id" value="<?= $this->uri->segment(4) ?>">
+						<label for="name" class="form-label">Import Options</label>
+						<input type="file" name="upload_file" class="form-control"  id="upload_file" required="">
+					</div> 
+
+					<div class="text-end">
+						<button type="submit" class="btn btn-success waves-effect waves-light">Import</button>
+					</div>
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>	
+		
+		<!-- ============================================================== -->
 			<!-- Start Page Content here -->
 			<!-- ============================================================== -->
 
@@ -34,33 +59,47 @@
 										<form method="post" action="<?php echo base_url('admin/Sourcecategory/update/' . $soucat->id); ?>">
 										<input type="hidden" name="id" id="edit_sourcat_id" />
 											
-												
-										<div class="mb-3">
-											<label for="name" class="form-label">Name</label>
-											<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Source name">
-											<!-- <?= form_error('name')  ?> -->
-										</div>
-										<div id="editoptions">
-											<div class="row">
-												<div class="col-lg-6">
-													<div class="mb-3">
-														<label for="name" class="form-label">Option</label>
-														<input type="text" class="form-control" name="option[]" id="option" placeholder="Enter Option">
-													</div>
-												</div>
-												<div class="col-lg-1">
-													<label class="form-label" style='width:100%'>&nbsp;</label>
-													<a class="btn btn-success waves-effect waves-light edit-button">Add </a>
-												</div>
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="name" class="form-label">Name</label>
+												<input type="text" class="form-control" name="name" id="name"  value="<?= $soucat->name ?>">
+												<!-- <?= form_error('name')  ?> -->
 											</div>
 										</div>
-										<div class="mb-3">
-											<label for="sourcat_status" class="form-label">Status</label>
-											<select class="form-select" name="status" id="sourcat_status">
-												<option selected="">Select Status</option>
-												<option value="1">Active</option>
-												<option value="0">Inactive</option>
-											</select>
+										<div id="editoptions">
+											<?php 
+											$i=0;
+											foreach ($souoption as $so) : ?>
+												<div class="row">
+													<div class="col-lg-6">
+														<div class="mb-3">
+															<label for="name" class="form-label">Option</label>
+															<input type="text" class="form-control" name="option[]" id="option" value="<?= $so['name'] ?>">																												
+														</div>
+													</div>
+													<div class="col-lg-3">
+														<label class="form-label" style='width:100%'>&nbsp;</label>
+														<?php if($i==0){ ?>
+															<a class="btn btn-success waves-effect waves-light edit-button">Add </a>
+															<!-- <a class="btn btn-info waves-effect waves-light import-excel-button">Import Excel</a> -->
+															<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#sourceoptionimport-modal">Import Excel</button>
+
+														<?php }else{ ?>
+															<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+														<?php } ?>
+													</div>
+												</div>
+											<?php $i++; endforeach; ?>
+										</div>
+										<div class="col-lg-6">
+											<div class="mb-3">
+												<label for="sourcat_status" class="form-label">Status</label>
+												<select class="form-select" name="status" id="sourcat_status">
+													<option selected="">Select Status</option>
+													<option value="1" <?= ($soucat->status=='1')?'selected':'' ?>>Active</option>
+													<option value="0" <?= ($soucat->status=='0')?'selected':'' ?>>Inactive</option>
+												</select>
+											</div>
 										</div>
 										<div class="text-end">
 											<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
@@ -93,68 +132,7 @@
 					}, ]
 				});
 
-				$(document).on('click', ".edit-btn", function() {
-					var id = $(this).attr('data-id');
-					$.ajax({
-						url: '<?php echo base_url() ?>admin/sourcecategory/edit/' + id,
-						type: "POST",
-						dataType: "json",
-						success: function(data) {
-							// debugger;
-							var options = data.option_data;
-							// debugger;
-							// $("#sourcecategoryedit-modal #edit_sourcat_id").val(data.id);
-							// $('#sourcecategoryedit-modal #name').val(data.name);
-							// $("#sourcecategoryedit-modal #sourcat_status").val(data.status);
-							// $('#editoptions').html('');
-							options.forEach(function(option, index) {
-								if (index == 0) {
-									var optionRow = '<div class="row">' +
-										'<div class="col-lg-6">' +
-										'<div class="mb-3">' +
-										'<label for="name" class="form-label">Option</label>' +
-										'<input type="text" class="form-control" name="option[]" value="' + option.name + '" id="option" placeholder="Enter Option">' +
-										'</div>' +
-										'</div>' +
-										'<div class="col-lg-1">' +
-										'<label class="form-label" style="width:100%">&nbsp;</label>' +
-										'<a class="btn btn-success waves-effect waves-light edit-button">Add </a>' +
-										'</div>' +
-										'</div>';
-								} else {
-									var optionRow = '<div class="row">' +
-										'<div class="col-lg-6">' +
-										'<div class="mb-3">' +
-										'<label for="name" class="form-label">Option</label>' +
-										'<input type="text" class="form-control" name="option[]" value="' + option.name + '" id="option" placeholder="Enter Option">' +
-										'</div>' +
-										'</div>' +
-										'<div class="col-lg-1">' +
-										"<label class='form-label' style='width:100%'>&nbsp;</label>" +
-										"<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>" + "</div>" +
-										'</div>' +
-										'</div>';
-								}
-								$('#editoptions').append(optionRow);
-							});
-							if (options.length == 0) {
-								var optionRow = '<div class="row">' +
-									'<div class="col-lg-6">' +
-									'<div class="mb-3">' +
-									'<label for="name" class="form-label">Option</label>' +
-									'<input type="text" class="form-control" name="option[]" id="option" placeholder="Enter Option">' +
-									'</div>' +
-									'</div>' +
-									'<div class="col-lg-1">' +
-									'<label class="form-label" style="width:100%">&nbsp;</label>' +
-									'<a class="btn btn-success waves-effect waves-light edit-button">Add </a>' +
-									'</div>' +
-									'</div>';
-								$('#editoptions').append(optionRow);
-							}
-						}
-					});
-				});
+				
 				$("#update_sourcecategory").submit(function(o) {
 					o.preventDefault();
 					var id = $('#edit_sourcat_id').val();

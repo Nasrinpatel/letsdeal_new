@@ -155,8 +155,8 @@ class Customermaster extends CI_Controller
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');		
 		$this->form_validation->set_rules('phone', 'Phone','required');
 		$this->form_validation->set_rules('email', 'Email','required');
-		$this->form_validation->set_rules('company_name', 'Company name','required');
-		$this->form_validation->set_rules('description', 'Description','required');
+		// $this->form_validation->set_rules('company_name', 'Company name','required');
+		//$this->form_validation->set_rules('description', 'Description','required');
 		$this->form_validation->set_rules('status', 'Status','required');
 		if ($this->form_validation->run() == false) {
 			$this->add();
@@ -265,8 +265,8 @@ class Customermaster extends CI_Controller
 		//$this->form_validation->set_rules('nick_name', 'Nick Name','required');		
 		$this->form_validation->set_rules('phone', 'Phone','required');
 		$this->form_validation->set_rules('email', 'Email','required');
-		$this->form_validation->set_rules('company_name', 'Company name','required');
-		$this->form_validation->set_rules('description', 'Description','required');
+		// $this->form_validation->set_rules('company_name', 'Company name','required');
+		// $this->form_validation->set_rules('description', 'Description','required');
 		$this->form_validation->set_rules('status', 'Status','required');
 
 		if ($this->form_validation->run() == false) {

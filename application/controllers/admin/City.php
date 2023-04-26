@@ -13,7 +13,7 @@ class City extends CI_Controller {
 
 	public function index()
 	{		
-		$data['page_name'] = 'City_view';
+		$data['page_name'] = 'city_view';
 		$data['cites'] = $this->ci->all();
 		$data['states'] = $this->ci->getState();
 		$this->load->view('admin/index',$data);
@@ -95,5 +95,63 @@ class City extends CI_Controller {
 		
 
 	}
-	
+	//import excel For City
+	public function city_spreadsheet_import()
+	{
+		$upload_file=$_FILES['upload_file']['name'];
+		$state_id=$_POST['state_id'];
+		$extension=pathinfo($upload_file,PATHINFO_EXTENSION);
+		if($extension=='csv')
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+		} else if($extension=='xls')
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+		} else
+		{
+			$reader= new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+		}
+		$spreadsheet=$reader->load($_FILES['upload_file']['tmp_name']);
+		$sheetdata=$spreadsheet->getActiveSheet()->toArray();
+		$sheetcount=count($sheetdata);
+		if($sheetcount>1)
+		{
+			$validation_error=false;
+			$data=array();
+			$validate_data=[];
+			for ($i=1; $i < $sheetcount; $i++) { 
+				$name=$sheetdata[$i][0];
+			
+				
+				$data[]=$validate_data=array(
+				
+					'state_id'	=>$state_id,
+					'name'		=>$name,
+					'status'		=>1
+					
+				);
+				$this->form_validation->set_data($validate_data);
+				$this->form_validation->set_error_delimiters("<p class='text-danger'>","</p>");
+				if (!$this->form_validation->run('city_import_excel')) //validation success 
+				{
+					$validation_error=true;
+					
+				}
+			}
+			if($validation_error == false){
+				$inserdata=$this->ci->insert_batch($data);
+				if($inserdata)
+				{
+					$this->session->set_flashdata('success','Successfully Imported');
+					redirect('admin/city/');
+				} else {
+					$this->session->set_flashdata('error','Data Not uploaded. Please Try Again.');
+					redirect('admin/city/');
+				}	
+			}else{
+				$data['page_name'] = 'city_view';	
+       			$this->load->view('admin/index',$data);
+			}			
+		}
+	}
 }

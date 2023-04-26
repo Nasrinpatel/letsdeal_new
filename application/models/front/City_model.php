@@ -42,6 +42,17 @@ class City_model extends CI_model{
 		return true;
 	}
 	
+	//import excel for City
+	public function insert_batch($data){
+		$this->db->insert_batch('tb_city_master',$data);
+		if($this->db->affected_rows()>0)
+		{
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
 	
 	
 }	 

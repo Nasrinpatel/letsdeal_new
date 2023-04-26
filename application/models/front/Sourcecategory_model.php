@@ -34,7 +34,28 @@ class Sourcecategory_model extends CI_model{
 		$data = $this->db->where('id',$id)->get($this->db_name)->row();
 		return $data;
 	}
-
+	//import excel
+	public function insert_batch($data){
+		$this->db->insert_batch('source_option_master',$data);
+		if($this->db->affected_rows()>0)
+		{
+			return 1;
+		}
+		else{
+			return 0;
+		}
+	}
+	// function getSourceoptioncf(){
+	// 	$data = $this->db->get('source_option_master')->result_array();
+	// 	return $data;
+	// }
+	function getSourceoption($source_cat_id){
+		$this->db->select('*');
+		$this->db->from('source_option_master');
+		$this->db->where('source_cat_id', $source_cat_id);
+		$data = $this->db->get()->result_array();
+		return $data;
+	}
 	function updaterecords($id,$formArray,$formArrayoptions)
 	{
 		$this->db->where('id',$id);

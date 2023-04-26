@@ -140,7 +140,7 @@ class Agentmaster extends CI_Controller
 	//Channel Partner
 	public function store()
 	{
-		$this->form_validation->set_rules('source_id', 'Source', 'required');
+		//$this->form_validation->set_rules('source_id', 'Source', 'required');
 		$this->form_validation->set_rules('position_id', 'Position', 'required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
@@ -255,7 +255,7 @@ class Agentmaster extends CI_Controller
 	{
 		//	$this->form_validation->set_rules('inquiry_type', 'Inquiry type','required');
 		//$this->form_validation->set_rules('agent_id', 'Agent','required');
-		$this->form_validation->set_rules('source_id', 'Source', 'required');
+		//$this->form_validation->set_rules('source_id', 'Source', 'required');
 		// if($this->input->post('inquiry_type') != 'direct'){
 		// 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
 		// }
