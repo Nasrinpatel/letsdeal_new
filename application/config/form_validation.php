@@ -66,6 +66,11 @@ $config = array(
 			'field' => 'name',
 			'label' => 'Please enter Area Name',
 			'rules' => 'required'
+		),
+		array(
+			'field' => 'area_code',
+			'label' => 'Please enter Area code',
+			'rules' => 'required'
 		)
 	)
 	

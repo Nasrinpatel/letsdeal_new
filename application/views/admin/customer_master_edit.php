@@ -180,6 +180,295 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+<!-- reminders add -->
+<div class="modal fade" id="customer-reminders-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title" id="myCenterModalLabel">Add Reminder</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body p-4">
+				<form method="post" id="store-reminders" action="<?php echo base_url() . 'admin/Customermaster/store_reminders'; ?>">
+					<input type="hidden" name="customer_id" value="<?= $customer->id ?>">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mb-3">
+								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
+								<input class="form-control" type="text" placeholder="Enter  name" name="name" id="billing-reminder-name" />
+							</div>
+						</div>
+
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mb-3">
+								<label class="form-label">Type </label>
+								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
+									<option value="">Select Rreminder Type</option>
+									<option value="name">name</option>
+									<option value="name1">name1</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+								</select>
+							</div>
+						</div>
+
+
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-md-12">
+
+
+							<div class="mb-3">
+								<label for="date_time" class="form-label">Date </label>
+								<input class="form-control" id="date_time" type="datetime-local" name="date_time">
+							</div>
+						</div>
+
+					</div> <!-- end row -->
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="mb-3">
+								<label class="form-label">Priority </label>
+								<select data-toggle="select2" class="form-control select2" name="priority" data-width="100%">
+									<option value="">Select Priority</option>
+									<option value="Low">Low</option>
+									<option value="Medium">Medium</option>
+									<option value="High">High</option>
+									<option value="Urgent">Urgent</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="mb-3">
+								<label class="form-label">Repeat every </label>
+								<select data-toggle="select2" class="form-control select2" name="repeat_everyday" id="repeat_everyday" data-width="100%">
+									<option value="">Select Repeat every</option>
+									<option value="Week">Week</option>
+									<option value="2 Weeks">2 Weeks</option>
+									<option value="1 Month">1 Month</option>
+									<option value="3 Months">3 Months</option>
+									<option value="6 Months">6 Months</option>
+									<option value="1 Year">1 Year</option>
+									<option value="Custom">Custom</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+								</select>
+							</div>
+
+
+						</div>
+					</div> <!-- end row -->
+					<div class="row" id="custom_cycle_row">
+						<div class="col-6">
+							<div class="mb-3">
+
+								<div class="input-group">
+									<input type="number" class="form-control" name="repeat_every" id="repeat_every" value="0" placeholder="">
+
+								</div>
+								<!-- <?= form_error('total_cycles') ?> -->
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="mb-3">
+
+								<select class="form-select" name="recurring_type" id="recurring_type">
+									<option value="Day" selected>Days(s)</option>
+									<option value="Week" selected>Week(s)</option>
+									<option value="Month" selected>Month(s)</option>
+									<option value="Year" selected>Year(s)</option>
+								</select>
+							</div>
+
+
+						</div>
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="total_cycles">Total Cycles</label>
+								<div class="input-group">
+									<input type="number" class="form-control" name="total_cycles" id="total_cycles" value="0" placeholder="Enter Total Cycles" disabled>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<input type="checkbox" class="custom-control-input" name="default_total_cycles" id="default_total_cycles" checked>
+											<label class="custom-control-label" for="default_total_cycles" style="padding-left: 5px;"> Infinity</label>
+										</div>
+									</div>
+								</div>
+								<?= form_error('total_cycles') ?>
+							</div>
+						</div>
+
+					</div> <!-- end row -->
+
+
+
+
+
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" name="description" id="description"></textarea>
+							</div>
+						</div>
+					</div> <!-- end row -->
+					<div class="mb-3">
+						<label for="city_status" class="form-label">Status</label>
+						<select class="form-select" name="status" id="city_status">
+							<option selected="">Select Status</option>
+							<option value="1" selected>Active</option>
+							<option value="0">Inactive</option>
+						</select>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="text-end">
+								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="edit-customer-reminders-modal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header bg-light">
+				<h4 class="modal-title" id="myCenterModalLabel">Edit Reminders</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body p-4">
+				<form method="post" id="update-reminders" action="<?php echo base_url() . 'admin/Customermaster/update_reminders'; ?>">
+					<input type="hidden" name="customer_id" value="<?= $customer->id ?>">
+					<input type="hidden" name="reminder_id" id="reminder_id">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mb-3">
+								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
+								<input class="form-control" type="text" placeholder="Enter  name" name="name" id="billing-reminder-name" />
+							</div>
+						</div>
+
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mb-3">
+								<label class="form-label">Type </label>
+								<select data-toggle="select2" class="form-control select2" name="type" data-width="100%">
+									<option value="">Select Rreminder Type</option>
+									<option value="name">name</option>
+									<option value="name">name</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+								</select>
+							</div>
+						</div>
+
+
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-md-12">
+
+
+							<div class="mb-3">
+								<label for="date_time" class="form-label">Date </label>
+								<input class="form-control" id="date_time" type="datetime-local" name="date_time">
+							</div>
+						</div>
+
+					</div> <!-- end row -->
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="mb-3">
+								<label class="form-label">Priority </label>
+								<select data-toggle="select2" title="Priority" class="form-control select2" name="priority" data-width="100%">
+									<option value="">Select Priority</option>
+									<option value="Low">Low</option>
+									<option value="Medium">Medium</option>
+									<option value="High">High</option>
+									<option value="Urgent">Urgent</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<div class="mb-3">
+								<label class="form-label">Repeat every </label>
+								<select data-toggle="select2" title="Repeat" class="form-control select2" name="repeat_everyday" data-width="100%">
+									<option value="">Select Repeat every</option>
+									<option value="Week">Week</option>
+									<option value="2 Weeks">2 Weeks</option>
+									<option value="1 Month">1 Month</option>
+									<option value="3 Months">3 Months</option>
+									<option value="6 Months">6 Months</option>
+									<option value="1 Year">1 Year</option>
+									<option value="Custom">Custom</option>
+									<!-- <?php foreach ($position as $pos) { ?>
+										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<?php }
+									?> -->
+
+
+
+								</select>
+							</div>
+						</div>
+					</div> <!-- end row -->
+
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="description" class="form-label">Description</label>
+								<textarea class="form-control" name="description" id="description"></textarea>
+							</div>
+						</div>
+					</div> <!-- end row -->
+					<div class="mb-3">
+						<label for="reminders_status" class="form-label">Status</label>
+						<select class="form-select" name="status" id="reminders_status">
+							<option selected="">Select Status</option>
+							<option value="1" selected>Active</option>
+							<option value="0">Inactive</option>
+						</select>
+					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="text-end">
+								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
 <!-- notes add -->
 <div class="content-page">
 	<div class="modal fade" id="customer-notes-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -274,13 +563,13 @@
 							<ol class="breadcrumb m-0">
 								<a type="button" href="<?= base_url('admin/Customermaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
-							
+
 						</div>
-						
+
 						<h4 class="page-title">Customer Master</h4>
 						<div class="row">
 							<div class="col-md-4">
-								
+
 								<!-- <p class="mt-2 mb-1 text-muted">Name</p> -->
 								<!-- <div class="d-flex align-items-start">
 									<i class="mdi mdi-account font-18 text-success me-1"></i>
@@ -295,143 +584,147 @@
 										<?= $customer->phone ?>	</h5>
 									</div>
 								</div> -->
-							<!-- end col -->
+								<!-- end col -->
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- end page title -->
+				<!-- end page title -->
 
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card">
-						<div class="card-body">
-						<div class="row">
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Name</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-account font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-											<?= $customer->first_name . ' ' . $customer->last_name ?>
-											</h5>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Name</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-account font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $customer->first_name . ' ' . $customer->last_name ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Phone</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-phone font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $customer->phone ?>
-											</h5>
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Phone</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-phone font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $customer->phone ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<!-- end col -->
+									<!-- end col -->
 
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Email</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-gmail font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $customer->email ?>
-											</h5>
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Email</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-gmail font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $customer->email ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Company</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-office-building font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $customer->company_name ?>
-											</h5>
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Company</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-office-building font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $customer->company_name ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Source</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-newspaper font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $source_data->name ?>
-											</h5>
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Source</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-newspaper font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $source_data->name ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Position</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-badge-account font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $position_data->name ?>
-											</h5>
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Position</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-badge-account font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= $position_data->name ?>
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Staff Name</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-account-group font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-											<?= ($staff_data != null)?$staff_data->first_name.' '.$staff_data->last_name:' - '?>
-									
+									<div class="col-md-4">
+										<!-- start due date -->
+										<p class="mt-2 mb-1 text-muted">Staff Name</p>
+										<div class="d-flex align-items-start">
+											<i class="mdi mdi-account-group font-18 text-success me-1"></i>
+											<div class="w-100">
+												<h5 class="mt-1 font-size-14">
+													<?= ($staff_data != null) ? $staff_data->first_name . ' ' . $staff_data->last_name : ' - ' ?>
 
 
-											</h5>
+
+												</h5>
+											</div>
 										</div>
+										<!-- end due date -->
 									</div>
-									<!-- end due date -->
 								</div>
-							</div>
-							<br>
-							<div class="row">
-								<div class="col-lg-4">
-									<div class="nav nav-pills flex-column navtab-bg nav-pills-tab text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-										<a class="nav-link py-2" id="customer-tab" data-bs-toggle="pill" href="#customer" role="tab" aria-controls="customer" aria-selected="false">
-											<i class="mdi mdi-account-circle d-block font-24"></i>
-											Customer Master
-										</a>
-										<a class="nav-link mt-2 py-2" id="customer-contacts-tab" data-bs-toggle="pill" href="#customer-contacts" role="tab" aria-controls="customer-contacts" aria-selected="false">
-											<i class="mdi mdi-contacts d-block font-24"></i>
-											Contact</a>
-										<a class="nav-link mt-2 py-2" id="customer-notes-tab" data-bs-toggle="pill" href="#customer-notes" role="tab" aria-controls="customer-notes" aria-selected="false">
-											<i class="mdi mdi-note d-block font-24"></i>
-											Note
-										</a>
-										<a class="nav-link mt-2 py-2" id="customer-property-tab" data-bs-toggle="pill" href="#customer-property" role="tab" aria-controls="customer-property" aria-selected="false">
-											<i class="mdi mdi-office-building d-block font-24"></i>
-											Property
-										</a>
-									</div>
+								<br>
+								<div class="row">
+									<div class="col-lg-4">
+										<div class="nav nav-pills flex-column navtab-bg nav-pills-tab text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+											<a class="nav-link py-2" id="customer-tab" data-bs-toggle="pill" href="#customer" role="tab" aria-controls="customer" aria-selected="false">
+												<i class="mdi mdi-account-circle d-block font-24"></i>
+												Customer Master
+											</a>
+											<a class="nav-link mt-2 py-2" id="customer-contacts-tab" data-bs-toggle="pill" href="#customer-contacts" role="tab" aria-controls="customer-contacts" aria-selected="false">
+												<i class="mdi mdi-contacts d-block font-24"></i>
+												Contact</a>
+											<a class="nav-link mt-2 py-2" id="customer-notes-tab" data-bs-toggle="pill" href="#customer-notes" role="tab" aria-controls="customer-notes" aria-selected="false">
+												<i class="mdi mdi-note d-block font-24"></i>
+												Note
+											</a>
+											<a class="nav-link mt-2 py-2" id="customer-property-tab" data-bs-toggle="pill" href="#customer-property" role="tab" aria-controls="customer-property" aria-selected="false">
+												<i class="mdi mdi-office-building d-block font-24"></i>
+												Property
+											</a>
+											<a class="nav-link mt-2 py-2" id="customer-reminders-tab" data-bs-toggle="pill" href="#customer-reminders" role="tab" aria-controls="customer-reminders" aria-selected="false">
+												<i class="mdi mdi-office-building d-block font-24"></i>
+												Reminders
+											</a>
+										</div>
 
 
-								</div> <!-- end col-->
-								<div class="col-lg-8">
-									<div class="tab-content p-3">
-										<div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab">
-											
+									</div> <!-- end col-->
+									<div class="col-lg-8">
+										<div class="tab-content p-3">
+											<div class="tab-pane fade" id="customer" role="tabpanel" aria-labelledby="customer-tab">
+
 												<!-- <div class="row">
 													<div class="col-md-4">
 													
@@ -459,663 +752,948 @@
 													</div>
 													
 										    	</div> -->
-											<div>
-												<h4 class="header-title">Customer Information</h4><br>
+												<div>
+													<h4 class="header-title">Customer Information</h4><br>
 
-												<!-- <p class="sub-header">Fill the form below in order to
+													<!-- <p class="sub-header">Fill the form below in order to
                                                                 send you the order's invoice.</p> -->
-												<form method="post" id="store-promas" action="<?php echo base_url() . 'admin/Customermaster/update/' . $customer->id; ?>">
+													<form method="post" id="store-promas" action="<?php echo base_url() . 'admin/Customermaster/update/' . $customer->id; ?>">
 
-													<div class="row">
-														<div class="col-md-5">
-															<div class="mb-3">
+														<div class="row">
+															<div class="col-md-5">
+																<div class="mb-3">
 
-																<input class="form-check-input" type="radio" id="direct" name="inquiry_type" <?= $customer->inquiry_type == 'direct' ? 'checked' : ''; ?> value="direct">
-																<label class="form-check-label" for="direct">Direct</label>
+																	<input class="form-check-input" type="radio" id="direct" name="inquiry_type" <?= $customer->inquiry_type == 'direct' ? 'checked' : ''; ?> value="direct">
+																	<label class="form-check-label" for="direct">Direct</label>
+																</div>
+
 															</div>
+															<div class="col-md-5">
+																<div class="mb-3">
+																	<input class="form-check-input" type="radio" id="agent" name="inquiry_type" <?= $customer->inquiry_type == 'agent' ? 'checked' : ''; ?> value="agent">
+																	<label class="form-check-label" for="agent">Via Channel Partner </label>
+																</div>
 
-														</div>
-														<div class="col-md-5">
-															<div class="mb-3">
-																<input class="form-check-input" type="radio" id="agent" name="inquiry_type" <?= $customer->inquiry_type == 'agent' ? 'checked' : ''; ?> value="agent">
-																<label class="form-check-label" for="agent">Via Channel Partner </label>
 															</div>
-
 														</div>
-													</div>
-													<div id='agent_div' style='display:none'>
-														<div class="col-md-5">
-															<div class="mb-3">
-																<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
-																<select data-toggle="select2" title="Assigned" class="form-control select2" name="agent_id" data-width="100%">
-																	<?php foreach ($agent as $ag) { ?>
-																		<!-- <option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?><?= $ag['last_name'] ?>  <?= $ag['phone'] ?></option> -->
-																		<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?><?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
+														<div id='agent_div' style='display:none'>
+															<div class="col-md-5">
+																<div class="mb-3">
+																	<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
+																	<select data-toggle="select2" title="Assigned" class="form-control select2" name="agent_id" data-width="100%">
+																		<?php foreach ($agent as $ag) { ?>
+																			<!-- <option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?><?= $ag['last_name'] ?>  <?= $ag['phone'] ?></option> -->
+																			<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?><?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
+																		<?php } ?>
+																	</select>
+																</div>
+															</div>
+														</div>
+														<div class="row">
+															<div class="col-md-4">
+																<label class="form-label">Inquiry Source<span class="text-danger">*</span></label>
+																<select data-toggle="select2" class="form-control select2" name="source_id" data-width="100%">
+																	<option value=''>Select Source</option>
+																	<?php foreach ($source as $sou) { ?>
+																		<option value="<?= $sou['id'] ?>" <?= ($sou['id'] == $customer->source_id) ? 'selected' : '' ?>><?= $sou['name'] ?></option>
 																	<?php } ?>
 																</select>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-4">
-															<label class="form-label">Inquiry Source<span class="text-danger">*</span></label>
-															<select data-toggle="select2" class="form-control select2" name="source_id" data-width="100%">
-																<option value=''>Select Source</option>
-																<?php foreach ($source as $sou) { ?>
-																	<option value="<?= $sou['id'] ?>" <?= ($sou['id'] == $customer->source_id) ? 'selected' : '' ?>><?= $sou['name'] ?></option>
-																<?php } ?>
-															</select>
-															<!-- <span style="color: red;"><?= form_error('source_id') ?></span> -->
+																<!-- <span style="color: red;"><?= form_error('source_id') ?></span> -->
 
-														</div>
-														<div class="col-md-4">
-															<div class="mb-3">
-																<label for="billing-first-name" class="form-label">First Name<span class="text-danger">*</span></label>
-																<input class="form-control" type="text" placeholder="Enter your first name" name="first_name" id="billing-first-name" value="<?= $customer->first_name ?>" />
 															</div>
-															<span style="color: red;"><?= form_error('first_name') ?></span>
+															<div class="col-md-4">
+																<div class="mb-3">
+																	<label for="billing-first-name" class="form-label">First Name<span class="text-danger">*</span></label>
+																	<input class="form-control" type="text" placeholder="Enter your first name" name="first_name" id="billing-first-name" value="<?= $customer->first_name ?>" />
+																</div>
+																<span style="color: red;"><?= form_error('first_name') ?></span>
 
-														</div>
-														<div class="col-md-4">
-													    	<div class="mb-3">
-																<label for="billing-last-name" class="form-label">Last Name<span class="text-danger">*</span></label>
-																<input class="form-control" type="text" placeholder="Enter your last name" name="last_name" id="billing-last-name" value="<?= $customer->last_name ?>" />
 															</div>
-															<span style="color: red;"><?= form_error('last_name') ?></span>
-														</div> <!-- end row -->
-													</div>
-													<div class="row">
-														
-														<!-- <div class="col-md-4">
+															<div class="col-md-4">
+																<div class="mb-3">
+																	<label for="billing-last-name" class="form-label">Last Name<span class="text-danger">*</span></label>
+																	<input class="form-control" type="text" placeholder="Enter your last name" name="last_name" id="billing-last-name" value="<?= $customer->last_name ?>" />
+																</div>
+																<span style="color: red;"><?= form_error('last_name') ?></span>
+															</div> <!-- end row -->
+														</div>
+														<div class="row">
+
+															<!-- <div class="col-md-4">
 															<div class="mb-3">
 																<label for="billing-nick-name" class="form-label">Nick Name<span class="text-danger">*</span></label>
 																<input class="form-control" type="text" placeholder="Enter your Nick name" name="nick_name" id="billing-nick-name" />
 															</div>
 															<span style="color: red;"><?= form_error('nick_name') ?></span>
 														</div> -->
-													</div> <!-- end row -->
-													<div class="row">
+														</div> <!-- end row -->
+														<div class="row">
 
-														<div class="col-md-6">
-															<div class="mb-3">
-																<label for="billing-phone" class="form-label">Phone <span class="text-danger">*</span></label>
-																<input class="form-control" type="text" name="phone" placeholder="(xx) xxx xxxx xxx" id="billing-phone" value="<?= $customer->phone ?>" />
+															<div class="col-md-6">
+																<div class="mb-3">
+																	<label for="billing-phone" class="form-label">Phone <span class="text-danger">*</span></label>
+																	<input class="form-control" type="text" name="phone" placeholder="(xx) xxx xxxx xxx" id="billing-phone" value="<?= $customer->phone ?>" />
+																</div>
+																<span style="color: red;"><?= form_error('phone') ?></span>
+
 															</div>
-															<span style="color: red;"><?= form_error('phone') ?></span>
+															<div class="col-md-6">
+																<div class="mb-3">
+																	<label for="billing-email-address" class="form-label">Email Address <span class="text-danger">*</span></label>
+																	<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" value="<?= $customer->email ?>" />
+																</div>
+																<span style="color: red;"><?= form_error('email') ?></span>
 
-														</div>
-														<div class="col-md-6">
-															<div class="mb-3">
-																<label for="billing-email-address" class="form-label">Email Address <span class="text-danger">*</span></label>
-																<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" value="<?= $customer->email ?>" />
 															</div>
-															<span style="color: red;"><?= form_error('email') ?></span>
+														</div> <!-- end row -->
+														<div class="row">
+															<div class="col-12">
+																<div class="mb-3">
+																	<label for="company" class="form-label">Company Name</label>
+																	<input type="text" maxlength="14" class="form-control" name="company_name" id="company" placeholder="Enter Company Name" value="<?= $customer->company_name ?>">
+																</div>
+																<!-- <span style="color: red;"><?= form_error('company_name') ?></span> -->
 
-														</div>
-													</div> <!-- end row -->
-													<div class="row">
-														<div class="col-12">
-															<div class="mb-3">
-																<label for="company" class="form-label">Company Name</label>
-																<input type="text" maxlength="14" class="form-control" name="company_name" id="company" placeholder="Enter Company Name" value="<?= $customer->company_name ?>">
 															</div>
-															<!-- <span style="color: red;"><?= form_error('company_name') ?></span> -->
-
-														</div>
-													</div> <!-- end row -->
+														</div> <!-- end row -->
 
 
-													<div class="row">
-														<div class="col-12">
-															<div class="mb-3">
-																<label for="description" class="form-label">Description<span class="text-danger">*</span></label>
-																<textarea class="form-control" name="description" id="description"><?= $customer->description ?></textarea>
+														<div class="row">
+															<div class="col-12">
+																<div class="mb-3">
+																	<label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+																	<textarea class="form-control" name="description" id="description"><?= $customer->description ?></textarea>
+																</div>
+																<span style="color: red;"><?= form_error('description') ?></span>
+
 															</div>
-															<span style="color: red;"><?= form_error('description') ?></span>
+														</div> <!-- end row -->
 
-														</div>
-													</div> <!-- end row -->
+														<div class="row">
 
-												<div class="row">
+															<div class="col-md-6">
+																<div class="mb-3">
+																	<label class="form-label">Assigned</label>
+																	<select data-toggle="select2" title="Assigned" class="form-control select2" name="assigned_id" data-width="100%">
+																		<option value=''>Select Assigned</option>
+																		<?php foreach ($staff as $sta) { ?>
+																			<option value="<?= $sta['id'] ?>" <?= ($sta['id'] == $customer->assigned_id) ? 'selected' : '' ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+																		<?php }
+																		?>
+																	</select>
+																</div>
+															</div>
+															<div class="col-md-6">
+																<div class="mb-3">
+																	<label class="form-label">Position</label>
+																	<select data-toggle="select2" title="Position" class="form-control select2" name="position_id" data-width="100%">
+																		<option value=''>Select Position</option>
+																		<?php foreach ($position as $pos) { ?>
+																			<option value="<?= $pos['id'] ?>" <?= ($pos['id'] == $customer->position_id) ? 'selected' : '' ?>><?= $pos['name'] ?></option>
+																		<?php }
+																		?>
+																	</select>
+																	<!-- <span style="color: red;"><?= form_error('position_id') ?></span> -->
+																</div>
+															</div>
+														</div> <!-- end row -->
 
-													<div class="col-md-6">
+
 														<div class="mb-3">
-														<label class="form-label">Assigned</label>
-																<select data-toggle="select2" title="Assigned" class="form-control select2" name="assigned_id" data-width="100%">
-																	<option value=''>Select Assigned</option>
-																	<?php foreach ($staff as $sta) { ?>
-																		<option value="<?= $sta['id'] ?>" <?= ($sta['id'] == $customer->assigned_id) ? 'selected' : '' ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-																	<?php }
-																	?>
-																</select>
+															<label for="city_status" class="form-label">Status</label>
+															<select class="form-select" name="status" id="city_status">
+																<option selected="">Select Status</option>
+																<option value="1" <?= ($customer->status == 1) ? 'selected' : '' ?>>Active</option>
+																<option value="0" <?= ($customer->status == 0) ? 'selected' : '' ?>>Inactive</option>
+															</select>
+															<span style="color: red;"><?= form_error('status') ?></span>
+
 														</div>
-													</div>
-													<div class="col-md-6">
-														<div class="mb-3">
-														<label class="form-label">Position</label>
-																<select data-toggle="select2" title="Position" class="form-control select2" name="position_id" data-width="100%">
-																	<option value=''>Select Position</option>
-																	<?php foreach ($position as $pos) { ?>
-																		<option value="<?= $pos['id'] ?>" <?= ($pos['id'] == $customer->position_id) ? 'selected' : '' ?>><?= $pos['name'] ?></option>
-																	<?php }
-																	?>
-																</select>
-																<!-- <span style="color: red;"><?= form_error('position_id') ?></span> -->
+														<div class="row">
+															<div class="col-lg-6">
+																<div class="text">
+																	<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+																</div>
+															</div>
 														</div>
-													</div>
-												</div> <!-- end row -->
-
-
-													<div class="mb-3">
-														<label for="city_status" class="form-label">Status</label>
-														<select class="form-select" name="status" id="city_status">
-															<option selected="">Select Status</option>
-															<option value="1" <?= ($customer->status == 1) ? 'selected' : '' ?>>Active</option>
-															<option value="0" <?= ($customer->status == 0) ? 'selected' : '' ?>>Inactive</option>
-														</select>
-														<span style="color: red;"><?= form_error('status') ?></span>
-
-													</div>
-													<div class="row">
-														<div class="col-lg-6">
-															<div class="text">
-																<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+													</form>
+												</div>
+											</div>
+											<div class="tab-pane fade" id="customer-contacts" role="tabpanel" aria-labelledby="customer-contacts-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Contact</h4>
+														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-contact-modal">Add Contact</button>
 															</div>
 														</div>
 													</div>
-												</form>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="customer-contacts" role="tabpanel" aria-labelledby="customer-contacts-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Contact</h4>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
+																	</div>
+
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_contact_datatable">
+																			<thead>
+																				<tr>
+																					<th>#</th>
+																					<th>Name</th>
+																					<th>Position</th>
+																					<th>Company Name</th>
+																					<th>Email</th>
+																					<th>Phone</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
 													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-contact-modal">Add Contact</button>
+												</div>
+											</div>
+											<div class="tab-pane fade" id="customer-notes" role="tabpanel" aria-labelledby="customer-notes-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Note</h4>
+														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-notes-modal">Add Note</button>
+															</div>
 														</div>
 													</div>
-												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
 																	</div>
-																</div>
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_contact_datatable">
-																		<thead>
-																			<tr>
-																				<th>#</th>
-																				<th>Name</th>
-																				<th>Position</th>
-																				<th>Company Name</th>
-																				<th>Email</th>
-																				<th>Phone</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_notes_datatable">
+																			<thead>
+																				<tr>
+																					<th>#</th>
+																					<th>Note</th>
+																					<th>Crate</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="tab-pane fade" id="customer-notes" role="tabpanel" aria-labelledby="customer-notes-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Note</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-notes-modal">Add Note</button>
+											<div class="tab-pane fade" id="customer-property" role="tabpanel" aria-labelledby="customer-property-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Property</h4>
+														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<!-- <a href="<?= base_url('admin/Customermaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
+
+																<a href="<?= base_url('admin/Propertymaster/add') ?>?customer_id=<?= $customer->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a>
+															</div>
+
 														</div>
 													</div>
-												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
 																	</div>
-																</div>
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_notes_datatable">
-																		<thead>
-																			<tr>
-																				<th>#</th>
-																				<th>Note</th>
-																				<th>Crate</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_property_datatable">
+																			<thead>
+																				<tr>
+																					<th></th>
+																					<th>#</th>
+																					<th>Master Name</th>
+																					<th>Category</th>
+																					<th>Sub Category</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="tab-pane fade" id="customer-property" role="tabpanel" aria-labelledby="customer-property-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Property</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<!-- <a href="<?= base_url('admin/Customermaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
 
-															<a href="<?= base_url('admin/Propertymaster/add') ?>?customer_id=<?= $customer->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a>
+											<div class="tab-pane fade" id="customer-reminders" role="tabpanel" aria-labelledby="customer-reminders-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Reminders</h4>
 														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-reminders-modal">Add Reminder</button>
 
+																<!-- <a href="<?= base_url('admin/Propertymaster/add') ?>?customer_id=<?= $customer->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a> -->
+															</div>
+
+														</div>
+													</div>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
+																	</div>
+
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_reminders_datatable">
+																			<thead>
+
+																				<tr>
+																					<th></th>
+																					<th>#</th>
+																					<!-- <th>Model Name</th> -->
+																					<th>Name</th>
+																					<th>Type</th>
+																					<th>Date</th>
+																					<th>Priority</th>
+																					<th>Repeat every</th>
+																					<th>Description</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
 													</div>
 												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
-																	</div>
-																</div>
-
-																<div class="table-responsive">													
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_property_datatable">
-																		<thead>
-																			<tr>
-																				<th></th>
-																				<th>#</th>
-																				<th>Master Name</th>
-																				<th>Category</th>
-																				<th>Sub Category</th>
-																				<th>Create Date</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
-												</div>
 											</div>
-										</div>
-									</div> <!-- end col-->
-								</div> <!-- end row-->
+										</div> <!-- end col-->
+									</div> <!-- end row-->
 
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- end row -->
+					<!-- end row -->
 
-			</div> <!-- container -->
-		</div> <!-- content -->
-	</div>
-	<script>
-		$(document).ready(function() {
-			$('.js-example-basic-single').select2({
-				theme: "bootstrap"
-			});
-		});
-		$(function() {
-			var hash = window.location.hash;
-			hash && $('ul.nav a[href="' + hash + '"]').tab('show');
-
-			var triggerTabList = [].slice.call(document.querySelectorAll('#v-pills-tab a'))
-			triggerTabList.forEach(function(triggerEl) {
-				var tabTrigger = new bootstrap.Tab(triggerEl)
-
-				triggerEl.addEventListener('click', function(event) {
-					event.preventDefault()
-					tabTrigger.show()
-				})
-			});
-			var triggerFirstTabEl = document.querySelector('#v-pills-tab a:first-child')
-			bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select first tab
-
-			var triggerEl = document.querySelector('#v-pills-tab a[href="' + hash + '"]')
-			bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
-
-		});
-
-		//all contact
-		var contact_table = $('#customer_contact_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Customermaster/all_contact/' . $customer->id); ?>",
-			columnDefs: [{
-					responsivePriority: 1,
-					targets: 0
-				},
-				{
-					responsivePriority: 2,
-					targets: 1
-				},
-				{
-					responsivePriority: 3,
-					targets: 6
-				},
-				{
-					responsivePriority: 4,
-					targets: 7
-				},
-				{
-					"targets": 6,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[6] == '1') {
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[6] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-						}
-					}
-				},
-			]
-		});
-		//add contact 
-		$("#store-contact").validate({
-			rules: {
-				first_name: "required",
-				last_name: "required",
-				position_id: "required",
-				// company_name: "required",
-				email: "required",
-				phone: "required",
-				description: "required",
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						$("#store-contact").trigger("reset");
-						success_message('', response.message);
-						contact_table.ajax.reload(null, false);
-					}
+				</div> <!-- container -->
+			</div> <!-- content -->
+		</div>
+		<script>
+			$(document).ready(function() {
+				$('.js-example-basic-single').select2({
+					theme: "bootstrap"
 				});
-			}
-		});
-		//edit contact
-		$(document).on('click', ".edit-btn", function() {
-			var id = $(this).attr('data-id');
-			$.ajax({
-				url: '<?php echo base_url() ?>admin/Customermaster/edit_contact/' + id,
-				type: "POST",
-				dataType: "json",
-				success: function(data) {
-					$("#edit-customer-contact-modal #contact_id").val(data.id);
-					$('#edit-customer-contact-modal #first_name').val(data.first_name);
-					$('#edit-customer-contact-modal #last_name').val(data.last_name);
-					$('#edit-customer-contact-modal #position_id').val(data.position_id).trigger('change');
-					$('#edit-customer-contact-modal #company_name').val(data.company_name);
-					$('#edit-customer-contact-modal #email').val(data.email);
-					$('#edit-customer-contact-modal #phone').val(data.phone);
-					$('#edit-customer-contact-modal #description').val(data.description);
-					$("#edit-customer-contact-modal #contact_status").val(data.status);
+			});
+			$(function() {
+				var hash = window.location.hash;
+				hash && $('ul.nav a[href="' + hash + '"]').tab('show');
+
+				var triggerTabList = [].slice.call(document.querySelectorAll('#v-pills-tab a'))
+				triggerTabList.forEach(function(triggerEl) {
+					var tabTrigger = new bootstrap.Tab(triggerEl)
+
+					triggerEl.addEventListener('click', function(event) {
+						event.preventDefault()
+						tabTrigger.show()
+					})
+				});
+				var triggerFirstTabEl = document.querySelector('#v-pills-tab a:first-child')
+				bootstrap.Tab.getInstance(triggerFirstTabEl).show() // Select first tab
+
+				var triggerEl = document.querySelector('#v-pills-tab a[href="' + hash + '"]')
+				bootstrap.Tab.getInstance(triggerEl).show() // Select tab by name
+
+			});
+
+			//all contact
+			var contact_table = $('#customer_contact_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Customermaster/all_contact/' . $customer->id); ?>",
+				columnDefs: [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 1
+					},
+					{
+						responsivePriority: 3,
+						targets: 6
+					},
+					{
+						responsivePriority: 4,
+						targets: 7
+					},
+					{
+						"targets": 6,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[6] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[6] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
+						}
+					},
+				]
+			});
+			//add contact 
+			$("#store-contact").validate({
+				rules: {
+					first_name: "required",
+					last_name: "required",
+					position_id: "required",
+					// company_name: "required",
+					email: "required",
+					phone: "required",
+					description: "required",
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					$.ajax({
+						url: url,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							$("#store-contact").trigger("reset");
+							success_message('', response.message);
+							contact_table.ajax.reload(null, false);
+						}
+					});
 				}
 			});
-		});
-		//update contact
-		$("#update-contact").validate({
-			rules: {
-				first_name: "required",
-				last_name: "required",
-				position_id: "required",
-				// company_name: "required",
-				email: "required",
-				phone: "required",
-				description: "required",
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				var id = $('#edit-customer-contact-modal #contact_id').val();
+			//edit contact
+			$(document).on('click', ".edit-btn", function() {
+				var id = $(this).attr('data-id');
 				$.ajax({
-					url: url + '/' + id,
+					url: '<?php echo base_url() ?>admin/Customermaster/edit_contact/' + id,
 					type: "POST",
-					data: $(form).serialize(),
 					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						success_message('', response.message);
-						contact_table.ajax.reload(null, false);
+					success: function(data) {
+						$("#edit-customer-contact-modal #contact_id").val(data.id);
+						$('#edit-customer-contact-modal #first_name').val(data.first_name);
+						$('#edit-customer-contact-modal #last_name').val(data.last_name);
+						$('#edit-customer-contact-modal #position_id').val(data.position_id).trigger('change');
+						$('#edit-customer-contact-modal #company_name').val(data.company_name);
+						$('#edit-customer-contact-modal #email').val(data.email);
+						$('#edit-customer-contact-modal #phone').val(data.phone);
+						$('#edit-customer-contact-modal #description').val(data.description);
+						$("#edit-customer-contact-modal #contact_status").val(data.status);
 					}
 				});
-			}
-		});
-		//all Notes
-		var note_table = $('#customer_notes_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Customermaster/all_note/' . $customer->id); ?>",
-			"columnDefs": [{
-					responsivePriority: 1,
-					targets: 0
+			});
+			//update contact
+			$("#update-contact").validate({
+				rules: {
+					first_name: "required",
+					last_name: "required",
+					position_id: "required",
+					// company_name: "required",
+					email: "required",
+					phone: "required",
+					description: "required",
+					status: "required"
 				},
-				{
-					responsivePriority: 2,
-					targets: 1
-				},
-				{
-					responsivePriority: 3,
-					targets: 3
-				},
-				{
-					responsivePriority: 4,
-					targets: 4
-				},
-				{
-					"targets": 3,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[3] == '1') {
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[3] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					var id = $('#edit-customer-contact-modal #contact_id').val();
+					$.ajax({
+						url: url + '/' + id,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							success_message('', response.message);
+							contact_table.ajax.reload(null, false);
 						}
-					}
-				},
-			]
-		});
-		//add Notes 
-		$("#store-notes").validate({
-			rules: {
-				name: "required",
-
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						$("#store-notes").trigger("reset");
-						success_message('', response.message);
-						note_table.ajax.reload(null, false);
-					}
-				});
-			}
-		});
-		//edit Notes
-		$(document).on('click', ".edit-btn", function() {
-			var id = $(this).attr('data-id');
-			$.ajax({
-				url: '<?php echo base_url() ?>admin/Customermaster/edit_note/' + id,
-				type: "POST",
-				dataType: "json",
-				success: function(data) {
-					$("#edit-customer-notes-modal #note_id").val(data.id);
-					$('#edit-customer-notes-modal #name').val(data.name);
-					$("#edit-customer-notes-modal #contact_status").val(data.status);
+					});
 				}
 			});
-		});
-		//update Notes
-		$("#update-note").validate({
-			rules: {
-				name: "required",
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				var id = $('#edit-customer-notes-modal #note_id').val();
+			//all Notes
+			var note_table = $('#customer_notes_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Customermaster/all_note/' . $customer->id); ?>",
+				"columnDefs": [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 1
+					},
+					{
+						responsivePriority: 3,
+						targets: 3
+					},
+					{
+						responsivePriority: 4,
+						targets: 4
+					},
+					{
+						"targets": 3,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[3] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[3] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
+						}
+					},
+				]
+			});
+			//add Notes 
+			$("#store-notes").validate({
+				rules: {
+					name: "required",
+
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					$.ajax({
+						url: url,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							$("#store-notes").trigger("reset");
+							success_message('', response.message);
+							note_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
+			//edit Notes
+			$(document).on('click', ".edit-btn", function() {
+				var id = $(this).attr('data-id');
 				$.ajax({
-					url: url + '/' + id,
+					url: '<?php echo base_url() ?>admin/Customermaster/edit_note/' + id,
 					type: "POST",
-					data: $(form).serialize(),
 					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						success_message('', response.message);
-						contact_table.ajax.reload(null, false);
+					success: function(data) {
+						$("#edit-customer-notes-modal #note_id").val(data.id);
+						$('#edit-customer-notes-modal #name').val(data.name);
+						$("#edit-customer-notes-modal #contact_status").val(data.status);
 					}
 				});
-			}
-		});
+			});
+			//update Notes
+			$("#update-note").validate({
+				rules: {
+					name: "required",
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					var id = $('#edit-customer-notes-modal #note_id').val();
+					$.ajax({
+						url: url + '/' + id,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							success_message('', response.message);
+							contact_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
 
 
-		//all property
-		var property_table = $('#customer_property_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Customermaster/all_property/' . $customer->id . '/edit'); ?>",
-			columnDefs: [
-				{
-					target: 0,
-					visible: false,
+			//all reminder
+			var reminders_table = $('#customer_reminders_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Customermaster/all_reminders/' . $customer->id); ?>",
+				columnDefs: [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 1
+					},
+					{
+						responsivePriority: 3,
+						targets: 6
+					},
+					{
+						responsivePriority: 4,
+						targets: 8
+					},
+					{
+						"targets": 7,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[7] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[7] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
+						}
+					},
+				]
+			});
+			//add reminders 
+			$("#store-reminders").validate({
+				rules: {
+					name: "required",
+					type: "required",
+					date_time: "required",
+					priority: "required",
+					repeat_everyday: "required",
+					description: "required",
+					status: "required"
 				},
-				{
-					responsivePriority: 1,
-					targets: 1
-				},
-				{
-					responsivePriority: 2,
-					targets: 2
-				},
-				{
-					responsivePriority: 3,
-					targets: 6
-				},
-				{
-					responsivePriority: 4,
-					targets: 7
-				},
-				{
-					"targets": 6,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						$(td).html('<div class="form-check form-switch"><input class="form-check-input property_status" data-proid="'+rowData[0]+'" name="property_status" value="1" type="checkbox" role="switch" id="flexSwitchCheckDefault" '+((rowData[6] == '1')?"checked":"")+' ></div>');
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					$.ajax({
+						url: url,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							$("#store-reminders").trigger("reset");
+							success_message('', response.message);
+							reminders_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
+			//edit reminders
+			$(document).on('click', ".edit-btn", function() {
+				var id = $(this).attr('data-id');
+				$.ajax({
+					url: '<?php echo base_url() ?>admin/Customermaster/edit_reminders/' + id,
+					type: "POST",
+					dataType: "json",
+					success: function(data) {
+						$("#edit-customer-reminders-modal #reminder_id").val(data.id);
+						$('#edit-customer-reminders-modal #name').val(data.name);
+						$('#edit-customer-reminders-modal #type').val(data.type);
+						$('#edit-customer-reminders-modal #date_time').val(data.date_time);
+						$('#edit-customer-reminders-modal #priority').val(data.priority);
+						$('#edit-customer-reminders-modal #repeat_everyday').val(data.repeat_everyday);
+						$('#edit-customer-reminders-modal #description').val(data.description);
+						$("#edit-customer-reminders-modal #reminders_status").val(data.status);
 					}
+				});
+			});
+			//Repeat every day
+			// 	$(document).ready(function() {
+			// 		// Hide the Source Type dropdown by default
+
+			// 		$('#customer-reminders-modal #total_cycles').parent().hide();
+			// 		// Show/hide the Source Type dropdown based on the selected Q&A Input Type
+			// 		$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+			// 			var selectedValue = $(this).val();
+			// 			if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
+			// 				$('#customer-reminders-modal #total_cycles').parent().show();
+			// 			} else {
+			// 				// $('#customer-reminders-modal #total_cycles').parent().hide();
+			// 				$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+			// 			}
+			// 		});
+			// 		$('#customer-reminders-modal #default_total_cycles').click(function() {
+			// 		if($(this).is(':checked')) {
+			// 			$('#customer-reminders-modal #total_cycles').attr('disabled', true);
+			// 		} else {
+			// 			$('#customer-reminders-modal #total_cycles').attr('disabled', false);
+			// 		}
+			// });
+
+			//Repeat every day
+			// $(document).ready(function() {
+			// 	// Hide the Total Cycles field by default
+			// 	$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+
+			// 	// Show/hide the Total Cycles field based on the selected Repeat value
+			// 	$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+			// 		var selectedValue = $(this).val();
+			// 		if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
+			// 			$('#customer-reminders-modal #total_cycles').parent().parent().show();
+			// 		} else {
+			// 			$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+			// 		}
+			// 	});
+
+			// 	// spacing between the Infinity checkbox and label
+			// 	$('#customer-reminders-modal #default_total_cycles').on('change', function() {
+			// 		var checkbox = $(this);
+			// 		var label = checkbox.next('label');
+			// 		if (checkbox.is(':checked')) {
+			// 			label.css('margin-left', '5px');
+			// 		} else {
+			// 			label.css('margin-left', '15px');
+			// 		}
+			// 	});
+
+			// 	// Disable the Total Cycles field when Infinity is checked
+			// 	$('#customer-reminders-modal #default_total_cycles').on('change', function() {
+			// 		var checkbox = $(this);
+			// 		var totalCycles = $('#customer-reminders-modal #total_cycles');
+			// 		if (checkbox.is(':checked')) {
+			// 			totalCycles.attr('disabled', true);
+			// 		} else {
+			// 			totalCycles.attr('disabled', false);
+			// 		}
+			// 	});
+			// });
+
+
+			$(document).ready(function() {
+				// Hide the Total Cycles and Custom fields by default
+				$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+				$('#customer-reminders-modal #custom_cycle_row').hide();
+
+				// Show/hide the Total Cycles field based on the selected Repeat value
+				$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+					var selectedValue = $(this).val();
+					if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
+						$('#customer-reminders-modal #total_cycles').parent().parent().show();
+						$('#customer-reminders-modal #custom_cycle_row').hide();
+					} else if (selectedValue === 'Custom') {
+						//$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+						$('#customer-reminders-modal #total_cycles').show();
+						$('#customer-reminders-modal #custom_cycle_row').show();
+					} else {
+						$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+						$('#customer-reminders-modal #custom_cycle_row').hide();
+					}
+				});
+
+				// spacing between the Infinity checkbox and label
+				$('#customer-reminders-modal #default_total_cycles').on('change', function() {
+					var checkbox = $(this);
+					var label = checkbox.next('label');
+					if (checkbox.is(':checked')) {
+						label.css('margin-left', '5px');
+					} else {
+						label.css('margin-left', '15px');
+					}
+				});
+
+				// Disable the Total Cycles field when Infinity is checked
+				$('#customer-reminders-modal #default_total_cycles').on('change', function() {
+					var checkbox = $(this);
+					var totalCycles = $('#customer-reminders-modal #total_cycles');
+					if (checkbox.is(':checked')) {
+						totalCycles.attr('disabled', true);
+					} else {
+						totalCycles.attr('disabled', false);
+					}
+				});
+			});
+
+
+
+			//update reminders
+			$("#update-reminders").validate({
+				rules: {
+					name: "required",
+					type: "required",
+					date_time: "required",
+					priority: "required",
+					repeat_everyday: "required",
+					description: "required",
+					status: "required"
 				},
-			]
-		});
-		$(document).ready(function() {
-			$("#customer-contacts-tab").on('click', function() {
-				contact_table.ajax.reload(null, false);
-			});
-			$("#customer-notes-tab").on('click', function() {
-				note_table.ajax.reload(null, false);
-			});
-			$("#customer-property-tab").on('click', function() {
-				property_table.ajax.reload(null, false);
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					var id = $('#edit-customer-reminders-modal #reminder_id').val();
+					$.ajax({
+						url: url + '/' + id,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							success_message('', response.message);
+							reminders_table.ajax.reload(null, false);
+						}
+					});
+				}
 			});
 
-			var hash = window.location.hash;
-			$(hash + "-tab").trigger('click');
-		});
+			//all property
+			var property_table = $('#customer_property_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Customermaster/all_property/' . $customer->id . '/edit'); ?>",
+				columnDefs: [{
+						target: 0,
+						visible: false,
+					},
+					{
+						responsivePriority: 1,
+						targets: 1
+					},
+					{
+						responsivePriority: 2,
+						targets: 2
+					},
+					{
+						responsivePriority: 3,
+						targets: 6
+					},
+					{
+						responsivePriority: 4,
+						targets: 7
+					},
+					{
+						"targets": 6,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							$(td).html('<div class="form-check form-switch"><input class="form-check-input property_status" data-proid="' + rowData[0] + '" name="property_status" value="1" type="checkbox" role="switch" id="flexSwitchCheckDefault" ' + ((rowData[6] == '1') ? "checked" : "") + ' ></div>');
+						}
+					},
+				]
+			});
+			$(document).ready(function() {
+				$("#contact-tab").on('click', function() {
+					reminders_table.ajax.reload(null, false);
+				});
+				$("#customer-notes-tab").on('click', function() {
+					note_table.ajax.reload(null, false);
+				});
+				$("#customer-property-tab").on('click', function() {
+					property_table.ajax.reload(null, false);
+				});
+				$("#customer-reminders-tab").on('click', function() {
+					reminders_table.ajax.reload(null, false);
+				});
 
-		$('input[name=inquiry_type]').change(function() {
-			if ($('#agent').prop('checked')) {
-				$("#agent_div").show('slow');
-			} else {
-				$("#agent_div").hide('slow');
-			}
+				var hash = window.location.hash;
+				$(hash + "-tab").trigger('click');
+			});
 
-		});
-		$('input[name=inquiry_type]').trigger('change');
-		//on switch change status
-		$(document).on('change','.property_status',function() {
-			var id= $(this).attr('data-proid');
-			var url = '<?php echo base_url() ?>admin/Propertymaster/update_status';
-			var status = ($(this).prop('checked'))?1:0;
-			
-			$.ajax({
+			$('input[name=inquiry_type]').change(function() {
+				if ($('#agent').prop('checked')) {
+					$("#agent_div").show('slow');
+				} else {
+					$("#agent_div").hide('slow');
+				}
+
+			});
+			$('input[name=inquiry_type]').trigger('change');
+			//on switch change status
+			$(document).on('change', '.property_status', function() {
+				var id = $(this).attr('data-proid');
+				var url = '<?php echo base_url() ?>admin/Propertymaster/update_status';
+				var status = ($(this).prop('checked')) ? 1 : 0;
+
+				$.ajax({
 					url: url + '/' + id + '/' + status,
 					type: "POST",
 					dataType: "json",
 					success: function(response) {
 						$('.btn-close').trigger('click');
 						success_message('', response.message);
-						contact_table.ajax.reload(null, false);
+						reminders_table.ajax.reload(null, false);
 					}
 				});
-		});
-	</script>
+			});
+		</script>

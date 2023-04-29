@@ -194,6 +194,11 @@ class Agentmaster extends CI_Controller
 		$data['position'] = $this->agentmaster->getPosition();
 		$data['position_data'] = $this->agentmaster->getPositionByID($data['agent']->position_id);
 		$data['staff'] = $this->agentmaster->getStaffByID($data['agent']->assigned_id);
+		$data['category'] = $this->agentmaster->getCategory();
+		$data['subcategory'] = $this->agentmaster->getSubcategory();
+		$data['states'] = $this->agentmaster->getState();
+		$data['cities'] = $this->agentmaster->getCity();
+		$data['areas'] = $this->agentmaster->getArea();
 		// $data['agent'] = $this->customermaster->getAgent();
 
 		$data['page_name'] = 'agent_master_details';
@@ -573,4 +578,6 @@ class Agentmaster extends CI_Controller
 		}
 		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-contacts');
 	}
+	
+ 
 }

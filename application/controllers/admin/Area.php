@@ -31,6 +31,7 @@ class Area extends CI_Controller {
 			$result['data'][] = array(
 				$i++,
 				$value['name'],
+				$value['area_code'],
 				date('d M Y h:i:s a',strtotime($value['created_date'])),
 				$value['status'],
 				$button
@@ -43,12 +44,14 @@ class Area extends CI_Controller {
 	{
 
 		$this->form_validation->set_rules('name', 'Area Name', 'required');
+		$this->form_validation->set_rules('area_code', 'Area Code', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->index();
 		} else {
 			$formArray = array();
 			$formArray['city_id'] = $this->input->post('city_id');
 			$formArray['name'] = $this->input->post('name');
+			$formArray['area_code'] = $this->input->post('area_code');
 			$formArray['status'] = $this->input->post('status');
 		
 			$response = $this->ar->saverecords($formArray);
@@ -121,12 +124,14 @@ class Area extends CI_Controller {
 			$validate_data=[];
 			for ($i=1; $i < $sheetcount; $i++) { 
 				$name=$sheetdata[$i][0];
+				$area_code=$sheetdata[$i][1];
 			
 				
 				$data[]=$validate_data=array(
 				
 					'city_id'	=>$city_id,
 					'name'		=>$name,
+					'area_code'		=>$area_code,
 					'status'		=>1
 					
 				);

@@ -39,24 +39,7 @@
 								</select>
 								<span style="color: red;"><?= form_error('source_id') ?></span>
 							</div>
-							<!-- <div class="mb-3">
-								<label for="question_answer" class="form-label">Q&A Input type</label>
-								<select data-toggle="select2" class="form-select select2" name="question_answer_inputtype" id="question_answer">
-									<option selected="">Select Q&A Input type</option>
-									<option value="Textbox">Textbox</option>
-									<option value="Dropdown">Dropdown</option>
-									<option value="Checkbox">Checkbox</option>
-									<option value="Radio">Radio</option>
-									<option value="Date">Date</option>
-									<option value="Textarea">Textarea</option>
-									<option value="File">File</option>
-									<option value="Number">Number</option>
-									<option value="Image">Image</option>
-									<option value="Video">Video</option>
-									<option value="Image">Image</option>
-									<option value="Link">Link</option>
-								</select>
-							</div> -->
+							
 							<div class="mb-3">
 								<label for="source_type" class="form-label">Source Type</label>
 								<select class="form-select" name="source_id" id="source_type">

@@ -60,6 +60,12 @@
 							<?= form_error('name')  ?>
 						</div>
 						<div class="mb-3">
+							<label for="name" class="form-label">Area Code</label>
+							<input type="number" class="form-control" name="area_code" id="area_code" placeholder="Enter Area Code">
+							<?= form_error('area_code')  ?>
+						</div>
+						
+						<div class="mb-3">
 							<label for="area_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="area_status">
 								<option selected="">Select Status</option>
@@ -105,6 +111,12 @@
 							<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Area name">
 							<?= form_error('name')  ?>
 						</div>
+						<div class="mb-3">
+						   <label for="name" class="form-label">Area Code</label>
+							<input type="number" class="form-control" name="area_code" id="area_code" value="" placeholder="Enter Area Code">
+							<?= form_error('area_code')  ?>
+						</div>
+					
 						<div class="mb-3">
 							<label for="area_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="area_status">
@@ -189,6 +201,7 @@
 
 												<th>#</th>
 												<th>Area Name</th>
+												<th>Area Code</th>
 												<th>Create Date</th>
 												<th>Status</th>
 												
@@ -215,12 +228,12 @@
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Area/all'); ?>",
 			"columnDefs": [{
-				"targets": 3,
+				"targets": 4,
 				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[3] == '1') {
+					if (rowData[4] == '1') {
 						// $(td).css('background-color', 'green')
 						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[3] == '0') {
+					} else if (rowData[4] == '0') {
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
@@ -237,6 +250,7 @@
 					$("#areaedit-modal #edit_area_id").val(data.id);
 					$('#areaedit-modal #city').val(data.city_id);
 					$('#areaedit-modal #name').val(data.name);
+					$('#areaedit-modal #area_code').val(data.area_code);
 					$("#areaedit-modal #area_status").val(data.status);
 				}
 			});
@@ -260,6 +274,7 @@
 		$('#store-area').validate({
 			rules: {
 				name: "required",
+				area_code: "required",
 				status: "required"
 			},
 			message: {

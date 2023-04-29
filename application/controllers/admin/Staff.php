@@ -63,7 +63,7 @@ class Staff extends CI_Controller {
 			$response = $this->sta->saverecords($formArray);
 
 			if ($response == true) {
-				$this->session->set_flashdata('success', 'Staff Added Successfully.');
+				$this->session->set_flashdata('success', 'Team Added Successfully.');
 			} else {
 				$this->session->set_flashdata('error', 'Something went wrong. Please try again');
 			}
@@ -86,7 +86,7 @@ class Staff extends CI_Controller {
 
 		$response = $this->sta->updaterecords($id,$data);
 		if ($response == true) {
-			echo json_encode(array('success'=>true,'message'=>'Staff Updated Successfully.'));
+			echo json_encode(array('success'=>true,'message'=>'Team Updated Successfully.'));
 		} else {
 			echo json_encode(array('success'=>false,'message'=>'Something went wrong. Please try again'));
 		}
@@ -103,7 +103,7 @@ class Staff extends CI_Controller {
 
 		if($response == true)
 		{
-			$this->session->set_flashdata('success', 'Staff Deleted Successfully.');
+			$this->session->set_flashdata('success', 'Team Deleted Successfully.');
 		}else{
 			$this->sesssion->set_flashdata('error','Something went wrong. Please try again');
 		}

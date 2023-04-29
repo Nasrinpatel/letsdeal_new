@@ -305,13 +305,6 @@
 
 
 
-
-
-
-
-
-
-
 <!-- Specialistarea add -->
 <div class="modal fade" id="agent-specialistarea-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
