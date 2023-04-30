@@ -110,7 +110,8 @@ class Customermaster extends CI_Controller
 				$value['type'],
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],
-				$value['repeat_everyday'],
+				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
+				(($value['cycles']==0)?'infinite':$value['cycles']),
 				$value['description'],
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
@@ -397,20 +398,10 @@ class Customermaster extends CI_Controller
 	//reminders master
 	public function store_reminders()
 	{
-		$formArray = array();
-		$formArray['customer_id'] = $this->input->post('customer_id');
-		$formArray['name'] = $this->input->post('name');
-		$formArray['type'] = $this->input->post('type');
-		$formArray['date_time'] = date('Y-m-d H:i:s', strtotime($this->input->post('date_time')));
-		$formArray['priority'] = $this->input->post('priority');
-		$formArray['repeat_everyday'] = $this->input->post('repeat_everyday');
-		$formArray['description'] = $this->input->post('description');
-		$formArray['status'] = $this->input->post('status');
-		$formArray['model_type'] = 'customer';
-		$formArray['model_id'] = $this->input->post('customer_id');
-
-		$response = $this->customermaster->save_reminders_records($formArray);
-
+		$data = $this->input->post();
+		$data['model_type'] = 'customer';
+		$data['model_id'] = $this->input->post('customer_id');
+		$response = $this->customermaster->save_reminders_records($data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Customer Reminder Added Successfully.'));
 		} else {
@@ -419,24 +410,15 @@ class Customermaster extends CI_Controller
 	}
 	public function edit_reminders($id)
 	{
-		$data = $this->customermaster->getReminders($id);
+		$data = $this->customermaster->getReminder($id);
 		echo json_encode($data);
 	}
 	public function update_reminders($id)
 	{
-		$formArray = array();
-		$formArray['customer_id'] = $this->input->post('customer_id');
-		$formArray['name'] = $this->input->post('name');
-		$formArray['type'] = $this->input->post('type');
-		$formArray['date_time'] = date('Y-m-d H:i:s', strtotime($this->input->post('date_time')));
-		$formArray['priority'] = $this->input->post('priority');
-		$formArray['repeat_everyday'] = $this->input->post('repeat_everyday');
-		$formArray['description'] = $this->input->post('description');
-		$formArray['status'] = $this->input->post('status');
-		$formArray['model_type'] = 'customer';
-		$formArray['model_id'] = $this->input->post('customer_id');
-
-		$response = $this->customermaster->update_reminders_records($id, $formArray);
+		$data = $this->input->post();
+		$data['model_type'] = 'customer';
+		$data['model_id'] = $this->input->post('customer_id');
+		$response = $this->customermaster->update_reminders_records($id, $data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Customer Reminder Updated Successfully.'));
 		} else {
@@ -483,108 +465,4 @@ class Customermaster extends CI_Controller
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-contacts');
 	}
 
-	/* Add new task or update existing */
-	public function task($id = '')
-	{
-		//  if (!has_permission('tasks', '', 'edit') && !has_permission('tasks', '', 'create')) {
-		// 	 ajax_access_denied();
-		//  }
-
-		$data = [];
-		// FOr new task add directly from the projects milestones
-		if ($this->input->get('milestone_id')) {
-			$this->db->where('id', $this->input->get('milestone_id'));
-			$milestone = $this->db->get(db_prefix() . 'milestones')->row();
-			if ($milestone) {
-				$data['_milestone_selected_data'] = [
-					'id'       => $milestone->id,
-					'due_date' => _d($milestone->due_date),
-				];
-			}
-		}
-		if ($this->input->get('start_date')) {
-			$data['start_date'] = $this->input->get('start_date');
-		}
-		if ($this->input->post()) {
-			$data                = $this->input->post();
-			$data['description'] = html_purify($this->input->post('description', false));
-			if ($id == '') {
-				if (!has_permission('tasks', '', 'create')) {
-					header('HTTP/1.0 400 Bad error');
-					echo json_encode([
-						'success' => false,
-						'message' => _l('access_denied'),
-					]);
-					die;
-				}
-				$id      = $this->tasks_model->add($data);
-				$_id     = false;
-				$success = false;
-				$message = '';
-				if ($id) {
-					$success       = true;
-					$_id           = $id;
-					$message       = _l('added_successfully', _l('task'));
-					$uploadedFiles = handle_task_attachments_array($id);
-					if ($uploadedFiles && is_array($uploadedFiles)) {
-						foreach ($uploadedFiles as $file) {
-							$this->misc_model->add_attachment_to_database($id, 'task', [$file]);
-						}
-					}
-				}
-				echo json_encode([
-					'success' => $success,
-					'id'      => $_id,
-					'message' => $message,
-				]);
-			} else {
-				if (!has_permission('tasks', '', 'edit')) {
-					header('HTTP/1.0 400 Bad error');
-					echo json_encode([
-						'success' => false,
-						'message' => _l('access_denied'),
-					]);
-					die;
-				}
-				$success = $this->tasks_model->update($data, $id);
-				$message = '';
-				if ($success) {
-					$message = _l('updated_successfully', _l('task'));
-				}
-				echo json_encode([
-					'success' => $success,
-					'message' => $message,
-					'id'      => $id,
-				]);
-			}
-			die;
-		}
-
-		$data['milestones']         = [];
-		$data['checklistTemplates'] = $this->tasks_model->get_checklist_templates();
-		if ($id == '') {
-			$title = _l('add_new', _l('task_lowercase'));
-		} else {
-			$data['task'] = $this->tasks_model->get($id);
-			if ($data['task']->rel_type == 'project') {
-				$data['milestones'] = $this->projects_model->get_milestones($data['task']->rel_id);
-			}
-			$title = _l('edit', _l('task_lowercase')) . ' ' . $data['task']->name;
-		}
-
-		$data['project_end_date_attrs'] = [];
-		if ($this->input->get('rel_type') == 'project' && $this->input->get('rel_id') || ($id !== '' && $data['task']->rel_type == 'project')) {
-			$project = $this->projects_model->get($id === '' ? $this->input->get('rel_id') : $data['task']->rel_id);
-
-			if ($project->deadline) {
-				$data['project_end_date_attrs'] = [
-					'data-date-end-date' => $project->deadline,
-				];
-			}
-		}
-
-		$data['id']    = $id;
-		$data['title'] = $title;
-		$this->load->view('admin/tasks/task', $data);
-	}
 }

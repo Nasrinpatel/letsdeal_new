@@ -251,23 +251,18 @@
 						<div class="col-md-6">
 							<div class="mb-3">
 								<label class="form-label">Repeat every </label>
-								<select data-toggle="select2" class="form-control select2" name="repeat_everyday" id="repeat_everyday" data-width="100%">
+								<select data-toggle="select2" class="form-control select2" name="repeat_every" id="repeat_every" data-width="100%">
 									<option value="">Select Repeat every</option>
-									<option value="Week">Week</option>
-									<option value="2 Weeks">2 Weeks</option>
-									<option value="1 Month">1 Month</option>
-									<option value="3 Months">3 Months</option>
-									<option value="6 Months">6 Months</option>
-									<option value="1 Year">1 Year</option>
-									<option value="Custom">Custom</option>
-									<!-- <?php foreach ($position as $pos) { ?>
-										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
-									<?php }
-									?> -->
+									<option value="1-week">1 Week</option>
+									<option value="2-week">2 Weeks</option>
+									<option value="1-month">1 Month</option>
+									<option value="2-month">2 Months</option>
+									<option value="3-month">3 Months</option>
+									<option value="6-month">6 Months</option>
+									<option value="1-year">1 Year</option>
+									<option value="custom">Custom</option>
 								</select>
 							</div>
-
-
 						</div>
 					</div> <!-- end row -->
 					<div class="row" id="custom_cycle_row">
@@ -275,40 +270,37 @@
 							<div class="mb-3">
 
 								<div class="input-group">
-									<input type="number" class="form-control" name="repeat_every" id="repeat_every" value="0" placeholder="">
+									<input type="number" class="form-control" name="repeat_every_custom" id="repeat_every_custom" value="0" placeholder="">
 
 								</div>
-								<!-- <?= form_error('total_cycles') ?> -->
+								<!-- <?= form_error('cycles') ?> -->
 							</div>
 						</div>
 						<div class="col-6">
 							<div class="mb-3">
-
-								<select class="form-select" name="recurring_type" id="recurring_type">
-									<option value="Day" selected>Days(s)</option>
-									<option value="Week" selected>Week(s)</option>
-									<option value="Month" selected>Month(s)</option>
-									<option value="Year" selected>Year(s)</option>
+								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
+									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
+									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
+									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
+									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
 								</select>
 							</div>
-
-
 						</div>
 					</div> <!-- end row -->
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
-								<label for="total_cycles">Total Cycles</label>
+								<label for="cycles">Total Cycles</label>
 								<div class="input-group">
-									<input type="number" class="form-control" name="total_cycles" id="total_cycles" value="0" placeholder="Enter Total Cycles" disabled>
+									<input type="number" class="form-control" name="cycles" id="cycles" value="0" placeholder="Enter Total Cycles" disabled>
 									<div class="input-group-append">
 										<div class="input-group-text">
-											<input type="checkbox" class="custom-control-input" name="default_total_cycles" id="default_total_cycles" checked>
-											<label class="custom-control-label" for="default_total_cycles" style="padding-left: 5px;"> Infinity</label>
+											<input type="checkbox" class="custom-control-input" id="unlimited_cycles" checked>
+											<label class="custom-control-label" for="unlimited_cycles" style="padding-left: 5px;"> Infinity</label>
 										</div>
 									</div>
 								</div>
-								<?= form_error('total_cycles') ?>
+								<?= form_error('cycles') ?>
 							</div>
 						</div>
 
@@ -362,7 +354,7 @@
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
-								<input class="form-control" type="text" placeholder="Enter  name" name="name" id="billing-reminder-name" />
+								<input class="form-control" type="text" placeholder="Enter name" name="name" id="name" />
 							</div>
 						</div>
 
@@ -371,14 +363,10 @@
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label class="form-label">Type </label>
-								<select data-toggle="select2" class="form-control select2" name="type" data-width="100%">
-									<option value="">Select Rreminder Type</option>
+								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
+									<option value="">Select Reminder Type</option>
 									<option value="name">name</option>
 									<option value="name">name</option>
-									<!-- <?php foreach ($position as $pos) { ?>
-										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
-									<?php }
-									?> -->
 								</select>
 							</div>
 						</div>
@@ -401,7 +389,7 @@
 						<div class="col-md-6">
 							<div class="mb-3">
 								<label class="form-label">Priority </label>
-								<select data-toggle="select2" title="Priority" class="form-control select2" name="priority" data-width="100%">
+								<select data-toggle="select2" title="Priority" class="form-control select2" name="priority" id="priority" data-width="100%">
 									<option value="">Select Priority</option>
 									<option value="Low">Low</option>
 									<option value="Medium">Medium</option>
@@ -418,27 +406,60 @@
 						<div class="col-md-6">
 							<div class="mb-3">
 								<label class="form-label">Repeat every </label>
-								<select data-toggle="select2" title="Repeat" class="form-control select2" name="repeat_everyday" data-width="100%">
+								<select data-toggle="select2" title="Repeat" class="form-control select2" id="repeat_every" name="repeat_every" data-width="100%">
 									<option value="">Select Repeat every</option>
-									<option value="Week">Week</option>
-									<option value="2 Weeks">2 Weeks</option>
-									<option value="1 Month">1 Month</option>
-									<option value="3 Months">3 Months</option>
-									<option value="6 Months">6 Months</option>
-									<option value="1 Year">1 Year</option>
-									<option value="Custom">Custom</option>
-									<!-- <?php foreach ($position as $pos) { ?>
-										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
-									<?php }
-									?> -->
-
-
-
+									<option value="1-week">1 Week</option>
+									<option value="2-week">2 Weeks</option>
+									<option value="1-month">1 Month</option>
+									<option value="2-month">2 Months</option>
+									<option value="3-month">3 Months</option>
+									<option value="6-month">6 Months</option>
+									<option value="1-year">1 Year</option>
+									<option value="custom">Custom</option>
 								</select>
 							</div>
 						</div>
 					</div> <!-- end row -->
+					<div class="row" id="custom_cycle_row">
+						<div class="col-6">
+							<div class="mb-3">
 
+								<div class="input-group">
+									<input type="number" class="form-control" name="repeat_every_custom" id="repeat_every_custom" value="0" placeholder="">
+
+								</div>
+								<!-- <?= form_error('cycles') ?> -->
+							</div>
+						</div>
+						<div class="col-6">
+							<div class="mb-3">
+								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
+									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
+									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
+									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
+									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
+								</select>
+							</div>
+						</div>
+					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="cycles">Total Cycles</label>
+								<div class="input-group">
+									<input type="number" class="form-control" name="cycles" id="cycles" value="0" placeholder="Enter Total Cycles" disabled>
+									<div class="input-group-append">
+										<div class="input-group-text">
+											<input type="checkbox" class="custom-control-input" id="unlimited_cycles" checked>
+											<label class="custom-control-label" for="unlimited_cycles" style="padding-left: 5px;"> Infinity</label>
+										</div>
+									</div>
+								</div>
+								<?= form_error('cycles') ?>
+							</div>
+						</div>
+
+					</div> <!-- end row -->
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -1136,16 +1157,14 @@
 																	<div class="table-responsive">
 																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_reminders_datatable">
 																			<thead>
-
-																				<tr>
-																					<th></th>
+																				<tr>																					
 																					<th>#</th>
-																					<!-- <th>Model Name</th> -->
 																					<th>Name</th>
 																					<th>Type</th>
 																					<th>Date</th>
-																					<th>Priority</th>
-																					<th>Repeat every</th>
+																					<th>Priority</th>																					
+																					<th>Repeat Every</th>
+																					<th>Total Cycle</th>
 																					<th>Description</th>
 																					<th>Create Date</th>
 																					<th>Status</th>
@@ -1261,7 +1280,7 @@
 				}
 			});
 			//edit contact
-			$(document).on('click', ".edit-btn", function() {
+			$(document).on('click', "#customer_contact_datatable .edit-btn", function() {
 				var id = $(this).attr('data-id');
 				$.ajax({
 					url: '<?php echo base_url() ?>admin/Customermaster/edit_contact/' + id,
@@ -1366,7 +1385,7 @@
 				}
 			});
 			//edit Notes
-			$(document).on('click', ".edit-btn", function() {
+			$(document).on('click', "#customer_notes_datatable .edit-btn", function() {
 				var id = $(this).attr('data-id');
 				$.ajax({
 					url: '<?php echo base_url() ?>admin/Customermaster/edit_note/' + id,
@@ -1414,7 +1433,7 @@
 					},
 					{
 						responsivePriority: 2,
-						targets: 1
+						targets: 3
 					},
 					{
 						responsivePriority: 3,
@@ -1422,14 +1441,14 @@
 					},
 					{
 						responsivePriority: 4,
-						targets: 8
+						targets: 9
 					},
 					{
-						"targets": 7,
+						"targets": 10,
 						"createdCell": function(td, cellData, rowData, row, col) {
-							if (rowData[7] == '1') {
+							if (rowData[10] == '1') {
 								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-							} else if (rowData[7] == '0') {
+							} else if (rowData[10] == '0') {
 								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 							}
 						}
@@ -1443,8 +1462,8 @@
 					type: "required",
 					date_time: "required",
 					priority: "required",
-					repeat_everyday: "required",
-					description: "required",
+					repeat_every: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -1465,19 +1484,32 @@
 				}
 			});
 			//edit reminders
-			$(document).on('click', ".edit-btn", function() {
+			$(document).on('click', "#customer_reminders_datatable .edit-btn", function() {
 				var id = $(this).attr('data-id');
 				$.ajax({
 					url: '<?php echo base_url() ?>admin/Customermaster/edit_reminders/' + id,
 					type: "POST",
 					dataType: "json",
 					success: function(data) {
+						debugger;
 						$("#edit-customer-reminders-modal #reminder_id").val(data.id);
 						$('#edit-customer-reminders-modal #name').val(data.name);
-						$('#edit-customer-reminders-modal #type').val(data.type);
+						$('#edit-customer-reminders-modal #type').val(data.type).trigger('change');
 						$('#edit-customer-reminders-modal #date_time').val(data.date_time);
-						$('#edit-customer-reminders-modal #priority').val(data.priority);
-						$('#edit-customer-reminders-modal #repeat_everyday').val(data.repeat_everyday);
+						$('#edit-customer-reminders-modal #priority').val(data.priority).trigger('change');
+						if(data.custom_recurring == 1){
+							$('#edit-customer-reminders-modal #repeat_every').val('custom').trigger('change');
+							$('#edit-customer-reminders-modal #repeat_every_custom').val(data.repeat_every).trigger('change');
+							$('#edit-customer-reminders-modal #repeat_type_custom').val(data.recurring_type).trigger('change');
+						}else{
+							$('#edit-customer-reminders-modal #repeat_every').val(data.repeat_every+'-'+data.recurring_type).trigger('change');
+						}
+						if(data.cycles == 0){
+							$('#edit-customer-reminders-modal #unlimited_cycles').prop('checked', true).trigger('change');
+						}else{
+							$('#edit-customer-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
+						}
+						$('#edit-customer-reminders-modal #cycles').val(data.cycles);
 						$('#edit-customer-reminders-modal #description').val(data.description);
 						$("#edit-customer-reminders-modal #reminders_status").val(data.status);
 					}
@@ -1487,37 +1519,37 @@
 			// 	$(document).ready(function() {
 			// 		// Hide the Source Type dropdown by default
 
-			// 		$('#customer-reminders-modal #total_cycles').parent().hide();
+			// 		$('#customer-reminders-modal #cycles').parent().hide();
 			// 		// Show/hide the Source Type dropdown based on the selected Q&A Input Type
-			// 		$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+			// 		$('#customer-reminders-modal #repeat_every').on('change', function() {
 			// 			var selectedValue = $(this).val();
 			// 			if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
-			// 				$('#customer-reminders-modal #total_cycles').parent().show();
+			// 				$('#customer-reminders-modal #cycles').parent().show();
 			// 			} else {
-			// 				// $('#customer-reminders-modal #total_cycles').parent().hide();
-			// 				$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+			// 				// $('#customer-reminders-modal #cycles').parent().hide();
+			// 				$('#customer-reminders-modal #cycles').parent().parent().hide();
 			// 			}
 			// 		});
 			// 		$('#customer-reminders-modal #default_total_cycles').click(function() {
 			// 		if($(this).is(':checked')) {
-			// 			$('#customer-reminders-modal #total_cycles').attr('disabled', true);
+			// 			$('#customer-reminders-modal #cycles').attr('disabled', true);
 			// 		} else {
-			// 			$('#customer-reminders-modal #total_cycles').attr('disabled', false);
+			// 			$('#customer-reminders-modal #cycles').attr('disabled', false);
 			// 		}
 			// });
 
 			//Repeat every day
 			// $(document).ready(function() {
 			// 	// Hide the Total Cycles field by default
-			// 	$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+			// 	$('#customer-reminders-modal #cycles').parent().parent().hide();
 
 			// 	// Show/hide the Total Cycles field based on the selected Repeat value
-			// 	$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+			// 	$('#customer-reminders-modal #repeat_every').on('change', function() {
 			// 		var selectedValue = $(this).val();
 			// 		if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
-			// 			$('#customer-reminders-modal #total_cycles').parent().parent().show();
+			// 			$('#customer-reminders-modal #cycles').parent().parent().show();
 			// 		} else {
-			// 			$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+			// 			$('#customer-reminders-modal #cycles').parent().parent().hide();
 			// 		}
 			// 	});
 
@@ -1535,7 +1567,7 @@
 			// 	// Disable the Total Cycles field when Infinity is checked
 			// 	$('#customer-reminders-modal #default_total_cycles').on('change', function() {
 			// 		var checkbox = $(this);
-			// 		var totalCycles = $('#customer-reminders-modal #total_cycles');
+			// 		var totalCycles = $('#customer-reminders-modal #cycles');
 			// 		if (checkbox.is(':checked')) {
 			// 			totalCycles.attr('disabled', true);
 			// 		} else {
@@ -1547,21 +1579,21 @@
 
 			$(document).ready(function() {
 				// Hide the Total Cycles and Custom fields by default
-				$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+				$('#customer-reminders-modal #cycles').parent().parent().hide();
 				$('#customer-reminders-modal #custom_cycle_row').hide();
 
 				// Show/hide the Total Cycles field based on the selected Repeat value
-				$('#customer-reminders-modal #repeat_everyday').on('change', function() {
+				$('#customer-reminders-modal #repeat_every').on('change', function() {
 					var selectedValue = $(this).val();
-					if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
-						$('#customer-reminders-modal #total_cycles').parent().parent().show();
+					if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
+						$('#customer-reminders-modal #cycles').parent().parent().show();
 						$('#customer-reminders-modal #custom_cycle_row').hide();
-					} else if (selectedValue === 'Custom') {
-						//$('#customer-reminders-modal #total_cycles').parent().parent().hide();
-						$('#customer-reminders-modal #total_cycles').show();
+					} else if (selectedValue === 'custom') {
+						//$('#customer-reminders-modal #cycles').parent().parent().hide();
+						$('#customer-reminders-modal #cycles').parent().parent().show();
 						$('#customer-reminders-modal #custom_cycle_row').show();
 					} else {
-						$('#customer-reminders-modal #total_cycles').parent().parent().hide();
+						$('#customer-reminders-modal #cycles').parent().parent().hide();
 						$('#customer-reminders-modal #custom_cycle_row').hide();
 					}
 				});
@@ -1578,9 +1610,52 @@
 				});
 
 				// Disable the Total Cycles field when Infinity is checked
-				$('#customer-reminders-modal #default_total_cycles').on('change', function() {
+				$('#customer-reminders-modal #unlimited_cycles').on('change', function() {
 					var checkbox = $(this);
-					var totalCycles = $('#customer-reminders-modal #total_cycles');
+					var totalCycles = $('#customer-reminders-modal #cycles');
+					if (checkbox.is(':checked')) {
+						totalCycles.attr('disabled', true);
+					} else {
+						totalCycles.attr('disabled', false);
+					}
+				});
+
+				//for edit model
+				// Hide the Total Cycles and Custom fields by default
+				$('#edit-customer-reminders-modal #cycles').parent().parent().hide();
+				$('#edit-customer-reminders-modal #custom_cycle_row').hide();
+
+				// Show/hide the Total Cycles field based on the selected Repeat value
+				$('#edit-customer-reminders-modal #repeat_every').on('change', function() {
+					var selectedValue = $(this).val();
+					if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
+						$('#edit-customer-reminders-modal #cycles').parent().parent().show();
+						$('#edit-customer-reminders-modal #custom_cycle_row').hide();
+					} else if (selectedValue === 'custom') {
+						//$('#edit-customer-reminders-modal #cycles').parent().parent().hide();
+						$('#edit-customer-reminders-modal #cycles').parent().parent().show();
+						$('#edit-customer-reminders-modal #custom_cycle_row').show();
+					} else {
+						$('#edit-customer-reminders-modal #cycles').parent().parent().hide();
+						$('#edit-customer-reminders-modal #custom_cycle_row').hide();
+					}
+				});
+
+				// spacing between the Infinity checkbox and label
+				$('#edit-customer-reminders-modal #default_total_cycles').on('change', function() {
+					var checkbox = $(this);
+					var label = checkbox.next('label');
+					if (checkbox.is(':checked')) {
+						label.css('margin-left', '5px');
+					} else {
+						label.css('margin-left', '15px');
+					}
+				});
+
+				// Disable the Total Cycles field when Infinity is checked
+				$('#edit-customer-reminders-modal #unlimited_cycles').on('change', function() {
+					var checkbox = $(this);
+					var totalCycles = $('#edit-customer-reminders-modal #cycles');
 					if (checkbox.is(':checked')) {
 						totalCycles.attr('disabled', true);
 					} else {
@@ -1598,7 +1673,7 @@
 					type: "required",
 					date_time: "required",
 					priority: "required",
-					repeat_everyday: "required",
+					repeat_every: "required",
 					description: "required",
 					status: "required"
 				},
