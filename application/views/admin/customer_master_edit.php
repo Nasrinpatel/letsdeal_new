@@ -895,13 +895,12 @@
 															<div class="col-md-6">
 																<div class="mb-3">
 																	<label class="form-label">Assigned</label>
-																	<select data-toggle="select2" title="Assigned" class="form-control select2" name="assigned_id" data-width="100%">
-																		<option value=''>Select Assigned</option>
-																		<?php foreach ($staff as $sta) { ?>
-																			<option value="<?= $sta['id'] ?>" <?= ($sta['id'] == $customer->assigned_id) ? 'selected' : '' ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-																		<?php }
-																		?>
-																	</select>
+                                                                    <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+                                                                        <?php foreach ($staff as $sta) { ?>
+                                                                            <option value="<?= $sta['id'] ?>" <?php for($i=0;$i<count($assigned_id);$i++) { if($sta['id'] == $assigned_id[$i]) { ?>selected<?php } } ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+                                                                        <?php }
+                                                                        ?>
+                                                                    </select>
 																</div>
 															</div>
 															<div class="col-md-6">
@@ -1191,11 +1190,21 @@
 				</div> <!-- container -->
 			</div> <!-- content -->
 		</div>
+        <style>
+            .select2-container .select2-selection--multiple .select2-selection__choice{
+                background-color: #eceef0;
+            }
+        </style>
 		<script>
 			$(document).ready(function() {
 				$('.js-example-basic-single').select2({
 					theme: "bootstrap"
 				});
+                $('.assigned').select2({
+                    multiple:true,
+                    placeholder: "Select Assigned",
+                    theme: "bootstrap-5"
+                });
 			});
 			$(function() {
 				var hash = window.location.hash;

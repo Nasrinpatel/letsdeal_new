@@ -170,7 +170,9 @@ class Customermaster extends CI_Controller
 	{
 
 		$this->form_validation->set_rules('inquiry_type', 'Inquiry type', 'required');
-		$this->form_validation->set_rules('agent_id', 'Agent', 'required');
+        if($_POST['inquiry_type'] == 'agent'){
+            $this->form_validation->set_rules('agent_id[]', 'Agent','required');
+        }
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
 		// if($this->input->post('inquiry_type') != 'direct'){
 		// 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
@@ -189,7 +191,7 @@ class Customermaster extends CI_Controller
 		} else {
 			$formArray = array();
 			$formArray['inquiry_type'] = $this->input->post('inquiry_type');
-			$formArray['agent_id'] = $this->input->post('agent_id');
+//			$formArray['agent_id'] = $this->input->post('agent_id');
 			$formArray['source_id'] = $this->input->post('source_id');
 			// if($formArray['inquiry_type']=='direct'){
 			// 	$formArray['assigned_id'] = null;
@@ -205,6 +207,9 @@ class Customermaster extends CI_Controller
 			$formArray['company_name'] = $this->input->post('company_name');
 			$formArray['description'] = $this->input->post('description');
 			$formArray['status'] = $this->input->post('status');
+            if(!empty($_POST['assigned_id'])){
+                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+            }
 
 			$response = $this->customermaster->saverecords($formArray);
 
@@ -280,11 +285,10 @@ class Customermaster extends CI_Controller
 	public function update($id)
 	{
 		$this->form_validation->set_rules('inquiry_type', 'Inquiry type', 'required');
-		$this->form_validation->set_rules('agent_id', 'Agent', 'required');
+        if($this->input->post('inquiry_type') != 'direct'){
+            $this->form_validation->set_rules('assigned_id[]', 'Assigned','required');
+        }
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
-		if ($this->input->post('inquiry_type') != 'direct') {
-			$this->form_validation->set_rules('assigned_id', 'Assigned', 'required');
-		}
 		$this->form_validation->set_rules('position_id', 'Position', 'required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
@@ -305,7 +309,9 @@ class Customermaster extends CI_Controller
 			if ($formArray['inquiry_type'] == 'direct') {
 				$formArray['assigned_id'] = null;
 			} else {
-				$formArray['assigned_id'] = $this->input->post('assigned_id');
+                if(!empty($_POST['assigned_id'])){
+                    $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+                }
 			}
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');

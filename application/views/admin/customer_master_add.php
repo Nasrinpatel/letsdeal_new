@@ -129,13 +129,13 @@
 										<div class="mb-3">
 											<label class="form-label">Assigned</label>
 
-											<select data-toggle="select2" title="Assigned" class="form-control select2" name="assigned_id" data-width="100%">
-												<option value=''>Select Assigned</option>
-												<?php foreach ($staff as $sta) { ?>
-													<option value="<?= $sta['id'] ?>"><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-												<?php }
-												?>
-											</select>
+                                            <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+                                                <!--												<option value=''>Select Assigned</option>-->
+                                                <?php foreach ($staff as $sta) { ?>
+                                                    <option value="<?= $sta['id'] ?>"><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+                                                <?php }
+                                                ?>
+                                            </select>
 											<!-- <span style="color: red;"><?= form_error('assigned_id') ?></span> -->
 										</div>
 									</div>
@@ -205,10 +205,18 @@
 		$('.js-example-basic-single').select2({
 			theme: "bootstrap"
 		});
+        $('.assigned').select2({
+            multiple:true,
+            placeholder: "Select Assigned",
+            theme: "bootstrap-5"
+        });
 	});
 </script>
 <style>
 	.select2 .selection .select2-selection--single .select2-selection__rendered {
 		line-height: 1.5rem;
 	}
+    .select2-container .select2-selection--multiple .select2-selection__choice{
+        background-color: #eceef0;
+    }
 </style>
