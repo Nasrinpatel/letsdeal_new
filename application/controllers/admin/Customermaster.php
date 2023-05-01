@@ -248,6 +248,9 @@ class Customermaster extends CI_Controller
 		$data['source_data'] = $this->customermaster->getSourceByID($data['customer']->source_id);
 		$data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
 		$data['staff_data'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
+        $record['parameter'] = array('id' => $id);
+        $assigned = $this->customermaster->getassigneddata('tb_customer_master',$record);
+        $data['assigned_id'] = explode(',',$assigned['assigned_id']);
 		$data['page_name'] = 'customer_master_edit';
 		$this->load->view('admin/index', $data);
 	}
