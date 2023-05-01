@@ -220,5 +220,19 @@ class Agentmaster_model extends CI_model{
 		$this->db->delete('tb_agent_specialist_area');
 		return true;
 	}
+
+	function getassigneddata($table,$post){
+		$fields = $post['fields'] ?? array("*");
+		$param = implode(',',$fields);
+		$this->db->select($param);
+
+		if(isset($post['parameter']) && $post['parameter'] != ''){
+			foreach ($post['parameter'] as $key => $value){
+				$this->db->where($key,$value);
+			}
+		}
+		$query = $this->db->get($table);
+		return $query->row_array();
+	}
 }
 ?>
