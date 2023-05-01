@@ -674,9 +674,6 @@
 											<div class="w-100">
 												<h5 class="mt-1 font-size-14">
 													<?= ($staff_data != null) ? $staff_data->first_name . ' ' . $staff_data->last_name : ' - ' ?>
-
-
-
 												</h5>
 											</div>
 										</div>
@@ -767,13 +764,12 @@
 															<div class="col-md-4">
 																<div class="mb-3">
 																	<label class="form-label">Assigned<span class="text-danger">*</span></label>
-																	<select data-toggle="select2" title="Assigned" class="form-control select2" name="assigned_id" data-width="100%">
-																		<option value=''>Select Assigned</option>
-																		<?php foreach ($staff as $sta) { ?>
-																			<option value="<?= $sta['id'] ?>" <?= ($sta['id'] == $agent->assigned_id) ? 'selected' : '' ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-																		<?php }
-																		?>
-																	</select>
+                                                                    <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+                                                                        <?php foreach ($staff as $sta) { ?>
+                                                                            <option value="<?= $sta['id'] ?>" <?php for($i=0;$i<count($assigned_id);$i++) { if($sta['id'] == $assigned_id[$i]) { ?>selected<?php } } ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+                                                                        <?php }
+                                                                        ?>
+                                                                    </select>
 
 
 																	<!-- <select class="js-example-basic-single" name="assigned_id">
@@ -784,7 +780,7 @@
 																	?>
 								
 																</select> -->
-																	<span style="color: red;"><?= form_error('assigned_id') ?></span>
+																	<span style="color: red;"><?= form_error('assigned_id[]') ?></span>
 
 																</div>
 															</div>
@@ -1190,11 +1186,21 @@
 				</div> <!-- container -->
 			</div> <!-- content -->
 		</div>
+        <style>
+            .select2-container .select2-selection--multiple .select2-selection__choice{
+                background-color: #eceef0;
+            }
+        </style>
 		<script>
 			$(document).ready(function() {
 				$('.js-example-basic-single').select2({
 					theme: "bootstrap"
 				});
+                $('.assigned').select2({
+                    multiple:true,
+                    placeholder: "Select Assigned",
+                    theme: "bootstrap-5"
+                });
 			});
 			$(function() {
 				var hash = window.location.hash;

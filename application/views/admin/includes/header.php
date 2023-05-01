@@ -326,11 +326,8 @@
 								<!--<a href="<?= base_url('admin/Status') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Status master</a> -->
 								<a href="<?= base_url('admin/Source') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Inquiry Source master</a>
 								<!-- <a href="<?= base_url('admin/Staff') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Staff master</a> -->
-
-								
-
-
-
+                                <a href="<?= base_url('admin/LeadStage') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Stage</a>
+                                <a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Form Master</a>
 							</div>
 						</li>
 

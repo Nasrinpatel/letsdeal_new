@@ -162,7 +162,9 @@ class Agentmaster extends CI_Controller
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-			$formArray['assigned_id'] = $this->input->post('assigned_id');
+            if(!empty($_POST['assigned_id'])){
+                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+            }
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
@@ -260,18 +262,18 @@ class Agentmaster extends CI_Controller
 	{
 		//	$this->form_validation->set_rules('inquiry_type', 'Inquiry type','required');
 		//$this->form_validation->set_rules('agent_id', 'Agent','required');
-		//$this->form_validation->set_rules('source_id', 'Source', 'required');
+//		$this->form_validation->set_rules('source_id', 'Source', 'required');
 		// if($this->input->post('inquiry_type') != 'direct'){
 		// 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
 		// }
-		$this->form_validation->set_rules('assigned_id', 'Assigned', 'required');
+//		$this->form_validation->set_rules('assigned_id', 'Assigned', 'required');
 		$this->form_validation->set_rules('position_id', 'Position', 'required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
-		$this->form_validation->set_rules('company_name', 'Company name', 'required');
+//		$this->form_validation->set_rules('company_name', 'Company name', 'required');
 		$this->form_validation->set_rules('description', 'Description', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 
@@ -287,7 +289,9 @@ class Agentmaster extends CI_Controller
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-			$formArray['assigned_id'] = $this->input->post('assigned_id');
+            if(!empty($_POST['assigned_id'])){
+                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+            }
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
