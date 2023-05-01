@@ -8,15 +8,14 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="<?= base_url('admin/LeadFormMaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
                             </ol>
                         </div>
-                        <h4 class="page-title">Lead Form Master</h4>
+                        <h4 class="page-title">Lead</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -41,11 +40,12 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-centered table-nowrap table-striped" id="leadform_master_datatable">
+                                <table class="table table-centered table-nowrap table-striped" id="leadmaster_datatable">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Question</th>
+                                        <th>Customer</th>
+                                        <th>Lead Stage</th>
                                         <th>Status</th>
                                         <th style="width: 85px;">Action</th>
                                     </tr>
@@ -57,15 +57,13 @@
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-
         </div> <!-- container -->
-
     </div> <!-- content -->
 </div>
 <script>
-    var table = $('#leadform_master_datatable').DataTable({
+    var table = $('#leadmaster_datatable').DataTable({
         responsive: true,
-        ajax: "<?php echo base_url('admin/LeadFormMaster/all'); ?>",
+        ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
         "columnDefs": [
             {
                 "targets": 3,
@@ -79,4 +77,5 @@
             },
         ]
     });
+
 </script>

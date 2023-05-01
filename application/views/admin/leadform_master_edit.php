@@ -33,7 +33,7 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="question" class="form-label">Select Question</label>
-                                                    <select class="form-select select2" name="question_ids[]" id="question">
+                                                    <select class="form-select select2" name="question_ids" id="question">
                                                         <option value="">Select Question</option>
                                                         <?php foreach ($question as $q) : ?>
                                                             <option value="<?php echo $q['id']; ?>" <?= ($questions[$i] == $q['id']) ? 'selected' : '' ?>><?php echo $q['question']; ?></option>
@@ -41,17 +41,17 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-1">
+                                            <!--<div class="col-lg-1">
                                                 <label class="form-label" style='width:100%'>&nbsp;</label>
-                                                <?php if ($i == 0) { ?>
+                                                <?php /*if ($i == 0) { */?>
                                                     <a class="btn btn-success waves-effect waves-light add-button">Add </a>
-                                                <?php } else { ?>
+                                                <?php /*} else { */?>
                                                     <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
-                                                <?php } ?>
-                                            </div>
+                                                <?php /*} */?>
+                                            </div>-->
                                         </div>
                                     <?php } ?>
-                                    <?= form_error('question_ids[]') ?>
+                                    <?= form_error('question_ids') ?>
                                 </div>
 
                                 <div class="row">

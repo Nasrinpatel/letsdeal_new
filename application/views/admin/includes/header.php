@@ -355,6 +355,12 @@
 							</a>
 
 						</li>
+                        <li>
+                            <a class="nav-link" href="<?= base_url('admin/Leadmaster') ?>" id="topnav-dashboard">
+                                <i class="fe-bookmark me-1"></i> Lead
+                            </a>
+
+                        </li>
 						<!-- <li>
 							
 							<a href="<?= base_url('admin/Customermaster') ?>" class="dropdown-item">

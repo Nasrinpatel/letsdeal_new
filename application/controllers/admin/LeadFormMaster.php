@@ -52,13 +52,13 @@ class LeadFormMaster extends CI_Controller {
     }
     public function store()
     {
-        $this->form_validation->set_rules('question_ids[]', 'Question','required');
+        $this->form_validation->set_rules('question_ids', 'Question','required');
         $this->form_validation->set_rules('status', 'Status','required');
         if ($this->form_validation->run() == false) {
             $this->add();
         } else {
             $formArray = array();
-            $formArray['question_ids'] = implode(',',$this->input->post('question_ids'));
+            $formArray['question_ids'] = $this->input->post('question_ids');
             $formArray['status'] = $this->input->post('status');
 
             $response = $this->leadform->saverecords($formArray);
@@ -84,14 +84,14 @@ class LeadFormMaster extends CI_Controller {
 
     public function update($id)
     {
-        $this->form_validation->set_rules('question_ids[]', 'Question','required');
+        $this->form_validation->set_rules('question_ids', 'Question','required');
         $this->form_validation->set_rules('status', 'Status','required');
 
         if ($this->form_validation->run() == false) {
             $this->edit($id);
         }else{
             $formArray = array();
-            $formArray['question_ids'] = implode(',',$this->input->post('question_ids'));
+            $formArray['question_ids'] = $this->input->post('question_ids');
             $formArray['status'] = $this->input->post('status');
 
             $response = $this->leadform->updaterecords($id,$formArray);
