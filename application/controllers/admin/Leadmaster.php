@@ -62,13 +62,8 @@ class Leadmaster extends CI_Controller
         if ($this->form_validation->run() == false) {
             $this->add();
         } else {
-            $formArray = array();
-            $formArray['customer_id'] = $this->input->post('customer_id');
-            $formArray['lead_stage_id'] = $this->input->post('lead_stage_id');
-            $formArray['status'] = $this->input->post('status');
-
+            $formArray = $_POST;
             $response = $this->leadmaster->saverecords($formArray);
-
             if ($response == true) {
                 $this->session->set_flashdata('success', 'Lead Added Successfully.');
             } else {

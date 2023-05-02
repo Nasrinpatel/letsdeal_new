@@ -49,18 +49,104 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-5">
                                         <div class="mb-3">
                                             <label for="question" class="form-label">Questions<span class="text-danger"> *</span></label>
-                                           <?php foreach($question as $item){ ?>
+                                           <?php foreach($question as $item){
+                                               ?>
                                                <h5><?= $item['question'] ?></h5>
-                                               <?php if($item['question_answer_inputtype'] == 'Dropdown'){ ?>
-                                                   <select class="form-select" name="dropdown">
-                                                   <option>Select Option</option>
-                                                   <option value="1">1</option>
-                                                   <option value="2">2</option>
+                                               <input type="hidden" name="question[]" value="<?= $item['question'] ?>">
+                                               <input type="hidden" name="question_id[]" value="<?= $item['id'] ?>">
+                                               <input type="hidden" name="answer_type_<?= $item['id'] ?>" value="<?= $item['question_answer_inputtype'] ?>">
+                                               <?php if($item['source_id'] != ''){
+                                                   $source_options=$this->db->get_where('source_option_master',array('source_cat_id'=>$item['source_id']))->result_array();
+                                                   foreach($source_options as $source_option){ ?>
+                                                       <input type="hidden" name="answer_options_<?= $item['id'] ?>[]" value="<?= $source_option['name'] ?>">
+                                                       <input type="hidden" name="answer_option_ids_<?= $item['id'] ?>[]" value="<?= $source_option['id'] ?>">
+                                                   <?php } ?>
+                                               <?php }else {
+                                                   $source_options=[];
+                                               } ?>
+                                               <?php if($item['question_answer_inputtype'] == 'Textbox'){ ?>
+                                                   <input type="text" class="form-control" name="answer_<?= $item['id'] ?>" id="userName1" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Dropdown'){ ?>
+                                                   <select class="form-select" name="answer_<?= $item['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                       <option>Select Option</option>
+                                                       <?php foreach($source_options as $source_option){ ?>
+                                                         <option value="<?= $source_option['id'] ?>"><?= $source_option['name'] ?></option>
+                                                       <?php } ?>
                                                    </select>
-                                               <?php } ?>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Checkbox'){ ?>
+                                                   <?php foreach($source_options as $source_option){ ?>
+                                                       <div class="form-check form-check-inline">
+                                                           <input class="form-check-input" type="checkbox" id="userName1"  name="answer_<?= $item['id'] ?>[]" value="<?= $source_option['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                           <label class="form-check-label" for="userName1"><?= $source_option['name'] ?></label><br>
+                                                       </div>
+                                                   <?php } ?>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Radio'){ ?>
+                                                   <?php foreach($source_options as $source_option){ ?>
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="radio" id="userName1"  name="answer_<?= $item['id'] ?>" value="<?= $source_option['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                            <label class="form-check-label" for="userName1"><?= $source_option['name'] ?></label><br>
+                                                        </div>
+                                                   <?php } ?>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Date'){ ?>
+                                                   <input type="date" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Textarea'){ ?>
+                                                   <textarea class="form-control" id="userName1" name="answer_<?= $item['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>></textarea>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'File'){ ?>
+                                                   <input type="file" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Number'){ ?>
+                                                   <input type="number" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Phone'){ ?>
+                                                   <input type="tel" class="form-control" placeholder="Enter Phone number" id="userName1" name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Email'){ ?>
+                                                   <input type="email" class="form-control" id="userName1" placeholder="Enter Email Address"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Link'){ ?>
+                                                   <input type="url" class="form-control" id="userName1" placeholder="Enter Link"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Image'){ ?>
+                                                   <input type="file" class="form-control" name="answer_<?= $item['id'] ?>" accept="image/*" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Video 360'){ ?>
+                                                   <input type="url" class="form-control" placeholder="Enter Vieo 360 Link" name="answer_<?= $item['id'] ?>" accept="video/*" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Image Gallery'){ ?>
+                                                   <input class="image_gallery" name="answer_<?= $item['id'] ?>[]" type="file" multiple <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                               <?php }
+                                               elseif ($item['question_answer_inputtype'] == 'Video Gallery'){ ?>
+                                                    <div id="videogallery">
+                                                        <div class="row">
+                                                            <div class="col-lg-10">
+                                                                <div class="mb-3">
+                                                                    <input type="url" class="form-control" name="answer_<?= $item['id'] ?>[]" id="videogallery" placeholder="Enter Video Link" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-2">
+                                                                <a class="btn btn-success waves-effect waves-light add-button"  data-name="answer_<?= $item['id'] ?>[]">Add </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                               <?php }elseif ($item['question_answer_inputtype'] == 'Google map'){ ?>
+                                                   <div class="row">
+                                                       <div class="col-md-6">
+                                                           <input type="text" class="form-control" placeholder="Enter Latitude"  name="answer_<?= $item['id'] ?>[]" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                       </div>
+                                                       <div class="col-md-6">
+                                                           <input type="text" class="form-control" placeholder="Enter Longitude"  name="answer_<?= $item['id'] ?>[]" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
+                                                       </div>
+                                                   </div>
+                                               <?php }?>
                                             <?php } ?>
 <!--                                            <span style="color: red;">--><?//= form_error('question_ids[]') ?><!--</span>-->
                                         </div>
