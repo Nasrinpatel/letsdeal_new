@@ -31,6 +31,7 @@
                                                     <option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?>   <?= $cust['phone'] ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <span style="color: red;"><?= form_error('customer_id') ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -44,6 +45,7 @@
                                                     <option value="<?= $stage['id'] ?>"><?= $stage['name'] ?></option>
                                                 <?php } ?>
                                             </select>
+                                            <span style="color: red;"><?= form_error('lead_stage_id') ?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -51,7 +53,7 @@
                                 <div class="row">
                                     <div class="col-lg-5">
                                         <div class="mb-3">
-                                            <label for="question" class="form-label">Questions<span class="text-danger"> *</span></label>
+                                            <label for="question" class="form-label">Questions</label>
                                            <?php foreach($question as $item){
                                                ?>
                                                <h5><?= $item['question'] ?></h5>

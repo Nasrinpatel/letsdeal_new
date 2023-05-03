@@ -123,7 +123,11 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="nav nav-pills flex-column navtab-bg nav-pills-tab text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <a class="nav-link py-2" id="agent-tab" data-bs-toggle="pill" href="#property" role="tab" aria-controls="agent" aria-selected="false">
+                                            <a class="nav-link py-2" id="lead-tab" data-bs-toggle="pill" href="#lead" role="tab" aria-controls="lead" aria-selected="false">
+                                                <i class="mdi mdi-account-circle d-block font-24"></i>
+                                                Lead
+                                            </a>
+                                            <a class="nav-link mt-2 py-2" id="agent-tab" data-bs-toggle="pill" href="#property" role="tab" aria-controls="agent" aria-selected="false">
                                                 <i class="mdi mdi-account-circle d-block font-24"></i>
                                                 Property Interested
                                             </a>
@@ -136,6 +140,184 @@
                                     </div> <!-- end col-->
                                     <div class="col-lg-8">
                                         <div class="tab-content p-3">
+                                            <div class="tab-pane fade" id="lead" role="tabpanel" aria-labelledby="lead-tab">
+                                                <form method="post" action="<?php echo base_url('admin/Leadmaster/update/' . $lead_id); ?>" enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Customers<span class="text-danger"> *</span></label>
+                                                                <select data-toggle="select2" class="form-control select2" name="customer_id" data-width="100%">
+                                                                    <option value="">Select Customer</option>
+                                                                    <?php foreach ($all_customers as $cust) { ?>
+                                                                        <option value="<?= $cust['id'] ?>" <?= ($lead['customer_id'] == $cust['id']) ? 'selected' : '' ?>><?= $cust['first_name'] ?> <?= $cust['last_name'] ?> <?= $cust['phone'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <span style="color: red;"><?= form_error('customer_id') ?></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Lead Stage<span class="text-danger"> *</span></label>
+                                                                <select data-toggle="select2" class="form-control select2" name="lead_stage_id" data-width="100%">
+                                                                    <option value="">Select Stage</option>
+                                                                    <?php foreach ($all_leadstage as $stage) { ?>
+                                                                        <option value="<?= $stage['id'] ?>" <?= ($lead['lead_stage_id'] == $stage['id']) ? 'selected' : '' ?>><?= $stage['name'] ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                                <span style="color: red;"><?= form_error('lead_stage_id') ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="question" class="form-label">Questions</label>
+                                                                <?php foreach($questions as $que){
+                                                                    $answers = json_decode($que['answers'], true);
+                                                                    $answer_ids = json_decode($que['answer_ids'], true);
+                                                                    $que['question_answer_inputtype'] = $answers['answer_type']; ?>
+                                                                    <h5><?= $que['question'] ?></h5>
+                                                                    <input type="hidden" name="question[]" value="<?= $que['question'] ?>">
+                                                                    <input type="hidden" name="question_id[]" value="<?= $que['question_id'] ?>">
+                                                                    <input type="hidden" name="answer_type_<?= $que['question_id'] ?>" value="<?= $que['question_answer_inputtype'] ?>">
+                                                                    <?php
+                                                                    foreach ($answers['options'] as $option) { ?>
+                                                                        <input type="hidden" name="answer_options_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                    <?php }
+                                                                    foreach ($answer_ids['options'] as $option) { ?>
+                                                                        <input type="hidden" name="answer_option_ids_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                    <?php } ?>
+                                                                    <?php if ($que['question_answer_inputtype'] == 'Textbox') { ?>
+                                                                        <input type="text" name="answer_<?= $que['question_id'] ?>" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Dropdown') { ?>
+                                                                        <select class="form-select" name="answer<?= $que['question_id'] ?>">
+                                                                            <option>Select Option</option>
+                                                                            <?php $i = 0;
+                                                                            foreach ($answers['options'] as $option) { ?>
+                                                                                <option value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'selected' : '') ?>><?= array_keys($option)[0] ?></option>
+                                                                                <?php $i++;
+                                                                            } ?>
+                                                                        </select>
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Checkbox') {
+                                                                        $i = 0;
+                                                                        foreach ($answers['options'] as $option) { ?>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input class="form-check-input" type="checkbox" id="userName1" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
+                                                                                <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
+                                                                            </div>
+                                                                            <?php $i++;
+                                                                        }
+                                                                    }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Radio') {
+                                                                        $i = 0;
+                                                                        foreach ($answers['options'] as $option) { ?>
+                                                                            <div class="form-check form-check-inline">
+                                                                                <input class="form-check-input" type="radio" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
+                                                                                <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
+                                                                            </div>
+                                                                            <?php $i++;
+                                                                        }
+                                                                    }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Date') { ?>
+                                                                        <input type="date" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Textarea') { ?>
+                                                                        <textarea class="form-control" id="userName1" name="answer_<?= $que['question_id'] ?>"><?= ($answers['options']) ? array_keys($answers['options'][0])[0] : '' ?></textarea>
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'File') { ?>
+                                                                        <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Number') { ?>
+                                                                        <input type="number" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Phone') { ?>
+                                                                        <input type="tel" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Email') { ?>
+                                                                        <input type="email" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Link') { ?>
+                                                                        <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Image') { ?>
+                                                                        <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="image/*">
+                                                                        <a class="btn btn-primary mt-1" href="<?= base_url('uploads/lead/') . array_keys($answers['options'][0])[0] ?>" target="_blank">View Old File</a>
+                                                                        <input type="hidden" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Video 360') { ?>
+                                                                        <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="video/*" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Google Map') { ?>
+                                                                        <div class="row">
+                                                                            <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>"></div>
+                                                                            <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_'.$que['id'].'[]" value="<?= array_keys($answers['options'][1])[0] ?>"></div>
+                                                                        </div>
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Image Gallery') { ?>
+                                                                        <input class="image_gallery" name="answer_<?= $que['question_id'] ?>[]" type="file" multiple>
+                                                                        <div class="row mt-3">
+                                                                            <?php foreach ($answers['options'] as $option) { ?>
+                                                                                <div class="col-md-3">
+                                                                                    <div class="image-area">
+                                                                                        <a class="remove-image remove-button" href="#" onclick="return false;" style="display: inline;">&#215;</a>
+                                                                                        <img src="<?= base_url('uploads/lead/') . array_keys($option)[0] ?>" class="img-fluid">
+                                                                                        <input type="hidden" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                                    </div>
+                                                                                </div>
+                                                                            <?php } ?>
+                                                                        </div>
+                                                                    <?php }
+                                                                    elseif ($que['question_answer_inputtype'] == 'Video Gallery') { ?>
+                                                                        <div id="videogallery">
+                                                                            <?php $i = 0;
+                                                                            foreach ($answers['options'] as $option) {  ?>
+                                                                                <div class="row">
+                                                                                    <div class="col-lg-10">
+                                                                                        <div class="mb-3">
+                                                                                            <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($option)[0] ?>" id="videogallery">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-lg-2">
+                                                                                        <?php if ($i == 0) { ?>
+                                                                                            <a class="btn btn-success waves-effect waves-light edit-button">Add </a>
+                                                                                        <?php } else { ?>
+                                                                                            <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+                                                                                        <?php } ?>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <?php $i++;
+                                                                            } ?>
+                                                                        </div>
+                                                                    <?php } ?>
+
+                                                                <?php } ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label class="form-label">Status<span class="text-danger">*</span></label>
+                                                                <select class="form-select" name="status" id="form_status">
+                                                                    <option selected="">Select Status</option>
+                                                                    <option value="1" <?= ($lead['status'] == 1) ? 'selected' : '' ?>>Active</option>
+                                                                    <option value="0" <?= ($lead['status'] == 0) ? 'selected' : '' ?>>Inactive</option>
+                                                                </select>
+                                                                <span style="color: red;"><?= form_error('status') ?></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-5">
+                                                            <div class="text">
+                                                                <button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
+                                                            </div>
+                                                        </div>
+                                                    </div><br>
+                                                </form>
+                                            </div>
                                             <div class="tab-pane fade" id="property" role="tabpanel" aria-labelledby="agent-contacts-tab">
                                                 <div>
                                                     <div class="row justify-content-between mb-2">

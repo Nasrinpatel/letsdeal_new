@@ -84,8 +84,32 @@ class Leadmaster extends CI_Controller
         $data['lead_id'] = $id;
         $data['category'] = $this->leadmaster->getCategory();
         $data['states'] = $this->leadmaster->getState();
+
+        $data['all_customers'] = $this->leadmaster->getCustomer();
+        $data['all_leadstage'] = $this->leadmaster->getLeadStage();
+        $data['questions'] = $this->db->where_in('lead_id',$id)->get('tb_lead_question_answer')->result_array();
+
         $data['page_name'] = 'lead_master_edit';
         $this->load->view('admin/index', $data);
+    }
+
+    public function update($id){
+        $this->form_validation->set_rules('customer_id', 'Customer','required');
+        $this->form_validation->set_rules('lead_stage_id', 'Lead Stage','required');
+        $this->form_validation->set_rules('status', 'Status', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->edit($id);
+        } else {
+            $formArray = $_POST;
+            $response = $this->leadmaster->updaterecords($id, $formArray);
+            if ($response == true) {
+                $this->session->set_flashdata('success', 'Lead Updated Successfully.');
+            } else {
+                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+            }
+            return redirect('admin/Leadmaster/');
+        }
     }
 
     //Lead details
@@ -100,6 +124,10 @@ class Leadmaster extends CI_Controller
         $data['lead_id'] = $id;
         $data['category'] = $this->leadmaster->getCategory();
         $data['states'] = $this->leadmaster->getState();
+
+        $data['all_customers'] = $this->leadmaster->getCustomer();
+        $data['all_leadstage'] = $this->leadmaster->getLeadStage();
+        $data['questions'] = $this->db->where_in('lead_id',$id)->get('tb_lead_question_answer')->result_array();
 
         $data['page_name'] = 'lead_master_details';
         $this->load->view('admin/index', $data);
