@@ -37,14 +37,14 @@
 										<div class="col-md-3">
 											<div class="mb-3">
 
-												<input class="form-check-input" type="radio" id="customer" name="customeragent" value="customer">
+												<input class="form-check-input" type="radio" id="customer" name="customeragent" checked value="customer">
 												<label class="form-check-label" for="customer">Customer</label>
 											</div>
 
 										</div>
 										<div class="col-md-4">
 											<div class="mb-3">
-												<input class="form-check-input" type="radio" id="agent" name="customeragent" checked value="agent">
+												<input class="form-check-input" type="radio" id="agent" name="customeragent" value="agent">
 												<label class="form-check-label" for="agent">Channel Partner</label>
 											</div>
 

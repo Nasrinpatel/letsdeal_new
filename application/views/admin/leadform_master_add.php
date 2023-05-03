@@ -26,7 +26,7 @@
                                         <div class="col-lg-6">
                                             <div class="mb-3">
                                                 <label for="question" class="form-label">Select Question</label>
-                                                <select class="form-select select2" name="question_ids" id="question">
+                                                <select class="form-select select2" name="question_ids[]" id="question">
                                                     <option value="">Select Question</option>
                                                     <?php foreach ($question as $q) : ?>
                                                         <option value="<?php echo $q['id']; ?>"><?php echo $q['question']; ?></option>
@@ -35,10 +35,10 @@
                                                 <span style="color: red;"><?= form_error('question_ids[]') ?></span>
                                             </div>
                                         </div>
-                                        <!--<div class="col-lg-1">
+                                        <div class="col-lg-1">
                                             <label class="form-label" style='width:100%'>&nbsp;</label>
                                             <a class="btn btn-success waves-effect waves-light add-button">Add </a>
-                                        </div>-->
+                                        </div>
 
                                     </div>
                                 </div>

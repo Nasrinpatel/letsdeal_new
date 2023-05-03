@@ -46,7 +46,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="mb-3">
-								<label for="billing-email-address" class="form-label">Email Address <span class="text-danger"></span></label>
+								<label for="billing-email-address" class="form-label">Email Address </label>
 								<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" />
 							</div>
 						</div>
@@ -206,12 +206,12 @@
 								<label class="form-label">Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
 									<option value="">Select Rreminder Type</option>
-									<option value="name">name</option>
-									<option value="name1">name1</option>
-									<!-- <?php foreach ($position as $pos) { ?>
-										<option value="<?= $pos['id'] ?>"><?= $pos['name'] ?></option>
+									<!-- <option value="name">name</option>
+									<option value="name1">name1</option> -->
+									<?php foreach ($remtype as $rt) { ?>
+										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
 									<?php }
-									?> -->
+									?>
 								</select>
 							</div>
 						</div>
@@ -365,8 +365,10 @@
 								<label class="form-label">Type </label>
 								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
-									<option value="name">name</option>
-									<option value="name">name</option>
+									<?php foreach ($remtype as $rt) { ?>
+										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
+									<?php }
+									?>
 								</select>
 							</div>
 						</div>
@@ -860,10 +862,10 @@
 															</div>
 															<div class="col-md-6">
 																<div class="mb-3">
-																	<label for="billing-email-address" class="form-label">Email Address <span class="text-danger">*</span></label>
+																	<label for="billing-email-address" class="form-label">Email Address </label>
 																	<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" value="<?= $customer->email ?>" />
 																</div>
-																<span style="color: red;"><?= form_error('email') ?></span>
+																<!-- <span style="color: red;"><?= form_error('email') ?></span> -->
 
 															</div>
 														</div> <!-- end row -->
@@ -882,10 +884,10 @@
 														<div class="row">
 															<div class="col-12">
 																<div class="mb-3">
-																	<label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+																	<label for="description" class="form-label">Description</label>
 																	<textarea class="form-control" name="description" id="description"><?= $customer->description ?></textarea>
 																</div>
-																<span style="color: red;"><?= form_error('description') ?></span>
+																<!-- <span style="color: red;"><?= form_error('description') ?></span> -->
 
 															</div>
 														</div> <!-- end row -->
@@ -1445,7 +1447,7 @@
 						targets: 3
 					},
 					{
-						responsivePriority: 3,
+						responsivePriority: 10,
 						targets: 6
 					},
 					{
@@ -1524,66 +1526,7 @@
 					}
 				});
 			});
-			//Repeat every day
-			// 	$(document).ready(function() {
-			// 		// Hide the Source Type dropdown by default
-
-			// 		$('#customer-reminders-modal #cycles').parent().hide();
-			// 		// Show/hide the Source Type dropdown based on the selected Q&A Input Type
-			// 		$('#customer-reminders-modal #repeat_every').on('change', function() {
-			// 			var selectedValue = $(this).val();
-			// 			if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
-			// 				$('#customer-reminders-modal #cycles').parent().show();
-			// 			} else {
-			// 				// $('#customer-reminders-modal #cycles').parent().hide();
-			// 				$('#customer-reminders-modal #cycles').parent().parent().hide();
-			// 			}
-			// 		});
-			// 		$('#customer-reminders-modal #default_total_cycles').click(function() {
-			// 		if($(this).is(':checked')) {
-			// 			$('#customer-reminders-modal #cycles').attr('disabled', true);
-			// 		} else {
-			// 			$('#customer-reminders-modal #cycles').attr('disabled', false);
-			// 		}
-			// });
-
-			//Repeat every day
-			// $(document).ready(function() {
-			// 	// Hide the Total Cycles field by default
-			// 	$('#customer-reminders-modal #cycles').parent().parent().hide();
-
-			// 	// Show/hide the Total Cycles field based on the selected Repeat value
-			// 	$('#customer-reminders-modal #repeat_every').on('change', function() {
-			// 		var selectedValue = $(this).val();
-			// 		if (selectedValue === 'Week' || selectedValue === '2 Weeks' || selectedValue === '1 Month' || selectedValue === '3 Months' || selectedValue === '6 Months' || selectedValue === '1 Year') {
-			// 			$('#customer-reminders-modal #cycles').parent().parent().show();
-			// 		} else {
-			// 			$('#customer-reminders-modal #cycles').parent().parent().hide();
-			// 		}
-			// 	});
-
-			// 	// spacing between the Infinity checkbox and label
-			// 	$('#customer-reminders-modal #default_total_cycles').on('change', function() {
-			// 		var checkbox = $(this);
-			// 		var label = checkbox.next('label');
-			// 		if (checkbox.is(':checked')) {
-			// 			label.css('margin-left', '5px');
-			// 		} else {
-			// 			label.css('margin-left', '15px');
-			// 		}
-			// 	});
-
-			// 	// Disable the Total Cycles field when Infinity is checked
-			// 	$('#customer-reminders-modal #default_total_cycles').on('change', function() {
-			// 		var checkbox = $(this);
-			// 		var totalCycles = $('#customer-reminders-modal #cycles');
-			// 		if (checkbox.is(':checked')) {
-			// 			totalCycles.attr('disabled', true);
-			// 		} else {
-			// 			totalCycles.attr('disabled', false);
-			// 		}
-			// 	});
-			// });
+			
 
 
 			$(document).ready(function() {

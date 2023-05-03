@@ -44,7 +44,7 @@
 							<?php } elseif ($property->agent_id != '') { ?>
 								<div class="col-md-4">
 									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Channel Partner Name</p>
+									<p class="mt-2 mb-1 text-muted">Agent Name</p>
 									<div class="d-flex align-items-start">
 										<i class="mdi mdi-account font-18 text-success me-1"></i>
 										<div class="w-100">

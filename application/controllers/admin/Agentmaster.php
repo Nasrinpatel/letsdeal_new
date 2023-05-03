@@ -14,6 +14,7 @@ class Agentmaster extends CI_Controller
 
 	public function index()
 	{
+		$data['remtype'] = $this->agentmaster->getReminderType();
 		$data['page_name'] = 'agent_master_view';
 		$this->load->view('admin/index', $data);
 	}
@@ -235,7 +236,9 @@ class Agentmaster extends CI_Controller
 	{
 		$data['agent'] = $this->agentmaster->getAgent($id);
 		// $data['contacts'] = $this->agentmaster->getAgentContact($id);
+		$data['remtype'] = $this->agentmaster->getReminderType();
 		$data['sourcemaster'] = $this->agentmaster->getSourceMaster();
+		
 		$data['source'] = $this->agentmaster->getSource();
 		$data['position'] = $this->agentmaster->getPosition();
 		$data['staff'] = $this->agentmaster->getStaff();
@@ -585,6 +588,76 @@ class Agentmaster extends CI_Controller
 		}
 		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-contacts');
 	}
-	
- 
+	//reminder
+	public function all_reminders($id)
+	{
+		$reminders = $this->agentmaster->getReminders($id);
+		$result = array('data' => []);
+		$i = 1;
+		foreach ($reminders as $value) {
+
+			$button = '<a href="' . base_url('admin/agentmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/agentmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#agent-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$result['data'][] = array(
+				$i++,
+				$value['name'],
+				$value['type'],
+				date('d M Y h:i:s a', strtotime($value['date_time'])),
+				$value['priority'],
+				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
+				(($value['cycles']==0)?'infinite':$value['cycles']),
+				$value['description'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$value['status'],
+				$button
+			);
+		}
+		echo json_encode($result);
+	}
+	//reminders master
+	public function store_reminders()
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'Channel Partner';
+		$data['model_id'] = $this->input->post('agent_id');
+		$response = $this->agentmaster->save_reminders_records($data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Agent Reminder Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+		//echo $this->db->last_query();die();
+	}
+	public function edit_reminders($id)
+	{
+		$data = $this->agentmaster->getReminder($id);
+		echo json_encode($data);
+	}
+	public function update_reminders($id)
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'Channel Partner';
+		$data['model_id'] = $this->input->post('agent_id');
+		$response = $this->agentmaster->update_reminders_records($id, $data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Agent Reminder Updated Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+
+
+
+	public function delete_reminders($id, $agent_id)
+	{
+		$response = $this->agentmaster->delete_reminders_records($id);
+
+		if ($response == true) {
+			$this->session->set_flashdata('success', 'Agent Reminder Deleted Successfully.');
+		} else {
+			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+		}
+		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-reminders');
+	}
+
 }

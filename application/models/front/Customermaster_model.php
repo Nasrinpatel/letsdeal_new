@@ -53,7 +53,7 @@ class Customermaster_model extends CI_model{
             unset($data['repeat_type_custom']);
             unset($data['repeat_every_custom']);
         }
-
+		unset($data['customer_id']);
         // $data = hooks()->apply_filters('before_add_task', $data);
 
         $this->db->insert('tbl_reminder_master', $data);
@@ -65,7 +65,7 @@ class Customermaster_model extends CI_model{
 
 	}
 	function getReminders($id){
-		$data = $this->db->get_where('tbl_reminder_master',['customer_id'=>$id])->result_array();
+		$data = $this->db->get_where('tbl_reminder_master',['model_type'=>'Customer','model_id'=>$id])->result_array();
 		return $data;
 	}
 	function getReminder($id){
@@ -103,6 +103,7 @@ class Customermaster_model extends CI_model{
             unset($data['repeat_every_custom']);
         }
 		unset($data['reminder_id']);
+		unset($data['customer_id']);
         // $data = hooks()->apply_filters('before_add_task', $data);
 		$this->db->where('id',$id);
 		$r=$this->db->update('tbl_reminder_master',$data);
@@ -110,6 +111,12 @@ class Customermaster_model extends CI_model{
             return $r;
         }
         return false;
+	}
+	
+	
+	function getReminderType(){
+		$data = $this->db->get('tb_remindertype_master')->result_array();
+		return $data;
 	}
 	function delete($id)
 	{

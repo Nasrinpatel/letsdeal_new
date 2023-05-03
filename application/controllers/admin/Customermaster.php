@@ -15,6 +15,7 @@ class Customermaster extends CI_Controller
 	public function index()
 	{
 		$data['page_name'] = 'customer_master_view';
+		$data['remtype'] = $this->customermaster->getReminderType();
 		// $data['customers'] = $this->customermaster->getCustomer();
 		// $data['master'] = $this->customermaster->getPromaster();
 		// $data['category'] = $this->customermaster->getCategory();
@@ -162,6 +163,8 @@ class Customermaster extends CI_Controller
 		$data['position'] = $this->customermaster->getPosition();
 		$data['staff'] = $this->customermaster->getStaff();
 		$data['agent'] = $this->customermaster->getAgent();
+		
+		
 		$data['page_name'] = 'customer_master_add';
 		$this->load->view('admin/index', $data);
 	}
@@ -177,7 +180,7 @@ class Customermaster extends CI_Controller
 		// if($this->input->post('inquiry_type') != 'direct'){
 		// 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
 		// }
-		// $this->form_validation->set_rules('position_id', 'Position','required');
+		 $this->form_validation->set_rules('position_id', 'Position','required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');		
@@ -198,7 +201,7 @@ class Customermaster extends CI_Controller
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-			// $formArray['position_id'] = $this->input->post('position_id');
+			 $formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
 			// $formArray['nick_name'] = $this->input->post('nick_name');
@@ -240,6 +243,7 @@ class Customermaster extends CI_Controller
 	{
 		$data['customer'] = $this->customermaster->getCustomer($id);
 		// $data['contacts'] = $this->customermaster->getCustomerContact($id);
+		$data['remtype'] = $this->customermaster->getReminderType();
 		$data['sourcemaster'] = $this->customermaster->getSourceMaster();
 		$data['source'] = $this->customermaster->getSource();
 		$data['position'] = $this->customermaster->getPosition();
