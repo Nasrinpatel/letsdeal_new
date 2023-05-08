@@ -46,7 +46,7 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="mb-3">
-								<label for="billing-email-address" class="form-label">Email Address <span class="text-danger"></span></label>
+								<label for="billing-email-address" class="form-label">Email Address </label>
 								<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" />
 							</div>
 						</div>
@@ -461,7 +461,7 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-reminders" action="<?php echo base_url() . 'admin/Agentmaster/store_reminders'; ?>">
 					<input type="hidden" name="agent_id" value="<?= $agent->id ?>">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
@@ -469,15 +469,14 @@
 							</div>
 						</div>
 
-					</div> <!-- end row -->
+					</div>  -->
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Type </label>
+								<label class="form-label">Rreminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
 									<option value="">Select Rreminder Type</option>
-									<!-- <option value="name">name</option>
-									<option value="name1">name1</option> -->
+								
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
 									<?php }
@@ -620,7 +619,7 @@
 				<form method="post" id="update-reminders" action="<?php echo base_url() . 'admin/Agentmaster/update_reminders'; ?>">
 					<input type="hidden" name="agent_id" value="<?= $agent->id ?>">
 					<input type="hidden" name="reminder_id" id="reminder_id">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
@@ -628,11 +627,11 @@
 							</div>
 						</div>
 
-					</div> <!-- end row -->
+					</div>  -->
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Type </label>
+								<label class="form-label">Rreminder Type </label>
 								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
 									<?php foreach ($remtype as $rt) { ?>
@@ -1065,19 +1064,19 @@
 
 														<div class="row">
 															<div class="col-md-4">
-																<label class="form-label">Inquiry Source<span class="text-danger">*</span></label>
+																<label class="form-label">Inquiry Source</label>
 																<select data-toggle="select2" class="form-control select2" name="source_id" data-width="100%">
 																	<option value=''>Select Source</option>
 																	<?php foreach ($source as $sou) { ?>
 																		<option value="<?= $sou['id'] ?>" <?= ($sou['id'] == $agent->source_id) ? 'selected' : '' ?>><?= $sou['name'] ?></option>
 																	<?php } ?>
 																</select>
-																<span style="color: red;"><?= form_error('source_id') ?></span>
+																<!-- <span style="color: red;"><?= form_error('source_id') ?></span> -->
 
 															</div>
 															<div class="col-md-4">
 																<div class="mb-3">
-																	<label class="form-label">Assigned<span class="text-danger">*</span></label>
+																	<label class="form-label">Assigned</label>
                                                                     <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
                                                                         <?php foreach ($staff as $sta) { ?>
                                                                             <option value="<?= $sta['id'] ?>" <?php for($i=0;$i<count($assigned_id);$i++) { if($sta['id'] == $assigned_id[$i]) { ?>selected<?php } } ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
@@ -1094,7 +1093,7 @@
 																	?>
 								
 																</select> -->
-																	<span style="color: red;"><?= form_error('assigned_id[]') ?></span>
+																	<!-- <span style="color: red;"><?= form_error('assigned_id[]') ?></span> -->
 
 																</div>
 															</div>
@@ -1151,10 +1150,10 @@
 															</div>
 															<div class="col-md-6">
 																<div class="mb-3">
-																	<label for="billing-email-address" class="form-label">Email Address <span class="text-danger">*</span></label>
+																	<label for="billing-email-address" class="form-label">Email Address</label>
 																	<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" value="<?= $agent->email ?>" />
 																</div>
-																<span style="color: red;"><?= form_error('email') ?></span>
+																<!-- <span style="color: red;"><?= form_error('email') ?></span> -->
 
 															</div>
 														</div> <!-- end row -->
@@ -1173,7 +1172,7 @@
 														<div class="row">
 															<div class="col-12">
 																<div class="mb-3">
-																	<label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+																	<label for="description" class="form-label">Description</label>
 																	<textarea class="form-control" name="description" id="description"><?= $agent->description ?></textarea>
 																</div>
 																<span style="color: red;"><?= form_error('description') ?></span>
@@ -1638,9 +1637,9 @@
 					last_name: "required",
 					position_id: "required",
 					// company_name: "required",
-					email: "required",
+					//email: "required",
 					phone: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -1687,9 +1686,9 @@
 					last_name: "required",
 					position_id: "required",
 					// company_name: "required",
-					email: "required",
+					//email: "required",
 					phone: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -2177,8 +2176,8 @@
 				}
 			});
 
-	//all reminder
-	var reminders_table = $('#agent_reminders_datatable').DataTable({
+		//all reminder
+			var reminders_table = $('#agent_reminders_datatable').DataTable({
 				responsive: true,
 				ajax: "<?php echo base_url('admin/Agentmaster/all_reminders/' . $agent->id); ?>",
 				columnDefs: [{
@@ -2369,7 +2368,7 @@
 					date_time: "required",
 					priority: "required",
 					repeat_every: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {

@@ -30,6 +30,7 @@ class ReminderType_model extends CI_model{
 		$data = $this->db->where('id',$id)->get($this->db_name)->row();
 		return $data;
 	}
+	
 	function updaterecords($id,$formArray)
 	{
 		$this->db->where('id',$id);

@@ -14,7 +14,8 @@ class Agentmaster extends CI_Controller
 
 	public function index()
 	{
-		$data['remtype'] = $this->agentmaster->getReminderType();
+		//$data['remtype'] = $this->agentmaster->getReminderType();
+		$data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
 		$data['page_name'] = 'agent_master_view';
 		$this->load->view('admin/index', $data);
 	}
@@ -107,7 +108,11 @@ class Agentmaster extends CI_Controller
 
 			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id'])  . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
+
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			// <a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+
 
 			$result['data'][] = array(
 				$value['id'],
@@ -147,9 +152,9 @@ class Agentmaster extends CI_Controller
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');	
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
-		$this->form_validation->set_rules('company_name', 'Company name', 'required');
-		$this->form_validation->set_rules('description', 'Description', 'required');
+		//$this->form_validation->set_rules('email', 'Email', 'required');
+		//$this->form_validation->set_rules('company_name', 'Company name', 'required');
+		//$this->form_validation->set_rules('description', 'Description', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->add();
@@ -191,6 +196,8 @@ class Agentmaster extends CI_Controller
 	public function agentDetails($id)
 	{
 		$data['agent'] = $this->agentmaster->getAgent($id);
+		//$data['remtype'] = $this->agentmaster->getReminderType();
+		$data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
 		// $data['contacts'] = $this->customermaster->getCustomerContact($id);
 		// $data['sourcemaster'] = $this->customermaster->getSourceMaster();
 		$data['source'] = $this->agentmaster->getSourceByID($data['agent']->source_id);
@@ -236,7 +243,7 @@ class Agentmaster extends CI_Controller
 	{
 		$data['agent'] = $this->agentmaster->getAgent($id);
 		// $data['contacts'] = $this->agentmaster->getAgentContact($id);
-		$data['remtype'] = $this->agentmaster->getReminderType();
+		$data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
 		$data['sourcemaster'] = $this->agentmaster->getSourceMaster();
 		
 		$data['source'] = $this->agentmaster->getSource();
@@ -278,9 +285,9 @@ class Agentmaster extends CI_Controller
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		//$this->form_validation->set_rules('email', 'Email', 'required');
 //		$this->form_validation->set_rules('company_name', 'Company name', 'required');
-		$this->form_validation->set_rules('description', 'Description', 'required');
+		//$this->form_validation->set_rules('description', 'Description', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -595,13 +602,13 @@ class Agentmaster extends CI_Controller
 		$result = array('data' => []);
 		$i = 1;
 		foreach ($reminders as $value) {
-
+			$type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
 			$button = '<a href="' . base_url('admin/agentmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#agent-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				$value['name'],
-				$value['type'],
+				$type_data->name,
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],
 				$value['repeat_every'].' '.ucwords($value['recurring_type']),				

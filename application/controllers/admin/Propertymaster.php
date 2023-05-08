@@ -46,7 +46,9 @@ class Propertymaster extends CI_Controller
 
 			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
+		 
 
 			$result['data'][] = array(
 				$i++,
@@ -324,7 +326,25 @@ class Propertymaster extends CI_Controller
 		 }
 	}
 
+	// public function addreminde()
+	// {
+	// 	//$data['customers'] = $this->promast->getCustomer();
+	// 	// $data['agents'] = $this->promast->getAgents();
+	// 	// $data['master'] = $this->promast->getPromaster();
+	// 	// $data['category'] = $this->promast->getCategory();
+	// 	// $data['subcategory'] = $this->promast->getSubcategory();
 
+	// 	//for fetch category
+	// 	// $query = $this->db->get_where('tb_property_category', array('status' => '1'));
+	// 	// $data['categorychk'] = $query->result();
+
+	// 	//for fetch Sub category
+	// 	// $query = $this->db->get_where('tb_property_subcategory', array('status' => '1'));
+	// 	// $data['subcategorychk'] = $query->result();
+
+	// 	$data['page_name'] = 'property_master_add';
+	// 	$this->load->view('admin/index', $data);
+	// }
 	public function delete($id)
 	{
 		$response = $this->promast->delete($id);
@@ -349,6 +369,85 @@ class Propertymaster extends CI_Controller
 		} else {
 			echo json_encode(array('success'=>false,'message'=>'Something went wrong. Please try again'));
 		}
+	}
+
+
+	//reminder
+	public function all_reminders($id)
+	{
+		$reminders = $this->promast->getReminders($id);
+		$result = array('data' => []);
+		$i = 1;
+		foreach ($reminders as $value) {
+			$type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
+			$button = '<a href="' . base_url('admin/propertymaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-property-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/propertymaster/delete_reminders/' . $value['id'] . '/' . $id) . '#property-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$result['data'][] = array(
+				$i++,
+				$value['name'],
+				$type_data->name,
+				date('d M Y h:i:s a', strtotime($value['date_time'])),
+				$value['priority'],
+				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
+				(($value['cycles']==0)?'infinite':$value['cycles']),
+				$value['description'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$value['status'],
+				$button
+			);
+		}
+		echo json_encode($result);
+	}
+	//reminders master
+	public function addreminder($id)
+	{
+		//$data['remtype'] = $this->promast->getReminderType();
+		$data['remtype'] = $this->promast->getReminderType('Property');
+		$data['property'] = $this->promast->getPropertymaster($id); 
+		$data['page_name'] = 'property_master_addreminder';
+		$this->load->view('admin/index', $data);
+	}
+	public function store_reminders()
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'Property';
+		$data['model_id'] = $this->input->post('property_id');
+		$response = $this->promast->save_reminders_records($data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Property Reminder Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+	public function edit_reminders($id)
+	{
+		$data = $this->promast->getReminder($id);
+		echo json_encode($data);
+	}
+	public function update_reminders($id)
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'Property';
+		$data['model_id'] = $this->input->post('property_id');
+		$response = $this->promast->update_reminders_records($id, $data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Property Reminder Updated Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+
+
+	public function delete_reminders($id, $property_id)
+	{
+		$response = $this->promast->delete_reminders_records($id);
+
+		if ($response == true) {
+			$this->session->set_flashdata('success', 'Property Reminder Deleted Successfully.');
+		} else {
+			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+		}
+		return redirect('admin/Propertymaster/addreminder/' . $property_id . '#property-reminders');
 	}
 
 }

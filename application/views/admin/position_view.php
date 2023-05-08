@@ -44,7 +44,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 				</div>
 				<div class="modal-body p-4">
-					<form method="post" class="update_position" action="#">
+					<form method="post" id="update_position" action="#">
 						<input type="hidden" name="id" id="edit_posi_id" />
 						<div class="mb-3">
 							<label for="name" class="form-label">Name</label>

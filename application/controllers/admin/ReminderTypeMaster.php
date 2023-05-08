@@ -15,7 +15,8 @@ class ReminderTypeMaster extends CI_Controller {
 	{		
 		$data['page_name'] = 'remindertype_view';
 		$data['remitypes'] = $this->retype->all();
-		
+		//$data['remtype'] = $this->retype->getReminderType();
+
 		$this->load->view('admin/index',$data);
 
 	}
@@ -26,11 +27,14 @@ class ReminderTypeMaster extends CI_Controller {
 		$result = array();
 		$i=1;
 		foreach ($remitypes as $value) { 
+			//$model_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['model_type']))->row();
+
 			$button = '<a href="'.base_url('admin/remindertypemaster/edit/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#remindertypeedit-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
 			<a href="'.base_url('admin/remindertypemaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				$value['name'],
+				$value['model_type'],
 				date('d M Y h:i:s a',strtotime($value['created_date'])),
 				$value['status'],
 				$button
@@ -48,6 +52,7 @@ class ReminderTypeMaster extends CI_Controller {
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['model_type'] = $this->input->post('model_type');
 			$formArray['status'] = $this->input->post('status');
 		
 			$response = $this->retype->saverecords($formArray);
@@ -71,8 +76,9 @@ class ReminderTypeMaster extends CI_Controller {
 	{	
 		$data=$this->input->post();
 		$data = $this->security->xss_clean($data);
-
+		// echo $this->db->last_query();
 		$response = $this->retype->updaterecords($id,$data);
+	
 		if ($response == true) {
 			echo json_encode(array('success'=>true,'message'=>'Reminder Type Updated Successfully.'));
 		} else {

@@ -97,10 +97,10 @@
 									</div>
 									<div class="col-md-6">
 										<div class="mb-3">
-											<label for="billing-email-address" class="form-label">Email Address <span class="text-danger">*</span></label>
+											<label for="billing-email-address" class="form-label">Email Address </label>
 											<input class="form-control" type="email" name="email" placeholder="Enter your email" id="billing-email-address" />
 										</div>
-										<span style="color: red;"><?= form_error('email') ?></span>
+										<!-- <span style="color: red;"><?= form_error('email') ?></span> -->
 									</div>
 								</div> <!-- end row -->
 								<div class="row">
@@ -115,10 +115,10 @@
 								<div class="row">
 									<div class="col-12">
 										<div class="mb-3">
-											<label for="description" class="form-label">Description<span class="text-danger">*</span></label>
+											<label for="description" class="form-label">Description</label>
 											<textarea class="form-control" name="description" id="description"></textarea>
 										</div>
-										<span style="color: red;"><?= form_error('description') ?></span>
+										<!-- <span style="color: red;"><?= form_error('description') ?></span> -->
 									</div>
 								</div> <!-- end row -->
 								<!-- <div class="row">
