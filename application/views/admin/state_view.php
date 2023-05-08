@@ -66,7 +66,14 @@
 							<input type="text" class="form-control" name="name" id="name" placeholder="Enter state name">
 							<?= form_error('name')  ?>
 						</div>
-						
+						<div class="mb-3">
+							<label for="is_default" class="form-label">Is Default</label>
+							<select class="form-select" name="is_default" id="is_default">
+								<option selected="">Select Is default</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
 						
 						<div class="mb-3">
 							<label for="posi_status" class="form-label">Status</label>
@@ -112,6 +119,14 @@
 							<label for="name" class="form-label">State Name</label>
 							<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter State name">
 							<?= form_error('name')  ?>
+						</div>
+						<div class="mb-3">
+							<label for="is_default" class="form-label">Is Default</label>
+							<select class="form-select" name="is_default" id="is_default">
+								<option selected="">Select Is default</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
 						</div>
 						<div class="mb-3">
 							<label for="state_status" class="form-label">Status</label>
@@ -198,6 +213,7 @@
 												<th>#</th>
 												<!-- <th>Country Name</th> -->
 												<th>State Name</th>
+												<th>Is Default</th>
 												<th>Create Date</th>
 												<th>Status</th>
 												
@@ -224,16 +240,26 @@
 			responsive: true,
 			ajax: "<?php echo base_url('admin/State/all'); ?>",
 			"columnDefs": [{
-				"targets": 3,
+				"targets": 2,
 				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[3] == '1') {
+					if (rowData[2] == '1') {
+						$(td).html('<span class="badge bg-soft-success text-success">Yes</span>');
+					} else if (rowData[2] == '0') {
+						$(td).html('<span class="badge bg-soft-danger text-danger">No</span>');
+					}
+				}
+			}, 
+			{
+				"targets": 4,
+				"createdCell": function(td, cellData, rowData, row, col) {
+					if (rowData[4] == '1') {
 						// $(td).css('background-color', 'green')
 						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[3] == '0') {
+					} else if (rowData[4] == '0') {
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
-			}, ]
+			},]
 		});
 
 		$(document).on('click', ".edit-btn", function() {
@@ -246,6 +272,7 @@
 					$("#stateedit-modal #edit_sta_id").val(data.id);
 					$('#stateedit-modal #name').val(data.name);
 					$('#stateedit-modal #state').val(data.country_id);
+					$('#stateedit-modal #is_default').val(data.is_default);
 					$("#stateedit-modal #state_status").val(data.status);
 				}
 			});
@@ -269,6 +296,7 @@
 		$('#store-sta').validate({
 			rules: {
 				name: "required",
+				is_default: "required",
 				status: "required"
 			},
 			message: {

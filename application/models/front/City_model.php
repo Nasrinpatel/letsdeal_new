@@ -35,10 +35,19 @@ class City_model extends CI_model{
 		return $data;
 	}
 	
+	// function updaterecords($id,$formArray)
+	// {
+	// 	$this->db->where('id',$id);
+	// 	$this->db->update($this->db_name,$formArray);
+	// 	return true;
+	// }
 	function updaterecords($id,$formArray)
 	{
 		$this->db->where('id',$id);
 		$this->db->update($this->db_name,$formArray);
+		if($formArray['is_default']==1){
+			$this->db->update($this->db_name,['is_default'=>0],['is_default'=>1,'id !=' => $id]);
+		 }
 		return true;
 	}
 	

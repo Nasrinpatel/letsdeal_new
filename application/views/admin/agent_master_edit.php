@@ -322,7 +322,7 @@
 							<select class="form-select" name="state_id" id="state_id">
 								<option value="">Select State</option>
 								<?php foreach ($states as $sta) { ?>
-									<option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
+									<option value="<?= $sta['id'] ?>" <?= ($sta['is_default'] == 1)?'selected':'' ?>><?= $sta['name'] ?></option>
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('state_id') ?></span>
@@ -1958,33 +1958,40 @@
 			});
 
 			//all specialist Area
-			//on state change fetch city
-			$(document).on('change','#agent-specialistarea-modal #state_id',function() {
-				var state_id = $(this).val();
-				if (state_id != '') {
-					$.ajax({
-						url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
-						type: 'post',
-						data: {
-							state_id: state_id
-						},
-						dataType: 'json',
-						success: function(response) {
-							var len = response.length;
-							$("#store-specialistarea #city_id").empty();
-							$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
-							for (var i = 0; i < len; i++) {
-								var id = response[i]['id'];
-								var name = response[i]['name'];
-								$("#store-specialistarea #city_id").append("<option value='" + id + "'>" + name + "</option>");
+			//on state change fetch city	
+			$(document).ready(function() {	
+				$(document).on('change','#agent-specialistarea-modal #state_id',function() {
+					var state_id = $(this).val();
+					if (state_id != '') {
+						$.ajax({
+							url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
+							type: 'post',
+							data: {
+								state_id: state_id
+							},
+							dataType: 'json',
+							success: function(response) {
+								var len = response.length;
+								$("#store-specialistarea #city_id").empty();
+								$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+								for (var i = 0; i < len; i++) {
+									var id = response[i]['id'];
+									var name = response[i]['name'];
+									var is_default = response[i]['is_default'];
+									$("#store-specialistarea #city_id").append("<option value='" + id + "' "+((is_default == 1)?'selected':'')+">" + name + "</option>");
+									
+								}
 							}
-						}
-					});
-				} else {
-					$("#store-specialistarea #city_id").empty();
-				}
-			});
-			$(document).ready(function() {
+						});
+					} else {
+						$("#store-specialistarea #city_id").empty();
+					}
+				});
+				$('#agent-specialistarea-modal').on('shown.bs.modal', function (e) {
+					$('#agent-specialistarea-modal #state_id').trigger('change');
+				});					
+			});	
+			$(document).ready(function() {				
 				$('#edit-agent-specialistarea-modal #state_id').change(function() {
 					debugger;
 					var state_id = $(this).val();

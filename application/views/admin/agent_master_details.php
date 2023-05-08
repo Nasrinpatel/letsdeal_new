@@ -629,7 +629,7 @@
 							<select class="form-select" name="state_id" id="state_id">
 								<option value="">Select State</option>
 								<?php foreach ($states as $sta) { ?>
-									<option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
+									<option value="<?= $sta['id'] ?>"<?= ($sta['is_default'] == 1)?'selected':'' ?>><?= $sta['name'] ?></option>
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('state_id') ?></span>

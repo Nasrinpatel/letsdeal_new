@@ -29,8 +29,8 @@ class ReminderTypeMaster extends CI_Controller {
 		foreach ($remitypes as $value) { 
 			//$model_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['model_type']))->row();
 
-			$button = '<a href="'.base_url('admin/remindertypemaster/edit/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#remindertypeedit-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
-			<a href="'.base_url('admin/remindertypemaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$button = '<a href="'.base_url('admin/ReminderTypeMaster/edit/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#remindertypeedit-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="'.base_url('admin/ReminderTypeMaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				$value['name'],
@@ -62,7 +62,7 @@ class ReminderTypeMaster extends CI_Controller {
 			} else {
 				$this->session->set_flashdata('error', 'Something went wrong. Please try again');
 			}
-			return redirect('admin/remindertypemaster/');
+			return redirect('admin/ReminderTypeMaster/');
 		}
 	}
 
@@ -96,7 +96,7 @@ class ReminderTypeMaster extends CI_Controller {
 		}else{
 			$this->sesssion->set_flashdata('error','Something went wrong. Please try again');
 		}
-		return redirect('admin/remindertypemaster/');
+		return redirect('admin/ReminderTypeMaster/');
 		
 
 	}

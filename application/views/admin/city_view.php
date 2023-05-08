@@ -61,6 +61,14 @@
 							<?= form_error('name')  ?>
 						</div>
 						<div class="mb-3">
+							<label for="is_default" class="form-label">Is Default</label>
+							<select class="form-select" name="is_default" id="is_default">
+								<option selected="">Select Is default</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+						<div class="mb-3">
 							<label for="city_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="city_status">
 								<option selected="">Select Status</option>
@@ -106,6 +114,14 @@
 							<?= form_error('name')  ?>
 						</div>
 						<div class="mb-3">
+							<label for="is_default" class="form-label">Is Default</label>
+							<select class="form-select" name="is_default" id="is_default">
+								<option selected="">Select Is default</option>
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+						<div class="mb-3">
 							<label for="city_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="city_status">
 								<option selected="">Select Status</option>
@@ -113,6 +129,7 @@
 								<option value="0">Inactive</option>
 							</select>
 						</div>
+						
 						<div class="text-end">
 							<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
 						</div>
@@ -189,6 +206,7 @@
 
 												<th>#</th>
 												<th>City Name</th>
+												<th>Is Default</th>
 												<th>Create Date</th>
 												<th>Status</th>
 												
@@ -211,22 +229,46 @@
 		</div> <!-- content -->
 	</div>
 	<script>
+		// var table = $('#city_datatable').DataTable({
+		// 	responsive: true,
+		// 	ajax: "<?php echo base_url('admin/City/all'); ?>",
+		// 	"columnDefs": [{
+		// 		"targets": 4,
+		// 		"createdCell": function(td, cellData, rowData, row, col) {
+		// 			if (rowData[4] == '1') {
+		// 				// $(td).css('background-color', 'green')
+		// 				$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+		// 			} else if (rowData[4] == '0') {
+		// 				$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+		// 			}
+		// 		}
+		// 	}, ]
+		// });
 		var table = $('#city_datatable').DataTable({
 			responsive: true,
 			ajax: "<?php echo base_url('admin/City/all'); ?>",
 			"columnDefs": [{
-				"targets": 3,
+				"targets": 2,
 				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[3] == '1') {
+					if (rowData[2] == '1') {
+						$(td).html('<span class="badge bg-soft-success text-success">Yes</span>');
+					} else if (rowData[2] == '0') {
+						$(td).html('<span class="badge bg-soft-danger text-danger">No</span>');
+					}
+				}
+			}, 
+			{
+				"targets": 4,
+				"createdCell": function(td, cellData, rowData, row, col) {
+					if (rowData[4] == '1') {
 						// $(td).css('background-color', 'green')
 						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[3] == '0') {
+					} else if (rowData[4] == '0') {
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
-			}, ]
+			},]
 		});
-
 		$(document).on('click', ".edit-btn", function() {
 			var id = $(this).attr('data-id');
 			$.ajax({
@@ -237,6 +279,7 @@
 					$("#cityedit-modal #edit_city_id").val(data.id);
 					$('#cityedit-modal #state').val(data.state_id);
 					$('#cityedit-modal #name').val(data.name);
+					$('#cityedit-modal #is_default').val(data.is_default);
 					$("#cityedit-modal #city_status").val(data.status);
 				}
 			});
@@ -260,6 +303,7 @@
 		$('#store-ci').validate({
 			rules: {
 				name: "required",
+				is_default: "required",
 				status: "required"
 			},
 			message: {

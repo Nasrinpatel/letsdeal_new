@@ -31,6 +31,7 @@ class City extends CI_Controller {
 			$result['data'][] = array(
 				$i++,
 				$value['name'],
+				$value['is_default'],
 				date('d M Y h:i:s a',strtotime($value['created_date'])),
 				$value['status'],
 				$button
@@ -49,6 +50,8 @@ class City extends CI_Controller {
 			$formArray = array();
 			$formArray['state_id'] = $this->input->post('state_id');
 			$formArray['name'] = $this->input->post('name');
+			$formArray['is_default'] = $this->input->post('is_default');
+			
 			$formArray['status'] = $this->input->post('status');
 		
 			$response = $this->ci->saverecords($formArray);
@@ -121,12 +124,13 @@ class City extends CI_Controller {
 			$validate_data=[];
 			for ($i=1; $i < $sheetcount; $i++) { 
 				$name=$sheetdata[$i][0];
-			
+				
 				
 				$data[]=$validate_data=array(
 				
 					'state_id'	=>$state_id,
 					'name'		=>$name,
+					'is_default' =>0,
 					'status'		=>1
 					
 				);
