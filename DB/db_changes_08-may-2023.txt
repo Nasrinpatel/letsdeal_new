@@ -1,0 +1,10 @@
+
+
+ALTER TABLE `tbl_reminder_master` CHANGE `name` `name` VARCHAR(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL;
+
+
+ALTER TABLE `tb_remindertype_master` ADD `model_type` ENUM('Property','Customer','Channel Partner','Lead') NOT NULL AFTER `name`;
+
+
+
+
