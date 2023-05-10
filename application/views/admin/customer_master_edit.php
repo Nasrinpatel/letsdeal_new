@@ -203,9 +203,9 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Rreminder Type </label>
+								<label class="form-label">Reminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
-									<option value="">Select Rreminder Type</option>
+									<option value="">Select Reminder Type</option>
 								
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
@@ -357,7 +357,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Rreminder Type </label>
+								<label class="form-label">Reminder Type </label>
 								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
 									<?php foreach ($remtype as $rt) { ?>
@@ -1156,7 +1156,6 @@
 																			<thead>
 																				<tr>																					
 																					<th>#</th>
-																					<th>Name</th>
 																					<th>Type</th>
 																					<th>Date</th>
 																					<th>Priority</th>																					
@@ -1451,7 +1450,7 @@
 						targets: 9
 					},
 					{
-						"targets": 10,
+						"targets": 9,
 						"createdCell": function(td, cellData, rowData, row, col) {
 							if (rowData[10] == '1') {
 								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');

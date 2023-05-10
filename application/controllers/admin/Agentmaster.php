@@ -607,7 +607,6 @@ class Agentmaster extends CI_Controller
 			<a href="' . base_url('admin/agentmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#agent-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
-				$value['name'],
 				$type_data->name,
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],

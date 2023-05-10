@@ -478,7 +478,6 @@
                                                                             <thead>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>Name</th>
                                                                                 <th>Type</th>
                                                                                 <th>Date</th>
                                                                                 <th>Priority</th>
@@ -774,14 +773,14 @@
 
                             <input type="hidden" name="lead_id" value="<?= $lead_id ?>">
 
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="billing-reminder-name" class="form-label">Reminder Name</label>
                                         <input class="form-control" type="text" placeholder="Enter name" name="name" id="billing-reminder-name" />
                                     </div>
                                 </div>
-                            </div> <!-- end row -->
+                            </div>--> <!-- end row -->
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -923,15 +922,14 @@
                         <form method="post" id="update-reminders" action="<?php echo base_url() . 'admin/Leadmaster/update_reminders'; ?>">
                             <input type="hidden" name="lead_id" value="<?= $lead_id ?>">
                             <input type="hidden" name="reminder_id" id="reminder_id">
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="billing-reminder-name" class="form-label">Reminder Name</label>
                                         <input class="form-control" type="text" placeholder="Enter name" name="name" id="name" />
                                     </div>
                                 </div>
-
-                            </div> <!-- end row -->
+                            </div>--> <!-- end row -->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -1541,7 +1539,7 @@
                         targets: 9
                     },
                     {
-                        "targets": 10,
+                        "targets": 9,
                         "createdCell": function(td, cellData, rowData, row, col) {
                             if (rowData[10] == '1') {
                                 $(td).html('<span class="badge bg-soft-success text-success">Active</span>');

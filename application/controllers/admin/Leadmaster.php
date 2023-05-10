@@ -102,7 +102,8 @@ class Leadmaster extends CI_Controller
         $data['lead_id'] = $id;
         $data['category'] = $this->leadmaster->getCategory();
         $data['states'] = $this->leadmaster->getState();
-        $data['remtype'] = $this->leadmaster->getReminderType();
+        $data['remtype'] = $this->leadmaster->getReminderType('Lead');
+//        echo "<pre>"; print_r( $data['remtype']); exit;
 
         $data['all_customers'] = $this->leadmaster->getCustomer();
         $data['all_leadstage'] = $this->leadmaster->getLeadStage();
@@ -350,12 +351,12 @@ class Leadmaster extends CI_Controller
         $i = 1;
         foreach ($reminders as $value) {
 
+            $type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
             $button = '<a href="' . base_url('admin/Leadmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,
-                $value['name'],
-                $value['type'],
+                $type_data->name,
                 date('d M Y h:i:s a', strtotime($value['date_time'])),
                 $value['priority'],
                 $value['repeat_every'].' '.ucwords($value['recurring_type']),
