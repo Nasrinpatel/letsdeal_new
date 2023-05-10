@@ -8,6 +8,7 @@ class Propertymaster extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('front/Propertymaster_model', 'promast');
+		$this->load->model('front/Modal_model', 'modal');
 		$this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
 	}
 

@@ -11,12 +11,14 @@ class Leadmaster_model extends CI_model{
 
     function saverecords($formArray)
     {
-        $d=[];
-        $d['customer_id'] = $formArray['customer_id'];
-        $d['lead_stage_id'] = $formArray['lead_stage_id'];
-        $d['status'] = $formArray['status'];
-        $this->db->insert($this->db_name,$d);
-        $lead_id = $this->db->insert_id();
+        $response['status'] = $this->db->insert($this->db_name,$formArray);
+        $response['id'] = $this->db->insert_id();
+        return $response;
+    }
+
+    function savequestion_records($formArray)
+    {
+        $lead_id = $formArray['lead_id'];
         $i=0;
         if(!empty($formArray['question_id'])) {
             foreach ($formArray['question_id'] as $q_id) {
@@ -447,4 +449,93 @@ class Leadmaster_model extends CI_model{
         return $data;
     }
 
+    function getReminderType(){
+        $data = $this->db->get('tb_remindertype_master')->result_array();
+        return $data;
+    }
+    //reminder
+    function save_reminders_records($data)
+    {
+        $data['startdate']    = date('Y-m-d',strtotime($data['startdate']));
+
+        if (isset($data['repeat_every']) && $data['repeat_every'] != '') {
+            $data['recurring'] = 1;
+            if ($data['repeat_every'] == 'custom') {
+                $data['repeat_every']     = $data['repeat_every_custom'];
+                $data['recurring_type']   = $data['repeat_type_custom'];
+                $data['custom_recurring'] = 1;
+            } else {
+                $_temp                    = explode('-', $data['repeat_every']);
+                $data['recurring_type']   = $_temp[1];
+                $data['repeat_every']     = $_temp[0];
+                $data['custom_recurring'] = 0;
+            }
+        } else {
+            $data['recurring'] = 0;
+        }
+
+        if (isset($data['repeat_type_custom']) && isset($data['repeat_every_custom'])) {
+            unset($data['repeat_type_custom']);
+            unset($data['repeat_every_custom']);
+        }
+        unset($data['lead_id']);
+
+        $this->db->insert('tbl_reminder_master', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            return $insert_id;
+        }
+        return false;
+
+    }
+    function getReminders($id){
+        $data = $this->db->get_where('tbl_reminder_master',['model_type'=>'Lead','model_id'=>$id])->result_array();
+        return $data;
+    }
+    function getReminder($id){
+        $data = $this->db->get_where('tbl_reminder_master',['id'=>$id])->row();
+        return $data;
+    }
+
+    function update_reminders_records($id,$data)
+    {
+        $data['startdate']    = date('Y-m-d',strtotime($data['startdate']));
+
+        if (isset($data['repeat_every']) && $data['repeat_every'] != '') {
+            $data['recurring'] = 1;
+            if ($data['repeat_every'] == 'custom') {
+                $data['repeat_every']     = $data['repeat_every_custom'];
+                $data['recurring_type']   = $data['repeat_type_custom'];
+                $data['custom_recurring'] = 1;
+            } else {
+                $_temp                    = explode('-', $data['repeat_every']);
+                $data['recurring_type']   = $_temp[1];
+                $data['repeat_every']     = $_temp[0];
+                $data['custom_recurring'] = 0;
+            }
+        } else {
+            $data['recurring'] = 0;
+        }
+
+        if (isset($data['repeat_type_custom']) && isset($data['repeat_every_custom'])) {
+            unset($data['repeat_type_custom']);
+            unset($data['repeat_every_custom']);
+        }
+        unset($data['reminder_id']);
+        unset($data['lead_id']);
+        // $data = hooks()->apply_filters('before_add_task', $data);
+        $this->db->where('id',$id);
+        $r=$this->db->update('tbl_reminder_master',$data);
+        if ($r) {
+            return $r;
+        }
+        return false;
+    }
+
+    function delete_reminders_records($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('tbl_reminder_master');
+        return true;
+    }
 }

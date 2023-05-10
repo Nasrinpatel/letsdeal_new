@@ -303,12 +303,7 @@
 								<?= form_error('cycles') ?>
 							</div>
 						</div>
-
 					</div> <!-- end row -->
-
-
-
-
 
 					<div class="row">
 						<div class="col-12">

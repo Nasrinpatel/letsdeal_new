@@ -18,6 +18,14 @@
 			
 			</div>
 			<!-- END wrapper -->
+            <?php
+
+            $data['source'] = $this->modal->getSourceData();
+            $data['position'] = $this->modal->getPosition();
+            $data['staff'] = $this->modal->getStaff();
+            $data['agent'] = $this->modal->getAgent();
+
+            $this->load->view('admin/includes/modal',$data); ?>
 
 			<?php $this->load->view('admin/includes/sidebar') ?>
 

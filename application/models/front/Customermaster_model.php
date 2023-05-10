@@ -170,7 +170,6 @@ class Customermaster_model extends CI_model{
 		$data = $this->db->get('tb_position_master')->result_array();
 		return $data;
 	}
-	
 	function getSource(){
 		$data = $this->db->get('tb_source_master')->result_array();
 		return $data;

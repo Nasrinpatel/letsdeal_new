@@ -1,5 +1,3 @@
-<!-- Vendor js -->
-<script src="<?= base_url('assets/') ?>js/vendor.min.js"></script>
 
 <!-- Plugins js-->
 <script src="<?= base_url('assets/') ?>libs/flatpickr/flatpickr.min.js"></script>
@@ -24,6 +22,8 @@
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/fileinput.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/selectize.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/switchery.min.js"></script>
+
+</script>
 <script>
 	$('.select2').select2();
 	$('.select2').select2({

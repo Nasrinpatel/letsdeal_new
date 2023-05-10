@@ -39,7 +39,6 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label">Assigned</label>
-
                                             <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
                                                 <?php foreach ($staff as $sta) { ?>
                                                     <option value="<?= $sta['id'] ?>"><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>

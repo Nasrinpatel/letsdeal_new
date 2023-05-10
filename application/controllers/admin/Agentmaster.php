@@ -660,4 +660,29 @@ class Agentmaster extends CI_Controller
 		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-reminders');
 	}
 
+    public function store_ajax()
+    {
+            $formArray = array();
+            $formArray['source_id'] = $this->input->post('source_id');
+            if(!empty($_POST['assigned_id'])){
+                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+            }
+            $formArray['position_id'] = $this->input->post('position_id');
+            $formArray['first_name'] = $this->input->post('first_name');
+            $formArray['last_name'] = $this->input->post('last_name');
+            $formArray['nick_name'] = $this->input->post('nick_name');
+            $formArray['phone'] = $this->input->post('phone');
+            $formArray['email'] = $this->input->post('email');
+            $formArray['company_name'] = $this->input->post('company_name');
+            $formArray['description'] = $this->input->post('description');
+            $formArray['status'] = $this->input->post('status');
+
+            $response = $this->agentmaster->saverecords($formArray);
+
+            if ($response == true) {
+                echo json_encode(array('success' => true, 'message' => 'Channel Partner Added Successfully.'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+            }
+    }
 }
