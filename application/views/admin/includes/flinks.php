@@ -1,5 +1,3 @@
-<!-- Vendor js -->
-<script src="<?= base_url('assets/') ?>js/vendor.min.js"></script>
 
 <!-- Plugins js-->
 <script src="<?= base_url('assets/') ?>libs/flatpickr/flatpickr.min.js"></script>

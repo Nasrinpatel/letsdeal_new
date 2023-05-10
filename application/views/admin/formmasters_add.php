@@ -163,7 +163,6 @@
 														<label class="form-label" style='width:100%'>&nbsp;</label>
 														<a class="btn btn-success waves-effect waves-light add-button">Add </a>
 													</div>
-													
 												</div>
 											</div>
 											<div class="row">
@@ -186,7 +185,7 @@
 													</div>
 												</div>
 											</div>
-										</from>
+										</form>
 									</div> <!-- end card-body -->
 								</div> <!-- end card-->
 							</div> <!-- end col -->

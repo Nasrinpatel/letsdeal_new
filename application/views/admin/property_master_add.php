@@ -50,29 +50,44 @@
 
 										</div>
 									</div>
-									<div id='customer_div' style='display:none'>
-										<div class="col-md-5">
+									<div class="row" id='customer_div' style='display:none'>
+										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Customers<span class="text-danger">*</span></label>
-												<select data-toggle="select2" class="form-control select2" name="customer_id" data-width="100%">
-													<?php foreach ($customers as $cust) { ?>
+                                                <select data-toggle="select2" class="form-control select2" name="customer_id" data-width="100%">
+                                                    <option value="">Select Customer</option>
+                                                    <?php foreach ($customers as $cust) { ?>
 														<option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?>   <?= $cust['phone'] ?></option>
 													<?php } ?>
 												</select>
 											</div>
 										</div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label class="form-label" style='width:100%'>&nbsp;</label>
+<!--                                                <a class="btn btn-success waves-effect waves-light add-button">Add </a>-->
+                                                <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-customer-modal">Add</button>
+                                            </div>
+                                        </div>
 									</div>
-									<div id='agent_div' style='display:none'>
-										<div class="col-md-5">
+									<div class="row" id='agent_div' style='display:none'>
+										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
 												<select data-toggle="select2" class="form-control select2" name="agent_id" data-width="100%">
-													<?php foreach ($agents as $ag) { ?>
+                                                    <option value="">Select Channel Partner</option>
+                                                    <?php foreach ($agents as $ag) { ?>
 														<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?>  <?= $ag['phone'] ?></option>
 													<?php } ?>
 												</select>
 											</div>
 										</div>
+                                        <div class="col-lg-3">
+                                            <div class="mb-3">
+                                                <label class="form-label" style='width:100%'>&nbsp;</label>
+                                                <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
+                                            </div>
+                                        </div>
 									</div>
 								<?php } ?>
 								<div class="row">

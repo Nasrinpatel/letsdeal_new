@@ -8,6 +8,7 @@ class Leadmaster extends CI_Controller
     {
         parent::__construct();
         $this->load->model('front/Leadmaster_model', 'leadmaster');
+        $this->load->model('front/Modal_model', 'modal');
         $this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
     }
 
@@ -22,6 +23,8 @@ class Leadmaster extends CI_Controller
         $data['customers'] = $this->leadmaster->getCustomer();
         $data['leadstage'] = $this->leadmaster->getLeadStage();
         $data['question'] = $this->leadmaster->getQuestion();
+        $data['category'] = $this->leadmaster->getCategory();
+        $data['states'] = $this->leadmaster->getState();
         foreach ($data['question'] as $key => $value){
             $data['question'][$key] = $this->db->where_in('id',$value['question_ids'])->get('tb_question_master')->row_array();
         }
@@ -65,12 +68,27 @@ class Leadmaster extends CI_Controller
             $formArray = $_POST;
             $response = $this->leadmaster->saverecords($formArray);
             if ($response == true) {
-                $this->session->set_flashdata('success', 'Lead Added Successfully.');
+//                $this->session->set_flashdata('success', 'Lead Added Successfully.');
+                echo json_encode(array('success' => true, 'message' => 'Lead Added Successfully.','insert_id' => $response['id']));
             } else {
-                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+//                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+                echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
             }
-            return redirect('admin/Leadmaster/');
+//          return redirect('admin/Leadmaster/');
         }
+    }
+
+    public function store_question(){
+        $formArray = $_POST;
+        $response = $this->leadmaster->savequestion_records($formArray);
+        if ($response == true) {
+//                $this->session->set_flashdata('success', 'Lead Added Successfully.');
+            echo json_encode(array('success' => true, 'message' => 'Lead question Added Successfully.'));
+        } else {
+//                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+//           return redirect('admin/Leadmaster/');
     }
 
     public function edit($id)
@@ -84,6 +102,7 @@ class Leadmaster extends CI_Controller
         $data['lead_id'] = $id;
         $data['category'] = $this->leadmaster->getCategory();
         $data['states'] = $this->leadmaster->getState();
+        $data['remtype'] = $this->leadmaster->getReminderType();
 
         $data['all_customers'] = $this->leadmaster->getCustomer();
         $data['all_leadstage'] = $this->leadmaster->getLeadStage();
@@ -312,4 +331,72 @@ class Leadmaster extends CI_Controller
         return redirect('admin/Leadmaster/edit/' . $lead_id . '#area');
     }
 
+    //reminders master
+    public function store_reminders(){
+        $data = $this->input->post();
+        $data['model_type'] = 'lead';
+        $data['model_id'] = $this->input->post('lead_id');
+        $response = $this->leadmaster->save_reminders_records($data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Lead Reminder Added Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+
+    public function all_reminders($id){
+        $reminders = $this->leadmaster->getReminders($id);
+        $result = array('data' => []);
+        $i = 1;
+        foreach ($reminders as $value) {
+
+            $button = '<a href="' . base_url('admin/Leadmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/Leadmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+            $result['data'][] = array(
+                $i++,
+                $value['name'],
+                $value['type'],
+                date('d M Y h:i:s a', strtotime($value['date_time'])),
+                $value['priority'],
+                $value['repeat_every'].' '.ucwords($value['recurring_type']),
+                (($value['cycles']==0)?'infinite':$value['cycles']),
+                $value['description'],
+                date('d M Y h:i:s a', strtotime($value['created_date'])),
+                $value['status'],
+                $button
+            );
+        }
+        echo json_encode($result);
+    }
+
+    public function edit_reminders($id)
+    {
+        $data = $this->leadmaster->getReminder($id);
+        echo json_encode($data);
+    }
+
+    public function update_reminders($id)
+    {
+        $data = $this->input->post();
+        $data['model_type'] = 'lead';
+        $data['model_id'] = $this->input->post('lead_id');
+        $response = $this->leadmaster->update_reminders_records($id, $data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Lead Reminder Updated Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+
+    public function delete_reminders($id, $lead_id)
+    {
+        $response = $this->leadmaster->delete_reminders_records($id);
+
+        if ($response == true) {
+            $this->session->set_flashdata('success', 'Lead Reminder Deleted Successfully.');
+        } else {
+            $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+        }
+        return redirect('admin/Leadmaster/edit/' . $lead_id . '#reminders');
+    }
 }

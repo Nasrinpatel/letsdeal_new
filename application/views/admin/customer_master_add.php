@@ -27,39 +27,34 @@
 								<div class="row">
 									<div class="col-md-5">
 										<div class="mb-3">
-
 											<input class="form-check-input" type="radio" id="direct" name="inquiry_type" checked value="direct">
 											<label class="form-check-label" for="direct">Direct</label>
 										</div>
-
 									</div>
 									<div class="col-md-5">
 										<div class="mb-3">
 											<input class="form-check-input" type="radio" id="agent" name="inquiry_type" value="agent">
 											<label class="form-check-label" for="agent">Via Channel Partner </label>
 										</div>
-
 									</div>
 								</div>
-								<div id='agent_div' style='display:none'>
-									<div class="col-md-5">
+								<div class="row" id='agent_div' style='display:none'>
+									<div class="col-lg-5">
 										<div class="mb-3">
 											<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
-											<select data-toggle="select2" title="Partner" class="form-control select2" name="agent_id" data-width="100%">
-												<!-- <option value=''>Select Agents</option>
-												<option value="Mohit soni">Mohit soni</option>
-												<option value="Nihar soni">Nihar soni</option>
-												<option value="Nasrin Patel">Nasrin Patel</option>
-												<option value=''>Select Source</option> -->
-
+											<select data-toggle="select2" title="Partner" class="form-control select2 channelpartner" name="agent_id" data-width="100%" multiple>
 												<?php foreach ($agent as $ag) { ?>
 													<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
 												<?php } ?>
 											</select>
-
-
 										</div>
 									</div>
+                                    <div class="col-lg-3">
+                                        <div class="mb-3">
+                                            <label class="form-label" style='width:100%'>&nbsp;</label>
+                                            <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
+                                        </div>
+                                    </div>
 								</div>
 								<div class="row">
 									<div class="col-md-4">
@@ -124,7 +119,6 @@
 									</div>
 								</div> <!-- end row -->
 								<div class="row">
-
 									<div class="col-md-6">
 										<div class="mb-3">
 											<label class="form-label">Assigned</label>
@@ -208,6 +202,11 @@
         $('.assigned').select2({
             multiple:true,
             placeholder: "Select Assigned",
+            theme: "bootstrap-5"
+        });
+        $('.channelpartner').select2({
+            multiple:true,
+            placeholder: "Select Channel Partner",
             theme: "bootstrap-5"
         });
 	});

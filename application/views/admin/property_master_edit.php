@@ -47,14 +47,12 @@
 														<input class="form-check-input" type="radio" id="customer" name="customeragent" <?= $property->customer_id != '' ? 'checked' : ''; ?> value="customer">
 														<label class="form-check-label" for="customer">Customer</label>
 													</div>
-
 												</div>
 												<div class="col-md-4">
 													<div class="mb-3">
 														<input class="form-check-input" type="radio" id="agent" name="customeragent" <?= $property->agent_id != '' ? 'checked' : ''; ?> value="agent">
 														<label class="form-check-label" for="agent">Channel Partner </label>
 													</div>
-
 												</div>
 											</div>
 											<div id='customer_div' style='display:none'>

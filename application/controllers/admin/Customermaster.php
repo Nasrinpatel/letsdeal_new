@@ -8,6 +8,7 @@ class Customermaster extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('front/Customermaster_model', 'customermaster');
+        $this->load->model('front/Modal_model', 'modal');
 		// $this->load->model('front/Propertymaster_model', 'propertymaster');
 		$this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
 	}
@@ -132,14 +133,11 @@ class Customermaster extends CI_Controller
 
 	public function add()
 	{
-
-
 		$data['sourcemaster'] = $this->customermaster->getSourceMaster();
 		$data['source'] = $this->customermaster->getSource();
 		$data['position'] = $this->customermaster->getPosition();
 		$data['staff'] = $this->customermaster->getStaff();
 		$data['agent'] = $this->customermaster->getAgent();
-		
 		
 		$data['page_name'] = 'customer_master_add';
 		$this->load->view('admin/index', $data);
@@ -147,7 +145,6 @@ class Customermaster extends CI_Controller
 	//Customer master
 	public function store()
 	{
-
 		$this->form_validation->set_rules('inquiry_type', 'Inquiry type', 'required');
         if($_POST['inquiry_type'] == 'agent'){
             $this->form_validation->set_rules('agent_id[]', 'Agent','required');
@@ -484,5 +481,27 @@ class Customermaster extends CI_Controller
 		}
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-contacts');
 	}
+    public function store_ajax(){
+        $formArray = array();
+        $formArray['inquiry_type'] = $this->input->post('inquiry_type');
+        $formArray['source_id'] = $this->input->post('source_id');
+        $formArray['position_id'] = $this->input->post('position_id');
+        $formArray['first_name'] = $this->input->post('first_name');
+        $formArray['last_name'] = $this->input->post('last_name');
+        $formArray['phone'] = $this->input->post('phone');
+        $formArray['email'] = $this->input->post('email');
+        $formArray['company_name'] = $this->input->post('company_name');
+        $formArray['description'] = $this->input->post('description');
+        $formArray['status'] = $this->input->post('status');
+        if(!empty($_POST['assigned_id'])){
+            $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+        }
 
+        $response = $this->customermaster->saverecords($formArray);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Customer Added Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
 }

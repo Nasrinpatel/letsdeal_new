@@ -128,15 +128,14 @@
                                                 Lead
                                             </a>
                                             <a class="nav-link mt-2 py-2" id="agent-tab" data-bs-toggle="pill" href="#property" role="tab" aria-controls="agent" aria-selected="false">
-                                                <i class="mdi mdi-account-circle d-block font-24"></i>
+                                                <i class="mdi mdi-office-building d-block font-24"></i>
                                                 Property Interested
                                             </a>
                                             <a class="nav-link mt-2 py-2" id="agent-contacts-tab" data-bs-toggle="pill" href="#area" role="tab" aria-controls="agent-contacts" aria-selected="false">
-                                                <i class="mdi mdi-contacts d-block font-24"></i>
+                                                <i class="mdi mdi-office-building d-block font-24"></i>
                                                 Area Interested
                                             </a>
                                         </div>
-
                                     </div> <!-- end col-->
                                     <div class="col-lg-8">
                                         <div class="tab-content p-3">
