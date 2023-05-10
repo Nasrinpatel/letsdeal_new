@@ -21,7 +21,7 @@
 							<div class="mb-3">
 								<label class="form-label">Type </label>
 								<select data-toggle="select2" class="form-control select2" name="model_type" id="model_type" data-width="100%">
-									<option selected="">Select Reminder Type</option>
+									<option selected="">Select Type</option>
 									<option value="Property">Property</option>
 									<option value="Customer">Customer</option>
 									<option value="Channel Partner">Channel Partner</option>

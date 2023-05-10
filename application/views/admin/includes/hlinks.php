@@ -26,6 +26,11 @@
 <link href="<?= base_url('assets/') ?>css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link href="<?= base_url('assets/') ?>css/fileinput.css" rel="stylesheet" type="text/css" />
 <link href="<?= base_url('assets/') ?>css/switchery.min.css" rel="stylesheet" type="text/css" />
+
+<link href="<?= base_url('assets/') ?>libs/fullcalendar/main.min.css" rel="stylesheet" type="text/css" />
+
+
+
 <!-- <link href="<?php echo base_url(); ?>assets/css/select2/select2-bootstrap.min.css" rel="stylesheet"> -->
 <style>
 	label.error {
@@ -92,6 +97,13 @@
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/dataTables.bootstrap5.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/dataTables.responsive.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/responsive.bootstrap5.min.js"></script>
+
+
+
+
+
+
+
 <script>
 	function success_message(title, text) {
 		Swal.fire({

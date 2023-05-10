@@ -68,7 +68,7 @@
 										<thead>
 											<tr>																					
 												<th>#</th>
-												<th>Name</th>
+												<!-- <th>Name</th> -->
 												<th>Type</th>
 												<th>Date</th>
 												<th>Priority</th>																					
@@ -101,12 +101,12 @@
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertymaster/all_reminders'); ?>",
 			"columnDefs": [{
-				"targets": 5,
+				"targets": 3,
 				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[5] == '1') {
+					if (rowData[3] == '1') {
 
 						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[5] == '0') {
+					} else if (rowData[3] == '0') {
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
