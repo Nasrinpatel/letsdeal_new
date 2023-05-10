@@ -1161,7 +1161,7 @@
 																			<thead>
 																				<tr>																					
 																					<th>#</th>
-																					<th>Name</th>
+																					<!-- <th>Name</th> -->
 																					<th>Type</th>
 																					<th>Date</th>
 																					<th>Priority</th>																					
@@ -1456,11 +1456,11 @@
 						targets: 9
 					},
 					{
-						"targets": 10,
+						"targets": 9,
 						"createdCell": function(td, cellData, rowData, row, col) {
-							if (rowData[10] == '1') {
+							if (rowData[9] == '1') {
 								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-							} else if (rowData[10] == '0') {
+							} else if (rowData[9] == '0') {
 								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 							}
 						}
