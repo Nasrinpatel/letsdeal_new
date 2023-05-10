@@ -114,10 +114,11 @@ class Customermaster_model extends CI_model{
 	}
 	
 	
-	function getReminderType(){
-		$data = $this->db->get('tb_remindertype_master')->result_array();
+	function getReminderType($type){
+		$data = $this->db->get_where('tb_remindertype_master',['model_type'=>$type])->result_array();
 		return $data;
 	}
+	
 	function delete($id)
 	{
 		$this->db->where('id',$id);

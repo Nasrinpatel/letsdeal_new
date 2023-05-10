@@ -322,16 +322,19 @@
 								<a href="<?= base_url('admin/City') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> City</a>
 								<a href="<?= base_url('admin/Area') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Area</a>
 
-								 <a href="<?= base_url('admin/Phase') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Phase master</a>
+								
+								<a href="<?= base_url('admin/Phase') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Phase master</a>
 								<!--<a href="<?= base_url('admin/Status') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Status master</a> -->
 								<a href="<?= base_url('admin/Source') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Inquiry Source master</a>
 								<!-- <a href="<?= base_url('admin/Staff') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Staff master</a> -->
-								<a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Reminder Type Master</a>
-
+                                <a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Reminder Type Master</a>
 								<a href="<?= base_url('admin/LeadStage') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Stage</a>
                                 <a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Form Master</a>
-
 							</div>
+
+
+
+							
 						</li>
 
 						<li>
@@ -359,6 +362,7 @@
 
 						</li>
                         <li>
+						<li>
                             <a class="nav-link" href="<?= base_url('admin/Leadmaster') ?>" id="topnav-dashboard">
                                 <i class="fe-bookmark me-1"></i> Lead
                             </a>

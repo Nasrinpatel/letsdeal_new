@@ -17,6 +17,10 @@ class State_model extends CI_model{
 	function saverecords($formArray)
 	{
 		 $this->db->insert($this->db_name,$formArray);
+		 $last_id = $this->db->insert_id();
+		 if($formArray['is_default']==1){
+			$this->db->update($this->db_name,['is_default'=>0],['is_default'=>1,'id !=' => $last_id]);
+		 }
 		 return true;
 	}
 	function delete($id)
@@ -40,6 +44,9 @@ class State_model extends CI_model{
 	{
 		$this->db->where('id',$id);
 		$this->db->update($this->db_name,$formArray);
+		if($formArray['is_default']==1){
+			$this->db->update($this->db_name,['is_default'=>0],['is_default'=>1,'id !=' => $id]);
+		 }
 		return true;
 	}
 	

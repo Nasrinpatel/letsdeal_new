@@ -191,7 +191,7 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-reminders" action="<?php echo base_url() . 'admin/Customermaster/store_reminders'; ?>">
 					<input type="hidden" name="customer_id" value="<?= $customer->id ?>">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
@@ -199,17 +199,17 @@
 							</div>
 						</div>
 
-					</div> <!-- end row -->
+					</div>  -->
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Type </label>
+								<label class="form-label">Rreminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
 									<option value="">Select Rreminder Type</option>
-									<!-- <option value="name">name</option>
-									<option value="name1">name1</option> -->
+								
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
+										
 									<?php }
 									?>
 								</select>
@@ -345,7 +345,7 @@
 				<form method="post" id="update-reminders" action="<?php echo base_url() . 'admin/Customermaster/update_reminders'; ?>">
 					<input type="hidden" name="customer_id" value="<?= $customer->id ?>">
 					<input type="hidden" name="reminder_id" id="reminder_id">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
 								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
@@ -353,11 +353,11 @@
 							</div>
 						</div>
 
-					</div> <!-- end row -->
+					</div>  -->
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Type </label>
+								<label class="form-label">Rreminder Type </label>
 								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
 									<?php foreach ($remtype as $rt) { ?>
@@ -1151,7 +1151,8 @@
 																	</div>
 
 																	<div class="table-responsive">
-																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="customer_reminders_datatable">
+																		<table class="table table-centered table-nowrap table
+																		-striped dt-responsive nowrap" style="width:100%" id="customer_reminders_datatable">
 																			<thead>
 																				<tr>																					
 																					<th>#</th>
@@ -1263,9 +1264,9 @@
 					last_name: "required",
 					position_id: "required",
 					// company_name: "required",
-					email: "required",
+					//email: "required",
 					phone: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -1312,9 +1313,9 @@
 					last_name: "required",
 					position_id: "required",
 					// company_name: "required",
-					email: "required",
+					//email: "required",
 					phone: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -1621,7 +1622,7 @@
 					date_time: "required",
 					priority: "required",
 					repeat_every: "required",
-					description: "required",
+					//description: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {

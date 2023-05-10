@@ -16,7 +16,7 @@ class Customermaster extends CI_Controller
 	public function index()
 	{
 		$data['page_name'] = 'customer_master_view';
-		$data['remtype'] = $this->customermaster->getReminderType();
+		$data['remtype'] = $this->customermaster->getReminderType('Customer');
 		// $data['customers'] = $this->customermaster->getCustomer();
 		// $data['master'] = $this->customermaster->getPromaster();
 		// $data['category'] = $this->customermaster->getCategory();
@@ -96,32 +96,7 @@ class Customermaster extends CI_Controller
 		}
 		echo json_encode($result);
 	}
-	//reminder
-	public function all_reminders($id)
-	{
-		$reminders = $this->customermaster->getReminders($id);
-		$result = array('data' => []);
-		$i = 1;
-		foreach ($reminders as $value) {
 
-			$button = '<a href="' . base_url('admin/customermaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
-			<a href="' . base_url('admin/customermaster/delete_reminders/' . $value['id'] . '/' . $id) . '#customer-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
-			$result['data'][] = array(
-				$i++,
-				$value['name'],
-				$value['type'],
-				date('d M Y h:i:s a', strtotime($value['date_time'])),
-				$value['priority'],
-				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
-				(($value['cycles']==0)?'infinite':$value['cycles']),
-				$value['description'],
-				date('d M Y h:i:s a', strtotime($value['created_date'])),
-				$value['status'],
-				$button
-			);
-		}
-		echo json_encode($result);
-	}
 	public function all_property($id, $page)
 	{
 
@@ -139,6 +114,7 @@ class Customermaster extends CI_Controller
 
 			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id'])  . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
 			$result['data'][] = array(
@@ -224,6 +200,7 @@ class Customermaster extends CI_Controller
 	//Customer details
 	public function customerDetails($id)
 	{
+		
 		$data['customer'] = $this->customermaster->getCustomer($id);
 		// $data['contacts'] = $this->customermaster->getCustomerContact($id);
 		// $data['sourcemaster'] = $this->customermaster->getSourceMaster();
@@ -231,6 +208,8 @@ class Customermaster extends CI_Controller
 		$data['position'] = $this->customermaster->getPosition();
 		$data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
 		$data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
+		//$data['remtype'] = $this->customermaster->getReminderType();
+		$data['remtype'] = $this->customermaster->getReminderType('Customer');
 		// $data['agent'] = $this->customermaster->getAgent();
 
 		$data['page_name'] = 'customer_master_details';
@@ -240,7 +219,7 @@ class Customermaster extends CI_Controller
 	{
 		$data['customer'] = $this->customermaster->getCustomer($id);
 		// $data['contacts'] = $this->customermaster->getCustomerContact($id);
-		$data['remtype'] = $this->customermaster->getReminderType();
+		$data['remtype'] = $this->customermaster->getReminderType('Customer');
 		$data['sourcemaster'] = $this->customermaster->getSourceMaster();
 		$data['source'] = $this->customermaster->getSource();
 		$data['position'] = $this->customermaster->getPosition();
@@ -405,6 +384,35 @@ class Customermaster extends CI_Controller
 		}
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-notes');
 	}
+	//reminder
+	public function all_reminders($id)
+	{
+		$reminders = $this->customermaster->getReminders($id);
+		$result = array('data' => []);
+		$i = 1;
+		foreach ($reminders as $value) {
+
+			$type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
+			$button = '<a href="' . base_url('admin/customermaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/customermaster/delete_reminders/' . $value['id'] . '/' . $id) . '#customer-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$result['data'][] = array(
+				$i++,
+				$value['name'],
+				// $value['type'],
+				$type_data->name,
+				date('d M Y h:i:s a', strtotime($value['date_time'])),
+				$value['priority'],
+				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
+				(($value['cycles']==0)?'infinite':$value['cycles']),
+				$value['description'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$value['status'],
+				$button
+			);
+		
+		}
+		echo json_encode($result);
+	}
 	//reminders master
 	public function store_reminders()
 	{
@@ -435,7 +443,6 @@ class Customermaster extends CI_Controller
 			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
 		}
 	}
-
 
 
 	public function delete_reminders($id, $customer_id)

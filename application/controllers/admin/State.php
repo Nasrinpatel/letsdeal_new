@@ -35,7 +35,9 @@ class State extends CI_Controller {
 				$i++,
 				// $q->name,
 				$value['name'],
+				$value['is_default'],
 				date('d M Y h:i:s a',strtotime($value['created_date'])),
+				
 				$value['status'],
 				$button
 			);
@@ -52,6 +54,7 @@ class State extends CI_Controller {
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 		
 			$response = $this->sta->saverecords($formArray);
@@ -129,6 +132,7 @@ class State extends CI_Controller {
 				$data[]=$validate_data=array(				
 					'country_id'	=>$country_id,
 					'name'		=>$name,
+					'is_default'	=> 0,
 					'status'	=> 1
 					
 				);

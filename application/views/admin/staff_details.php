@@ -55,7 +55,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header bg-light">
-					<h4 class="modal-title" id="myCenterModalLabel2">Edit Staff</h4>
+					<h4 class="modal-title" id="myCenterModalLabel2">Edit Team</h4>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 				</div>
 				<div class="modal-body p-4">
@@ -116,7 +116,7 @@
 
 								</ol>
 							</div>
-							<h4 class="page-title">Staff</h4>
+							<h4 class="page-title">Team</h4>
 						</div>
 					</div>
 				</div>

@@ -206,10 +206,12 @@
 				type: "POST",
 				dataType: "json",
 				success: function(data) {
+					debugger;
 					$("#countryedit-modal #edit_coun_id").val(data.id);
 					$('#countryedit-modal #name').val(data.name);
 					$("#countryedit-modal #country_status").val(data.status);
 				}
+				
 			});
 		});
 		$("#update_country").submit(function(o) {

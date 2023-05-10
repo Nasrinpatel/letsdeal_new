@@ -73,6 +73,7 @@ class Position extends CI_Controller {
 		$data = $this->security->xss_clean($data);
 
 		$response = $this->posi->updaterecords($id,$data);
+		
 		if ($response == true) {
 			echo json_encode(array('success'=>true,'message'=>'Position Updated Successfully.'));
 		} else {
