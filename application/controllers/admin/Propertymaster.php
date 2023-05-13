@@ -385,7 +385,7 @@ class Propertymaster extends CI_Controller
 			<a href="' . base_url('admin/propertymaster/delete_reminders/' . $value['id'] . '/' . $id) . '#property-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
-				$value['name'],
+				//$value['name'],
 				$type_data->name,
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],
