@@ -98,8 +98,8 @@
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/dataTables.responsive.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/responsive.bootstrap5.min.js"></script>
 
-
-
+<!-- Calendar -->
+<script type="text/javascript" src="<?= base_url('assets/') ?>libs/fullcalendar/main.min.js"></script>
 
 
 
