@@ -1989,6 +1989,9 @@
 				});
 				$('#agent-specialistarea-modal').on('shown.bs.modal', function (e) {
 					$('#agent-specialistarea-modal #state_id').trigger('change');
+					setTimeout(function () {
+						$('#agent-specialistarea-modal #city_id').trigger('change');
+					},250);
 				});					
 			});	
 			$(document).ready(function() {				
