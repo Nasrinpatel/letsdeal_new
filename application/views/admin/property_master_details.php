@@ -13,6 +13,7 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 								<li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
 								<li class="breadcrumb-item active">Property Details</li> -->
+                                <a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
 						</div>
 						<h4 class="page-title">Property Details</h4>

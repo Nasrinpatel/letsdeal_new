@@ -332,7 +332,7 @@
 									<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 									<!-- <a href="<?= base_url('admin/propertymaster/addreminder') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
 								
-									<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#property-reminders-modal">Add Reminder</button>
+									<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#property-reminders-modal" style="margin-right: 5px;">Add Reminder</button>
 									<?php if(isset($_GET['customer_id'])){ ?>
 									<a href="<?= base_url('admin/customermaster/'.$_GET['page'].'/'.$_GET['customer_id'].'#customer-property') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Customer</a>
 									<?php } elseif(isset($_GET['agent_id'])){ ?>
@@ -340,7 +340,6 @@
 									<?php } elseif(!isset($_GET['customer_id']) && !isset($_GET['agent_id'])){ ?>
 									<a href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Property</a>
 									<?php } ?>
-
 								</ol>
 							</div>
 							<h4 class="page-title">Property Reminder</h4>

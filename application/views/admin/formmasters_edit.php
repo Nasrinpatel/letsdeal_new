@@ -17,7 +17,7 @@
 											<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 												<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 											<!-- <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#masters-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button> -->
-
+                                            <a type="button" href="<?= base_url('admin/Formmaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 										</ol>
 									</div>
 									<h4 class="page-title">Form Master</h4>

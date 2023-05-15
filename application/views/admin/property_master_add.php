@@ -11,7 +11,7 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 												<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 								<!-- <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#masters-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button> -->
-
+                                <a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
 						</div>
 						<h4 class="page-title">Property Master</h4>
@@ -50,12 +50,12 @@
 
 										</div>
 									</div>
-									<div class="row" id='customer_div' style='display:none'>
+									<div class="row" id='customer_div'>
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Customers<span class="text-danger">*</span></label>
-                                                <select data-toggle="select2" class="form-control select2" name="customer_id" data-width="100%">
-                                                    <option value="">Select Customer</option>
+                                                <select data-toggle="select2" class="form-control select2 customer" name="customer_id" data-width="100%" multiple>
+<!--                                                    <option value="">Select Customer</option>-->
                                                     <?php foreach ($customers as $cust) { ?>
 														<option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?>   <?= $cust['phone'] ?></option>
 													<?php } ?>
@@ -74,8 +74,8 @@
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
-												<select data-toggle="select2" class="form-control select2" name="agent_id" data-width="100%">
-                                                    <option value="">Select Channel Partner</option>
+												<select data-toggle="select2" class="form-control select2 channel_partner" name="agent_id" data-width="100%" multiple>
+<!--                                                    <option value="">Select Channel Partner</option>-->
                                                     <?php foreach ($agents as $ag) { ?>
 														<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?>  <?= $ag['phone'] ?></option>
 													<?php } ?>
@@ -179,6 +179,32 @@
 		</div> <!-- container -->
 	</div> <!-- content -->
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2({
+            theme: "bootstrap"
+        });
+        $('.customer').select2({
+            multiple:true,
+            placeholder: "Select Customer",
+            theme: "bootstrap-5"
+        });
+        $('.channel_partner').select2({
+            multiple:true,
+            placeholder: "Select Channel Partner",
+            theme: "bootstrap-5"
+        });
+    });
+</script>
+<style>
+    .select2 .selection .select2-selection--single .select2-selection__rendered {
+        line-height: 1.5rem;
+    }
+    .select2-container .select2-selection--multiple .select2-selection__choice{
+        background-color: #eceef0;
+    }
+</style>
 
 <script>
 	$(document).ready(function() {

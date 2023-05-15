@@ -65,6 +65,7 @@ class Leadmaster_model extends CI_model{
                         }
                     }
                 } elseif ($formArray['answer_type_' . $q_id] == 'Dropdown' || $formArray['answer_type_' . $q_id] == 'Radio') {
+
                     $given_answer = $this->db->get_where('source_option_master', ['id' => $formArray['answer_' . $q_id . '']])->row()->name;
                     $given_answer_id = $formArray['answer_' . $q_id];
                 } else {
@@ -428,6 +429,13 @@ class Leadmaster_model extends CI_model{
         $this->db->update('tb_lead_property_interested',$formArray);
         return true;
     }
+    // Area update delete
+    function update_area_intersted_records($id,$formArray)
+    {
+        $this->db->where('id',$id);
+        $this->db->update('tb_lead_area_interested',$formArray);
+        return true;
+    }
     function delete_property_intersted_records($id)
     {
         $this->db->where('id', $id);
@@ -537,5 +545,14 @@ class Leadmaster_model extends CI_model{
         $this->db->where('id', $id);
         $this->db->delete('tbl_reminder_master');
         return true;
+    }
+
+    function count_area($data){
+        $query = $this->db->where('lead_id',$data['lead_id'])
+            ->where('state_id',$data['state_id'])
+            ->where('city_id',$data['city_id'])
+            ->where('area_id',$data['area_id'])
+            ->get('tb_lead_area_interested');
+        return $query->num_rows();
     }
 }
