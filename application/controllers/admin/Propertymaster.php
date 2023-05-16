@@ -8,6 +8,7 @@ class Propertymaster extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('front/Propertymaster_model', 'promast');
+		$this->load->model('front/Commonmodel', 'common');
 		$this->load->model('front/Modal_model', 'modal');
 		$this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
 	}
@@ -241,6 +242,12 @@ class Propertymaster extends CI_Controller
 			$this->add();
 		} else {
 			$formArray = $_POST;
+            if(!empty($_POST['customer_id'])){
+                $formArray['customer_id'] = implode(',',$this->input->post('customer_id'));
+            }
+            if(!empty($_POST['agent_id'])){
+                $formArray['agent_id'] = implode(',',$this->input->post('agent_id'));
+            }
 			$response = $this->promast->saverecords($formArray);
 			
 			if ($response == true) {
@@ -270,7 +277,8 @@ class Propertymaster extends CI_Controller
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
 		$data['phases'] = $this->db->get_where('tb_phase_master',['status'=>1])->result_array();
-
+        $data['customer_id'] = explode(',',$propertymaster->customer_id);
+        $data['agent_id'] = explode(',',$propertymaster->agent_id);
 		$data['page_name'] = 'property_master_edit';
 		$this->load->view('admin/index', $data);
 	}
@@ -281,13 +289,32 @@ class Propertymaster extends CI_Controller
 			$propertymaster = $this->promast->getPropertymaster($id);
 			$data = array();
 			$data['property'] = $propertymaster;
-			
+            $data['customer_id'] = explode(',',$propertymaster->customer_id);
+            if(!empty($propertymaster->customer_id)){
+                foreach ($data['customer_id'] as $key => $value){
+                    $record['parameter'] = array('id' => $value);
+                    $record['fields'] = array('first_name','last_name');
+                    $customer = $this->common-> getDataById('tb_customer_master',$record);
+                    $data['customer_id'][$key] = $customer['first_name'].' '.$customer['last_name'];
+                }
+                $data['customer'] = implode(', ',$data['customer_id']);
+            }
+            $data['agent_id'] = explode(',',$propertymaster->agent_id);
+            if(!empty($propertymaster->agent_id)){
+                foreach ($data['agent_id'] as $key => $value){
+                    $record['parameter'] = array('id' => $value);
+                    $record['fields'] = array('first_name','last_name');
+                    $agent = $this->common-> getDataById('tb_agent_master',$record);
+                    $data['agent_id'][$key] = $agent['first_name'].' '.$agent['last_name'];
+                }
+                $data['agent'] = implode(', ',$data['agent_id']);
+            }
 			$data['customers'] = $this->promast->getCustomer();
 			$data['master'] = $this->promast->getPromaster();
 			$data['category'] = $this->promast->getCategory();
 			$data['subcategory'] = $this->promast->getSubcategory();
 			$data['phases'] = $this->db->get_where('tb_phase_master',['status'=>1])->result_array();
-			
+
 			$data['page_name'] = 'property_master_details';
 			$this->load->view('admin/index',$data);
 		}
@@ -309,7 +336,12 @@ class Propertymaster extends CI_Controller
 			// $formArray['pro_category_id'] = $this->input->post('pro_category_id');
 			// $formArray['pro_subcategory_id'] = $this->input->post('pro_subcategory_id');
 			// $formArray['status'] = $this->input->post('status');
-
+            if(!empty($_POST['customer_id'])){
+                $formArray['customer_id'] = implode(',',$this->input->post('customer_id'));
+            }
+            if(!empty($_POST['agent_id'])){
+                $formArray['agent_id'] = implode(',',$this->input->post('agent_id'));
+            }
 			$response = $this->promast->updaterecords($id, $formArray);
 			if ($response == true) {
 				$this->session->set_flashdata('success', 'Property Updated Successfully.');

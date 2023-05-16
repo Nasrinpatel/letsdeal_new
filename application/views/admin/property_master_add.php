@@ -54,7 +54,7 @@
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Customers<span class="text-danger">*</span></label>
-                                                <select data-toggle="select2" class="form-control select2 customer" name="customer_id" data-width="100%" multiple>
+                                                <select data-toggle="select2" class="form-control select2 customer" name="customer_id[]" data-width="100%" multiple>
 <!--                                                    <option value="">Select Customer</option>-->
                                                     <?php foreach ($customers as $cust) { ?>
 														<option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?>   <?= $cust['phone'] ?></option>
@@ -74,7 +74,7 @@
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
-												<select data-toggle="select2" class="form-control select2 channel_partner" name="agent_id" data-width="100%" multiple>
+												<select data-toggle="select2" class="form-control select2 channel_partner" name="agent_id[]" data-width="100%" multiple>
 <!--                                                    <option value="">Select Channel Partner</option>-->
                                                     <?php foreach ($agents as $ag) { ?>
 														<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?>  <?= $ag['phone'] ?></option>
