@@ -82,13 +82,13 @@ class Leadmaster extends CI_Controller
         $formArray = $_POST;
         $response = $this->leadmaster->savequestion_records($formArray);
         if ($response == true) {
-//                $this->session->set_flashdata('success', 'Lead Added Successfully.');
-            echo json_encode(array('success' => true, 'message' => 'Lead question Added Successfully.'));
+                $this->session->set_flashdata('success', 'Lead Added Successfully.');
+//            echo json_encode(array('success' => true, 'message' => 'Lead question Added Successfully.'));
         } else {
-//                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
-            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+//            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
         }
-//           return redirect('admin/Leadmaster/');
+           return redirect('admin/Leadmaster/');
     }
 
     public function edit($id)
@@ -296,6 +296,7 @@ class Leadmaster extends CI_Controller
     //store Area Interetsed
     public function store_area_interested()
     {
+
         $formArray = array();
         $formArray['lead_id'] = $this->input->post('lead_id');
         $formArray['state_id'] = $this->input->post('state_id');
@@ -303,12 +304,17 @@ class Leadmaster extends CI_Controller
         $formArray['area_id'] = $this->input->post('area_id');
         $formArray['status'] = $this->input->post('status');
 
-        $response = $this->leadmaster->save_area_intersted_records($formArray);
+        $record = $this->leadmaster->count_area($formArray);
+        if($record == '0'){
+            $response = $this->leadmaster->save_area_intersted_records($formArray);
 
-        if ($response == true) {
-            echo json_encode(array('success' => true, 'message' => 'Area Interested Added Successfully.'));
-        } else {
-            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+            if ($response == true) {
+                echo json_encode(array('success' => true, 'message' => 'Area Interested Added Successfully.'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+            }
+        }else{
+            echo json_encode(array('error' => true, 'message' => 'Area Interested already exists.'));
         }
     }
 
@@ -317,6 +323,24 @@ class Leadmaster extends CI_Controller
     {
         $data = $this->leadmaster->getArea($id);
         echo json_encode($data);
+    }
+
+    // Area Interested Update
+    public function update_area_interested($id)
+    {
+        $formArray = array();
+        $formArray['lead_id'] = $this->input->post('lead_id');
+        $formArray['state_id'] = $this->input->post('state_id');
+        $formArray['city_id'] = $this->input->post('city_id');
+        $formArray['area_id'] = $this->input->post('area_id');
+        $formArray['status'] = $this->input->post('status');
+
+        $response = $this->leadmaster->update_area_intersted_records($id, $formArray);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Channel Partner Specialist Area Updated Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
     }
 
     //Area Interetsed Delete

@@ -13,6 +13,7 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 								<li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
 								<li class="breadcrumb-item active">Property Details</li> -->
+                                <a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
 						</div>
 						<h4 class="page-title">Property Details</h4>
@@ -35,7 +36,7 @@
 										<i class="mdi mdi-account font-18 text-success me-1"></i>
 										<div class="w-100">
 											<h5 class="mt-1 font-size-14">
-												<?= $property->customer_first_name . ' ' . $property->customer_last_name ?>
+												<?= $customer ?>
 											</h5>
 										</div>
 									</div>
@@ -50,7 +51,7 @@
 										<div class="w-100">
 											<h5 class="mt-1 font-size-14">
 
-												<?= $property->agent_first_name . ' ' . $property->agent_last_name ?>
+												<?= $agent ?>
 											</h5>
 										</div>
 									</div>

@@ -580,7 +580,7 @@
             </div>
             <div class="modal-body p-4">
                 <form method="post" id="update-specialistarea" action="<?php echo base_url() . 'admin/Leadmaster/update_area_interested'; ?>">
-                    <input type="hidden" name="lead_id" id="lead_id" value="<?= $lead_id ?>">
+                    <input type="hidden" name="lead_id" id="lead_id" value="">
                     <input type="hidden" name="specialistarea_id" id="specialistarea_id">
                     <div class="row">
                         <div class="mb-3">
@@ -652,6 +652,11 @@
 
     //add lead
     $("#store-lead").validate({
+        rules: {
+            customer_id: "required",
+            lead_stage_id: "required",
+            status: "required"
+        },
         submitHandler: function(form, e) {
             e.preventDefault();
             var url = $(form).attr("action");
@@ -664,6 +669,7 @@
                     $('#store-specialistfor #lead_id').val(response.insert_id);
                     $('#update-specialistfor #lead_id').val(response.insert_id);
                     $('#store-specialistarea #lead_id').val(response.insert_id);
+                    $('#update-specialistarea #lead_id').val(response.insert_id);
                     $('#store-question #lead_id').val(response.insert_id);
                     $('#property_interested_datatable').attr('data-id',response.insert_id);
                     $('.hide').removeAttr("style");
@@ -677,7 +683,7 @@
     });
 
     //add question
-    $("#store-question").validate({
+   /* $("#store-question").validate({
         submitHandler: function(form, e) {
             e.preventDefault();
             var url = $(form).attr("action");
@@ -691,7 +697,7 @@
                 }
             });
         }
-    });
+    });*/
     $(document).ready(function() {
         $('#property_interested_tab, .next-btn').on('click',function(){
             //all specialist for
