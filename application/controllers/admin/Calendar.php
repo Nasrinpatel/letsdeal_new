@@ -19,11 +19,13 @@ class Calendar extends CI_Controller
 
 	public function getAllCalenderEvents(){
 		$remiders = $this->cale->getReminders();
+		//$proprties = $this->cale->getProperty();
 		$events=array();
 		foreach($remiders as $r){
 			if($r['model_type'] == 'Customer'){
 				$events[] = array(
 					'id' => 1,
+					'model' => $proprties->model_type,
 					'title' => $r['type_name'],
 					'start' => $r['date_time'],
 					'url' => '#',
@@ -38,6 +40,7 @@ class Calendar extends CI_Controller
 			}elseif($r['model_type'] == 'Property'){
 				$events[] = array(
 					'id' => 1,
+					'model_id' => $r['model_id'],
 					'title' => $r['type_name'],
 					'start' => $r['date_time'],
 					'url' => '#',
@@ -53,6 +56,7 @@ class Calendar extends CI_Controller
 			}elseif($r['model_type'] == 'Channel Partner'){
 				$events[] = array(
 					'id' => 1,
+					'model_id' => $r['model_id'],
 					'title' => $r['type_name'],
 					'start' => $r['date_time'],
 					'url' => '#',
@@ -66,6 +70,7 @@ class Calendar extends CI_Controller
 			}elseif($r['model_type'] == 'Lead'){
 				$events[] = array(
 					'id' => 1,
+					'model_id' => $r['model_id'],
 					'title' => $r['type_name'],
 					'start' => $r['date_time'],
 					'url' => '#',

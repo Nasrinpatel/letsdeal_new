@@ -82,12 +82,34 @@
                                                 <h4 class="font-13 text-muted text-uppercase mb-1">Priority :</h4>
                                                 <p class="mb-3" id="priority"></p>
 
-                                                <!-- <h4 class="font-13 text-muted text-uppercase mb-1">Added :</h4>
-                                        <p class="mb-3"> April 22, 2016</p>
+                                                <!-- <h4 class="font-13 text-muted text-uppercase mb-1">Model :</h4>
+                                                <p class="mb-3" id="model_id"></p> -->
 
-                                        <h4 class="font-13 text-muted text-uppercase mb-1">Updated :</h4>
-                                        <p class="mb-0"> Dec 13, 2017</p> -->
 
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-md-6 col-4">
+                                                    <!-- <button type="button" class="btn btn-danger"
+															id="btn-delete-event">Delete</button> -->
+                                                </div>
+                                                <div class="col-md-6 col-8 text-end">
+                                                    <!-- <button type="button" class="btn btn-light me-1"
+															data-bs-dismiss="modal">Close</button> -->
+                                                    <!-- <button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#property-reminders-modal">Add Reminder</button> -->
+                                                    <!-- <?php if (isset($_GET['customer_id'])) { ?>
+                                                        <a href="<?= base_url('admin/customermaster/' . $_GET['page'] . '/' . $_GET['model_id'] . '#customer-reminders') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Customer Reminder</a>
+                                                        <?php } elseif (isset($_GET['agent_id'])) { ?>
+                                                        <a href="<?= base_url('admin/agentmaster/' . $_GET['page'] . '/' . $_GET['agent_id'] . '#agent-reminders') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Channel Partner</a>
+                                                        <?php } elseif (isset($_GET['agent_id'])) { ?>
+                                                        <a href="<?= base_url('admin/leadmaster/' . $_GET['page'] . '/' . $_GET['lead_id'] . '#reminders') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Channel Partner</a>
+                                                        <?php } elseif (!isset($_GET['customer_id']) && !isset($_GET['agent_id'])) { ?>
+                                                        <a href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back to Property</a>
+                                                        <?php } ?>         -->
+                                                    <!-- <button type="submit" class="btn btn-success" id="btn-save-event">View</button> -->
+
+
+                                                    <button type="button" class="btn btn-success" id="btn-save-event" data-modal-id="" data-modal-type=""  onclick="redirectToReminderList(this)">View Details</button>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -114,14 +136,24 @@
             this.$body = l("body"), this.$modal = l("#event-modal"), this.$calendar = l("#calendar"), this.$formEvent = l("#form-event"), this.$btnNewEvent = l("#btn-new-event"), this.$btnDeleteEvent = l("#btn-delete-event"), this.$btnSaveEvent = l("#btn-save-event"), this.$modalTitle = l("#modal-title"), this.$calendarObj = null, this.$selectedEvent = null, this.$newEventData = null
         }
         e.prototype.onEventClick = function(e) {
-            var eventObj = e.event;					
-            var year = eventObj.start.toLocaleString("default", { year: "numeric" });
-            var month = eventObj.start.toLocaleString("default", { month: "2-digit" });
-            var day = eventObj.start.toLocaleString("default", { day: "2-digit" });
+            var eventObj = e.event;
+            var year = eventObj.start.toLocaleString("default", {
+                year: "numeric"
+            });
+            var month = eventObj.start.toLocaleString("default", {
+                month: "2-digit"
+            });
+            var day = eventObj.start.toLocaleString("default", {
+                day: "2-digit"
+            });
             var formated_startdate = day + '-' + month + '-' + year;
-            var time = eventObj.start.toLocaleString("default", {hour: "numeric",minute: "numeric", hour12:true});
+            var time = eventObj.start.toLocaleString("default", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true
+            });
             var formated_startdatetime = day + '-' + month + '-' + year + ' ' + time;
-            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type+" Reminder Details"), this.$modal.show(), this.$selectedEvent = e.event, l("#remider_type").html(this.$selectedEvent.title), l("#date-time").html(formated_startdatetime), l("#priority").html(this.$selectedEvent.extendedProps.priority)
+            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type + " Reminder Details"), this.$modal.show(), this.$selectedEvent = e.event, l("#remider_type").html(this.$selectedEvent.title), l("#date-time").html(formated_startdatetime), l("#priority").html(this.$selectedEvent.extendedProps.priority),l("#btn-save-event").attr("data-modal-id",this.$selectedEvent.extendedProps.model_id),l("#btn-save-event").attr("data-modal-type",this.$selectedEvent.extendedProps.type)
         }, e.prototype.onSelect = function(e) {
             this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
         }, e.prototype.init = function() {
@@ -218,4 +250,20 @@
         "use strict";
         window.jQuery.CalendarApp.init()
     }();
+</script>
+
+<script>
+    function redirectToReminderList(data) {
+    //    debugger;
+    //    console.log(data);
+        if (data.dataset.modalType == 'Customer') {
+            window.location.href = '<?= base_url() ?>admin/customermaster/customerDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Property') {
+            window.location.href = '<?= base_url() ?>admin/Propertymaster/propertyDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Channel Partner') {
+            window.location.href = '<?= base_url() ?>admin/agentmaster/agentDetails/' + data.dataset.modalId; 
+        }else if (data.dataset.modalType == 'Lead') {
+            window.location.href = '<?= base_url() ?>admin/Leadmaster/leadDetails/' + data.dataset.modalId; 
+        }
+    }
 </script>
