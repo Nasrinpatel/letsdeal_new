@@ -187,13 +187,15 @@
 																								<input type="hidden" name="answer_type_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= $que['question_answer_inputtype'] ?>">
 																								<div class="col-md-9">
 																									<?php
-																									//'print_r($answers['options']);
-																									foreach ($answers['options'] as $option) { ?>
-																										<input type="hidden" name="answer_options_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-																									<?php }
-																									foreach ($answer_ids['options'] as $option) { ?>
-																										<input type="hidden" name="answer_option_ids_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-																									<?php }
+																									if ($que['question_answer_inputtype'] == 'Checkbox' || $que['question_answer_inputtype'] == 'Radio'	|| $que['question_answer_inputtype'] == 'Dropdown'	|| $que['question_answer_inputtype'] == 'Image Gallery') {
+																										//'print_r($answers['options']);
+																										foreach ($answers['options'] as $option) { ?>
+																											<input type="hidden" name="answer_options_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+																										<?php }
+																										foreach ($answer_ids['options'] as $option) { ?>
+																											<input type="hidden" name="answer_option_ids_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+																										<?php }
+																									}
 																									if ($que['question_answer_inputtype'] == 'Textbox') { ?>
 																										<input type="text" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="userName1" value="<?= array_keys($answers['options'][0])[0] ?>">
 																									<?php } elseif ($que['question_answer_inputtype'] == 'Dropdown') { ?>
@@ -229,29 +231,29 @@
 																									} elseif ($que['question_answer_inputtype'] == 'Textarea') { ?>
 																										<textarea class="form-control" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>"><?= ($answers['options']) ? array_keys($answers['options'][0])[0] : '' ?></textarea>
 																										<?php } elseif ($que['question_answer_inputtype'] == 'Multitextbox') {
-																										$i = 0;
-																										foreach ($answers['options'] as $option) { ?>
-																											<div id="options">
-																												<div class="row">
-																													<div class="col-lg-6">
-																														<div class="mb-3">
-																															<input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" id="option" value="<?= array_keys($option)[0] ?>">
+																										$i = 0; ?>																										
+																										<div id="options">
+																											<?php 
+																											foreach ($answers['options'] as $option) { ?>
+																													<div class="row">
+																														<div class="col-lg-6">
+																															<div class="mb-3">
+																																<input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" id="option" value="<?= array_keys($option)[0] ?>">
+																															</div>
+																														</div>
+
+																														<div class="col-lg-2">
+																															<?php if ($i == 0) { ?>
+																																<a class="btn btn-success waves-effect waves-light add-button-textbox" data-name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]">Add </a>
+																															<?php } else { ?>
+																																<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+																															<?php } ?>
 																														</div>
 																													</div>
-
-																													<div class="col-lg-2">
-																														<?php if ($i == 0) { ?>
-																															<a class="btn btn-success waves-effect waves-light add-button-textbox" data-name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]">Add </a>
-																														<?php } else { ?>
-																															<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
-																														<?php } ?>
-																													</div>
-
-																												</div>
-																											</div>
-																										<?php $i++;
-																										}
-																									} elseif ($que['question_answer_inputtype'] == 'File') { ?>
+																											<?php $i++;
+																											} ?>																											
+																										</div>
+																									<?php } elseif ($que['question_answer_inputtype'] == 'File') { ?>
 																										<input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
 																										<!-- <?php if (!empty($artist['artist']->press_kit)) { ?>
 																												<a href="<?= base_url() . 'assets/images/' . $phase['id']->press_kit ?>" class="px-1 py-0 mb-4 color-pink-dark" target="_blank"><b>View File</b></a>
@@ -474,16 +476,14 @@
 					});
 					$(document).on("click", ".add-button-textbox", function() {
 						var name = $(this).attr('data-name');
-						var newSelect = $("<div id='options'>" +
-							"<div class='row'>" +
+						var newSelect = $("<div class='row'>" +
 							"<div class='col-lg-6'>" +
 							"<div class='mb-3'>" +
-							"<input type='text' class='form-control' name='options[]' id='option'>" +
+							"<input type='text' class='form-control' name='" + name + "' id='option'>" +
 							"</div>" +
 							"</div>" +
 							"<div class='col-lg-1'>" +
 							"<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>" +
-							"</div>" +
 							"</div>" +
 							"</div>");
 						$("#options").append(newSelect);

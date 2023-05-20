@@ -288,8 +288,7 @@
 		});
 		$(document).on("click", ".add-button-textbox", function() {
 			var name = $(this).attr('data-name');
-			var newSelect = $("<div id='options'>" +
-				"<div class='row'>" +
+			var newSelect = $("<div class='row'>" +
 				"<div class='col-lg-6'>" +
 				"<div class='mb-3'>" +
 				"<input type='text' class='form-control' name='" + name + "' id='option'>" +
@@ -297,7 +296,6 @@
 				"</div>" +
 				"<div class='col-lg-1'>" +
 				"<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>" +
-				"</div>" +
 				"</div>" +
 				"</div>");
 			$("#options").append(newSelect);

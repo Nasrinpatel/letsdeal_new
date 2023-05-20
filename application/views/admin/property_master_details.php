@@ -155,13 +155,15 @@
 																				<input type="hidden" name="answer_type_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= $que['question_answer_inputtype'] ?>">
 																				<div class="col-md-9">
 																					<?php
-																					//'print_r($answers['options']);
-																					foreach ($answers['options'] as $option) { ?>
-																						<input type="hidden" name="answer_options_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-																					<?php }
-																					foreach ($answer_ids['options'] as $option) { ?>
-																						<input type="hidden" name="answer_option_ids_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-																					<?php }
+																					if ($que['question_answer_inputtype'] == 'Checkbox' || $que['question_answer_inputtype'] == 'Radio'	|| $que['question_answer_inputtype'] == 'Dropdown'	|| $que['question_answer_inputtype'] == 'Image Gallery') {
+																						//'print_r($answers['options']);
+																						foreach ($answers['options'] as $option) { ?>
+																							<input type="hidden" name="answer_options_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+																						<?php }
+																						foreach ($answer_ids['options'] as $option) { ?>
+																							<input type="hidden" name="answer_option_ids_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+																						<?php }
+																					}
 																					if ($que['question_answer_inputtype'] == 'Textbox') { ?>
 																						<input type="text" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" class="form-control" id="userName1" name="userName1" value="<?= array_keys($answers['options'][0])[0] ?>">
 																					<?php } elseif ($que['question_answer_inputtype'] == 'Dropdown') { ?>
