@@ -23,6 +23,7 @@ class LeadFormMaster extends CI_Controller {
         $result = array('data'=>[]);
         $i=1;
         foreach ($leadform_master as $value) {
+            $master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
             $question = $this->db->select('question')->where_in('id',explode(',',$value['question_ids']))->get('tb_question_master')->result_array();
             $question_names=[];
             foreach($question as $ques){
@@ -32,6 +33,7 @@ class LeadFormMaster extends CI_Controller {
 					<a href="'.base_url('admin/LeadFormMaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,
+                $master_data->name,
                 implode(', ',$question_names),
                 $value['status'],
                 $button
@@ -45,7 +47,7 @@ class LeadFormMaster extends CI_Controller {
         //for fetch Question
         $query = $this->db->get('tb_question_master');
         $data['question'] = $query->result_array();
-
+        $data['master'] = $this->leadform->getPromaster();
         $data['page_name'] = 'leadform_master_add';
         $this->load->view('admin/index', $data);
 
@@ -53,12 +55,14 @@ class LeadFormMaster extends CI_Controller {
     public function store()
     {
         $this->form_validation->set_rules('question_ids', 'Question','required');
+        $this->form_validation->set_rules('pro_master_id', 'Master','required');
         $this->form_validation->set_rules('status', 'Status','required');
         if ($this->form_validation->run() == false) {
             $this->add();
         } else {
             $formArray = array();
             $formArray['question_ids'] = $this->input->post('question_ids');
+            $formArray['pro_master_id'] = $this->input->post('pro_master_id');
             $formArray['status'] = $this->input->post('status');
 
             $response = $this->leadform->saverecords($formArray);
@@ -76,6 +80,7 @@ class LeadFormMaster extends CI_Controller {
     {
         $data = array();
         $data['leadform'] = $this->leadform->getLeadFormmaster($id);
+        $data['master'] = $this->leadform->getPromaster();
         $data['question'] = $this->leadform->getQuestion();
         $data['page_name'] = 'leadform_master_edit';
         $this->load->view('admin/index', $data);
@@ -85,6 +90,7 @@ class LeadFormMaster extends CI_Controller {
     public function update($id)
     {
         $this->form_validation->set_rules('question_ids', 'Question','required');
+        $this->form_validation->set_rules('pro_master_id', 'Master','required');
         $this->form_validation->set_rules('status', 'Status','required');
 
         if ($this->form_validation->run() == false) {
@@ -92,6 +98,7 @@ class LeadFormMaster extends CI_Controller {
         }else{
             $formArray = array();
             $formArray['question_ids'] = $this->input->post('question_ids');
+            $formArray['pro_master_id'] = $this->input->post('pro_master_id');
             $formArray['status'] = $this->input->post('status');
 
             $response = $this->leadform->updaterecords($id,$formArray);

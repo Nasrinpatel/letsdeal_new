@@ -18,6 +18,12 @@ class LeadFormMaster_model extends CI_model{
         $data = $this->db->get('tb_question_master')->result_array();
         return $data;
     }
+
+    function getPromaster(){
+        $data = $this->db->get('tb_master')->result_array();
+        return $data;
+    }
+
     function saverecords($formArray)
     {
         $this->db->insert($this->db_name,$formArray);

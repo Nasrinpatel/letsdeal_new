@@ -51,7 +51,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="mb-3">
-											<label class="form-label">Position<span class="text-danger">*</span></label>
+											<label class="form-label">Position</label>
 											<select data-toggle="select2" title="Position" class="form-control select2" name="position_id" data-width="100%">
 												<option value=''>Select Position</option>
 												<?php foreach ($position as $pos) { ?>
@@ -80,7 +80,7 @@
 									</div>
 									<div class="col-md-4">
 										<div class="mb-3">
-											<label for="billing-nick-name" class="form-label">Nick Name<span class="text-danger">*</span></label>
+											<label for="billing-nick-name" class="form-label">Nick Name</label>
 											<input class="form-control" type="text" placeholder="Enter your Nick name" name="nick_name" id="billing-nick-name" />
 										</div>
 										<!-- <span style="color: red;"><?= form_error('nick_name') ?></span> -->

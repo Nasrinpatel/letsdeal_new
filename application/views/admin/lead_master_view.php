@@ -46,7 +46,12 @@
                                         
                                         <th>#</th>
                                         <th>Customer</th>
+                                        <th>Channel Partner</th>
+                                        <th>Master</th>
                                         <th>Lead Stage</th>
+                                        <th>Property</th>
+                                        <th>Area</th>
+                                        <th>Budget</th>
                                         <th>Status</th>
                                         <th style="width: 85px;">Action</th>
                                     </tr>
@@ -67,11 +72,12 @@
         ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
         "columnDefs": [
             {
-                "targets": 4,
+                "targets": 9,
                 "createdCell": function(td, cellData, rowData, row, col) {
-                    if (rowData[4] == '1') {
+                    // console.log(rowData);
+                    if (rowData[9] == '1') {
                         $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                    } else if (rowData[4] == '0') {
+                    } else if (rowData[9] == '0') {
                         $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                     }
                 }

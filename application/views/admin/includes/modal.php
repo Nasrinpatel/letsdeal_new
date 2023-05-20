@@ -26,7 +26,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Channel Partner <span class="text-danger"> *</span></label>
-                            <select data-toggle="select2" title="Partner" class="form-control select2" name="agent_id" data-width="100%">
+                            <select data-toggle="select2" title="Partner" class="form-control select2 channelpartner" name="agent_id[]" data-width="100%" multiple>
                                 <?php foreach ($agent as $ag) { ?>
                                     <option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
                                 <?php } ?>
@@ -281,6 +281,11 @@
         $('.assigned').select2({
             multiple:true,
             placeholder: "Select Assigned",
+            theme: "bootstrap-5"
+        });
+        $('.channelpartner').select2({
+            multiple:true,
+            placeholder: "Select Channel Partner",
             theme: "bootstrap-5"
         });
     });

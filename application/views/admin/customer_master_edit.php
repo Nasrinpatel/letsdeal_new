@@ -826,13 +826,12 @@
 															</div>
 														</div>
 														<div id='agent_div' style='display:none'>
-															<div class="col-md-5">
+															<div class="col-md-6">
 																<div class="mb-3">
 																	<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
-																	<select data-toggle="select2" title="Assigned" class="form-control select2" name="agent_id" data-width="100%">
+																	<select data-toggle="select2" title="Assigned" class="form-control select2 agent" name="agent_id[]" data-width="100%" multiple>
 																		<?php foreach ($agent as $ag) { ?>
-																			<!-- <option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?><?= $ag['last_name'] ?>  <?= $ag['phone'] ?></option> -->
-																			<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?><?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
+																			<option value="<?= $ag['id'] ?>" <?php foreach($channelpartner as $key){if($key['id'] == $ag['id']){ ?>selected<?php } } ?>><?= $ag['first_name'] ?> <?= $ag['last_name'] ?><?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
 																		<?php } ?>
 																	</select>
 																</div>
@@ -1232,11 +1231,16 @@
 				$('.js-example-basic-single').select2({
 					theme: "bootstrap"
 				});
-				$('.assigned').select2({
-					multiple: true,
-					placeholder: "Select Assigned",
-					theme: "bootstrap-5"
-				});
+                $('.assigned').select2({
+                    multiple:true,
+                    placeholder: "Select Assigned",
+                    theme: "bootstrap-5"
+                });
+                $('.agent').select2({
+                    multiple:true,
+                    placeholder: "Select Channel Partner",
+                    theme: "bootstrap-5"
+                });
 			});
 			$(function() {
 				var hash = window.location.hash;
