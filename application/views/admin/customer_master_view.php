@@ -42,20 +42,20 @@
 							<div class="table-responsive">
 								<table class="table table-centered table-nowrap table-striped" id="formmaster_datatable">
 									<thead>
-									<tr>
-										<th>#</th>
-										<th>From</th>
-										<th>Name</th>
-										<th>Phone</th>
-										<th>Email</th>
-										<th>Company</th>
-										<th>Source</th>
-										<th>Position</th>
-										<th>Status</th>
-										<th>Staff Name</th>
-										
-										<th style="width: 85px;">Action</th>
-									</tr>
+										<tr>
+											<th>#</th>
+											<th>From</th>
+											<th>Name</th>
+											<th>Phone</th>
+											<th>Email</th>
+											<th>Company</th>
+											<th>Source</th>
+											<th>Position</th>
+											<th>Status</th>
+											<th>Staff Name</th>
+
+											<th style="width: 85px;">Action</th>
+										</tr>
 									</thead>
 								</table>
 							</div>
@@ -83,12 +83,12 @@
 							<div class="select2" style="margin-bottom: 60px;">
 								<select class="js-example-basic-single" name="source">
 									<option value="">Nothing Selected</option>
-									<?php foreach ($sourcemaster as $item){?>
+									<?php foreach ($sourcemaster as $item) { ?>
 										<option value="<?= $item['name'] ?>"><?= $item['name'] ?></option>
 									<?php }
 									?>
-<!--									<option value="AL">Alabama</option>-->
-<!--									<option value="WY">Wyoming</option>-->
+									<!--									<option value="AL">Alabama</option>-->
+									<!--									<option value="WY">Wyoming</option>-->
 								</select>
 							</div>
 						</div>
@@ -139,18 +139,15 @@
 	var table = $('#formmaster_datatable').DataTable({
 		responsive: true,
 		ajax: "<?php echo base_url('admin/Customermaster/all'); ?>",
-		"columnDefs": [
-			{
-				"targets": 8,
-				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[8] == '1') {							
-						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[8] == '0') {
-						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-					}
+		"columnDefs": [{
+			"targets": 8,
+			"createdCell": function(td, cellData, rowData, row, col) {
+				if (rowData[8] == '1') {
+					$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+				} else if (rowData[8] == '0') {
+					$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 				}
-			},
-		]
+			}
+		}, ]
 	});
-
 </script>

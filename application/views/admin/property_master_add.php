@@ -11,7 +11,7 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 												<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 								<!-- <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#masters-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button> -->
-                                <a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
+								<a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
 						</div>
 						<h4 class="page-title">Property Master</h4>
@@ -28,7 +28,7 @@
 								<input type="hidden" name="page" value="<?= @$_GET['page'] ?>">
 								<?php if (isset($_GET['customer_id']) && $_GET['customer_id'] != '') { ?>
 									<input type="hidden" name="customer_id" value="<?= $_GET['customer_id'] ?>" />
-									<input type="hidden" name="redirect_to" value="customer">			
+									<input type="hidden" name="redirect_to" value="customer">
 								<?php } elseif (isset($_GET['agent_id']) && $_GET['agent_id'] != '') { ?>
 									<input type="hidden" name="agent_id" value="<?= $_GET['agent_id'] ?>" />
 									<input type="hidden" name="redirect_to" value="agent">
@@ -54,40 +54,40 @@
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Customers<span class="text-danger">*</span></label>
-                                                <select data-toggle="select2" class="form-control select2 customer" name="customer_id[]" data-width="100%" multiple>
-<!--                                                    <option value="">Select Customer</option>-->
-                                                    <?php foreach ($customers as $cust) { ?>
-														<option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?>   <?= $cust['phone'] ?></option>
+												<select data-toggle="select2" class="form-control select2 customer" name="customer_id[]" data-width="100%" multiple>
+													<!--                                                    <option value="">Select Customer</option>-->
+													<?php foreach ($customers as $cust) { ?>
+														<option value="<?= $cust['id'] ?>"><?= $cust['first_name'] ?> <?= $cust['last_name'] ?> <?= $cust['phone'] ?></option>
 													<?php } ?>
 												</select>
 											</div>
 										</div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label class="form-label" style='width:100%'>&nbsp;</label>
-<!--                                                <a class="btn btn-success waves-effect waves-light add-button">Add </a>-->
-                                                <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-customer-modal">Add</button>
-                                            </div>
-                                        </div>
+										<div class="col-lg-3">
+											<div class="mb-3">
+												<label class="form-label" style='width:100%'>&nbsp;</label>
+												<!--                                                <a class="btn btn-success waves-effect waves-light add-button">Add </a>-->
+												<button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-customer-modal">Add</button>
+											</div>
+										</div>
 									</div>
 									<div class="row" id='agent_div' style='display:none'>
 										<div class="col-lg-5">
 											<div class="mb-3">
 												<label class="form-label">Channel Partner <span class="text-danger">*</span></label>
 												<select data-toggle="select2" class="form-control select2 channel_partner" name="agent_id[]" data-width="100%" multiple>
-<!--                                                    <option value="">Select Channel Partner</option>-->
-                                                    <?php foreach ($agents as $ag) { ?>
-														<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?>  <?= $ag['phone'] ?></option>
+													<!--                                                    <option value="">Select Channel Partner</option>-->
+													<?php foreach ($agents as $ag) { ?>
+														<option value="<?= $ag['id'] ?>"><?= $ag['first_name'] ?> <?= $ag['last_name'] ?> <?= $ag['nick_name'] ? ' (' . $ag['nick_name'] . ')' : '' ?> <?= $ag['phone'] ?></option>
 													<?php } ?>
 												</select>
 											</div>
 										</div>
-                                        <div class="col-lg-3">
-                                            <div class="mb-3">
-                                                <label class="form-label" style='width:100%'>&nbsp;</label>
-                                                <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
-                                            </div>
-                                        </div>
+										<div class="col-lg-3">
+											<div class="mb-3">
+												<label class="form-label" style='width:100%'>&nbsp;</label>
+												<button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
+											</div>
+										</div>
 									</div>
 								<?php } ?>
 								<div class="row">
@@ -181,29 +181,30 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.js-example-basic-single').select2({
-            theme: "bootstrap"
-        });
-        $('.customer').select2({
-            multiple:true,
-            placeholder: "Select Customer",
-            theme: "bootstrap-5"
-        });
-        $('.channel_partner').select2({
-            multiple:true,
-            placeholder: "Select Channel Partner",
-            theme: "bootstrap-5"
-        });
-    });
+	$(document).ready(function() {
+		$('.js-example-basic-single').select2({
+			theme: "bootstrap"
+		});
+		$('.customer').select2({
+			multiple: true,
+			placeholder: "Select Customer",
+			theme: "bootstrap-5"
+		});
+		$('.channel_partner').select2({
+			multiple: true,
+			placeholder: "Select Channel Partner",
+			theme: "bootstrap-5"
+		});
+	});
 </script>
 <style>
-    .select2 .selection .select2-selection--single .select2-selection__rendered {
-        line-height: 1.5rem;
-    }
-    .select2-container .select2-selection--multiple .select2-selection__choice{
-        background-color: #eceef0;
-    }
+	.select2 .selection .select2-selection--single .select2-selection__rendered {
+		line-height: 1.5rem;
+	}
+
+	.select2-container .select2-selection--multiple .select2-selection__choice {
+		background-color: #eceef0;
+	}
 </style>
 
 <script>
@@ -284,6 +285,22 @@
 		$(document).on('click', '.remove-button', function() {
 			// remove the select element with the id 'question'
 			$(this).parent().parent('div').remove();
+		});
+		$(document).on("click", ".add-button-textbox", function() {
+			var name = $(this).attr('data-name');
+			var newSelect = $("<div id='options'>" +
+				"<div class='row'>" +
+				"<div class='col-lg-6'>" +
+				"<div class='mb-3'>" +
+				"<input type='text' class='form-control' name='" + name + "' id='option'>" +
+				"</div>" +
+				"</div>" +
+				"<div class='col-lg-1'>" +
+				"<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>" +
+				"</div>" +
+				"</div>" +
+				"</div>");
+			$("#options").append(newSelect);
 		});
 		//customer
 		$('input[name=customeragent]').click(function() {

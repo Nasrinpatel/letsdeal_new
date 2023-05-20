@@ -39,7 +39,7 @@
 					</div>
 				</div>
 			</div> -->
-			
+
 
 			<div class="content-page">
 				<div class="content">
@@ -54,7 +54,7 @@
 											<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 												<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 											<!-- <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#masters-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button> -->
-                                            <a type="button" href="<?= base_url('admin/Formmaster') ?>" class="btn btn-success" style="float:right;">Back</a>
+											<a type="button" href="<?= base_url('admin/Formmaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 										</ol>
 									</div>
 									<h4 class="page-title">Form Master</h4>
@@ -77,14 +77,14 @@
 
 																<option value="<?php echo $mas['id']; ?>"><?php echo $mas['name']; ?></option>
 															<?php endforeach; ?>
-															
+
 														</select>
 														<!-- <?= form_error('master_id') ?> -->
 														<span style="color: red;"><?= form_error('master_id') ?></span>
 													</div>
-												
+
 												</div>
-											
+
 											</div>
 
 											<div class="mb-3">
@@ -96,30 +96,30 @@
 													<?php } ?>
 													<span style="color: red;"><?= form_error('category_ids[]') ?></span>
 												</div>
-												
+
 											</div>
 
 											<div class="row">
 												<div class="col-lg-10">
 													<div class="mb-3">
 														<label class="form-label">Sub Category:</label>
-														<div class="row">															
-																<?php foreach ($categorychk as $catchk) { ?>
-																	<div class="form-check-inline mb-1 subcategory-container" id="category-<?= $catchk->id ?>">																		
-																		<label class="form-label me-3 text-decoration-underline text-blue" for="formControlReadonly"><?= $catchk->name ?></label>
-																		<?php 
-																			$subcategorychk = $this->db->get_where('tb_property_subcategory', array('property_category_id' => $catchk->id , 'status' => '1'))->result();
-																			foreach ($subcategorychk as $subcatchk) { ?>
-																			<div class="form-check form-check-inline">
-																				<input type="checkbox" name="sub_category_ids[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>" multiple>
-																				<!-- <input type="checkbox" name="checkbox[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>"> -->
+														<div class="row">
+															<?php foreach ($categorychk as $catchk) { ?>
+																<div class="form-check-inline mb-1 subcategory-container" id="category-<?= $catchk->id ?>">
+																	<label class="form-label me-3 text-decoration-underline text-blue" for="formControlReadonly"><?= $catchk->name ?></label>
+																	<?php
+																	$subcategorychk = $this->db->get_where('tb_property_subcategory', array('property_category_id' => $catchk->id, 'status' => '1'))->result();
+																	foreach ($subcategorychk as $subcatchk) { ?>
+																		<div class="form-check form-check-inline">
+																			<input type="checkbox" name="sub_category_ids[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>" multiple>
+																			<!-- <input type="checkbox" name="checkbox[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>"> -->
 
-																				<label class="form-check-label" for="<?php echo $subcatchk->name; ?>"><?php echo $subcatchk->name; ?></label>
-																			</div>
-																		<?php } ?>														
-																	</div>
-																<?php } ?>
-																<span style="color: red;"><?= form_error('sub_category_ids') ?></span>
+																			<label class="form-check-label" for="<?php echo $subcatchk->name; ?>"><?php echo $subcatchk->name; ?></label>
+																		</div>
+																	<?php } ?>
+																</div>
+															<?php } ?>
+															<span style="color: red;"><?= form_error('sub_category_ids') ?></span>
 															<div class="alert alert-danger" id="no-cat" style="display:none">Please Select Category</div>
 														</div>
 													</div>
@@ -209,7 +209,7 @@
 						var checkedCategory = $('.category:checked');
 						checkedCategory.each(function(index, item) {
 							// Select the subcategories that belong to the checked category
-							var subcategories = $('#category-'+item.value);
+							var subcategories = $('#category-' + item.value);
 							subcategories.show();
 						});
 
@@ -248,7 +248,7 @@
 					$(document).on('click', '.remove-button', function() {
 						// remove the select element with the id 'question'
 						$(this).parent().parent('div').remove();
-					});			
-					
+					});
+
 				});
 			</script>

@@ -43,6 +43,7 @@
                                 <table class="table table-centered table-nowrap table-striped" id="leadmaster_datatable">
                                     <thead>
                                     <tr>
+                                        
                                         <th>#</th>
                                         <th>Customer</th>
                                         <th>Lead Stage</th>
@@ -66,11 +67,11 @@
         ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
         "columnDefs": [
             {
-                "targets": 3,
+                "targets": 4,
                 "createdCell": function(td, cellData, rowData, row, col) {
-                    if (rowData[3] == '1') {
+                    if (rowData[4] == '1') {
                         $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                    } else if (rowData[3] == '0') {
+                    } else if (rowData[4] == '0') {
                         $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                     }
                 }

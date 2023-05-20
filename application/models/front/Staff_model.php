@@ -39,5 +39,4 @@ class Staff_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

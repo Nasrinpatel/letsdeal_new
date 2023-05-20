@@ -39,5 +39,4 @@ class Phase_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

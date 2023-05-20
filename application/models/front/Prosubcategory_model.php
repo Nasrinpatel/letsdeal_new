@@ -42,5 +42,4 @@ class Prosubcategory_model extends CI_model{
 	}
 	
 	
-}	 
- ?>
+}

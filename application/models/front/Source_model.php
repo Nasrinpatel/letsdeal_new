@@ -39,5 +39,4 @@ class Source_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

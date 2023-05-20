@@ -330,4 +330,3 @@ class Agentmaster_model extends CI_model{
 		return $data;
 	}
 }
-?>

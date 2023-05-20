@@ -49,12 +49,12 @@
 											</select>
 										</div>
 									</div>
-                                    <div class="col-lg-3">
-                                        <div class="mb-3">
-                                            <label class="form-label" style='width:100%'>&nbsp;</label>
-                                            <button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
-                                        </div>
-                                    </div>
+									<div class="col-lg-3">
+										<div class="mb-3">
+											<label class="form-label" style='width:100%'>&nbsp;</label>
+											<button type="button" class="btn btn-success waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#add-agent-modal">Add</button>
+										</div>
+									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-4">
@@ -123,13 +123,13 @@
 										<div class="mb-3">
 											<label class="form-label">Assigned</label>
 
-                                            <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
-                                                <!--												<option value=''>Select Assigned</option>-->
-                                                <?php foreach ($staff as $sta) { ?>
-                                                    <option value="<?= $sta['id'] ?>"><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-                                                <?php }
-                                                ?>
-                                            </select>
+											<select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+												<!--												<option value=''>Select Assigned</option>-->
+												<?php foreach ($staff as $sta) { ?>
+													<option value="<?= $sta['id'] ?>"><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+												<?php }
+												?>
+											</select>
 											<!-- <span style="color: red;"><?= form_error('assigned_id') ?></span> -->
 										</div>
 									</div>
@@ -199,23 +199,24 @@
 		$('.js-example-basic-single').select2({
 			theme: "bootstrap"
 		});
-        $('.assigned').select2({
-            multiple:true,
-            placeholder: "Select Assigned",
-            theme: "bootstrap-5"
-        });
-        $('.channelpartner').select2({
-            multiple:true,
-            placeholder: "Select Channel Partner",
-            theme: "bootstrap-5"
-        });
+		$('.assigned').select2({
+			multiple: true,
+			placeholder: "Select Assigned",
+			theme: "bootstrap-5"
+		});
+		$('.channelpartner').select2({
+			multiple: true,
+			placeholder: "Select Channel Partner",
+			theme: "bootstrap-5"
+		});
 	});
 </script>
 <style>
 	.select2 .selection .select2-selection--single .select2-selection__rendered {
 		line-height: 1.5rem;
 	}
-    .select2-container .select2-selection--multiple .select2-selection__choice{
-        background-color: #eceef0;
-    }
+
+	.select2-container .select2-selection--multiple .select2-selection__choice {
+		background-color: #eceef0;
+	}
 </style>

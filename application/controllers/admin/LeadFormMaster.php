@@ -28,7 +28,7 @@ class LeadFormMaster extends CI_Controller {
             foreach($question as $ques){
                 $question_names[]=$ques['question'];
             }
-            $button = '<a href="'.base_url('admin/LeadFormMaster/edit/' .$value['id']).'" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            $button = '<a href="'.base_url('admin/LeadFormMaster/edit/' .$value['id']).'" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 					<a href="'.base_url('admin/LeadFormMaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,

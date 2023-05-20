@@ -322,7 +322,7 @@
 							<select class="form-select" name="state_id" id="state_id">
 								<option value="">Select State</option>
 								<?php foreach ($states as $sta) { ?>
-									<option value="<?= $sta['id'] ?>" <?= ($sta['is_default'] == 1)?'selected':'' ?>><?= $sta['name'] ?></option>
+									<option value="<?= $sta['id'] ?>" <?= ($sta['is_default'] == 1) ? 'selected' : '' ?>><?= $sta['name'] ?></option>
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('state_id') ?></span>
@@ -476,7 +476,7 @@
 								<label class="form-label">Rreminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
 									<option value="">Select Rreminder Type</option>
-								
+
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
 									<?php }
@@ -548,10 +548,18 @@
 						<div class="col-6">
 							<div class="mb-3">
 								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
-									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
-									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
-									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
-									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
+									<option value="day" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day') {
+															echo 'selected';
+														} ?>>Days(s)</option>
+									<option value="week" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week') {
+																echo 'selected';
+															} ?>>Week(s)</option>
+									<option value="month" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month') {
+																echo 'selected';
+															} ?>>Month(s)</option>
+									<option value="year" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year') {
+																echo 'selected';
+															} ?>>Year(s)</option>
 								</select>
 							</div>
 						</div>
@@ -575,7 +583,14 @@
 
 					</div> <!-- end row -->
 
-
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 
 
 
@@ -705,10 +720,18 @@
 						<div class="col-6">
 							<div class="mb-3">
 								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
-									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
-									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
-									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
-									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
+									<option value="day" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day') {
+															echo 'selected';
+														} ?>>Days(s)</option>
+									<option value="week" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week') {
+																echo 'selected';
+															} ?>>Week(s)</option>
+									<option value="month" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month') {
+																echo 'selected';
+															} ?>>Month(s)</option>
+									<option value="year" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year') {
+																echo 'selected';
+															} ?>>Year(s)</option>
 								</select>
 							</div>
 						</div>
@@ -731,6 +754,14 @@
 						</div>
 
 					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -1077,12 +1108,14 @@
 															<div class="col-md-4">
 																<div class="mb-3">
 																	<label class="form-label">Assigned</label>
-                                                                    <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
-                                                                        <?php foreach ($staff as $sta) { ?>
-                                                                            <option value="<?= $sta['id'] ?>" <?php for($i=0;$i<count($assigned_id);$i++) { if($sta['id'] == $assigned_id[$i]) { ?>selected<?php } } ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-                                                                        <?php }
-                                                                        ?>
-                                                                    </select>
+																	<select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+																		<?php foreach ($staff as $sta) { ?>
+																			<option value="<?= $sta['id'] ?>" <?php for ($i = 0; $i < count($assigned_id); $i++) {
+																													if ($sta['id'] == $assigned_id[$i]) { ?>selected<?php }
+																																																	} ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+																		<?php }
+																		?>
+																	</select>
 
 
 																	<!-- <select class="js-example-basic-single" name="assigned_id">
@@ -1413,7 +1446,7 @@
 																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_specialistfor_datatable">
 																			<thead>
 																				<tr>
-																					
+
 																					<th>#</th>
 																					<th>Category</th>
 																					<th>Sub Category</th>
@@ -1488,7 +1521,7 @@
 												</div>
 											</div>
 											<div class="tab-pane fade" id="agent-reminders" role="tabpanel" aria-labelledby="agent-reminders-tab">
-												
+
 												<div>
 													<div class="row justify-content-between mb-2">
 														<div class="col-auto">
@@ -1530,14 +1563,15 @@
 																	<div class="table-responsive">
 																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_reminders_datatable">
 																			<thead>
-																				<tr>																					
+																				<tr>
 																					<th>#</th>
 																					<!-- <th>Name</th> -->
 																					<th>Type</th>
 																					<th>Date</th>
-																					<th>Priority</th>																					
+																					<th>Priority</th>
 																					<th>Repeat Every</th>
 																					<th>Total Cycle</th>
+																					<th>Before Day</th>
 																					<th>Description</th>
 																					<th>Create Date</th>
 																					<th>Status</th>
@@ -1564,21 +1598,21 @@
 				</div> <!-- container -->
 			</div> <!-- content -->
 		</div>
-        <style>
-            .select2-container .select2-selection--multiple .select2-selection__choice{
-                background-color: #eceef0;
-            }
-        </style>
+		<style>
+			.select2-container .select2-selection--multiple .select2-selection__choice {
+				background-color: #eceef0;
+			}
+		</style>
 		<script>
 			$(document).ready(function() {
 				$('.js-example-basic-single').select2({
 					theme: "bootstrap"
 				});
-                $('.assigned').select2({
-                    multiple:true,
-                    placeholder: "Select Assigned",
-                    theme: "bootstrap-5"
-                });
+				$('.assigned').select2({
+					multiple: true,
+					placeholder: "Select Assigned",
+					theme: "bootstrap-5"
+				});
 			});
 			$(function() {
 				var hash = window.location.hash;
@@ -1617,7 +1651,7 @@
 						responsivePriority: 3,
 						targets: 6
 					},
-				
+
 					{
 						"targets": 6,
 						"createdCell": function(td, cellData, rowData, row, col) {
@@ -1803,7 +1837,7 @@
 			});
 
 			//all specialistfor property
-			$(document).on('change','#store-specialistfor #pro_category_id',function() {
+			$(document).on('change', '#store-specialistfor #pro_category_id', function() {
 				var categoryId = $(this).val();
 				if (categoryId != '') {
 					$.ajax({
@@ -1924,10 +1958,10 @@
 						dataType: "json",
 						success: function(data) {
 							$("#edit-agent-specialistfor-modal #specialistfor_id").val(data.id);
-							$('#edit-agent-specialistfor-modal #pro_category_id').val(data.pro_category_id).trigger('change');	
-							setTimeout(function () {
-								$('#edit-agent-specialistfor-modal #pro_subcategory_id').val(data.pro_subcategory_id);						
-							},250);
+							$('#edit-agent-specialistfor-modal #pro_category_id').val(data.pro_category_id).trigger('change');
+							setTimeout(function() {
+								$('#edit-agent-specialistfor-modal #pro_subcategory_id').val(data.pro_subcategory_id);
+							}, 250);
 							$("#edit-agent-specialistfor-modal #specialistfor_status").val(data.status);
 						}
 					});
@@ -1936,7 +1970,7 @@
 			//update specialist for
 			$("#update-specialistfor").validate({
 				rules: {
-					
+
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -1959,8 +1993,8 @@
 
 			//all specialist Area
 			//on state change fetch city	
-			$(document).ready(function() {	
-				$(document).on('change','#agent-specialistarea-modal #state_id',function() {
+			$(document).ready(function() {
+				$(document).on('change', '#agent-specialistarea-modal #state_id', function() {
 					var state_id = $(this).val();
 					if (state_id != '') {
 						$.ajax({
@@ -1978,8 +2012,8 @@
 									var id = response[i]['id'];
 									var name = response[i]['name'];
 									var is_default = response[i]['is_default'];
-									$("#store-specialistarea #city_id").append("<option value='" + id + "' "+((is_default == 1)?'selected':'')+">" + name + "</option>");
-									
+									$("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
+
 								}
 							}
 						});
@@ -1987,14 +2021,14 @@
 						$("#store-specialistarea #city_id").empty();
 					}
 				});
-				$('#agent-specialistarea-modal').on('shown.bs.modal', function (e) {
+				$('#agent-specialistarea-modal').on('shown.bs.modal', function(e) {
 					$('#agent-specialistarea-modal #state_id').trigger('change');
-					setTimeout(function () {
+					setTimeout(function() {
 						$('#agent-specialistarea-modal #city_id').trigger('change');
-					},250);
-				});					
-			});	
-			$(document).ready(function() {				
+					}, 250);
+				});
+			});
+			$(document).ready(function() {
 				$('#edit-agent-specialistarea-modal #state_id').change(function() {
 					debugger;
 					var state_id = $(this).val();
@@ -2023,7 +2057,7 @@
 				});
 			});
 			//on city change fetch area
-			$(document).on('change','#agent-specialistarea-modal #city_id',function() {
+			$(document).on('change', '#agent-specialistarea-modal #city_id', function() {
 				var city_id = $(this).val();
 				if (city_id != '') {
 					$.ajax({
@@ -2151,12 +2185,12 @@
 						success: function(data) {
 							$("#edit-agent-specialistarea-modal #specialistarea_id").val(data.id);
 							$('#edit-agent-specialistarea-modal #state_id').val(data.state_id).trigger('change');
-							setTimeout(function () {
-								$('#edit-agent-specialistarea-modal #city_id').val(data.city_id).trigger('change');		
-								setTimeout(function () {
-									$('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');		
-								},250);	
-							},250);										
+							setTimeout(function() {
+								$('#edit-agent-specialistarea-modal #city_id').val(data.city_id).trigger('change');
+								setTimeout(function() {
+									$('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');
+								}, 250);
+							}, 250);
 							$("#edit-agent-specialistarea-modal #specialistarea_status").val(data.status);
 						}
 					});
@@ -2165,7 +2199,7 @@
 			//update specialist Area
 			$("#update-specialistarea").validate({
 				rules: {
-					
+
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -2186,7 +2220,7 @@
 				}
 			});
 
-		//all reminder
+			//all reminder
 			var reminders_table = $('#agent_reminders_datatable').DataTable({
 				responsive: true,
 				ajax: "<?php echo base_url('admin/Agentmaster/all_reminders/' . $agent->id); ?>",
@@ -2199,15 +2233,15 @@
 						targets: 3
 					},
 					{
-						responsivePriority: 10,
-						targets: 6
+						responsivePriority: 9,
+						targets: 10
 					},
 					{
-						responsivePriority: 4,
+						responsivePriority: 6,
 						targets: 9
 					},
 					{
-						"targets": 10,
+						"targets": 9,
 						"createdCell": function(td, cellData, rowData, row, col) {
 							if (rowData[9] == '1') {
 								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
@@ -2217,6 +2251,7 @@
 						}
 					},
 				]
+
 			});
 			//add reminders 
 			$("#store-reminders").validate({
@@ -2226,6 +2261,7 @@
 					date_time: "required",
 					priority: "required",
 					repeat_every: "required",
+					beforeday: "required",
 					//description: "required",
 					status: "required"
 				},
@@ -2260,25 +2296,26 @@
 						$('#edit-agent-reminders-modal #type').val(data.type).trigger('change');
 						$('#edit-agent-reminders-modal #date_time').val(data.date_time);
 						$('#edit-agent-reminders-modal #priority').val(data.priority).trigger('change');
-						if(data.custom_recurring == 1){
+						if (data.custom_recurring == 1) {
 							$('#edit-agent-reminders-modal #repeat_every').val('custom').trigger('change');
 							$('#edit-agent-reminders-modal #repeat_every_custom').val(data.repeat_every).trigger('change');
 							$('#edit-agent-reminders-modal #repeat_type_custom').val(data.recurring_type).trigger('change');
-						}else{
-							$('#edit-agent-reminders-modal #repeat_every').val(data.repeat_every+'-'+data.recurring_type).trigger('change');
+						} else {
+							$('#edit-agent-reminders-modal #repeat_every').val(data.repeat_every + '-' + data.recurring_type).trigger('change');
 						}
-						if(data.cycles == 0){
+						if (data.cycles == 0) {
 							$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', true).trigger('change');
-						}else{
+						} else {
 							$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
 						}
 						$('#edit-agent-reminders-modal #cycles').val(data.cycles);
+						$('#edit-agent-reminders-modal #beforeday').val(data.beforeday);
 						$('#edit-agent-reminders-modal #description').val(data.description);
 						$("#edit-agent-reminders-modal #reminders_status").val(data.status);
 					}
 				});
 			});
-			
+
 
 
 			$(document).ready(function() {
@@ -2378,6 +2415,7 @@
 					date_time: "required",
 					priority: "required",
 					repeat_every: "required",
+					beforeday: "required",
 					//description: "required",
 					status: "required"
 				},

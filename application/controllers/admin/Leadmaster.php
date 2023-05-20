@@ -42,8 +42,8 @@ class Leadmaster extends CI_Controller
             $customer_data = $this->db->select('first_name')->where_in('id',$value['customer_id'])->get('tb_customer_master')->row_array();
             $stage_data = $this->db->select('name')->where_in('id',$value['lead_stage_id'])->get('tb_lead_stage')->row_array();
 
-            $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
             $result['data'][] = array(
@@ -175,7 +175,7 @@ class Leadmaster extends CI_Controller
         foreach ($property as $value) {
             $category_data = $this->db->get_where('tb_property_category', array('id' => $value['pro_category_id']))->row();
             $subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
-            $button = '<a href="' . base_url('admin/Leadmaster/edit_property/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-property-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            $button = '<a href="' . base_url('admin/Leadmaster/edit_property/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-property-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete_property/' . $value['id'] . '/' . $id) . '#property" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,
@@ -264,7 +264,7 @@ class Leadmaster extends CI_Controller
             $city_data = $this->db->get_where('tb_city_master', array('id' => $value['city_id']))->row();
             $area_data = $this->db->get_where('tb_area_master', array('id' => $value['area_id']))->row();
 
-            $button = '<a href="' . base_url('admin/Leadmaster/edit_area/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-area-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            $button = '<a href="' . base_url('admin/Leadmaster/edit_area/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-area-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 				<a href="' . base_url('admin/Leadmaster/delete_area/' . $value['id'] . '/' . $id) . '#area" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,
@@ -376,7 +376,7 @@ class Leadmaster extends CI_Controller
         foreach ($reminders as $value) {
 
             $type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
-            $button = '<a href="' . base_url('admin/Leadmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            $button = '<a href="' . base_url('admin/Leadmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-reminders-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,

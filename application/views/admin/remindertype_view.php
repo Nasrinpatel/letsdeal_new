@@ -17,20 +17,20 @@
 							<input type="text" class="form-control" name="name" id="name" placeholder="Enter Reminder Type name">
 							<?= form_error('name')  ?>
 						</div>
-					
-							<div class="mb-3">
-								<label class="form-label">Type </label>
-								<select data-toggle="select2" class="form-control select2" name="model_type" id="model_type" data-width="100%">
-									<option selected="">Select Type</option>
-									<option value="Property">Property</option>
-									<option value="Customer">Customer</option>
-									<option value="Channel Partner">Channel Partner</option>
-									<option value="Lead">Lead</option>
-									
-									
-								</select>
-							</div>
-						
+
+						<div class="mb-3">
+							<label class="form-label">Type </label>
+							<select data-toggle="select2" class="form-control select2" name="model_type" id="model_type" data-width="100%">
+								<option selected="">Select Type</option>
+								<option value="Property">Property</option>
+								<option value="Customer">Customer</option>
+								<option value="Channel Partner">Channel Partner</option>
+								<option value="Lead">Lead</option>
+
+
+							</select>
+						</div>
+
 						<div class="mb-3">
 							<label for="remindertype_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="remindertype_status">
@@ -65,19 +65,19 @@
 							<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Reminder Type name">
 							<?= form_error('name')  ?>
 						</div>
-						
-							<div class="mb-3">
-								<label class="form-label">Type </label>
-								<select data-toggle="select2" class="form-control select2" name="model_type" id="model_type" data-width="100%">
+
+						<div class="mb-3">
+							<label class="form-label">Type </label>
+							<select data-toggle="select2" class="form-control select2" name="model_type" id="model_type" data-width="100%">
 								<option selected="">Select Reminder Type</option>
-									<option value="Property">Property</option>
-									<option value="Customer">Customer</option>
-									<option value="Channel Partner">Channel Partner</option>
-									<option value="Lead">Lead</option>
-									
-								</select>
-							</div>
-						
+								<option value="Property">Property</option>
+								<option value="Customer">Customer</option>
+								<option value="Channel Partner">Channel Partner</option>
+								<option value="Lead">Lead</option>
+
+							</select>
+						</div>
+
 						<div class="mb-3">
 							<label for="remindertype_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="remindertype_status">
@@ -223,12 +223,12 @@
 				data: $(this).serialize(),
 				dataType: "json",
 				success: function(response) {
-				
+
 					$('.btn-close').trigger('click');
 					success_message('', response.message);
 					table.ajax.reload(null, false);
 				}
-				
+
 			});
 
 		});

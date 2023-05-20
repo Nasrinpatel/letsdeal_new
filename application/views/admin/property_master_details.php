@@ -13,7 +13,7 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 								<li class="breadcrumb-item"><a href="javascript: void(0);">Tasks</a></li>
 								<li class="breadcrumb-item active">Property Details</li> -->
-                                <a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
+								<a type="button" href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-success" style="float:right;">Back</a>
 							</ol>
 						</div>
 						<h4 class="page-title">Property Details</h4>
@@ -177,7 +177,7 @@
 																						$i = 0;
 																						foreach ($answers['options'] as $option) { ?>
 																							<div class="form-check form-check-inline">
-																								<input class="form-check-input" type="checkbox" id="userName1"  name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
+																								<input class="form-check-input" type="checkbox" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
 																								<label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
 																							</div>
 																						<?php $i++;

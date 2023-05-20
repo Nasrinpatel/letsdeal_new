@@ -7,7 +7,7 @@
 
 			<!-- Start Content-->
 			<div class="container-fluid">
-				
+
 				<!-- start page title -->
 				<div class="row">
 					<div class="col-12">
@@ -31,8 +31,8 @@
 							<h4 class="page-title">Dashboard</h4>
 						</div>
 					</div>
-				</div>     
-				<!-- end page title --> 
+				</div>
+				<!-- end page title -->
 
 				<div class="row">
 					<div class="col-md-6 col-xl-3">
@@ -140,8 +140,8 @@
 								<h4 class="header-title mb-0">Total Revenue</h4>
 
 								<div class="widget-chart text-center" dir="ltr">
-									
-									<div id="total-revenue" class="mt-0"  data-colors="#f86262"></div>
+
+									<div id="total-revenue" class="mt-0" data-colors="#f86262"></div>
 
 									<h5 class="text-muted mt-0">Total sales made today</h5>
 									<h2>$178</h2>
@@ -162,7 +162,7 @@
 											<h4><i class="fe-arrow-down text-danger me-1"></i>$15k</h4>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 						</div> <!-- end card -->
@@ -539,7 +539,7 @@
 					</div> <!-- end col -->
 				</div>
 				<!-- end row -->
-				
+
 			</div> <!-- container -->
 
 		</div> <!-- content -->

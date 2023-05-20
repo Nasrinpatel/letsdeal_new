@@ -66,12 +66,12 @@
 								<div class="table-responsive">
 									<table class="table table-centered table-nowrap table-striped" id="proreminder_datatable">
 										<thead>
-											<tr>																					
+											<tr>
 												<th>#</th>
 												<!-- <th>Name</th> -->
 												<th>Type</th>
 												<th>Date</th>
-												<th>Priority</th>																					
+												<th>Priority</th>
 												<th>Repeat Every</th>
 												<th>Total Cycle</th>
 												<th>Description</th>
@@ -95,9 +95,9 @@
 
 		</div> <!-- content -->
 	</div>
-<script>
+	<script>
 		var table = $('#proreminder_datatable').DataTable({
-			
+
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertymaster/all_reminders'); ?>",
 			"columnDefs": [{
@@ -110,10 +110,8 @@
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
-				
+
 			}, ]
-			
+
 		});
-	
-	
-</script>
+	</script>

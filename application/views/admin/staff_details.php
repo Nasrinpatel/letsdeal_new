@@ -81,7 +81,7 @@
 							<input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone">
 							<?= form_error('phone')  ?>
 						</div>
-						
+
 						<div class="mb-3">
 							<label for="staff_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="staff_status">
@@ -165,7 +165,7 @@
 
 												<th>#</th>
 												<th> Name</th>
-												
+
 												<th>Email</th>
 												<th>Phone</th>
 												<th>Create Date</th>
@@ -261,5 +261,4 @@
 
 			}
 		});
-		
 	</script>

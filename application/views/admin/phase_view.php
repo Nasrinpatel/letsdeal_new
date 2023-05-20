@@ -201,7 +201,7 @@
 			message: {
 
 			},
-			submitHandler: function(form,e) {
+			submitHandler: function(form, e) {
 				e.preventDefault();
 				var id = $('#edit_phase_id').val();
 				$.ajax({

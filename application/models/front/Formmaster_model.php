@@ -60,5 +60,4 @@ class Formmaster_model extends CI_model{
 	}
 	
 	
-}	 
- ?>
+}
