@@ -85,6 +85,20 @@
                                                                     <div class="row">
                                                                         <div class="col-md-5">
                                                                             <div class="mb-3">
+                                                                                <label for="property_master" class="form-label">Select Master<span class="text-danger"> *</span></label>
+                                                                                <select class="form-select select2" name="pro_master_id" id="property_master">
+                                                                                    <option value="">Select Master</option>
+                                                                                    <?php foreach ($master as $mas) { ?>
+                                                                                        <option value="<?= $mas['id'] ?>"><?= $mas['name'] ?></option>
+                                                                                    <?php } ?>
+                                                                                </select>
+                                                                                <span style="color: red;"><?= form_error('pro_master_id') ?></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                            <div class="mb-3">
                                                                                 <label class="form-label">Lead Stage<span class="text-danger"> *</span></label>
                                                                                 <select data-toggle="select2" class="form-control select2" name="lead_stage_id" data-width="100%">
                                                                                     <option value="">Select Stage</option>
@@ -93,6 +107,40 @@
                                                                                     <?php } ?>
                                                                                 </select>
                                                                                 <span style="color: red;"><?= form_error('lead_stage_id') ?></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <label class="form-label">Budget</label>
+                                                                        <div class="col-md-2">
+                                                                            <div class="mb-3">
+                                                                                <input class="form-check-input" type="radio" id="single" name="budget_type" checked value="single">
+                                                                                <label class="form-check-label" for="single">Single</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="mb-3">
+                                                                                <input class="form-check-input" type="radio" id="range" name="budget_type" value="range">
+                                                                                <label class="form-check-label" for="range">Range</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row single_area">
+                                                                        <div class="col-lg-5">
+                                                                            <div class="mb-3">
+                                                                                <input type="text" class="form-control" name="single_budget" placeholder="Budget">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row range_area" style="display: none;">
+                                                                        <div class="col-range">
+                                                                            <div class="mb-3">
+                                                                                <input type="text" class="form-control" name="from_budget" placeholder="From">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-range">
+                                                                            <div class="mb-3">
+                                                                                <input type="text" class="form-control" name="to_budget" placeholder="To">
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -245,124 +293,6 @@
                                                     </div>
 
                                                     <div class="tab-pane" id="question">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <form method="post" id="store-question" action="<?php echo base_url() . 'admin/Leadmaster/store_question'; ?>">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-5">
-                                                                            <div class="mb-3">
-                                                                                <label for="question" class="form-label">Questions</label>
-                                                                                <?php foreach($question as $item){
-                                                                                    ?>
-                                                                                    <h5><?= $item['question'] ?></h5>
-                                                                                    <input type="hidden" name="lead_id" id="lead_id" value="">
-                                                                                    <input type="hidden" name="question[]" value="<?= $item['question'] ?>">
-                                                                                    <input type="hidden" name="question_id[]" value="<?= $item['id'] ?>">
-                                                                                    <input type="hidden" name="answer_type_<?= $item['id'] ?>" value="<?= $item['question_answer_inputtype'] ?>">
-                                                                                    <?php if($item['source_id'] != ''){
-                                                                                        $source_options=$this->db->get_where('source_option_master',array('source_cat_id'=>$item['source_id']))->result_array();
-                                                                                        foreach($source_options as $source_option){ ?>
-                                                                                            <input type="hidden" name="answer_options_<?= $item['id'] ?>[]" value="<?= $source_option['name'] ?>">
-                                                                                            <input type="hidden" name="answer_option_ids_<?= $item['id'] ?>[]" value="<?= $source_option['id'] ?>">
-                                                                                        <?php } ?>
-                                                                                    <?php }else {
-                                                                                        $source_options=[];
-                                                                                    } ?>
-                                                                                    <?php if($item['question_answer_inputtype'] == 'Textbox'){ ?>
-                                                                                        <input type="text" class="form-control" name="answer_<?= $item['id'] ?>" id="userName1" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Dropdown'){ ?>
-                                                                                        <select class="form-select" name="answer_<?= $item['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                            <option>Select Option</option>
-                                                                                            <?php foreach($source_options as $source_option){ ?>
-                                                                                                <option value="<?= $source_option['id'] ?>"><?= $source_option['name'] ?></option>
-                                                                                            <?php } ?>
-                                                                                        </select>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Checkbox'){ ?>
-                                                                                        <?php foreach($source_options as $source_option){ ?>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input" type="checkbox" id="userName1"  name="answer_<?= $item['id'] ?>[]" value="<?= $source_option['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                                <label class="form-check-label" for="userName1"><?= $source_option['name'] ?></label><br>
-                                                                                            </div>
-                                                                                        <?php } ?>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Radio'){ ?>
-                                                                                        <?php foreach($source_options as $source_option){ ?>
-                                                                                            <div class="form-check form-check-inline">
-                                                                                                <input class="form-check-input" type="radio" id="userName1"  name="answer_<?= $item['id'] ?>" value="<?= $source_option['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                                <label class="form-check-label" for="userName1"><?= $source_option['name'] ?></label><br>
-                                                                                            </div>
-                                                                                        <?php } ?>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Date'){ ?>
-                                                                                        <input type="date" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Textarea'){ ?>
-                                                                                        <textarea class="form-control" id="userName1" name="answer_<?= $item['id'] ?>" <?php (($item['is_require'] == 1) ? 'required' : '') ?>></textarea>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'File'){ ?>
-                                                                                        <input type="file" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Number'){ ?>
-                                                                                        <input type="number" class="form-control" id="userName1"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Phone'){ ?>
-                                                                                        <input type="tel" class="form-control" placeholder="Enter Phone number" id="userName1" name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Email'){ ?>
-                                                                                        <input type="email" class="form-control" id="userName1" placeholder="Enter Email Address"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Link'){ ?>
-                                                                                        <input type="url" class="form-control" id="userName1" placeholder="Enter Link"  name="answer_<?= $item['id'] ?>" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Image'){ ?>
-                                                                                        <input type="file" class="form-control" name="answer_<?= $item['id'] ?>" accept="image/*" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Video 360'){ ?>
-                                                                                        <input type="url" class="form-control" placeholder="Enter Vieo 360 Link" name="answer_<?= $item['id'] ?>" accept="video/*" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Image Gallery'){ ?>
-                                                                                        <input class="image_gallery" name="answer_<?= $item['id'] ?>[]" type="file" multiple <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                    <?php }
-                                                                                    elseif ($item['question_answer_inputtype'] == 'Video Gallery'){ ?>
-                                                                                        <div id="videogallery">
-                                                                                            <div class="row">
-                                                                                                <div class="col-lg-10">
-                                                                                                    <div class="mb-3">
-                                                                                                        <input type="url" class="form-control" name="answer_<?= $item['id'] ?>[]" id="videogallery" placeholder="Enter Video Link" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="col-lg-2">
-                                                                                                    <a class="btn btn-success waves-effect waves-light add-button"  data-name="answer_<?= $item['id'] ?>[]">Add </a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <?php }elseif ($item['question_answer_inputtype'] == 'Google map'){ ?>
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-6">
-                                                                                                <input type="text" class="form-control" placeholder="Enter Latitude"  name="answer_<?= $item['id'] ?>[]" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                            </div>
-                                                                                            <div class="col-md-6">
-                                                                                                <input type="text" class="form-control" placeholder="Enter Longitude"  name="answer_<?= $item['id'] ?>[]" value="" <?php (($item['is_require'] == 1) ? 'required' : '') ?>>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    <?php }?>
-                                                                                <?php } ?>
-                                                                                <!--                                            <span style="color: red;">--><?//= form_error('question_ids[]') ?><!--</span>-->
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-lg-6">
-                                                                            <div class="text">
-                                                                                <button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div> <!-- end col -->
-                                                        </div> <!-- end row -->
                                                     </div>
 
                                                     <ul class="list-inline mb-0 wizard mt-20 hide">
@@ -654,6 +584,7 @@
     $("#store-lead").validate({
         rules: {
             customer_id: "required",
+            pro_master_id: "required",
             lead_stage_id: "required",
             status: "required"
         },
@@ -670,12 +601,32 @@
                     $('#update-specialistfor #lead_id').val(response.insert_id);
                     $('#store-specialistarea #lead_id').val(response.insert_id);
                     $('#update-specialistarea #lead_id').val(response.insert_id);
-                    $('#store-question #lead_id').val(response.insert_id);
+                    // $('#store-question #lead_id').val(response.insert_id);
                     $('#property_interested_datatable').attr('data-id',response.insert_id);
                     $('.hide').removeAttr("style");
                     $('#property_interested_tab').removeClass('disabled');
                     $('#area_interested_tab').removeClass('disabled');
                     $('#question_tab').removeClass('disabled');
+                   var master_id = response.master_id.pro_master_id;
+                   var lead_id = response.insert_id;
+                    $.ajax({
+                        // type: 'POST',
+                        url: '<?php echo base_url('admin/Leadmaster/get_questions'); ?>',
+                        type: 'POST',
+                        data: {
+                            master_id: master_id,
+                            lead_id:lead_id
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            debugger;
+                            if (data.success == true) {
+                                $('#question').html(data.html);
+                                form_init();
+                                $(".image_gallery").fileinput();
+                            }
+                        }
+                    });
                     success_message('', response.message);
                 }
             });
@@ -1121,7 +1072,6 @@
         }
     });
 
-
     $(document).ready(function() {
         $("#agent-contacts-tab").on('click', function() {
             contact_table.ajax.reload(null, false);
@@ -1134,15 +1084,20 @@
         $(hash + "-tab").trigger('click');
     });
 
-    $('input[name=inquiry_type]').click(function() {
-        if (this.id == "agent") {
-            $("#agent_div").show('slow');
+    $('input[name=budget_type]').click(function() {
+        if (this.id == "single") {
+            $(".single_area").show('slow');
         } else {
-            $("#agent_div").hide('slow');
+            $(".single_area").hide('slow');
         }
-
     });
-    $('input[name=inquiry_type]').trigger('click');
+    $('input[name=budget_type]').click(function() {
+        if (this.id == "range") {
+            $(".range_area").show('slow');
+        } else {
+            $(".range_area").hide('slow');
+        }
+    });
 
     //on switch change status
     $(document).on('change', '.property_status', function() {
@@ -1171,5 +1126,10 @@
     }
     .mt-20{
         margin-top: 20px;
+    }
+    .col-range {
+        -webkit-box-flex: 0;
+        flex: 0 0 auto;
+        width: 20.86666667%;
     }
 </style>

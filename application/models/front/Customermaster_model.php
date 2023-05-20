@@ -15,7 +15,15 @@ class Customermaster_model extends CI_model{
 	}
 	function saverecords($formArray)
 	{
-		 $this->db->insert($this->db_name,$formArray);
+//		 $this->db->insert($this->db_name,$formArray);
+//		 return true;
+		$response['status'] = $this->db->insert($this->db_name,$formArray);
+		$response['id'] = $this->db->insert_id();
+		return $response;
+	}
+	function save_agent_records($record)
+	{
+		 $this->db->insert('tb_customer_agent',$record);
 		 return true;
 	}
 	function save_contact_records($formArray)
@@ -123,6 +131,12 @@ class Customermaster_model extends CI_model{
 	{
 		$this->db->where('id',$id);
 		$this->db->delete($this->db_name);
+		return true;
+	}
+	function delete_agent($id)
+	{
+		$this->db->where('id',$id);
+		$this->db->delete('tb_customer_agent');
 		return true;
 	}
 	

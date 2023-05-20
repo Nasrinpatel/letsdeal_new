@@ -45,6 +45,7 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Master</th>
                                         <th>Question</th>
                                         <th>Status</th>
                                         <th style="width: 85px;">Action</th>
@@ -68,7 +69,7 @@
         ajax: "<?php echo base_url('admin/LeadFormMaster/all'); ?>",
         "columnDefs": [
             {
-                "targets": 3,
+                "targets": 4,
                 "createdCell": function(td, cellData, rowData, row, col) {
                     if (rowData[5] == '1') {
                         $(td).html('<span class="badge bg-soft-success text-success">Active</span>');

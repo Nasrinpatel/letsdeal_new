@@ -19,6 +19,7 @@ class Leadmaster_model extends CI_model{
     function savequestion_records($formArray)
     {
         $lead_id = $formArray['lead_id'];
+        $pro_master_id = $formArray['pro_master_id'];
         $i=0;
         if(!empty($formArray['question_id'])) {
             foreach ($formArray['question_id'] as $q_id) {
@@ -119,6 +120,7 @@ class Leadmaster_model extends CI_model{
                 $answer_ids['options'] = $option_ids;
                 $data = [
                     'lead_id' => $lead_id,
+                    'pro_master_id' => $pro_master_id,
                     'question_id' => $q_id,
                     'answer_ids' => json_encode($answer_ids),
                     'question' => $formArray['question'][$i],
@@ -140,6 +142,7 @@ class Leadmaster_model extends CI_model{
     {
         $d = [];
         $d['customer_id'] = $formArray['customer_id'];
+        $d['pro_master_id'] = $formArray['pro_master_id'];
         $d['lead_stage_id'] = $formArray['lead_stage_id'];
         $d['status'] = $formArray['status'];
 
@@ -325,6 +328,7 @@ class Leadmaster_model extends CI_model{
                 $answer_ids['options'] = $option_ids;
                 $data=[
                     'lead_id' => $id,
+                    'pro_master_id' => $formArray['pro_master_id'],
                     'question_id' => $q_id,
                     'answer_ids' => json_encode($answer_ids),
                     'question' => $formArray['question'][$i],
@@ -352,6 +356,11 @@ class Leadmaster_model extends CI_model{
 
     function getLeadMaster($id){
         $data = $this->db->where('id',$id)->get($this->db_name)->row_array();
+        return $data;
+    }
+
+    function getPromaster(){
+        $data = $this->db->get('tb_master')->result_array();
         return $data;
     }
 
