@@ -249,7 +249,7 @@
 			$.ajax({
 				// type: 'POST',
 				url: '<?php echo base_url('admin/Propertymaster/get_questions'); ?>',
-				type: 'POST',..
+				type: 'POST',
 				data: {
 					master_id: master_id,
 					category_id: category_id,

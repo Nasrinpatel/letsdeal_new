@@ -272,8 +272,8 @@
 																										<input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" accept="video/*" value="<?= array_keys($answers['options'][0])[0] ?>">
 																									<?php } elseif ($que['question_answer_inputtype'] == 'Google Map') { ?>
 																										<div class="row">
-																											<div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>"></div>
-																											<div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_'.$phase['id'].'_'.$que['id'].'[]" value="<?= array_keys($answers['options'][1])[0] ?>"></div>
+																											<div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($answers['options'][0])[0] ?>"></div>
+																											<div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" value="<?= array_keys($answers['options'][1])[0] ?>"></div>
 																										</div>
 																									<?php } elseif ($que['question_answer_inputtype'] == 'Image Gallery') { ?>
 																										<input class="image_gallery" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" type="file" multiple>
