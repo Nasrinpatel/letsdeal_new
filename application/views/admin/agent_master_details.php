@@ -432,7 +432,14 @@
 
 					</div> <!-- end row -->
 
-
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 
 
 
@@ -599,6 +606,14 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
 								<label for="description" class="form-label">Description</label>
 								<textarea class="form-control" name="description" id="description"></textarea>
 							</div>
@@ -625,7 +640,6 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
-
 
 
 <!-- Specialistarea add -->
@@ -1132,245 +1146,246 @@
 											</div>
 										</div>
 										<div class="tab-pane fade" id="agent-property" role="tabpanel" aria-labelledby="agent-property-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Property</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<!-- <a href="<?= base_url('admin/Agentmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
-
-															<a href="<?= base_url('admin/Propertymaster/add') ?>?agent_id=<?= $agent->id ?>&page=agentDetails" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a>
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Property</h4>
 														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<!-- <a href="<?= base_url('admin/Agentmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
 
-													</div>
-												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
-																	</div>
-																</div>
+																<a href="<?= base_url('admin/Propertymaster/add') ?>?agent_id=<?= $agent->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a>
+															</div>
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_property_datatable">
-																		<thead>
-																			<tr>
-																				<th></th>
-																				<th>#</th>
-																				<th>Master Name</th>
-																				<th>Category</th>
-																				<th>Sub Category</th>
-																				<th>Create Date</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
-												</div>
-											</div>
-										</div>
-										<div class="tab-pane fade" id="agent-specialist-for" role="tabpanel" aria-labelledby="agent-specialist-for-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Specialist For</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-specialistfor-modal">Add New</button>
 														</div>
 													</div>
-												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
 																	</div>
-																</div>
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_specialistfor_datatable">
-																		<thead>
-																			<tr>
-
-																				<th>#</th>
-																				<th>Category</th>
-																				<th>Sub Category</th>
-																				<th>Create Date</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_property_datatable">
+																			<thead>
+																				<tr>
+																					<th></th>
+																					<th>#</th>
+																					<th>Master Name</th>
+																					<th>Category</th>
+																					<th>Sub Category</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="tab-pane fade" id="agent-specialist-area" role="tabpanel" aria-labelledby="agent-specialist-area-tab">
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Specialist Area</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-specialistarea-modal">Add New</button>
+											<div class="tab-pane fade" id="agent-specialist-for" role="tabpanel" aria-labelledby="agent-specialist-for-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Specialist For</h4>
+														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-specialistfor-modal">Add New</button>
+															</div>
 														</div>
 													</div>
-												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
 																	</div>
-																</div>
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_specialistarea_datatable">
-																		<thead>
-																			<tr>
-																				<th>#</th>
-																				<th>State</th>
-																				<th>City</th>
-																				<th>Area</th>
-																				<th>Create Date</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_specialistfor_datatable">
+																			<thead>
+																				<tr>
+
+																					<th>#</th>
+																					<th>Category</th>
+																					<th>Sub Category</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
+													</div>
 												</div>
 											</div>
-										</div>
-										<div class="tab-pane fade" id="agent-reminders" role="tabpanel" aria-labelledby="agent-reminders-tab">
-
-											<div>
-												<div class="row justify-content-between mb-2">
-													<div class="col-auto">
-														<h4 class="header-title">Reminders</h4>
-													</div>
-													<div class="col-sm-6">
-														<div class="text-sm-end">
-															<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-reminders-modal">Add Reminder</button>
-
-															<!-- <a href="<?= base_url('admin/Propertymaster/add') ?>?agent_id=<?= $agent->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a> -->
+											<div class="tab-pane fade" id="agent-specialist-area" role="tabpanel" aria-labelledby="agent-specialist-area-tab">
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Specialist Area</h4>
 														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-specialistarea-modal">Add New</button>
+															</div>
+														</div>
+													</div>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
+																	</div>
 
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_specialistarea_datatable">
+																			<thead>
+																				<tr>
+																					<th>#</th>
+																					<th>State</th>
+																					<th>City</th>
+																					<th>Area</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
 													</div>
 												</div>
-												<!-- end row-->
-												<div class="row my-4">
-													<div class="col-12">
-														<div class="card">
-															<div class="card-body">
-																<div class="row">
-																	<div class="col-sm-12">
-																		<?php if ($this->session->flashdata('success')) { ?>
-																			<div class="alert alert-success" role="alert">
-																				<?php
-																				echo $this->session->flashdata('success');
-																				?>
-																			</div>
-																		<?php } ?>
-																		<?php if ($this->session->flashdata('error')) { ?>
-																			<div class="alert alert-danger" role="alert">
-																				<?php
-																				echo $this->session->flashdata('error');
-																				?>
-																			</div>
-																		<?php } ?>
-																	</div>
-																</div>
+											</div>
+											<div class="tab-pane fade" id="agent-reminders" role="tabpanel" aria-labelledby="agent-reminders-tab">
 
-																<div class="table-responsive">
-																	<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_reminders_datatable">
-																		<thead>
-																			<tr>
-																				<th>#</th>
-																				<!-- <th>Name</th> -->
-																				<th>Type</th>
-																				<th>Date</th>
-																				<th>Priority</th>
-																				<th>Repeat Every</th>
-																				<th>Total Cycle</th>
-																				<th>Description</th>
-																				<th>Create Date</th>
-																				<th>Status</th>
-																				<th style="width: 85px;">Action</th>
-																			</tr>
-																		</thead>
-																	</table>
-																</div>
-															</div> <!-- end card-body-->
-														</div> <!-- end card-->
-													</div> <!-- end col -->
+												<div>
+													<div class="row justify-content-between mb-2">
+														<div class="col-auto">
+															<h4 class="header-title">Reminders</h4>
+														</div>
+														<div class="col-sm-6">
+															<div class="text-sm-end">
+																<button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-reminders-modal">Add Reminder</button>
+
+																<!-- <a href="<?= base_url('admin/Propertymaster/add') ?>?agent_id=<?= $agent->id ?>&page=edit" class="btn btn-danger waves-effect waves-light mb-2">Add Property</a> -->
+															</div>
+
+														</div>
+													</div>
+													<!-- end row-->
+													<div class="row my-4">
+														<div class="col-12">
+															<div class="card">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-sm-12">
+																			<?php if ($this->session->flashdata('success')) { ?>
+																				<div class="alert alert-success" role="alert">
+																					<?php
+																					echo $this->session->flashdata('success');
+																					?>
+																				</div>
+																			<?php } ?>
+																			<?php if ($this->session->flashdata('error')) { ?>
+																				<div class="alert alert-danger" role="alert">
+																					<?php
+																					echo $this->session->flashdata('error');
+																					?>
+																				</div>
+																			<?php } ?>
+																		</div>
+																	</div>
+
+																	<div class="table-responsive">
+																		<table class="table table-centered table-nowrap table-striped dt-responsive nowrap" style="width:100%" id="agent_reminders_datatable">
+																			<thead>
+																				<tr>
+																					<th>#</th>
+																					<!-- <th>Name</th> -->
+																					<th>Type</th>
+																					<th>Date</th>
+																					<th>Priority</th>
+																					<th>Repeat Every</th>
+																					<th>Total Cycle</th>
+																					<th>Before Day</th>
+																					<th>Description</th>
+																					<th>Create Date</th>
+																					<th>Status</th>
+																					<th style="width: 85px;">Action</th>
+																				</tr>
+																			</thead>
+																		</table>
+																	</div>
+																</div> <!-- end card-body-->
+															</div> <!-- end card-->
+														</div> <!-- end col -->
+													</div>
 												</div>
 											</div>
-										</div>
 									</div> <!-- end col-->
 								</div> <!-- end row-->
 
@@ -1768,90 +1783,74 @@
 			}
 		});
 
-		//all specialist Area
-		//on state change fetch city
-		$(document).on('change', '#agent-specialistarea-modal #state_id', function() {
-			var state_id = $(this).val();
-			if (state_id != '') {
-				$.ajax({
-					url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
-					type: 'post',
-					data: {
-						state_id: state_id
-					},
-					dataType: 'json',
-					success: function(response) {
-						var len = response.length;
-						$("#store-specialistarea #city_id").empty();
-						$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
-						for (var i = 0; i < len; i++) {
-							var id = response[i]['id'];
-							var name = response[i]['name'];
-							$("#store-specialistarea #city_id").append("<option value='" + id + "'>" + name + "</option>");
-						}
-					}
-				});
-			} else {
-				$("#store-specialistarea #city_id").empty();
-			}
-		});
-		$(document).ready(function() {
-			$('#edit-agent-specialistarea-modal #state_id').change(function() {
-				debugger;
-				var state_id = $(this).val();
-				if (state_id != '') {
-					$.ajax({
-						url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
-						type: 'post',
-						data: {
-							state_id: state_id
-						},
-						dataType: 'json',
-						success: function(response) {
-							var len = response.length;
-							$("#edit-agent-specialistarea-modal #city_id").empty();
-							$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
-							for (var i = 0; i < len; i++) {
-								var id = response[i]['id'];
-								var name = response[i]['name'];
-								$("#edit-agent-specialistarea-modal #city_id").append("<option value='" + id + "'>" + name + "</option>");
+		
+				//all specialist Area
+			//on state change fetch city	
+			$(document).ready(function() {
+				$(document).on('change', '#agent-specialistarea-modal #state_id', function() {
+					var state_id = $(this).val();
+					if (state_id != '') {
+						$.ajax({
+							url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
+							type: 'post',
+							data: {
+								state_id: state_id
+							},
+							dataType: 'json',
+							success: function(response) {
+								var len = response.length;
+								$("#store-specialistarea #city_id").empty();
+								$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+								for (var i = 0; i < len; i++) {
+									var id = response[i]['id'];
+									var name = response[i]['name'];
+									var is_default = response[i]['is_default'];
+									$("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
+
+								}
 							}
-						}
-					});
-				} else {
-					$("#edit-agent-specialistarea-modal #city_id").empty();
-				}
-			});
-		});
-		//on city change fetch area
-		$(document).on('change', '#agent-specialistarea-modal #city_id', function() {
-			var city_id = $(this).val();
-			if (city_id != '') {
-				$.ajax({
-					url: '<?php echo base_url() . "admin/Agentmaster/getAreaByCity"; ?>',
-					type: 'post',
-					data: {
-						city_id: city_id
-					},
-					dataType: 'json',
-					success: function(response) {
-						var len = response.length;
-						$("#store-specialistarea #area_id").empty();
-						$("#store-specialistarea #area_id").append("<option value=''>Select Area</option>");
-						for (var i = 0; i < len; i++) {
-							var id = response[i]['id'];
-							var name = response[i]['name'];
-							$("#store-specialistarea #area_id").append("<option value='" + id + "'>" + name + "</option>");
-						}
+						});
+					} else {
+						$("#store-specialistarea #city_id").empty();
 					}
 				});
-			} else {
-				$("#store-specialistarea #area_id").empty();
-			}
-		});
-		$(document).ready(function() {
-			$('#edit-agent-specialistarea-modal #city_id').change(function() {
-				debugger;
+				$('#agent-specialistarea-modal').on('shown.bs.modal', function(e) {
+					$('#agent-specialistarea-modal #state_id').trigger('change');
+					setTimeout(function() {
+						$('#agent-specialistarea-modal #city_id').trigger('change');
+					}, 250);
+				});
+			});
+			$(document).ready(function() {
+				$('#edit-agent-specialistarea-modal #state_id').change(function() {
+					debugger;
+					var state_id = $(this).val();
+					if (state_id != '') {
+						$.ajax({
+							url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
+							type: 'post',
+							data: {
+								state_id: state_id
+							},
+							dataType: 'json',
+							success: function(response) {
+								var len = response.length;
+								$("#edit-agent-specialistarea-modal #city_id").empty();
+								$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+								for (var i = 0; i < len; i++) {
+									var id = response[i]['id'];
+									var name = response[i]['name'];
+									$("#edit-agent-specialistarea-modal #city_id").append("<option value='" + id + "'>" + name + "</option>");
+								}
+							}
+						});
+					} else {
+						$("#edit-agent-specialistarea-modal #city_id").empty();
+					}
+				});
+			});
+			//on city change fetch area
+			$(document).on('change', '#agent-specialistarea-modal #city_id', function() {
 				var city_id = $(this).val();
 				if (city_id != '') {
 					$.ajax({
@@ -1863,343 +1862,373 @@
 						dataType: 'json',
 						success: function(response) {
 							var len = response.length;
-							$("#edit-agent-specialistarea-modal #area_id").empty();
-							$("#edit-agent-specialistarea-modal #area_id").append("<option value=''>Select Area</option>");
+							$("#store-specialistarea #area_id").empty();
+							$("#store-specialistarea #area_id").append("<option value=''>Select Area</option>");
 							for (var i = 0; i < len; i++) {
 								var id = response[i]['id'];
 								var name = response[i]['name'];
-								$("#edit-agent-specialistarea-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+								$("#store-specialistarea #area_id").append("<option value='" + id + "'>" + name + "</option>");
 							}
 						}
 					});
 				} else {
-					$("#edit-agent-specialistarea-modal #area_id").empty();
+					$("#store-specialistarea #area_id").empty();
 				}
 			});
-		});
-		var specialistarea_table = $('#agent_specialistarea_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Agentmaster/all_specialistarea/' . $agent->id); ?>",
-			"columnDefs": [{
-					responsivePriority: 1,
-					targets: 0
-				},
-				{
-					responsivePriority: 2,
-					targets: 1
-				},
-				{
-					responsivePriority: 3,
-					targets: 2
-				},
-				{
-					responsivePriority: 3,
-					targets: 3
-				},
-				{
-					responsivePriority: 2,
-					targets: 5
-				},
-				{
-					responsivePriority: 2,
-					targets: 6
-				},
-				{
-					"targets": 5,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[5] == '1') {
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[5] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-						}
-					}
-				},
-			]
-		});
-		//add specialist Area
-		$("#store-specialistarea").validate({
-			rules: {
-				// first_name: "required",
-				// last_name: "required",
-
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						$("#store-specialistarea").trigger("reset");
-						success_message('', response.message);
-						specialistarea_table.ajax.reload(null, false);
+			$(document).ready(function() {
+				$('#edit-agent-specialistarea-modal #city_id').change(function() {
+					debugger;
+					var city_id = $(this).val();
+					if (city_id != '') {
+						$.ajax({
+							url: '<?php echo base_url() . "admin/Agentmaster/getAreaByCity"; ?>',
+							type: 'post',
+							data: {
+								city_id: city_id
+							},
+							dataType: 'json',
+							success: function(response) {
+								var len = response.length;
+								$("#edit-agent-specialistarea-modal #area_id").empty();
+								$("#edit-agent-specialistarea-modal #area_id").append("<option value=''>Select Area</option>");
+								for (var i = 0; i < len; i++) {
+									var id = response[i]['id'];
+									var name = response[i]['name'];
+									$("#edit-agent-specialistarea-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+								}
+							}
+						});
+					} else {
+						$("#edit-agent-specialistarea-modal #area_id").empty();
 					}
 				});
-			}
-		});
-		$(document).ready(function() {
-			//edit specialist Area
-			$(document).on('click', "#agent_specialistarea_datatable .edit-btn", function() {
+			});
+			var specialistarea_table = $('#agent_specialistarea_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Agentmaster/all_specialistarea/' . $agent->id); ?>",
+				"columnDefs": [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 1
+					},
+					{
+						responsivePriority: 3,
+						targets: 2
+					},
+					{
+						responsivePriority: 3,
+						targets: 3
+					},
+					{
+						responsivePriority: 2,
+						targets: 5
+					},
+					{
+						responsivePriority: 2,
+						targets: 6
+					},
+					{
+						"targets": 5,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[5] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[5] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
+						}
+					},
+				]
+			});
+			//add specialist Area
+			$("#store-specialistarea").validate({
+				rules: {
+					// first_name: "required",
+					// last_name: "required",
+
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					$.ajax({
+						url: url,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							$("#store-specialistarea").trigger("reset");
+							success_message('', response.message);
+							specialistarea_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
+			$(document).ready(function() {
+				//edit specialist Area
+				$(document).on('click', "#agent_specialistarea_datatable .edit-btn", function() {
+					var id = $(this).attr('data-id');
+					$.ajax({
+						url: '<?php echo base_url() ?>admin/Agentmaster/edit_specialistarea/' + id,
+						type: "POST",
+						dataType: "json",
+						success: function(data) {
+							$("#edit-agent-specialistarea-modal #specialistarea_id").val(data.id);
+							$('#edit-agent-specialistarea-modal #state_id').val(data.state_id).trigger('change');
+							setTimeout(function() {
+								$('#edit-agent-specialistarea-modal #city_id').val(data.city_id).trigger('change');
+								setTimeout(function() {
+									$('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');
+								}, 250);
+							}, 250);
+							$("#edit-agent-specialistarea-modal #specialistarea_status").val(data.status);
+						}
+					});
+				});
+			});
+			//update specialist Area
+			$("#update-specialistarea").validate({
+				rules: {
+
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					var id = $('#edit-agent-specialistarea-modal #specialistarea_id').val();
+					$.ajax({
+						url: url + '/' + id,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							success_message('', response.message);
+							specialistarea_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
+
+			//all reminder
+			var reminders_table = $('#agent_reminders_datatable').DataTable({
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Agentmaster/all_reminders/' . $agent->id); ?>",
+				columnDefs: [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 3
+					},
+					{
+						responsivePriority: 9,
+						targets: 10
+					},
+					{
+						responsivePriority: 6,
+						targets: 9
+					},
+					{
+						"targets": 9,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[9] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[9] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
+						}
+					},
+				]
+
+			});
+			//add reminders 
+			$("#store-reminders").validate({
+				rules: {
+					name: "required",
+					type: "required",
+					date_time: "required",
+					priority: "required",
+					repeat_every: "required",
+					beforeday: "required",
+					//description: "required",
+					status: "required"
+				},
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					$.ajax({
+						url: url,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							$("#store-reminders").trigger("reset");
+							success_message('', response.message);
+							reminders_table.ajax.reload(null, false);
+						}
+					});
+				}
+			});
+			//edit reminders
+			$(document).on('click', "#agent_reminders_datatable .edit-btn", function() {
 				var id = $(this).attr('data-id');
 				$.ajax({
-					url: '<?php echo base_url() ?>admin/Agentmaster/edit_specialistarea/' + id,
+					url: '<?php echo base_url() ?>admin/Agentmaster/edit_reminders/' + id,
 					type: "POST",
 					dataType: "json",
 					success: function(data) {
-						$("#edit-agent-specialistarea-modal #specialistarea_id").val(data.id);
-						$('#edit-agent-specialistarea-modal #state_id').val(data.state_id).trigger('change');
-						setTimeout(function() {
-							$('#edit-agent-specialistarea-modal #city_id').val(data.city_id).trigger('change');
-							setTimeout(function() {
-								$('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');
-							}, 250);
-						}, 250);
-						$("#edit-agent-specialistarea-modal #specialistarea_status").val(data.status);
-					}
-				});
-			});
-		});
-		//update specialist Area
-		$("#update-specialistarea").validate({
-			rules: {
-
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				var id = $('#edit-agent-specialistarea-modal #specialistarea_id').val();
-				$.ajax({
-					url: url + '/' + id,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						success_message('', response.message);
-						specialistarea_table.ajax.reload(null, false);
-					}
-				});
-			}
-		});
-
-		//all reminder
-		var reminders_table = $('#agent_reminders_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Agentmaster/all_reminders/' . $agent->id); ?>",
-			columnDefs: [{
-					responsivePriority: 1,
-					targets: 0
-				},
-				{
-					responsivePriority: 2,
-					targets: 3
-				},
-				{
-					responsivePriority: 10,
-					targets: 6
-				},
-				{
-					responsivePriority: 4,
-					targets: 9
-				},
-				{
-					"targets": 9,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[9] == '1') {
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[9] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+						debugger;
+						$("#edit-agent-reminders-modal #reminder_id").val(data.id);
+						$('#edit-agent-reminders-modal #name').val(data.name);
+						$('#edit-agent-reminders-modal #type').val(data.type).trigger('change');
+						$('#edit-agent-reminders-modal #date_time').val(data.date_time);
+						$('#edit-agent-reminders-modal #priority').val(data.priority).trigger('change');
+						if (data.custom_recurring == 1) {
+							$('#edit-agent-reminders-modal #repeat_every').val('custom').trigger('change');
+							$('#edit-agent-reminders-modal #repeat_every_custom').val(data.repeat_every).trigger('change');
+							$('#edit-agent-reminders-modal #repeat_type_custom').val(data.recurring_type).trigger('change');
+						} else {
+							$('#edit-agent-reminders-modal #repeat_every').val(data.repeat_every + '-' + data.recurring_type).trigger('change');
 						}
+						if (data.cycles == 0) {
+							$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', true).trigger('change');
+						} else {
+							$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
+						}
+						$('#edit-agent-reminders-modal #cycles').val(data.cycles);
+						$('#edit-agent-reminders-modal #beforeday').val(data.beforeday);
+						$('#edit-agent-reminders-modal #description').val(data.description);
+						$("#edit-agent-reminders-modal #reminders_status").val(data.status);
 					}
+				});
+			});
+
+
+
+			$(document).ready(function() {
+				// Hide the Total Cycles and Custom fields by default
+				$('#agent-reminders-modal #cycles').parent().parent().hide();
+				$('#agent-reminders-modal #custom_cycle_row').hide();
+
+				// Show/hide the Total Cycles field based on the selected Repeat value
+				$('#agent-reminders-modal #repeat_every').on('change', function() {
+					var selectedValue = $(this).val();
+					if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
+						$('#agent-reminders-modal #cycles').parent().parent().show();
+						$('#agent-reminders-modal #custom_cycle_row').hide();
+					} else if (selectedValue === 'custom') {
+						//$('#agent-reminders-modal #cycles').parent().parent().hide();
+						$('#agent-reminders-modal #cycles').parent().parent().show();
+						$('#agent-reminders-modal #custom_cycle_row').show();
+					} else {
+						$('#agent-reminders-modal #cycles').parent().parent().hide();
+						$('#agent-reminders-modal #custom_cycle_row').hide();
+					}
+				});
+
+				// spacing between the Infinity checkbox and label
+				$('#agent-reminders-modal #default_total_cycles').on('change', function() {
+					var checkbox = $(this);
+					var label = checkbox.next('label');
+					if (checkbox.is(':checked')) {
+						label.css('margin-left', '5px');
+					} else {
+						label.css('margin-left', '15px');
+					}
+				});
+
+				// Disable the Total Cycles field when Infinity is checked
+				$('#agent-reminders-modal #unlimited_cycles').on('change', function() {
+					var checkbox = $(this);
+					var totalCycles = $('#agent-reminders-modal #cycles');
+					if (checkbox.is(':checked')) {
+						totalCycles.attr('disabled', true);
+					} else {
+						totalCycles.attr('disabled', false);
+					}
+				});
+
+				//for edit model
+				// Hide the Total Cycles and Custom fields by default
+				$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
+				$('#edit-agent-reminders-modal #custom_cycle_row').hide();
+
+				// Show/hide the Total Cycles field based on the selected Repeat value
+				$('#edit-agent-reminders-modal #repeat_every').on('change', function() {
+					var selectedValue = $(this).val();
+					if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
+						$('#edit-agent-reminders-modal #cycles').parent().parent().show();
+						$('#edit-agent-reminders-modal #custom_cycle_row').hide();
+					} else if (selectedValue === 'custom') {
+						//$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
+						$('#edit-agent-reminders-modal #cycles').parent().parent().show();
+						$('#edit-agent-reminders-modal #custom_cycle_row').show();
+					} else {
+						$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
+						$('#edit-agent-reminders-modal #custom_cycle_row').hide();
+					}
+				});
+
+				// spacing between the Infinity checkbox and label
+				$('#edit-agent-reminders-modal #default_total_cycles').on('change', function() {
+					var checkbox = $(this);
+					var label = checkbox.next('label');
+					if (checkbox.is(':checked')) {
+						label.css('margin-left', '5px');
+					} else {
+						label.css('margin-left', '15px');
+					}
+				});
+
+				// Disable the Total Cycles field when Infinity is checked
+				$('#edit-agent-reminders-modal #unlimited_cycles').on('change', function() {
+					var checkbox = $(this);
+					var totalCycles = $('#edit-agent-reminders-modal #cycles');
+					if (checkbox.is(':checked')) {
+						totalCycles.attr('disabled', true);
+					} else {
+						totalCycles.attr('disabled', false);
+					}
+				});
+			});
+
+
+
+			//update reminders
+			$("#update-reminders").validate({
+				rules: {
+					name: "required",
+					type: "required",
+					date_time: "required",
+					priority: "required",
+					repeat_every: "required",
+					beforeday: "required",
+					//description: "required",
+					status: "required"
 				},
-			]
-		});
-		//add reminders 
-		$("#store-reminders").validate({
-			rules: {
-				name: "required",
-				type: "required",
-				date_time: "required",
-				priority: "required",
-				repeat_every: "required",
-				//description: "required",
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				$.ajax({
-					url: url,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						$("#store-reminders").trigger("reset");
-						success_message('', response.message);
-						reminders_table.ajax.reload(null, false);
-					}
-				});
-			}
-		});
-		//edit reminders
-		$(document).on('click', "#agent_reminders_datatable .edit-btn", function() {
-			var id = $(this).attr('data-id');
-			$.ajax({
-				url: '<?php echo base_url() ?>admin/Agentmaster/edit_reminders/' + id,
-				type: "POST",
-				dataType: "json",
-				success: function(data) {
-					debugger;
-					$("#edit-agent-reminders-modal #reminder_id").val(data.id);
-					$('#edit-agent-reminders-modal #name').val(data.name);
-					$('#edit-agent-reminders-modal #type').val(data.type).trigger('change');
-					$('#edit-agent-reminders-modal #date_time').val(data.date_time);
-					$('#edit-agent-reminders-modal #priority').val(data.priority).trigger('change');
-					if (data.custom_recurring == 1) {
-						$('#edit-agent-reminders-modal #repeat_every').val('custom').trigger('change');
-						$('#edit-agent-reminders-modal #repeat_every_custom').val(data.repeat_every).trigger('change');
-						$('#edit-agent-reminders-modal #repeat_type_custom').val(data.recurring_type).trigger('change');
-					} else {
-						$('#edit-agent-reminders-modal #repeat_every').val(data.repeat_every + '-' + data.recurring_type).trigger('change');
-					}
-					if (data.cycles == 0) {
-						$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', true).trigger('change');
-					} else {
-						$('#edit-agent-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
-					}
-					$('#edit-agent-reminders-modal #cycles').val(data.cycles);
-					$('#edit-agent-reminders-modal #description').val(data.description);
-					$("#edit-agent-reminders-modal #reminders_status").val(data.status);
+				submitHandler: function(form, e) {
+					e.preventDefault();
+					var url = $(form).attr("action");
+					var id = $('#edit-agent-reminders-modal #reminder_id').val();
+					$.ajax({
+						url: url + '/' + id,
+						type: "POST",
+						data: $(form).serialize(),
+						dataType: "json",
+						success: function(response) {
+							$('.btn-close').trigger('click');
+							success_message('', response.message);
+							reminders_table.ajax.reload(null, false);
+						}
+					});
 				}
 			});
-		});
-
-
-
-		$(document).ready(function() {
-			// Hide the Total Cycles and Custom fields by default
-			$('#agent-reminders-modal #cycles').parent().parent().hide();
-			$('#agent-reminders-modal #custom_cycle_row').hide();
-
-			// Show/hide the Total Cycles field based on the selected Repeat value
-			$('#agent-reminders-modal #repeat_every').on('change', function() {
-				var selectedValue = $(this).val();
-				if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
-					$('#agent-reminders-modal #cycles').parent().parent().show();
-					$('#agent-reminders-modal #custom_cycle_row').hide();
-				} else if (selectedValue === 'custom') {
-					//$('#agent-reminders-modal #cycles').parent().parent().hide();
-					$('#agent-reminders-modal #cycles').parent().parent().show();
-					$('#agent-reminders-modal #custom_cycle_row').show();
-				} else {
-					$('#agent-reminders-modal #cycles').parent().parent().hide();
-					$('#agent-reminders-modal #custom_cycle_row').hide();
-				}
-			});
-
-			// spacing between the Infinity checkbox and label
-			$('#agent-reminders-modal #default_total_cycles').on('change', function() {
-				var checkbox = $(this);
-				var label = checkbox.next('label');
-				if (checkbox.is(':checked')) {
-					label.css('margin-left', '5px');
-				} else {
-					label.css('margin-left', '15px');
-				}
-			});
-
-			// Disable the Total Cycles field when Infinity is checked
-			$('#agent-reminders-modal #unlimited_cycles').on('change', function() {
-				var checkbox = $(this);
-				var totalCycles = $('#agent-reminders-modal #cycles');
-				if (checkbox.is(':checked')) {
-					totalCycles.attr('disabled', true);
-				} else {
-					totalCycles.attr('disabled', false);
-				}
-			});
-
-			//for edit model
-			// Hide the Total Cycles and Custom fields by default
-			$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
-			$('#edit-agent-reminders-modal #custom_cycle_row').hide();
-
-			// Show/hide the Total Cycles field based on the selected Repeat value
-			$('#edit-agent-reminders-modal #repeat_every').on('change', function() {
-				var selectedValue = $(this).val();
-				if (selectedValue === '1-week' || selectedValue === '2-week' || selectedValue === '1-month' || selectedValue === '2-month' || selectedValue === '3-month' || selectedValue === '6-month' || selectedValue === '1-year') {
-					$('#edit-agent-reminders-modal #cycles').parent().parent().show();
-					$('#edit-agent-reminders-modal #custom_cycle_row').hide();
-				} else if (selectedValue === 'custom') {
-					//$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
-					$('#edit-agent-reminders-modal #cycles').parent().parent().show();
-					$('#edit-agent-reminders-modal #custom_cycle_row').show();
-				} else {
-					$('#edit-agent-reminders-modal #cycles').parent().parent().hide();
-					$('#edit-agent-reminders-modal #custom_cycle_row').hide();
-				}
-			});
-
-			// spacing between the Infinity checkbox and label
-			$('#edit-agent-reminders-modal #default_total_cycles').on('change', function() {
-				var checkbox = $(this);
-				var label = checkbox.next('label');
-				if (checkbox.is(':checked')) {
-					label.css('margin-left', '5px');
-				} else {
-					label.css('margin-left', '15px');
-				}
-			});
-
-			// Disable the Total Cycles field when Infinity is checked
-			$('#edit-agent-reminders-modal #unlimited_cycles').on('change', function() {
-				var checkbox = $(this);
-				var totalCycles = $('#edit-agent-reminders-modal #cycles');
-				if (checkbox.is(':checked')) {
-					totalCycles.attr('disabled', true);
-				} else {
-					totalCycles.attr('disabled', false);
-				}
-			});
-		});
-
-
-
-		//update reminders
-		$("#update-reminders").validate({
-			rules: {
-				name: "required",
-				type: "required",
-				date_time: "required",
-				priority: "required",
-				repeat_every: "required",
-				//description: "required",
-				status: "required"
-			},
-			submitHandler: function(form, e) {
-				e.preventDefault();
-				var url = $(form).attr("action");
-				var id = $('#edit-agent-reminders-modal #reminder_id').val();
-				$.ajax({
-					url: url + '/' + id,
-					type: "POST",
-					data: $(form).serialize(),
-					dataType: "json",
-					success: function(response) {
-						$('.btn-close').trigger('click');
-						success_message('', response.message);
-						reminders_table.ajax.reload(null, false);
-					}
-				});
-			}
-		});
-
 
 		//all property
 		var property_table = $('#agent_property_datatable').DataTable({
