@@ -39,5 +39,4 @@ class Position_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

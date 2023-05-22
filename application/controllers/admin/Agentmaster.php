@@ -30,8 +30,8 @@ class Agentmaster extends CI_Controller
 			$source_data = $this->db->get_where('tb_source_master', array('id' => $value['source_id']))->row();
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 			$staff_data = $this->db->get_where('tbl_staff_master', array('id' => $value['assigned_id']))->row();
-			$button = '<a href="' . base_url('admin/agentmaster/agentDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/agentmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/agentDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/agentmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -57,7 +57,7 @@ class Agentmaster extends CI_Controller
 		foreach ($contacts as $value) {
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 
-			$button = '<a href="' . base_url('admin/agentmaster/edit_contact/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-contact-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/edit_contact/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-contact-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete_contact/' . $value['id'] . '/' . $id) . '#agent-contacts" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -79,7 +79,7 @@ class Agentmaster extends CI_Controller
 		$i = 1;
 		foreach ($notes as $value) {
 
-			$button = '<a href="' . base_url('admin/agentmaster/edit_note/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-notes-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/edit_note/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-notes-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete_note/' . $value['id'] . '/' . $id) . '#agent-notes" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -106,12 +106,12 @@ class Agentmaster extends CI_Controller
 			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
 
 
-			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id'])  . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
 
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
-			// <a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			// <a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?agent_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 
 
 			$result['data'][] = array(
@@ -168,9 +168,9 @@ class Agentmaster extends CI_Controller
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-            if(!empty($_POST['assigned_id'])){
-                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            }
+			if (!empty($_POST['assigned_id'])) {
+				$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+			}
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
@@ -245,7 +245,7 @@ class Agentmaster extends CI_Controller
 		// $data['contacts'] = $this->agentmaster->getAgentContact($id);
 		$data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
 		$data['sourcemaster'] = $this->agentmaster->getSourceMaster();
-		
+
 		$data['source'] = $this->agentmaster->getSource();
 		$data['position'] = $this->agentmaster->getPosition();
 		$data['staff'] = $this->agentmaster->getStaff();
@@ -257,9 +257,9 @@ class Agentmaster extends CI_Controller
 		$data['states'] = $this->agentmaster->getState();
 		$data['cities'] = $this->agentmaster->getCity();
 		$data['areas'] = $this->agentmaster->getArea();
-        $record['parameter'] = array('id' => $id);
-        $assigned = $this->agentmaster->getassigneddata('tb_agent_master',$record);
-        $data['assigned_id'] = explode(',',$assigned['assigned_id']);
+		$record['parameter'] = array('id' => $id);
+		$assigned = $this->agentmaster->getassigneddata('tb_agent_master', $record);
+		$data['assigned_id'] = explode(',', $assigned['assigned_id']);
 		//$data['agent'] = $this->agentmaster->getAgent();
 		$data['page_name'] = 'agent_master_edit';
 		$this->load->view('admin/index', $data);
@@ -275,18 +275,18 @@ class Agentmaster extends CI_Controller
 	{
 		//	$this->form_validation->set_rules('inquiry_type', 'Inquiry type','required');
 		//$this->form_validation->set_rules('agent_id', 'Agent','required');
-		$this->form_validation->set_rules('source_id', 'Source', 'required');
+		//		$this->form_validation->set_rules('source_id', 'Source', 'required');
 		// if($this->input->post('inquiry_type') != 'direct'){
 		// 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
 		// }
-//		$this->form_validation->set_rules('assigned_id', 'Assigned', 'required');
-//		$this->form_validation->set_rules('position_id', 'Position', 'required');
+		//		$this->form_validation->set_rules('assigned_id', 'Assigned', 'required');
+		// $this->form_validation->set_rules('position_id', 'Position', 'required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 		//$this->form_validation->set_rules('email', 'Email', 'required');
-//		$this->form_validation->set_rules('company_name', 'Company name', 'required');
+		//		$this->form_validation->set_rules('company_name', 'Company name', 'required');
 		//$this->form_validation->set_rules('description', 'Description', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 
@@ -302,9 +302,9 @@ class Agentmaster extends CI_Controller
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-            if(!empty($_POST['assigned_id'])){
-                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            }
+			if (!empty($_POST['assigned_id'])) {
+				$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+			}
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
@@ -355,7 +355,7 @@ class Agentmaster extends CI_Controller
 		foreach ($specialistfor as $value) {
 			$category_data = $this->db->get_where('tb_property_category', array('id' => $value['pro_category_id']))->row();
 			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
-			$button = '<a href="' . base_url('admin/agentmaster/edit_specialistfor/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-specialistfor-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/edit_specialistfor/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-specialistfor-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete_specialistfor/' . $value['id'] . '/' . $id) . '#agent-specialistfor" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -440,13 +440,13 @@ class Agentmaster extends CI_Controller
 			$city_data = $this->db->get_where('tb_city_master', array('id' => $value['city_id']))->row();
 			$area_data = $this->db->get_where('tb_area_master', array('id' => $value['area_id']))->row();
 
-			$button = '<a href="' . base_url('admin/agentmaster/edit_specialistarea/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-specialistarea-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/edit_specialistarea/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-specialistarea-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 				<a href="' . base_url('admin/agentmaster/delete_specialistarea/' . $value['id'] . '/' . $id) . '#agent-specialistarea" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				$state_data->name,
 				$city_data->name,
-				$area_data->name,
+				(($area_data != null) ? $area_data->name : ''),
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
 				$button
@@ -603,15 +603,16 @@ class Agentmaster extends CI_Controller
 		$i = 1;
 		foreach ($reminders as $value) {
 			$type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
-			$button = '<a href="' . base_url('admin/agentmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/agentmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-reminders-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#agent-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				$type_data->name,
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],
-				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
-				(($value['cycles']==0)?'infinite':$value['cycles']),
+				$value['repeat_every'] . ' ' . ucwords($value['recurring_type']),
+				(($value['cycles'] == 0) ? 'infinite' : $value['cycles']),
+				$value['beforeday'],
 				$value['description'],
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
@@ -666,29 +667,29 @@ class Agentmaster extends CI_Controller
 		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-reminders');
 	}
 
-    public function store_ajax()
-    {
-            $formArray = array();
-            $formArray['source_id'] = $this->input->post('source_id');
-            if(!empty($_POST['assigned_id'])){
-                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            }
-            $formArray['position_id'] = $this->input->post('position_id');
-            $formArray['first_name'] = $this->input->post('first_name');
-            $formArray['last_name'] = $this->input->post('last_name');
-            $formArray['nick_name'] = $this->input->post('nick_name');
-            $formArray['phone'] = $this->input->post('phone');
-            $formArray['email'] = $this->input->post('email');
-            $formArray['company_name'] = $this->input->post('company_name');
-            $formArray['description'] = $this->input->post('description');
-            $formArray['status'] = $this->input->post('status');
+	public function store_ajax()
+	{
+		$formArray = array();
+		$formArray['source_id'] = $this->input->post('source_id');
+		if (!empty($_POST['assigned_id'])) {
+			$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+		}
+		$formArray['position_id'] = $this->input->post('position_id');
+		$formArray['first_name'] = $this->input->post('first_name');
+		$formArray['last_name'] = $this->input->post('last_name');
+		$formArray['nick_name'] = $this->input->post('nick_name');
+		$formArray['phone'] = $this->input->post('phone');
+		$formArray['email'] = $this->input->post('email');
+		$formArray['company_name'] = $this->input->post('company_name');
+		$formArray['description'] = $this->input->post('description');
+		$formArray['status'] = $this->input->post('status');
 
-            $response = $this->agentmaster->saverecords($formArray);
+		$response = $this->agentmaster->saverecords($formArray);
 
-            if ($response == true) {
-                echo json_encode(array('success' => true, 'message' => 'Channel Partner Added Successfully.'));
-            } else {
-                echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
-            }
-    }
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Channel Partner Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
 }

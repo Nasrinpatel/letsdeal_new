@@ -70,5 +70,4 @@ class Sourcecategory_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

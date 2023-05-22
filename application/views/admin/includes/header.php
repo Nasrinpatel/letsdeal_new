@@ -1,5 +1,5 @@
-	<!-- Topbar Start -->
-	<div class="navbar-custom">
+<!-- Topbar Start -->
+<div class="navbar-custom">
 		<div class="container-fluid">
 			<ul class="list-unstyled topnav-menu float-end mb-0">
 
@@ -294,15 +294,15 @@
 
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fe-grid me-1"></i> Manage Properties<div class="arrow-down"></div>
+								<i class="fas fa-building me-1"></i> Manage Properties<div class="arrow-down"></div>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="topnav-apps">
 
-								<a href="<?= base_url('admin/Propertycategory') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Property Category</a>
+								<a href="<?= base_url('admin/Propertycategory') ?>" class="dropdown-item"><i class="fas fa-tag"></i> Property Category</a>
 
-								<a href="<?= base_url('admin/Prosubcategory') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Property Sub Category</a>
+								<a href="<?= base_url('admin/Prosubcategory') ?>" class="dropdown-item"><i class="fas fa-tags me-1"></i> Property Sub Category</a>
 
-								<a href="<?= base_url('admin/Propertymaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Property Master</a>
+								<a href="<?= base_url('admin/Propertymaster') ?>" class="dropdown-item"><i class="fas fa-home me-1"></i>Property Master</a>
 
 
 							</div>
@@ -312,52 +312,74 @@
 								<i class="fe-grid me-1"></i>Masters<div class="arrow-down"></div>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="topnav-apps">
-								<a href="<?= base_url('admin/Masters') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Masters</a>
+								<!-- <a href="<?= base_url('admin/Masters') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Masters</a>
 								<a href="<?= base_url('admin/Questionmaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Question Master</a>
 								<a href="<?= base_url('admin/Sourcecategory') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Input Source Master</a>
 								<a href="<?= base_url('admin/Position') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Position</a>
-								<!-- <a href="<?= base_url('admin/Customermaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Customer Master</a> -->
 								<a href="<?= base_url('admin/Country') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Country</a>
 								<a href="<?= base_url('admin/State') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> State</a>
 								<a href="<?= base_url('admin/City') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> City</a>
 								<a href="<?= base_url('admin/Area') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Area</a>
 
-								
+
 								<a href="<?= base_url('admin/Phase') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Phase master</a>
-								<!--<a href="<?= base_url('admin/Status') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Status master</a> -->
 								<a href="<?= base_url('admin/Source') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Inquiry Source master</a>
-								<!-- <a href="<?= base_url('admin/Staff') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i> Staff master</a> -->
-                                <a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Reminder Type Master</a>
+								<a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Reminder Type Master</a>
 								<a href="<?= base_url('admin/LeadStage') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Stage</a>
-                                <a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Form Master</a>
-								
+								<a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fe-bookmark me-1"></i>Lead Form Master</a> -->
+								<a href="<?= base_url('admin/Masters') ?>" class="dropdown-item"><i class="fas fa-cogs me-1"></i> Masters</a>
+								<a href="<?= base_url('admin/Questionmaster') ?>" class="dropdown-item"><i class="fas fa-question-circle me-1"></i> Question Master</a>
+								<a href="<?= base_url('admin/Sourcecategory') ?>" class="dropdown-item"><i class="fas fa-clipboard-list me-1"></i> Input Source Master</a>
+								<a href="<?= base_url('admin/Position') ?>" class="dropdown-item"><i class="fas fa-user-tie me-1"></i> Position</a>
+								<a href="<?= base_url('admin/Country') ?>" class="dropdown-item"><i class="fas fa-globe me-1"></i> Country</a>
+								<a href="<?= base_url('admin/State') ?>" class="dropdown-item"><i class="fas fa-map-marker-alt me-1"></i> State</a>
+								<a href="<?= base_url('admin/City') ?>" class="dropdown-item"><i class="fas fa-city me-1"></i> City</a>
+								<a href="<?= base_url('admin/Area') ?>" class="dropdown-item"><i class="fas fa-map-pin me-1"></i> Area</a>
+								<a href="<?= base_url('admin/Phase') ?>" class="dropdown-item"><i class="fas fa-chart-pie me-1"></i> Phase master</a>
+								<a href="<?= base_url('admin/Source') ?>" class="dropdown-item"><i class="fas fa-bullseye me-1"></i> Inquiry Source master</a>
+								<a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fas fa-bell me-1"></i> Reminder Type Master</a>
+								<a href="<?= base_url('admin/LeadStage') ?>" class="dropdown-item"><i class="fas fa-flag me-1"></i> Lead Stage</a>
+								<a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fas fa-file-signature me-1"></i> Lead Form Master</a>
 
 							</div>
 
 
 
-							
+
 						</li>
 
 						<li>
 							<a class="nav-link" href="<?= base_url('admin/Formmaster') ?>" id="topnav-dashboard">
-								<i class="fe-bookmark me-1"></i>Form Master
+								<i class="fas fa-clipboard-list me-1"></i>Form Master
 							</a>
 
 						</li>
-						<li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fas fa-handshake me-1"></i>Partnerships & Prospects<div class="arrow-down"></div>
+							</a>
+							<div class="dropdown-menu" aria-labelledby="topnav-apps">
+
+
+								<a href="<?= base_url('admin/Customermaster') ?>" class="dropdown-item"><i class="fas fa-users me-1"></i> Customer Master</a>
+								<a href="<?= base_url('admin/Agentmaster') ?>" class="dropdown-item"><i class="fas fa-handshake me-1"></i> Channel Partner</a>
+								<a href="<?= base_url('admin/Leadmaster') ?>" class="dropdown-item"><i class="fas fa-user-check me-1"></i> Lead</a>
+							</div>
+
+						</li>
+						<!-- <li>
 							<a class="nav-link" href="<?= base_url('admin/Customermaster') ?>" id="topnav-dashboard">
 								<i class="fe-bookmark me-1"></i> Customer Master
 							</a>
 
-						</li>
+						</li> -->
 						<li>
 							<a class="nav-link" href="<?= base_url('admin/Staff') ?>" id="topnav-dashboard">
-								<i class="fe-bookmark me-1"></i> Team Master
+								<i class="fas fa-users me-1"></i> Team Master
 							</a>
 
 						</li>
-						<li>
+						<!-- <li>
 							<a class="nav-link" href="<?= base_url('admin/Agentmaster') ?>" id="topnav-dashboard">
 								<i class="fe-bookmark me-1"></i> Channel Partner
 							</a>
@@ -369,14 +391,14 @@
                                 <i class="fe-bookmark me-1"></i> Lead
                             </a>
 
-                        </li>
+                        </li> -->
 						<li>
-                            <a class="nav-link" href="<?= base_url('admin/Calendar') ?>" id="topnav-dashboard">
-                                <i class="fe-bookmark me-1"></i> Calendar
-                            </a>
+							<a class="nav-link" href="<?= base_url('admin/Calendar') ?>" id="topnav-dashboard">
+								<i class="far fa-calendar-alt me-1"></i> Calendar
+							</a>
 
-                        </li>
-						
+						</li>
+
 						<!-- <li>
 							
 							<a href="<?= base_url('admin/Customermaster') ?>" class="dropdown-item">

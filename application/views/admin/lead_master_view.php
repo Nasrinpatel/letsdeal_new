@@ -43,6 +43,7 @@
                                 <table class="table table-centered table-nowrap table-striped" id="leadmaster_datatable">
                                     <thead>
                                     <tr>
+                                        
                                         <th>#</th>
                                         <th>Customer</th>
                                         <th>Channel Partner</th>

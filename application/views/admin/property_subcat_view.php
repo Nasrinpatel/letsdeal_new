@@ -14,10 +14,10 @@
 						<div class="mb-3">
 							<label for="property_category" class="form-label">Select Property</label>
 							<select class="form-select" name="property_category_id" id="property_category">
-							<option value="">Select Property</option>
+								<option value="">Select Property</option>
 								<?php
 								foreach ($category as $cat) { ?>
-									
+
 									<option value="<?= $cat['id'] ?>"><?= $cat['name'] ?></option>
 								<?php }
 								?>
@@ -77,7 +77,7 @@
 						<div class="mb-3">
 							<label for="propertysub_name" class="form-label">Name</label>
 							<input type="text" class="form-control" name="name" id="propertysub_name" placeholder="Enter  name">
-							
+
 							<!-- <?= form_error('name')  ?> -->
 						</div>
 
@@ -186,24 +186,20 @@
 		</div> <!-- content -->
 	</div>
 	<script>
-		
-		
 		var table = $('#subcategory_datatable').DataTable({
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Prosubcategory/all'); ?>",
-			"columnDefs": [
-				{
-					"targets": 4,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[4] == '1') {
-							
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[4] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-						}
+			"columnDefs": [{
+				"targets": 4,
+				"createdCell": function(td, cellData, rowData, row, col) {
+					if (rowData[4] == '1') {
+
+						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+					} else if (rowData[4] == '0') {
+						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
-				},
-			]
+				}
+			}, ]
 		});
 
 		$(document).on('click', ".edit-btn", function() {
@@ -231,7 +227,7 @@
 				success: function(response) {
 					$('.btn-close').trigger('click');
 					success_message('', response.message);
-					table.ajax.reload(null,false);
+					table.ajax.reload(null, false);
 				}
 			});
 		});
@@ -240,14 +236,13 @@
 		// },'Please Select Property');
 
 		$('#store-prosubcat').validate({
-			rules:{
-				property_category_id:"required",
-				name:"required",
-				status:"required"
+			rules: {
+				property_category_id: "required",
+				name: "required",
+				status: "required"
 			},
-			message:{
-				name:"Please Enter Name"
+			message: {
+				name: "Please Enter Name"
 			}
 		});
-		
 	</script>

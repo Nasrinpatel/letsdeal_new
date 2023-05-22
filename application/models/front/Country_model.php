@@ -49,5 +49,4 @@ class Country_model extends CI_model{
 		}
 	}
 	
-}	 
- ?>
+}

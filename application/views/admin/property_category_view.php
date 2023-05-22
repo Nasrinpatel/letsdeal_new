@@ -3,69 +3,69 @@
 	<!-- ============================================================== -->
 	<!--Add Modal -->
 	<div class="modal fade" id="propertycategory-modal" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header bg-light">
-							<h4 class="modal-title" id="myCenterModalLabel">Add New</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-						</div>
-						<div class="modal-body p-4">
-						<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/propertycategory/store'; ?>">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h4 class="modal-title" id="myCenterModalLabel">Add New</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+				</div>
+				<div class="modal-body p-4">
+					<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/propertycategory/store'; ?>">
 
-								<div class="mb-3">
-									<label for="name" class="form-label">Name</label>
-									<input type="text" class="form-control" name="name" id="name" placeholder="Enter Property name">
-									<?= form_error('name')  ?>
-								</div> 
-								<div class="mb-3">
-									<label for="procat_status" class="form-label">Status</label>
-									<select class="form-select" name="status" id="procat_status">
-										<option selected="">Select Status</option>
-										<option value="1" selected>Active</option>
-										<option value="0">Inactive</option>									
-									</select>
-								</div> 
-			
-								<div class="text-end">
-									<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-								</div>
-							</form>
+						<div class="mb-3">
+							<label for="name" class="form-label">Name</label>
+							<input type="text" class="form-control" name="name" id="name" placeholder="Enter Property name">
+							<?= form_error('name')  ?>
 						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
+						<div class="mb-3">
+							<label for="procat_status" class="form-label">Status</label>
+							<select class="form-select" name="status" id="procat_status">
+								<option selected="">Select Status</option>
+								<option value="1" selected>Active</option>
+								<option value="0">Inactive</option>
+							</select>
+						</div>
+
+						<div class="text-end">
+							<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-		<!-- Edit Modal -->
-		<div class="modal fade" id="procategoryedit-modal" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header bg-light">
-							<h4 class="modal-title" id="myCenterModalLabel2">Edit Property Category</h4>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+	<!-- Edit Modal -->
+	<div class="modal fade" id="procategoryedit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header bg-light">
+					<h4 class="modal-title" id="myCenterModalLabel2">Edit Property Category</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+				</div>
+				<div class="modal-body p-4">
+					<form method="post" id="update_propertycategory" action="#">
+						<input type="hidden" name="id" id="edit_procat_id" />
+						<div class="mb-3">
+							<label for="name" class="form-label">Name</label>
+							<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Property name">
+							<?= form_error('name')  ?>
 						</div>
-						<div class="modal-body p-4">
-						<form method="post" id="update_propertycategory" action="#">
-								<input type="hidden" name="id" id="edit_procat_id" />
-								<div class="mb-3">
-									<label for="name" class="form-label">Name</label>
-									<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Property name">
-									<?= form_error('name')  ?>
-								</div>
-								<div class="mb-3">
-									<label for="property_status" class="form-label">Status</label>
-									<select class="form-select" name="status" id="property_status">
-										<option selected="">Select Status</option>
-										<option value="1">Active</option>
-										<option value="0">Inactive</option>									
-									</select>
-								</div> 
-								<div class="text-end">
-									<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
-								</div>
-							</form>
+						<div class="mb-3">
+							<label for="property_status" class="form-label">Status</label>
+							<select class="form-select" name="status" id="property_status">
+								<option selected="">Select Status</option>
+								<option value="1">Active</option>
+								<option value="0">Inactive</option>
+							</select>
 						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
+						<div class="text-end">
+							<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
+						</div>
+					</form>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	<div class="content-page">
 		<div class="content">
@@ -98,19 +98,19 @@
 							<div class="card-body">
 								<div class="row">
 									<div class="col-sm-12">
-										<?php if($this->session->flashdata('success')){ ?>
-										<div class="alert alert-success" role="alert">
-											<?php 
+										<?php if ($this->session->flashdata('success')) { ?>
+											<div class="alert alert-success" role="alert">
+												<?php
 												echo $this->session->flashdata('success');
-											?>
-										</div>
+												?>
+											</div>
 										<?php } ?>
-										<?php if($this->session->flashdata('error')){ ?>
-										<div class="alert alert-danger" role="alert">
-											<?php 
+										<?php if ($this->session->flashdata('error')) { ?>
+											<div class="alert alert-danger" role="alert">
+												<?php
 												echo $this->session->flashdata('error');
-											?>
-										</div>
+												?>
+											</div>
 										<?php } ?>
 									</div>
 								</div>
@@ -131,7 +131,7 @@
 									<table class="table table-centered table-nowrap table-striped" id="procategory_datatable">
 										<thead>
 											<tr>
-												
+
 												<th>#</th>
 												<th>Property Category Name</th>
 												<th>Create Date</th>
@@ -139,11 +139,11 @@
 												<th style="width: 85px;">Action</th>
 											</tr>
 										</thead>
-										
+
 									</table>
 								</div>
 
-							
+
 							</div> <!-- end card-body-->
 						</div> <!-- end card-->
 					</div> <!-- end col -->
@@ -155,24 +155,20 @@
 		</div> <!-- content -->
 	</div>
 	<script>
-
-
-	var table = $('#procategory_datatable').DataTable({
+		var table = $('#procategory_datatable').DataTable({
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertycategory/all'); ?>",
-			"columnDefs": [
-				{
-					"targets": 3,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[3] == '1') {
-							// $(td).css('background-color', 'green')
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[3] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-						}
+			"columnDefs": [{
+				"targets": 3,
+				"createdCell": function(td, cellData, rowData, row, col) {
+					if (rowData[3] == '1') {
+						// $(td).css('background-color', 'green')
+						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+					} else if (rowData[3] == '0') {
+						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
-				},
-			]
+				}
+			}, ]
 		});
 
 		$(document).on('click', ".edit-btn", function() {
@@ -188,7 +184,7 @@
 				}
 			});
 		});
-		$("#update_propertycategory").submit(function(o){
+		$("#update_propertycategory").submit(function(o) {
 			o.preventDefault();
 			var id = $('#edit_procat_id').val();
 			$.ajax({
@@ -197,20 +193,20 @@
 				data: $(this).serialize(),
 				dataType: "json",
 				success: function(response) {
-					$('.btn-close').trigger('click');		
-					success_message('',response.message);
-					table.ajax.reload(null,false);
+					$('.btn-close').trigger('click');
+					success_message('', response.message);
+					table.ajax.reload(null, false);
 				}
 			});
-			
+
 		});
 		$('#store-procat').validate({
-			rules:{
-				name:"required",
-				status:"required"
-			},message:{
-				
+			rules: {
+				name: "required",
+				status: "required"
+			},
+			message: {
+
 			}
 		});
-		
 	</script>

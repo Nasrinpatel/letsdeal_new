@@ -1,0 +1,9 @@
+Change in customer_master and agent_master in database :
+ALTER TABLE `tb_customer_master` CHANGE `assigned_id` `assigned_id` VARCHAR(30) NOT NULL;
+ALTER TABLE `tb_agent_master` CHANGE `assigned_id` `assigned_id` VARCHAR(30) NOT NULL;
+
+
+
+
+19-05-23
+ALTER TABLE `tbl_reminder_master` ADD `beforeday` INT(10) NOT NULL AFTER `custom_recurring`;

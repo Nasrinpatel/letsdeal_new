@@ -3,7 +3,7 @@
 	<!-- ============================================================== -->
 
 
-	
+
 	<div class="content-page">
 		<div class="content">
 
@@ -96,26 +96,22 @@
 		</div> <!-- content -->
 	</div>
 	<script>
-		
-		
 		var table = $('#formmaster_datatable').DataTable({
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Formmaster/all'); ?>",
-			"columnDefs": [
-				{
-					"targets": 5,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[5] == '1') {							
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[5] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-						}
+			"columnDefs": [{
+				"targets": 5,
+				"createdCell": function(td, cellData, rowData, row, col) {
+					if (rowData[5] == '1') {
+						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+					} else if (rowData[5] == '0') {
+						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
-				},
-			]
+				}
+			}, ]
 		});
 
-		
+
 		// $.validator.addMethod('requiredselect', function(value,ele,pram){
 		// 	return value !='';
 		// },'Please Select Property');
@@ -130,5 +126,4 @@
 		// 		name:"Please Enter Name"
 		// 	}
 		// });
-		
 	</script>

@@ -12,20 +12,21 @@ class Calendar extends CI_Controller
 	}
 
 	public function index()
-	{		
+	{
 		$data['page_name'] = 'calendar_view';
 		$this->load->view('admin/index', $data);
 	}
 
-	public function getAllCalenderEvents(){
+	public function getAllCalenderEvents()
+	{
 		$remiders = $this->cale->getReminders();
 		//$proprties = $this->cale->getProperty();
-		$events=array();
-		foreach($remiders as $r){
-			if($r['model_type'] == 'Customer'){
+		$events = array();
+		foreach ($remiders as $r) {
+			if ($r['model_type'] == 'Customer') {
 				$events[] = array(
 					'id' => 1,
-					'model' => $proprties->model_type,
+					'model_id' => $r['model_type'],
 					'title' => $r['type_name'],
 					'start' => $r['date_time'],
 					'url' => '#',
@@ -36,8 +37,7 @@ class Calendar extends CI_Controller
 					//'backgroundColor' =>'magenta',
 					'color' => '#ffffff'
 				);
-				
-			}elseif($r['model_type'] == 'Property'){
+			} elseif ($r['model_type'] == 'Property') {
 				$events[] = array(
 					'id' => 1,
 					'model_id' => $r['model_id'],
@@ -49,11 +49,9 @@ class Calendar extends CI_Controller
 					'display' => 'block',
 					//'backgroundColor' =>'green',
 					'className' => 'bg-info',
-					
 					'color' => '#ffffff'
 				);
-
-			}elseif($r['model_type'] == 'Channel Partner'){
+			} elseif ($r['model_type'] == 'Channel Partner') {
 				$events[] = array(
 					'id' => 1,
 					'model_id' => $r['model_id'],
@@ -63,11 +61,10 @@ class Calendar extends CI_Controller
 					'type' => $r['model_type'],
 					'priority' => $r['priority'],
 					'display' => 'block',
-					'className' =>'bg-warning',
+					'className' => 'bg-warning',
 					'color' => '#ffffff'
 				);
-
-			}elseif($r['model_type'] == 'Lead'){
+			} elseif ($r['model_type'] == 'Lead') {
 				$events[] = array(
 					'id' => 1,
 					'model_id' => $r['model_id'],
@@ -77,15 +74,11 @@ class Calendar extends CI_Controller
 					'type' => $r['model_type'],
 					'priority' => $r['priority'],
 					'display' => 'block',
-					'className' =>'bg-danger',
+					'className' => 'bg-danger',
 					'color' => '#ffffff'
 				);
-
 			}
-			
-			
 		}
 		echo $events = json_encode($events);
 	}
-
 }

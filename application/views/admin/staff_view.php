@@ -49,7 +49,7 @@
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
-	
+
 	<!-- Edit Modal -->
 	<div class="modal fade" id="staffedit-modal" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -81,7 +81,7 @@
 							<input type="text" class="form-control" name="phone" id="phone" placeholder="Enter Phone">
 							<?= form_error('phone')  ?>
 						</div>
-						
+
 						<div class="mb-3">
 							<label for="staff_status" class="form-label">Status</label>
 							<select class="form-select" name="status" id="staff_status">
@@ -106,15 +106,15 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 				</div>
 				<div class="modal-body p-4">
-				<div class="text-start mt-2">
-                                            
-				
+					<div class="text-start mt-2">
+
+
 						<p class="text-muted mb-3 font-14"><strong>Full Name :</strong> <span class="ms-2" id="first_name"></span><span class="ms-2" id="last_name"></span></p>
 						<p class="text-muted mb-3 font-14"><strong>Email :</strong> <span class="ms-2" id="email"></span></p>
 
 						<p class="text-muted mb-3 font-14"><strong>Mobile :</strong><span class="ms-2" id="phone"></span></p>
-					
-					
+
+
 						<!-- <p class="text-muted mb-1 font-13"><strong>Status :</strong> <span class="ms-2" id="status"></span></p> -->
 					</div>
 				</div>
@@ -188,7 +188,7 @@
 
 												<th>#</th>
 												<th>Name</th>
-												
+
 												<th>Email</th>
 												<th>Mobile</th>
 												<th>Create Date</th>
@@ -244,7 +244,7 @@
 					$('#staffedit-modal #phone').val(data.phone);
 					$("#staffedit-modal #staff_status").val(data.status);
 				}
-				
+
 			});
 		});
 		$("#update_staff").submit(function(o) {
@@ -260,7 +260,7 @@
 					$('.btn-close').trigger('click');
 					success_message('', response.message);
 					table.ajax.reload(null, false);
-					
+
 				}
 			});
 
@@ -279,7 +279,7 @@
 					$("#staffview-modal #last_name").html(data.last_name);
 					$("#staffview-modal #email").html(data.email);
 					$("#staffview-modal #phone").html(data.phone);
-					
+
 				}
 			});
 		});
@@ -307,5 +307,4 @@
 
 			}
 		});
-		
 	</script>

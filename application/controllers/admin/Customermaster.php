@@ -34,8 +34,8 @@ class Customermaster extends CI_Controller
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 			$staff_data = $this->db->get_where('tbl_staff_master', array('id' => $value['assigned_id']))->row();
 			$agent_data = $this->db->get_where('tb_agent_master', array('id' => $value['agent_id']))->row();
-			$button = '<a href="' . base_url('admin/customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success text-success"></i></a>
+			$button = '<a href="' . base_url('admin/customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/customermaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -62,7 +62,7 @@ class Customermaster extends CI_Controller
 		foreach ($contacts as $value) {
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 
-			$button = '<a href="' . base_url('admin/customermaster/edit_contact/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-contact-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/customermaster/edit_contact/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-contact-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/customermaster/delete_contact/' . $value['id'] . '/' . $id) . '#customer-contacts" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -84,7 +84,7 @@ class Customermaster extends CI_Controller
 		$i = 1;
 		foreach ($notes as $value) {
 
-			$button = '<a href="' . base_url('admin/customermaster/edit_note/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-notes-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/customermaster/edit_note/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-notes-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/customermaster/delete_note/' . $value['id'] . '/' . $id) . '#customer-notes" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -112,8 +112,8 @@ class Customermaster extends CI_Controller
 			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
 
 
-			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id'])  . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '?customer_id=' . $id . '&page=' . $page . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
@@ -138,7 +138,7 @@ class Customermaster extends CI_Controller
 		$data['position'] = $this->customermaster->getPosition();
 		$data['staff'] = $this->customermaster->getStaff();
 		$data['agent'] = $this->customermaster->getAgent();
-		
+
 		$data['page_name'] = 'customer_master_add';
 		$this->load->view('admin/index', $data);
 	}
@@ -146,14 +146,14 @@ class Customermaster extends CI_Controller
 	public function store()
 	{
 		$this->form_validation->set_rules('inquiry_type', 'Inquiry type', 'required');
-        if($_POST['inquiry_type'] == 'agent'){
-            $this->form_validation->set_rules('agent_id[]', 'Agent','required');
-        }
+		if ($_POST['inquiry_type'] == 'agent') {
+			$this->form_validation->set_rules('agent_id[]', 'Agent', 'required');
+		}
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
-//		 if($this->input->post('inquiry_type') != 'direct'){
-//		 	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
-//		 }
-//		 $this->form_validation->set_rules('position_id', 'Position','required');
+		//  if($this->input->post('inquiry_type') != 'direct'){
+		//  	$this->form_validation->set_rules('assigned_id', 'Assigned','required');
+		//  }
+		//  $this->form_validation->set_rules('position_id', 'Position','required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');		
@@ -167,14 +167,14 @@ class Customermaster extends CI_Controller
 		} else {
 			$formArray = array();
 			$formArray['inquiry_type'] = $this->input->post('inquiry_type');
-//			$formArray['agent_id'] = $this->input->post('agent_id');
+			//			$formArray['agent_id'] = $this->input->post('agent_id');
 			$formArray['source_id'] = $this->input->post('source_id');
 			// if($formArray['inquiry_type']=='direct'){
 			// 	$formArray['assigned_id'] = null;
 			// }else{
 			// 	$formArray['assigned_id'] = $this->input->post('assigned_id');
 			// }
-			 $formArray['position_id'] = $this->input->post('position_id');
+			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
 			// $formArray['nick_name'] = $this->input->post('nick_name');
@@ -183,9 +183,9 @@ class Customermaster extends CI_Controller
 			$formArray['company_name'] = $this->input->post('company_name');
 			$formArray['description'] = $this->input->post('description');
 			$formArray['status'] = $this->input->post('status');
-            if(!empty($_POST['assigned_id'])){
-                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            }
+			if (!empty($_POST['assigned_id'])) {
+				$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+			}
 			$response = $this->customermaster->saverecords($formArray);
 
 			if ($response == true) {
@@ -206,7 +206,7 @@ class Customermaster extends CI_Controller
 	//Customer details
 	public function customerDetails($id)
 	{
-		
+
 		$data['customer'] = $this->customermaster->getCustomer($id);
 		// $data['contacts'] = $this->customermaster->getCustomerContact($id);
 		// $data['sourcemaster'] = $this->customermaster->getSourceMaster();
@@ -279,6 +279,9 @@ class Customermaster extends CI_Controller
 	public function update($id)
 	{
 		$this->form_validation->set_rules('inquiry_type', 'Inquiry type', 'required');
+		// if ($this->input->post('inquiry_type') != 'direct') {
+		// 	$this->form_validation->set_rules('assigned_id[]', 'Assigned', 'required');
+		// }
         if($this->input->post('inquiry_type') != 'direct'){
             $this->form_validation->set_rules('agent_id[]', 'Assigned','required');
         }
@@ -300,9 +303,16 @@ class Customermaster extends CI_Controller
 			$formArray['inquiry_type'] = $this->input->post('inquiry_type');
 //			$formArray['agent_id'] = $this->input->post('agent_id');
 			$formArray['source_id'] = $this->input->post('source_id');
-            if(!empty($_POST['assigned_id'])){
-                $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            }
+			if ($formArray['inquiry_type'] == 'direct') {
+				$formArray['assigned_id'] = null;
+			} else {
+				if (!empty($_POST['assigned_id'])) {
+					$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+				}
+			}
+            // if(!empty($_POST['assigned_id'])){
+            //     $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+            // }
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
@@ -412,7 +422,7 @@ class Customermaster extends CI_Controller
 		foreach ($reminders as $value) {
 
 			$type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
-			$button = '<a href="' . base_url('admin/customermaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-reminders-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="' . base_url('admin/customermaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-reminders-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/customermaster/delete_reminders/' . $value['id'] . '/' . $id) . '#customer-reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -420,14 +430,14 @@ class Customermaster extends CI_Controller
 				$type_data->name,
 				date('d M Y h:i:s a', strtotime($value['date_time'])),
 				$value['priority'],
-				$value['repeat_every'].' '.ucwords($value['recurring_type']),				
-				(($value['cycles']==0)?'infinite':$value['cycles']),
+				$value['repeat_every'] . ' ' . ucwords($value['recurring_type']),
+				(($value['cycles'] == 0) ? 'infinite' : $value['cycles']),
+				$value['beforeday'],
 				$value['description'],
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
 				$button
 			);
-		
 		}
 		echo json_encode($result);
 	}
@@ -499,27 +509,28 @@ class Customermaster extends CI_Controller
 		}
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-contacts');
 	}
-    public function store_ajax(){
-        $formArray = array();
-        $formArray['inquiry_type'] = $this->input->post('inquiry_type');
-        $formArray['source_id'] = $this->input->post('source_id');
-        $formArray['position_id'] = $this->input->post('position_id');
-        $formArray['first_name'] = $this->input->post('first_name');
-        $formArray['last_name'] = $this->input->post('last_name');
-        $formArray['phone'] = $this->input->post('phone');
-        $formArray['email'] = $this->input->post('email');
-        $formArray['company_name'] = $this->input->post('company_name');
-        $formArray['description'] = $this->input->post('description');
-        $formArray['status'] = $this->input->post('status');
-        if(!empty($_POST['assigned_id'])){
-            $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-        }
+	public function store_ajax()
+	{
+		$formArray = array();
+		$formArray['inquiry_type'] = $this->input->post('inquiry_type');
+		$formArray['source_id'] = $this->input->post('source_id');
+		$formArray['position_id'] = $this->input->post('position_id');
+		$formArray['first_name'] = $this->input->post('first_name');
+		$formArray['last_name'] = $this->input->post('last_name');
+		$formArray['phone'] = $this->input->post('phone');
+		$formArray['email'] = $this->input->post('email');
+		$formArray['company_name'] = $this->input->post('company_name');
+		$formArray['description'] = $this->input->post('description');
+		$formArray['status'] = $this->input->post('status');
+		if (!empty($_POST['assigned_id'])) {
+			$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
+		}
 
-        $response = $this->customermaster->saverecords($formArray);
-        if ($response == true) {
-            echo json_encode(array('success' => true, 'message' => 'Customer Added Successfully.'));
-        } else {
-            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
-        }
-    }
+		$response = $this->customermaster->saverecords($formArray);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Customer Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
 }

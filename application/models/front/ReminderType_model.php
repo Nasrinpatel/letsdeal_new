@@ -40,5 +40,4 @@ class ReminderType_model extends CI_model{
 	
 	
 	
-}	 
- ?>
+}

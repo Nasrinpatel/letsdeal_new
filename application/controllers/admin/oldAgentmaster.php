@@ -27,7 +27,7 @@ class Agentmaster extends CI_Controller
 			$position_data = $this->db->get_where('tb_position_master',array('id'=>$value['position_id']))->row();
 			$staff_data = $this->db->get_where('tbl_staff_master',array('id'=>$value['assigned_id']))->row();
 
-			$button = '<a href="'.base_url('admin/agentmaster/edit/' .$value['id']).'" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="'.base_url('admin/agentmaster/edit/' .$value['id']).'" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="'.base_url('admin/agentmaster/delete/' .$value['id']).'" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -53,7 +53,7 @@ class Agentmaster extends CI_Controller
 		foreach ($contacts as $value) { 
 			$position_data = $this->db->get_where('tb_position_master',array('id'=>$value['position_id']))->row();
 
-			$button = '<a href="'.base_url('admin/agentmaster/edit_contact/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#edit-agent-contact-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="'.base_url('admin/agentmaster/edit_contact/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#edit-agent-contact-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="'.base_url('admin/agentmaster/delete_contact/' .$value['id'].'/'.$id).'#agent-contacts" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -75,7 +75,7 @@ class Agentmaster extends CI_Controller
 		$i=1;
 		foreach ($notes as $value) { 
 
-			$button = '<a href="'.base_url('admin/agentmaster/edit_note/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#edit-agent-notes-modal"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			$button = '<a href="'.base_url('admin/agentmaster/edit_note/' .$value['id']).'" class="action-icon edit-btn" data-id="'.$value['id'].'" data-bs-toggle="modal" data-bs-target="#edit-agent-notes-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="'.base_url('admin/agentmaster/delete_note/' .$value['id'].'/'.$id).'#agent-notes" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,			

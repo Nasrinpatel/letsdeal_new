@@ -3,7 +3,7 @@
 	<!-- ============================================================== -->
 
 
-	
+
 	<div class="content-page">
 		<div class="content">
 
@@ -93,9 +93,9 @@
 
 		</div> <!-- content -->
 	</div>
-<script>
+	<script>
 		var table = $('#promaster_datatable').DataTable({
-			
+
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertymaster/all'); ?>",
 			"columnDefs": [{
@@ -108,12 +108,8 @@
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
-				
+
 			}, ]
-			
+
 		});
-		
-		
-	
-	
-</script>
+	</script>

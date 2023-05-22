@@ -21,6 +21,7 @@
 								<select data-toggle="select2" class="form-control select2" name="question_answer_inputtype" id="question_answer_inputtype" data-width="100%">
 									<option selected="">Select Q&A Input type</option>
 									<option value="Textbox">Textbox</option>
+									<option value="Multitextbox">Multitextbox</option>
 									<option value="Dropdown">Dropdown</option>
 									<option value="Checkbox">Checkbox</option>
 									<option value="Radio">Radio</option>
@@ -39,7 +40,7 @@
 								</select>
 								<span style="color: red;"><?= form_error('source_id') ?></span>
 							</div>
-							
+
 							<div class="mb-3">
 								<label for="source_type" class="form-label">Source Type</label>
 								<select class="form-select" name="source_id" id="source_type">
@@ -52,22 +53,22 @@
 								</select>
 							</div>
 							<div class="row mb-4">
-							<label for="required">Is this Question required?</label>
-							<br><br>
+								<label for="required">Is this Question required?</label>
+								<br><br>
 								<div class="col-6">
 									<div class="form-check">
-										<input type="radio" id="required" name="is_require" value="1"  class="form-check-input">
+										<input type="radio" id="required" name="is_require" value="1" class="form-check-input">
 										<label class="form-check-label" for="required">Required</label>
 									</div>
 								</div>
 								<div class="col-6">
-								<div class="form-check">
+									<div class="form-check">
 										<input type="radio" id="optional" name="is_require" value="0" checked class="form-check-input">
 										<label class="form-check-label" for="optional">Optional</label>
 									</div>
 								</div>
 							</div>
-							
+
 
 							<div class="mb-3">
 								<label for="question_status" class="form-label">Status</label>
@@ -122,13 +123,14 @@
 								</div>
 
 							</div> -->
-							
-							
+
+
 							<div class="mb-3">
 								<label for="edit_question_answer_inputtype" class="form-label">Q&A Input type</label>
 								<select class="form-select select2" name="question_answer_inputtype" id="edit_question_answer_inputtype">
 									<option>Select Q&A Input type</option>
 									<option value="Textbox">Textbox</option>
+									<option value="Multitextbox">Multitextbox</option>
 									<option value="Dropdown">Dropdown</option>
 									<option value="Checkbox">Checkbox</option>
 									<option value="Radio">Radio</option>
@@ -159,16 +161,16 @@
 								</select>
 							</div>
 							<div class="row mb-4">
-							<label for="edit_required">Is this Question required?</label>
-							<br><br>
+								<label for="edit_required">Is this Question required?</label>
+								<br><br>
 								<div class="col-6">
 									<div class="form-check">
-										<input type="radio" id="required" name="is_require" value="1"  class="form-check-input">
+										<input type="radio" id="required" name="is_require" value="1" class="form-check-input">
 										<label class="form-check-label" for="required">Required</label>
 									</div>
 								</div>
 								<div class="col-6">
-								<div class="form-check">
+									<div class="form-check">
 										<input type="radio" id="optional" name="is_require" value="0" checked class="form-check-input">
 										<label class="form-check-label" for="optional">Optional</label>
 									</div>

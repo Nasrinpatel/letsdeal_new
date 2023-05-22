@@ -206,10 +206,10 @@
 								<label class="form-label">Reminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
-								
+
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
-										
+
 									<?php }
 									?>
 								</select>
@@ -279,10 +279,18 @@
 						<div class="col-6">
 							<div class="mb-3">
 								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
-									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
-									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
-									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
-									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
+									<option value="day" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day') {
+															echo 'selected';
+														} ?>>Days(s)</option>
+									<option value="week" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week') {
+																echo 'selected';
+															} ?>>Week(s)</option>
+									<option value="month" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month') {
+																echo 'selected';
+															} ?>>Month(s)</option>
+									<option value="year" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year') {
+																echo 'selected';
+															} ?>>Year(s)</option>
 								</select>
 							</div>
 						</div>
@@ -304,7 +312,14 @@
 							</div>
 						</div>
 					</div> <!-- end row -->
-
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -431,10 +446,18 @@
 						<div class="col-6">
 							<div class="mb-3">
 								<select class="form-select" name="repeat_type_custom" id="repeat_type_custom">
-									<option value="day" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day'){echo 'selected';} ?>>Days(s)</option>
-									<option value="week" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week'){echo 'selected';} ?>>Week(s)</option>
-									<option value="month" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month'){echo 'selected';} ?>>Month(s)</option>
-									<option value="year" <?php if(isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year'){echo 'selected';} ?>>Year(s)</option>
+									<option value="day" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'day') {
+															echo 'selected';
+														} ?>>Days(s)</option>
+									<option value="week" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'week') {
+																echo 'selected';
+															} ?>>Week(s)</option>
+									<option value="month" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'month') {
+																echo 'selected';
+															} ?>>Month(s)</option>
+									<option value="year" <?php if (isset($task) && $task->custom_recurring == 1 && $task->recurring_type == 'year') {
+																echo 'selected';
+															} ?>>Year(s)</option>
 								</select>
 							</div>
 						</div>
@@ -457,6 +480,14 @@
 						</div>
 
 					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -891,12 +922,14 @@
 															<div class="col-md-6">
 																<div class="mb-3">
 																	<label class="form-label">Assigned</label>
-                                                                    <select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
-                                                                        <?php foreach ($staff as $sta) { ?>
-                                                                            <option value="<?= $sta['id'] ?>" <?php for($i=0;$i<count($assigned_id);$i++) { if($sta['id'] == $assigned_id[$i]) { ?>selected<?php } } ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
-                                                                        <?php }
-                                                                        ?>
-                                                                    </select>
+																	<select data-toggle="select2" title="Assigned" class="form-control select2 assigned" name="assigned_id[]" data-width="100%" multiple>
+																		<?php foreach ($staff as $sta) { ?>
+																			<option value="<?= $sta['id'] ?>" <?php for ($i = 0; $i < count($assigned_id); $i++) {
+																													if ($sta['id'] == $assigned_id[$i]) { ?>selected<?php }
+																																																	} ?>><?= $sta['first_name'] ?> <?= $sta['last_name'] ?></option>
+																		<?php }
+																		?>
+																	</select>
 																</div>
 															</div>
 															<div class="col-md-6">
@@ -1153,14 +1186,15 @@
 																		<table class="table table-centered table-nowrap table
 																		-striped dt-responsive nowrap" style="width:100%" id="customer_reminders_datatable">
 																			<thead>
-																				<tr>																					
+																				<tr>
 																					<th>#</th>
 																					<!-- <th>Name</th> -->
 																					<th>Type</th>
 																					<th>Date</th>
-																					<th>Priority</th>																					
+																					<th>Priority</th>
 																					<th>Repeat Every</th>
 																					<th>Total Cycle</th>
+																					<th>Before Day</th>
 																					<th>Description</th>
 																					<th>Create Date</th>
 																					<th>Status</th>
@@ -1187,11 +1221,11 @@
 				</div> <!-- container -->
 			</div> <!-- content -->
 		</div>
-        <style>
-            .select2-container .select2-selection--multiple .select2-selection__choice{
-                background-color: #eceef0;
-            }
-        </style>
+		<style>
+			.select2-container .select2-selection--multiple .select2-selection__choice {
+				background-color: #eceef0;
+			}
+		</style>
 		<script>
 			$(document).ready(function() {
 				$('.js-example-basic-single').select2({
@@ -1447,11 +1481,11 @@
 						targets: 3
 					},
 					{
-						responsivePriority: 10,
-						targets: 6
+						responsivePriority: 9,
+						targets: 10
 					},
 					{
-						responsivePriority: 4,
+						responsivePriority: 6,
 						targets: 9
 					},
 					{
@@ -1502,31 +1536,32 @@
 					type: "POST",
 					dataType: "json",
 					success: function(data) {
-						debugger;
+						//debugger;
 						$("#edit-customer-reminders-modal #reminder_id").val(data.id);
 						$('#edit-customer-reminders-modal #name').val(data.name);
 						$('#edit-customer-reminders-modal #type').val(data.type).trigger('change');
 						$('#edit-customer-reminders-modal #date_time').val(data.date_time);
 						$('#edit-customer-reminders-modal #priority').val(data.priority).trigger('change');
-						if(data.custom_recurring == 1){
+						if (data.custom_recurring == 1) {
 							$('#edit-customer-reminders-modal #repeat_every').val('custom').trigger('change');
 							$('#edit-customer-reminders-modal #repeat_every_custom').val(data.repeat_every).trigger('change');
 							$('#edit-customer-reminders-modal #repeat_type_custom').val(data.recurring_type).trigger('change');
-						}else{
-							$('#edit-customer-reminders-modal #repeat_every').val(data.repeat_every+'-'+data.recurring_type).trigger('change');
+						} else {
+							$('#edit-customer-reminders-modal #repeat_every').val(data.repeat_every + '-' + data.recurring_type).trigger('change');
 						}
-						if(data.cycles == 0){
+						if (data.cycles == 0) {
 							$('#edit-customer-reminders-modal #unlimited_cycles').prop('checked', true).trigger('change');
-						}else{
+						} else {
 							$('#edit-customer-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
 						}
 						$('#edit-customer-reminders-modal #cycles').val(data.cycles);
+						$('#edit-customer-reminders-modal #beforeday').val(data.beforeday);
 						$('#edit-customer-reminders-modal #description').val(data.description);
 						$("#edit-customer-reminders-modal #reminders_status").val(data.status);
 					}
 				});
 			});
-			
+
 
 
 			$(document).ready(function() {
@@ -1626,6 +1661,7 @@
 					date_time: "required",
 					priority: "required",
 					repeat_every: "required",
+					beforeday: "required",
 					//description: "required",
 					status: "required"
 				},

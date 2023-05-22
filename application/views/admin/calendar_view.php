@@ -108,7 +108,7 @@
                                                     <!-- <button type="submit" class="btn btn-success" id="btn-save-event">View</button> -->
 
 
-                                                    <button type="button" class="btn btn-success" id="btn-save-event" data-modal-id="" data-modal-type=""  onclick="redirectToReminderList(this)">View Details</button>
+                                                    <button type="button" class="btn btn-success" id="btn-save-event" data-modal-id="" data-modal-type="" onclick="redirectToReminderList(this)">View Details</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                 hour12: true
             });
             var formated_startdatetime = day + '-' + month + '-' + year + ' ' + time;
-            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type + " Reminder Details"), this.$modal.show(), this.$selectedEvent = e.event, l("#remider_type").html(this.$selectedEvent.title), l("#date-time").html(formated_startdatetime), l("#priority").html(this.$selectedEvent.extendedProps.priority),l("#btn-save-event").attr("data-modal-id",this.$selectedEvent.extendedProps.model_id),l("#btn-save-event").attr("data-modal-type",this.$selectedEvent.extendedProps.type)
+            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type + " Reminder Details"), this.$modal.show(), this.$selectedEvent = e.event, l("#remider_type").html(this.$selectedEvent.title), l("#date-time").html(formated_startdatetime), l("#priority").html(this.$selectedEvent.extendedProps.priority), l("#btn-save-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id), l("#btn-save-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type)
         }, e.prototype.onSelect = function(e) {
             this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
         }, e.prototype.init = function() {
@@ -252,18 +252,20 @@
     }();
 </script>
 
+
 <script>
+//Calendar popup View button redirection
     function redirectToReminderList(data) {
-    //    debugger;
-    //    console.log(data);
+        //    debugger;
+        //    console.log(data);
         if (data.dataset.modalType == 'Customer') {
             window.location.href = '<?= base_url() ?>admin/customermaster/customerDetails/' + data.dataset.modalId;
         } else if (data.dataset.modalType == 'Property') {
             window.location.href = '<?= base_url() ?>admin/Propertymaster/propertyDetails/' + data.dataset.modalId;
         } else if (data.dataset.modalType == 'Channel Partner') {
-            window.location.href = '<?= base_url() ?>admin/agentmaster/agentDetails/' + data.dataset.modalId; 
-        }else if (data.dataset.modalType == 'Lead') {
-            window.location.href = '<?= base_url() ?>admin/Leadmaster/leadDetails/' + data.dataset.modalId; 
+            window.location.href = '<?= base_url() ?>admin/agentmaster/agentDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Lead') {
+            window.location.href = '<?= base_url() ?>admin/Leadmaster/leadDetails/' + data.dataset.modalId;
         }
     }
 </script>

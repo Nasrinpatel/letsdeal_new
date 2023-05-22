@@ -42,5 +42,4 @@ class Questionmaster_model extends CI_model{
 	}
 	
 	
-}	 
- ?>
+}

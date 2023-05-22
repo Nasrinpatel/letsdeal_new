@@ -64,5 +64,4 @@ class City_model extends CI_model{
 	}
 	
 	
-}	 
- ?>
+}
