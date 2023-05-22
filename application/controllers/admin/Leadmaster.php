@@ -52,8 +52,8 @@ class Leadmaster extends CI_Controller
             $stage_data = $this->db->select('name')->where_in('id',$value['lead_stage_id'])->get('tb_lead_stage')->row_array();
 
             $property_id = $this->db->select('pro_subcategory_id')->where_in('lead_id',$value['id'])->get('tb_lead_property_interested')->result_array();
-            foreach ($property_id as $key => $v){
-                $property_data[$key] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+            foreach ($property_id as $k => $v){
+                $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
             }
             foreach ($property_data as $key => $val){
                 $property[$key] = $val['name'];
