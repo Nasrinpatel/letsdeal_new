@@ -181,6 +181,7 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+
 <!-- reminders add -->
 <div class="modal fade" id="customer-reminders-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -204,12 +205,13 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Rreminder Type </label>
+								<label class="form-label">Reminder Type </label>
 								<select data-toggle="select2" title="type" class="form-control select2" name="type" data-width="100%">
-									<option value="">Select Rreminder Type</option>
+									<option value="">Select Reminder Type</option>
 
 									<?php foreach ($remtype as $rt) { ?>
 										<option value="<?= $rt['id'] ?>"><?= $rt['name'] ?></option>
+
 									<?php }
 									?>
 								</select>
@@ -311,13 +313,15 @@
 								<?= form_error('cycles') ?>
 							</div>
 						</div>
-
 					</div> <!-- end row -->
-
-
-
-
-
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -370,7 +374,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
-								<label class="form-label">Rreminder Type </label>
+								<label class="form-label">Reminder Type </label>
 								<select data-toggle="select2" class="form-control select2" name="type" id="type" data-width="100%">
 									<option value="">Select Reminder Type</option>
 									<?php foreach ($remtype as $rt) { ?>
@@ -478,6 +482,14 @@
 						</div>
 
 					</div> <!-- end row -->
+					<div class="row">
+						<div class="col-12">
+							<div class="mb-3">
+								<label for="beforeday" class="form-label">Before Day</label>
+								<input type="number" class="form-control" name="beforeday" id="beforeday" placeholder="Enter Before day">
+							</div>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -974,6 +986,7 @@
 																				<th>Priority</th>
 																				<th>Repeat Every</th>
 																				<th>Total Cycle</th>
+																				<th>Before Day</th>
 																				<th>Description</th>
 																				<th>Create Date</th>
 																				<th>Status</th>
@@ -988,6 +1001,12 @@
 												</div>
 											</div>
 										</div>
+
+
+
+
+
+										
 									</div> <!-- end col-->
 								</div> <!-- end row-->
 
@@ -1232,47 +1251,47 @@
 		});
 		//all reminder
 		var reminders_table = $('#customer_reminders_datatable').DataTable({
-			responsive: true,
-			ajax: "<?php echo base_url('admin/Customermaster/all_reminders/' . $customer->id); ?>",
-			columnDefs: [{
-					responsivePriority: 1,
-					targets: 0
-				},
-				{
-					responsivePriority: 2,
-					targets: 3
-				},
-				{
-					responsivePriority: 10,
-					targets: 6
-				},
-				{
-					responsivePriority: 4,
-					targets: 9
-				},
-				{
-					"targets": 9,
-					"createdCell": function(td, cellData, rowData, row, col) {
-						if (rowData[9] == '1') {
-							$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-						} else if (rowData[9] == '0') {
-							$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+				responsive: true,
+				ajax: "<?php echo base_url('admin/Customermaster/all_reminders/' . $customer->id); ?>",
+				columnDefs: [{
+						responsivePriority: 1,
+						targets: 0
+					},
+					{
+						responsivePriority: 2,
+						targets: 3
+					},
+					{
+						responsivePriority: 9,
+						targets: 10
+					},
+					{
+						responsivePriority: 6,
+						targets: 9
+					},
+					{
+						"targets": 9,
+						"createdCell": function(td, cellData, rowData, row, col) {
+							if (rowData[9] == '1') {
+								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+							} else if (rowData[9] == '0') {
+								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+							}
 						}
-					}
+					},
+				]
+			});
+			//add reminders 
+			$("#store-reminders").validate({
+				rules: {
+					name: "required",
+					type: "required",
+					date_time: "required",
+					priority: "required",
+					repeat_every: "required",
+					//description: "required",
+					status: "required"
 				},
-			]
-		});
-		//add reminders 
-		$("#store-reminders").validate({
-			rules: {
-				name: "required",
-				type: "required",
-				date_time: "required",
-				priority: "required",
-				repeat_every: "required",
-				//description: "required",
-				status: "required"
-			},
 			submitHandler: function(form, e) {
 				e.preventDefault();
 				var url = $(form).attr("action");
@@ -1317,6 +1336,7 @@
 						$('#edit-customer-reminders-modal #unlimited_cycles').prop('checked', false).trigger('change');
 					}
 					$('#edit-customer-reminders-modal #cycles').val(data.cycles);
+					$('#edit-customer-reminders-modal #beforeday').val(data.beforeday);
 					$('#edit-customer-reminders-modal #description').val(data.description);
 					$("#edit-customer-reminders-modal #reminders_status").val(data.status);
 				}
