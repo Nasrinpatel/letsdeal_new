@@ -72,6 +72,7 @@ class Leadmaster extends CI_Controller
 
             $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+            <a href="' . base_url('admin/Leadmaster/copyRecords/' . $value['id']) . '" class="action-icon"><i class="mdi mdi-content-copy text-primary"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
             $result['data'][] = array(
@@ -598,4 +599,39 @@ class Leadmaster extends CI_Controller
             </div> <!-- end row -->';
             echo json_encode(array('success'=>true,'html'=>$html));
     }
+    //copy records Lead  master
+			function copyRecords($id)
+			{
+
+				// Get the Lead master record by ID
+				$leaddata = $this->leadmaster->getLeadmastercopy($id);
+
+				if ($leaddata) {
+					// Create a copy of the Lead master record
+
+					$copyData = array(
+						'customer_id' => $leaddata->customer_id,
+						'pro_master_id' => $leaddata->pro_master_id,
+						'lead_stage_id' => $leaddata->lead_stage_id,
+						//'budget_type' => $leaddata->budget_type,
+						'status' => $leaddata->status,
+						
+					);
+                  
+        
+					// Save the copied record
+					$response = $this->leadmaster->saverecords($copyData);
+
+					if ($response) {
+						$this->session->set_flashdata('success', 'Lead Master Copied Successfully.');
+					} else {
+						$this->session->set_flashdata('error', 'Something went wrong. Please try again');
+					}
+				} else {
+					$this->session->set_flashdata('error', 'Lead Master not found.');
+				}
+
+				return redirect('admin/Leadmaster/');
+			}
+
 }
