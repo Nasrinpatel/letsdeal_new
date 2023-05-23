@@ -210,7 +210,11 @@ class Agentmaster extends CI_Controller
 		$data['cities'] = $this->agentmaster->getCity();
 		$data['areas'] = $this->agentmaster->getArea();
 		// $data['agent'] = $this->customermaster->getAgent();
+		$record['parameter'] = array('id' => $id);
+		$assigned = $this->agentmaster->getassigneddata('tb_agent_master', $record);
+		$data['assigned_id'] = explode(',', $assigned['assigned_id']);
 
+		
 		$data['page_name'] = 'agent_master_details';
 		$this->load->view('admin/index', $data);
 	}
