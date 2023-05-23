@@ -422,7 +422,7 @@ class Leadmaster extends CI_Controller
 
             $type_data = $this->db->get_where('tb_remindertype_master', array('id' => $value['type']))->row();
             $button = '<a href="' . base_url('admin/Leadmaster/edit_reminders/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-reminders-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
-			<a href="' . base_url('admin/Leadmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#reminders" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			<a href="' . base_url('admin/Leadmaster/delete_reminders/' . $value['id'] . '/' . $id) . '#reminder" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
             $result['data'][] = array(
                 $i++,
                 $type_data->name,
@@ -430,6 +430,7 @@ class Leadmaster extends CI_Controller
                 $value['priority'],
                 $value['repeat_every'].' '.ucwords($value['recurring_type']),
                 (($value['cycles']==0)?'infinite':$value['cycles']),
+                $value['beforeday'],
                 $value['description'],
                 date('d M Y h:i:s a', strtotime($value['created_date'])),
                 $value['status'],
