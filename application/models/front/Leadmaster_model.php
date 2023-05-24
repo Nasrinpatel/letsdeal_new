@@ -568,4 +568,8 @@ class Leadmaster_model extends CI_model{
             ->get('tb_lead_area_interested');
         return $query->num_rows();
     }
+    function getLeadmastercopy($id){
+		$data = $this->db->where('id',$id)->get('tb_lead_master')->row();
+		return $data;
+	}
 }
