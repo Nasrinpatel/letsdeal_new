@@ -41,27 +41,42 @@ class Leadmaster extends CI_Controller
         $i = 1;
         foreach ($lead as $value) {
             $customer_data = $this->db->select('first_name','last_name')->where_in('id',$value['customer_id'])->get('tb_customer_master')->row_array();
+
+            //channel partner data
             $agent_id = $this->db->select('agent_id')->where_in('customer_id',$value['customer_id'])->get('tb_customer_agent')->result_array();
+            $agent_data = [];
             foreach ($agent_id as $key => $v){
-                $data[$key] = $this->db->select('first_name')->where_in('id',$v['agent_id'])->get('tb_agent_master')->row_array();
+                $agent_data[$key] = $this->db->where_in('id',$v['agent_id'])->get('tb_agent_master')->row_array();
             }
-            foreach ($data as $key => $val){
+            $agent=[];
+            foreach ($agent_data as $key => $val){
                $agent[$key] = $val['first_name'];
             }
+
             $master = $this->db->select('name')->where_in('id',$value['pro_master_id'])->get('tb_master')->row_array();
             $stage_data = $this->db->select('name')->where_in('id',$value['lead_stage_id'])->get('tb_lead_stage')->row_array();
 
+            //property data
             $property_id = $this->db->select('pro_subcategory_id')->where_in('lead_id',$value['id'])->get('tb_lead_property_interested')->result_array();
+            $property_data=[];
             foreach ($property_id as $k => $v){
                 $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
             }
+            $property=[];
             foreach ($property_data as $key => $val){
                 $property[$key] = $val['name'];
             }
-//            $property = $this->db->select('name')->where_in('id',$property_id['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
 
-            $area_id = $this->db->select('area_id')->where_in('lead_id',$value['id'])->get('tb_lead_area_interested')->row_array();
-            $area = $this->db->select('name')->where_in('id',$area_id['area_id'])->get('tb_area_master')->row_array();
+            //area data
+            $area_id = $this->db->select('area_id')->where_in('lead_id',$value['id'])->get('tb_lead_area_interested')->result_array();
+            $area_data=[];
+            foreach ($area_id as $k => $v){
+                $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+            }
+            $area=[];
+            foreach ($area_data as $key => $val){
+                $area[$key] = $val['name'];
+            }
 
             if($value['budget_type'] == 'single'){
                 $budget = $value['single_budget'];
@@ -72,6 +87,7 @@ class Leadmaster extends CI_Controller
 
             $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
+			<a href="' . base_url('admin/Leadmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
             <a href="' . base_url('admin/Leadmaster/copyRecords/' . $value['id']) . '" class="action-icon"><i class="mdi mdi-content-copy text-primary"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
@@ -82,7 +98,7 @@ class Leadmaster extends CI_Controller
                 $master['name'],
                 $stage_data['name'],
                 implode(',',$property),
-                $area['name'],
+                implode(',',$area),
                 $budget,
                 $value['status'],
                 $button
@@ -168,7 +184,15 @@ class Leadmaster extends CI_Controller
             $this->edit($id);
         } else {
             $formArray = $_POST;
+            if($formArray['budget_type'] == 'range'){
+                $formArray['single_budget'] = ' ';
+            }
+            if($formArray['budget_type'] == 'single'){
+                $formArray['from_budget'] =  ' ';
+                $formArray['to_budget'] = ' ';
+            }
             $response = $this->leadmaster->updaterecords($id, $formArray);
+
             if ($response == true) {
                 $this->session->set_flashdata('success', 'Lead Updated Successfully.');
             } else {
@@ -400,6 +424,17 @@ class Leadmaster extends CI_Controller
             $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
         }
         return redirect('admin/Leadmaster/edit/' . $lead_id . '#area');
+    }
+
+    //reminders master
+    public function addreminder($id)
+    {
+//        $data['lead'] = $this->leadmaster->getLeadMaster($id);
+        $data['lead_id'] = $id;
+        $data['remtype'] = $this->leadmaster->getReminderType('Lead');
+//        $data['property'] = $this->leadmaster->getPropertymaster($id);
+        $data['page_name'] = 'lead_master_addreminder';
+        $this->load->view('admin/index', $data);
     }
 
     //reminders master

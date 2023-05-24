@@ -485,14 +485,12 @@ class Customermaster extends CI_Controller
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-reminders');
 	}
 
-
-
 	public function delete($id)
 	{
 		$response = $this->customermaster->delete($id);
 
 		if ($response == true) {
-			$this->session->set_flashdata('success', 'Customer Master Deleted Successfully.');
+			$this->session->set_flashdata('success', 'Customer Deleted Successfully.');
 		} else {
 			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
 		}

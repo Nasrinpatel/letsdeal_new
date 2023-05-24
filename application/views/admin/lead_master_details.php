@@ -690,7 +690,7 @@
                             <select class="form-select" name="state_id" id="state_id">
                                 <option value="">Select State</option>
                                 <?php foreach ($states as $sta) { ?>
-                                    <option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
+                                    <option value="<?= $sta['id'] ?>" <?= ($sta['is_default'] == 1) ? 'selected' : '' ?>><?= $sta['name'] ?></option>
                                 <?php } ?>
                             </select>
                             <span style="color: red;"><?= form_error('state_id') ?></span>
@@ -1164,20 +1164,21 @@
             $(".range_area").show('slow');
             $(".single_area").hide('slow');
         }
-        /* $('input[name=budget_type]').click(function() {
-             if (this.id == "single") {
-                 $(".single_area").show('slow');
-             } else {
-                 $(".single_area").hide('slow');
-             }
-         });
-         $('input[name=budget_type]').click(function() {
-             if (this.id == "range") {
-                 $(".range_area").show('slow');
-             } else {
-                 $(".range_area").hide('slow');
-             }
-         });*/
+
+        $('input[name=budget_type]').click(function() {
+            if (this.id == "single") {
+                $(".single_area").show('slow');
+            } else {
+                $(".single_area").hide('slow');
+            }
+        });
+        $('input[name=budget_type]').click(function() {
+            if (this.id == "range") {
+                $(".range_area").show('slow');
+            } else {
+                $(".range_area").hide('slow');
+            }
+        });
     });
     $(function() {
         var hash = window.location.hash;

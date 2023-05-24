@@ -101,6 +101,9 @@
 <!-- Calendar -->
 <script type="text/javascript" src="<?= base_url('assets/') ?>libs/fullcalendar/main.min.js"></script>
 
+<script src="<?= base_url('assets/') ?>js/select2.min.js"></script>
+
+<script src="<?= base_url('assets/') ?>js/select2.full.min.js"></script>
 
 
 

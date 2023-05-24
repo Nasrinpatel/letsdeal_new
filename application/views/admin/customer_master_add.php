@@ -21,9 +21,6 @@
 					<div class="card">
 						<div class="card-body">
 							<form method="post" id="store-promas" action="<?php echo base_url() . 'admin/Customermaster/store'; ?>">
-								<!-- <?php
-										print_r($_POST);
-										validation_errors(); ?> -->
 								<div class="row">
 									<div class="col-md-5">
 										<div class="mb-3">

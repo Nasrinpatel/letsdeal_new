@@ -148,7 +148,7 @@ class Agentmaster extends CI_Controller
 	{
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
 //		$this->form_validation->set_rules('position_id', 'Position', 'required');
-		$this->form_validation->set_rules('first_name', 'First name', 'required');
+		$this->form_validation->set_rules('first_name', 'First name', 'requir0ed');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');	
 		$this->form_validation->set_rules('phone', 'Phone', 'required');

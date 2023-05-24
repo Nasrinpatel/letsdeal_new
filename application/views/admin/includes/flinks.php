@@ -16,9 +16,6 @@
 <!-- App js-->
 <script src="<?= base_url('assets/') ?>js/app.min.js"></script>
 
-<script src="<?= base_url('assets/') ?>js/select2.min.js"></script>
-
-<script src="<?= base_url('assets/') ?>js/select2.full.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/fileinput.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/selectize.min.js"></script>
 <script type="text/javascript" src="<?= base_url('assets/') ?>js/switchery.min.js"></script>
