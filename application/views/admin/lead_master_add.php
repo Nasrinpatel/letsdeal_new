@@ -111,37 +111,18 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
-                                                                        <label class="form-label">Budget</label>
-                                                                        <div class="col-md-2">
-                                                                            <div class="mb-3">
-                                                                                <input class="form-check-input" type="radio" id="single" name="budget_type" checked value="single">
-                                                                                <label class="form-check-label" for="single">Single</label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="mb-3">
-                                                                                <input class="form-check-input" type="radio" id="range" name="budget_type" value="range">
-                                                                                <label class="form-check-label" for="range">Range</label>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row single_area">
-                                                                        <div class="col-lg-5">
-                                                                            <div class="mb-3">
-                                                                                <input type="text" class="form-control" name="single_budget" placeholder="Budget">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row range_area" style="display: none;">
+                                                                        <label class="form-label">Budget <span class="text-danger"> *</span></label>
                                                                         <div class="col-range">
                                                                             <div class="mb-3">
                                                                                 <input type="text" class="form-control" name="from_budget" placeholder="From">
                                                                             </div>
+                                                                            <span style="color: red;"><?= form_error('from_budget') ?></span>
                                                                         </div>
                                                                         <div class="col-range">
                                                                             <div class="mb-3">
                                                                                 <input type="text" class="form-control" name="to_budget" placeholder="To">
                                                                             </div>
+                                                                            <span style="color: red;"><?= form_error('to_budget') ?></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
@@ -451,7 +432,7 @@
                             <select class="form-select" name="state_id" id="state_id">
                                 <option value="">Select State</option>
                                 <?php foreach ($states as $sta) { ?>
-                                    <option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
+                                    <option value="<?= $sta['id'] ?>" <?= ($sta['is_default'] == 1) ? 'selected' : '' ?>><?= $sta['name'] ?></option>
                                 <?php } ?>
                             </select>
                             <span style="color: red;"><?= form_error('state_id') ?></span>
@@ -578,6 +559,9 @@
         $('#property_interested_tab').addClass('disabled');
         $('#area_interested_tab').addClass('disabled');
         $('#question_tab').addClass('disabled');
+
+        $(".sequence_box").sortable({ tolerance: 'pointer' });
+        $('.sequence').css("cursor","move");
     });
 
     //add lead
@@ -586,6 +570,8 @@
             customer_id: "required",
             pro_master_id: "required",
             lead_stage_id: "required",
+            from_budget: "required",
+            to_budget: "required",
             status: "required"
         },
         submitHandler: function(form, e) {
@@ -901,13 +887,20 @@
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
-                        $("#store-specialistarea #city_id").append("<option value='" + id + "'>" + name + "</option>");
+                        var is_default = response[i]['is_default'];
+                        $("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
                     }
                 }
             });
         } else {
             $("#store-specialistarea #city_id").empty();
         }
+    });
+    $('#add-area-modal').on('shown.bs.modal', function(e) {
+        $('#add-area-modal #state_id').trigger('change');
+        setTimeout(function() {
+            $('#add-area-modal #city_id').trigger('change');
+        }, 250);
     });
     //on city change fetch area
     $(document).on('change','#add-area-modal #city_id',function() {
@@ -1082,21 +1075,6 @@
 
         var hash = window.location.hash;
         $(hash + "-tab").trigger('click');
-    });
-
-    $('input[name=budget_type]').click(function() {
-        if (this.id == "single") {
-            $(".single_area").show('slow');
-        } else {
-            $(".single_area").hide('slow');
-        }
-    });
-    $('input[name=budget_type]').click(function() {
-        if (this.id == "range") {
-            $(".range_area").show('slow');
-        } else {
-            $(".range_area").hide('slow');
-        }
     });
 
     //on switch change status

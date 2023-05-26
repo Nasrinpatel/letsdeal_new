@@ -4,3 +4,9 @@ ALTER TABLE `tb_lead_master` ADD `pro_master_id` INT NOT NULL AFTER `customer_id
 ALTER TABLE `tb_lead_master` ADD `budget_type` VARCHAR(30) NOT NULL AFTER `lead_stage_id`;
 ALTER TABLE `tb_lead_master` ADD `single_budget` VARCHAR(50) NOT NULL AFTER `budget_type`, ADD `from_budget` VARCHAR(50) NOT NULL AFTER `single_budget`, ADD `to_budget` VARCHAR(50) NOT NULL AFTER `from_budget`;
 ALTER TABLE `tb_lead_question_answer` ADD `pro_master_id` INT NOT NULL AFTER `lead_id`;
+
+Date:26-05-23
+->drop budget_type and single_budget field from tb_lead_master
+ALTER TABLE `tb_lead_master`
+  DROP `budget_type`,
+  DROP `single_budget`;

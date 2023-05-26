@@ -15,7 +15,6 @@ class Staff extends CI_Controller
 	{
 		$data['page_name'] = 'staff_view';
 		$data['staffs'] = $this->sta->all();
-
 		$this->load->view('admin/index', $data);
 	}
 	public function all()

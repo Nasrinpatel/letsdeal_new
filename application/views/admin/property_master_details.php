@@ -141,13 +141,14 @@
 															<input type="hidden" name="phase_ids[]" value="<?= $phase['id'] ?>">
 															<div class="row">
 																<div class="col-12">
+                                                                    <div class="sequence_box">
 																	<?php
 																	if (!empty($data['questions'])) {
 																		foreach ($data['questions'] as $que) {
 																			$answers = json_decode($que['answers'], true);
 																			$answer_ids = json_decode($que['answer_ids'], true);
-																			$que['question_answer_inputtype'] = $answers['answer_type'];
-																	?>
+																			$que['question_answer_inputtype'] = $answers['answer_type']; ?>
+                                                                        <div class="sequence">
 																			<div class="row mb-3">
 																				<label class="col-md-3 col-form-label" for="userName1"><?= $que['question'] ?></label>
 																				<input type="hidden" name="question_<?= $phase['id'] ?>[]" value="<?= $que['question'] ?>">
@@ -260,10 +261,12 @@
 
 																				</div>
 																			</div>
+                                                                        </div>
 																		<?php }
 																	} else { ?>
 																		<p class="text-center">No Questions</p>
 																	<?php } ?>
+                                                                    </div>
 																</div>
 															</div>
 														</div>
@@ -305,3 +308,9 @@
 
 
 </div>
+<script>
+    $(document).ready(function() {
+        $(".sequence_box").sortable({ tolerance: "pointer" });
+        $(".sequence").css("cursor","move");
+    });
+</script>

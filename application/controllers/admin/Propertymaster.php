@@ -99,10 +99,10 @@ class Propertymaster extends CI_Controller
 			$html .= '<div class="tab-pane ' . (($i == 0) ? 'active' : '') . '" id="tab-' . $phase['id'] . '">
 									<input type="hidden" name="phase_ids[]" value="' . $phase['id'] . '">
 									<div class="row">
-										<div class="col-12">';
+										<div class="col-12 sequence_box">';
 			if (!empty($data['questions'])) {
 				foreach ($data['questions'] as $que) {
-					$html .= '<div class="row mb-3">
+					$html .= '<div class="row mb-3 sequence">
 								<label class="col-md-3 col-form-label" for="userName1">' . $que['question'] . '</label>
 								<input type="hidden" name="question_' . $phase['id'] . '[]" value="' . $que['question'] . '">
 								<input type="hidden" name="question_id_' . $phase['id'] . '[]" value="' . $que['id'] . '">
@@ -215,7 +215,13 @@ class Propertymaster extends CI_Controller
 						</div> <!-- tab-content -->
 					</div> <!-- end #progressbarwizard-->
 			</div> <!-- end card-body -->
-		</div> <!-- end card-->';
+		</div> <!-- end card-->
+		<script type="application/javascript">
+            $(document).ready(function() {
+                 $(".sequence_box").sortable({ tolerance: "pointer" });
+                 $(".sequence").css("cursor","move");
+            });
+    	    </script>';
 
 		echo json_encode(array('success' => true, 'html' => $html));
 	}
