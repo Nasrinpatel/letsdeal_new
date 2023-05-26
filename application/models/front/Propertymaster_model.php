@@ -73,10 +73,10 @@ class Propertymaster_model extends CI_model
 								'overwrite' => TRUE,
 								'file_name' => time() . '-' . date("Y-m-d") . $cnt
 							);
-							$given_answer[] = $upload_data['file_name'];
 							$this->upload->initialize($config);
 							if ($this->upload->do_upload('file')) {
-								$upload_data = $this->upload->data();
+								$upload_data = $this->upload->data();								
+								$given_answer[] = $upload_data['file_name'];
 								$given_answer_id[] = $upload_data['file_name'];
 							}
 						}

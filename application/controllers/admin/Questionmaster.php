@@ -56,6 +56,9 @@ class Questionmaster extends CI_Controller
 			$formArray['question'] = $this->input->post('question');
 			$formArray['question_answer_inputtype'] = $this->input->post('question_answer_inputtype');
 			$formArray['source_id'] = $this->input->post('source_id');
+			if($formArray['question_answer_inputtype'] != 'Dropdown' && $formArray['question_answer_inputtype'] != 'Checkbox' && $formArray['question_answer_inputtype'] != 'Radio'){
+				$formArray['source_id'] = null;
+			}
 			$formArray['is_require'] = $this->input->post('is_require');
 			$formArray['status'] = $this->input->post('status');
 
@@ -80,7 +83,9 @@ class Questionmaster extends CI_Controller
 	{
 		$data = $this->input->post();
 		$data = $this->security->xss_clean($data);
-
+		if($data['question_answer_inputtype'] != 'Dropdown' && $data['question_answer_inputtype'] != 'Checkbox' && $data['question_answer_inputtype'] != 'Radio'){
+			$data['source_id'] = null;
+		}
 		$response = $this->ques->updaterecords($id, $data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Question Updated Successfully.'));

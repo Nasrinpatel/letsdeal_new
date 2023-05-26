@@ -129,7 +129,8 @@ class Propertymaster extends CI_Controller
 					} elseif ($que['question_answer_inputtype'] == 'Checkbox') {
 						foreach ($source_options as $source_option) {
 							$html .= '<div class="form-check form-check-inline">';
-							$html .= '<input class="form-check-input" type="checkbox" id="userName1"  name="answer_' . $phase['id'] . '_' . $que['id'] . '[]" value="' . $source_option['id'] . '" ' . (($que['is_require'] == 1) ? 'required' : '') . '>';
+							$html .= '<input class="form-check-input" type="checkbox" id="userName1"  name="answer_' . $phase['id'] . '_' . $que['id'] . '[]" value="' . $source_option['id'] . '">';
+
 							$html .= '<label class="form-check-label" for="userName1">' . $source_option['name'] . '</label><br>';
 							$html .= '</div>';
 						}

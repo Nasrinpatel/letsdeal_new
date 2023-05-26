@@ -184,6 +184,7 @@
 						'phase_id' => $formdata->phase_id,
 						'question_ids' => $formdata->question_ids,
 						'status' => $formdata->status
+						
 					);
 
 					// Save the copied record
