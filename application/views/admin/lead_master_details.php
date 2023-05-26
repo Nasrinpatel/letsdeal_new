@@ -337,10 +337,12 @@
                                             <div class="col-lg-6">
                                                 <div class="mb-3">
                                                     <label for="question" class="form-label">Questions</label>
+                                                    <div class="sequence_box">
                                                     <?php foreach($questions as $que){
                                                         $answers = json_decode($que['answers'], true);
                                                         $answer_ids = json_decode($que['answer_ids'], true);
                                                         $que['question_answer_inputtype'] = $answers['answer_type']; ?>
+                                                        <div class="sequence">
                                                         <h5><?= $que['question'] ?></h5>
                                                         <input type="hidden" name="question[]" value="<?= $que['question'] ?>">
                                                         <input type="hidden" name="question_id[]" value="<?= $que['question_id'] ?>">
@@ -456,8 +458,9 @@
                                                                 } ?>
                                                             </div>
                                                         <?php } ?>
-
+                                                        </div>
                                                     <?php } ?>
+                                                        </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1156,29 +1159,10 @@
             placeholder: "Select Assigned",
             theme: "bootstrap-5"
         });
-        if ($('#single').prop('checked')) {
-            $(".single_area").show('slow');
-            $(".range_area").hide('slow');
-        }
-        else if ($('#range').prop('checked')) {
-            $(".range_area").show('slow');
-            $(".single_area").hide('slow');
-        }
 
-        $('input[name=budget_type]').click(function() {
-            if (this.id == "single") {
-                $(".single_area").show('slow');
-            } else {
-                $(".single_area").hide('slow');
-            }
-        });
-        $('input[name=budget_type]').click(function() {
-            if (this.id == "range") {
-                $(".range_area").show('slow');
-            } else {
-                $(".range_area").hide('slow');
-            }
-        });
+        //drag and drop questions
+        $(".sequence_box").sortable({ tolerance: 'pointer' });
+        $('.sequence').css("cursor","move");
     });
     $(function() {
         var hash = window.location.hash;

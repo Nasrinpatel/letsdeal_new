@@ -559,6 +559,9 @@
         $('#property_interested_tab').addClass('disabled');
         $('#area_interested_tab').addClass('disabled');
         $('#question_tab').addClass('disabled');
+
+        $(".sequence_box").sortable({ tolerance: 'pointer' });
+        $('.sequence').css("cursor","move");
     });
 
     //add lead

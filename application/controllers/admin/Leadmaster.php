@@ -510,8 +510,10 @@ class Leadmaster extends CI_Controller
                    <form method="post" id="store-question" action="'.base_url('/admin/Leadmaster/store_question').'">
                        <div class="row">
                            <div class="col-lg-5">
-                            <div class="mb-3">';
-                                 foreach ($data['question'] as $item) {
+                            <div class="mb-3">
+                                <div class="sequence_box">';
+                                 foreach ($data['question'] as $item){
+                                     $html .= ' <div class="sequence">';
                                      $html .= '<h5>' . $item['question'] . '</h5>
                                             <input type="hidden" name="lead_id" id="lead_id" value="'.$_POST['lead_id'].'">
                                             <input type="hidden" name="pro_master_id" id="pro_master_id" value="'.$_POST['master_id'].'">
@@ -608,8 +610,10 @@ class Leadmaster extends CI_Controller
                                                      </div>
                                                  </div>';
                                      }
+                                     $html .= '</div>';
                                  }
                                  $html .= '</div>
+                                        </div>
                                        </div>
                                      </div>
                                  <div class="row">
@@ -621,7 +625,13 @@ class Leadmaster extends CI_Controller
                                  </div>
                    </form>
                 </div> <!-- end col -->
-            </div> <!-- end row -->';
+            </div> <!-- end row -->
+            <script type="application/javascript">
+            $(document).ready(function() {
+                 $(".sequence_box").sortable({ tolerance: "pointer" });
+                 $(".sequence").css("cursor","move");
+            });
+    	    </script>';
             echo json_encode(array('success'=>true,'html'=>$html));
     }
     //copy records Lead  master
