@@ -326,9 +326,7 @@
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('state_id') ?></span>
-
-
-						</div>
+                        </div>
 					</div>
 
 					<div class="row">

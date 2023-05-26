@@ -1444,7 +1444,8 @@
                         for (var i = 0; i < len; i++) {
                             var id = response[i]['id'];
                             var name = response[i]['name'];
-                            $("#edit-area-modal #city_id").append("<option value='" + id + "'>" + name + "</option>");
+                            var is_default = response[i]['is_default'];
+                            $("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
                         }
                     }
                 });
@@ -1452,6 +1453,12 @@
                 $("#edit-area-modal #city_id").empty();
             }
         });
+    });
+    $('#add-area-modal').on('shown.bs.modal', function(e) {
+        $('#add-area-modal #state_id').trigger('change');
+        setTimeout(function() {
+            $('#add-area-modal #city_id').trigger('change');
+        }, 250);
     });
     //on city change fetch area
     $(document).on('change','#add-area-modal #city_id',function() {

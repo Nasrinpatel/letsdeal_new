@@ -2,15 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addreminder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Staff.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Staff.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/customer_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/customer_master_add.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/includes/flinks.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/includes/flinks.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/includes/hlinks.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/includes/hlinks.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/agent_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/agent_master_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_details.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_edit.php" afterDir="false" />
     </list>
@@ -117,7 +115,9 @@
       <workItem from="1684556037160" duration="13986000" />
       <workItem from="1684735732951" duration="6636000" />
       <workItem from="1684814644154" duration="18244000" />
-      <workItem from="1684902391128" duration="16891000" />
+      <workItem from="1684902391128" duration="19454000" />
+      <workItem from="1684989966228" duration="8067000" />
+      <workItem from="1685074596175" duration="2299000" />
     </task>
     <servers />
   </component>

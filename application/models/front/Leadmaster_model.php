@@ -144,8 +144,6 @@ class Leadmaster_model extends CI_model{
         $d['customer_id'] = $formArray['customer_id'];
         $d['pro_master_id'] = $formArray['pro_master_id'];
         $d['lead_stage_id'] = $formArray['lead_stage_id'];
-        $d['budget_type'] = $formArray['budget_type'];
-        $d['single_budget'] = $formArray['single_budget'];
         $d['from_budget'] = $formArray['from_budget'];
         $d['to_budget'] = $formArray['to_budget'];
         $d['status'] = $formArray['status'];

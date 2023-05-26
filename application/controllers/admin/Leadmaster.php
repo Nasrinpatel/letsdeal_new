@@ -78,12 +78,7 @@ class Leadmaster extends CI_Controller
                 $area[$key] = $val['name'];
             }
 
-            if($value['budget_type'] == 'single'){
-                $budget = $value['single_budget'];
-            }
-            if($value['budget_type'] == 'range'){
-                $budget = $value['from_budget'].'-'.$value['to_budget'];
-            }
+            $budget = $value['from_budget'].'-'.$value['to_budget'];
 
             $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
@@ -178,19 +173,14 @@ class Leadmaster extends CI_Controller
         $this->form_validation->set_rules('customer_id', 'Customer','required');
         $this->form_validation->set_rules('pro_master_id', 'Master','required');
         $this->form_validation->set_rules('lead_stage_id', 'Lead Stage','required');
+        $this->form_validation->set_rules('from_budget', 'From Budget','required');
+        $this->form_validation->set_rules('to_budget', 'To Budget','required');
         $this->form_validation->set_rules('status', 'Status', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->edit($id);
         } else {
             $formArray = $_POST;
-            if($formArray['budget_type'] == 'range'){
-                $formArray['single_budget'] = ' ';
-            }
-            if($formArray['budget_type'] == 'single'){
-                $formArray['from_budget'] =  ' ';
-                $formArray['to_budget'] = ' ';
-            }
             $response = $this->leadmaster->updaterecords($id, $formArray);
 
             if ($response == true) {
@@ -635,8 +625,8 @@ class Leadmaster extends CI_Controller
             echo json_encode(array('success'=>true,'html'=>$html));
     }
     //copy records Lead  master
-			function copyRecords($id)
-			{
+    function copyRecords($id)
+    {
 
 				// Get the Lead master record by ID
 				$leaddata = $this->leadmaster->getLeadmastercopy($id);
@@ -653,7 +643,7 @@ class Leadmaster extends CI_Controller
 						
 					);
                   
-        
+
 					// Save the copied record
 					$response = $this->leadmaster->saverecords($copyData);
 
@@ -667,6 +657,6 @@ class Leadmaster extends CI_Controller
 				}
 
 				return redirect('admin/Leadmaster/');
-			}
+    }
 
 }
