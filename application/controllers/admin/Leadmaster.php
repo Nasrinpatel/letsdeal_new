@@ -82,7 +82,7 @@ class Leadmaster extends CI_Controller
 
             $button = '<a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
-			<a href="' . base_url('admin/Leadmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-primery"></i></a>
+			<a href="' . base_url('admin/Leadmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
             <a href="' . base_url('admin/Leadmaster/copyRecords/' . $value['id']) . '" class="action-icon"><i class="mdi mdi-content-copy text-primary"></i></a>
 			<a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
