@@ -333,8 +333,12 @@
 								<a href="<?= base_url('admin/Position') ?>" class="dropdown-item"><i class="fas fa-user-tie me-1"></i> Position</a>
 								<a href="<?= base_url('admin/Country') ?>" class="dropdown-item"><i class="fas fa-globe me-1"></i> Country</a>
 								<a href="<?= base_url('admin/State') ?>" class="dropdown-item"><i class="fas fa-map-marker-alt me-1"></i> State</a>
-								<a href="<?= base_url('admin/City') ?>" class="dropdown-item"><i class="fas fa-city me-1"></i> City</a>
-								<a href="<?= base_url('admin/Area') ?>" class="dropdown-item"><i class="fas fa-map-pin me-1"></i> Area</a>
+								<a href="<?= base_url('admin/District') ?>" class="dropdown-item"><i class="fas fa-city me-1"></i>District</a>
+								<a href="<?= base_url('admin/Subdistrict') ?>" class="dropdown-item"><i class="fas fa-city me-1"></i>Sub-District/City</a>
+
+
+
+								<a href="<?= base_url('admin/Area') ?>" class="dropdown-item"><i class="fas fa-map-pin me-1"></i>Moje/Area</a>
 								<a href="<?= base_url('admin/Phase') ?>" class="dropdown-item"><i class="fas fa-chart-pie me-1"></i> Phase master</a>
 								<a href="<?= base_url('admin/Source') ?>" class="dropdown-item"><i class="fas fa-bullseye me-1"></i> Inquiry Source master</a>
 								<a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fas fa-bell me-1"></i> Reminder Type Master</a>

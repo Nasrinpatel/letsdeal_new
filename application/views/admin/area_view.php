@@ -1,4 +1,4 @@
-<!-- Import excel Area modal -->
+<!-- Import excel Moje/Area modal -->
 <div class="modal fade" id="areaimport-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
@@ -9,19 +9,19 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/Area/area_spreadsheet_import'; ?>" enctype="multipart/form-data">
 					<div class="mb-3">
-						<label for="area" class="form-label">Select City</label>
-						<select class="form-select" name="city_id" id="area">
-							<option value="">Select City</option>
-							<?php foreach ($cites as $ci) { ?>
+						<label for="area" class="form-label">Select Sub-District/City</label>
+						<select class="form-select" name="subdistrict_id" id="area">
+							<option value="">Select Sub-District/City</option>
+							<?php foreach ($subdistricts as $ci) { ?>
 								<option value="<?= $ci['id'] ?>"><?= $ci['name'] ?></option>
 							<?php } ?>
 						</select>
-						<span style="color: red;"><?= form_error('city_id') ?></span>
+						<span style="color: red;"><?= form_error('subdistrict_id') ?></span>
 
 					</div>
 					<div class="mb-3">
 						<!-- <input type="hidden" name="id" value="<?= $this->uri->segment(3) ?>"> -->
-						<label for="name" class="form-label">Import City</label>
+						<label for="name" class="form-label">Import Moje/Area</label>
 						<input type="file" name="upload_file" class="form-control" id="upload_file" required="">
 					</div>
 
@@ -44,24 +44,24 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-area" action="<?php echo base_url() . 'admin/area/store'; ?>">
 					<div class="mb-3">
-						<label for="area" class="form-label">Select City</label>
-						<select class="form-select" name="city_id" id="area">
-							<option value="">Select City</option>
-							<?php foreach ($cites as $ci) { ?>
+						<label for="area" class="form-label">Select Sub-District/City</label>
+						<select class="form-select" name="subdistrict_id" id="area">
+							<option value="">Select Sub-District/City</option>
+							<?php foreach ($subdistricts as $ci) { ?>
 								<option value="<?= $ci['id'] ?>"><?= $ci['name'] ?></option>
 							<?php } ?>
 						</select>
-						<span style="color: red;"><?= form_error('city_id') ?></span>
+						<span style="color: red;"><?= form_error('subdistrict_id') ?></span>
 
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label">Area Name</label>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Enter Area name">
+						<label for="name" class="form-label">Moje/Area Name</label>
+						<input type="text" class="form-control" name="name" id="name" placeholder="Enter Moje/Area name">
 						<?= form_error('name')  ?>
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label">Area Code</label>
-						<input type="number" class="form-control" name="area_code" id="area_code" placeholder="Enter Area Code">
+						<label for="name" class="form-label">Moje/Area Code</label>
+						<input type="number" class="form-control" name="area_code" id="area_code" placeholder="Enter Moje/Area Code">
 						<?= form_error('area_code')  ?>
 					</div>
 
@@ -88,32 +88,32 @@
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-light">
-				<h4 class="modal-title" id="myCenterModalLabel2">Edit Area</h4>
+				<h4 class="modal-title" id="myCenterModalLabel2">Edit Moje/Area</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 			</div>
 			<div class="modal-body p-4">
 				<form method="post" id="update_area" action="#">
 					<input type="hidden" name="id" id="edit_area_id" />
 					<div class="mb-3">
-						<label for="city" class="form-label">Select City</label>
-						<select class="form-select" name="city_id" id="city">
-							<option value="">Select City</option>
-							<?php foreach ($cites as $ci) { ?>
+						<label for="city" class="form-label">Select Sub-District/City</label>
+						<select class="form-select" name="subdistrict_id" id="city">
+							<option value="">Select Sub-District/City</option>
+							<?php foreach ($subdistricts as $ci) { ?>
 								<option value="<?= $ci['id'] ?>"><?= $ci['name'] ?></option>
 							<?php } ?>
 						</select>
 
-						<span style="color: red;"><?= form_error('city_id') ?></span>
+						<span style="color: red;"><?= form_error('subdistrict_id') ?></span>
 
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label">Area Name</label>
-						<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Area name">
+						<label for="name" class="form-label">Moje/Area Name</label>
+						<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter Moje/Area name">
 						<?= form_error('name')  ?>
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label">Area Code</label>
-						<input type="number" class="form-control" name="area_code" id="area_code" value="" placeholder="Enter Area Code">
+						<label for="name" class="form-label">Moje/Area Code</label>
+						<input type="number" class="form-control" name="area_code" id="area_code" value="" placeholder="Enter Moje/Area Code">
 						<?= form_error('area_code')  ?>
 					</div>
 
@@ -148,11 +148,11 @@
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 									<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 								<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#area-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
-								<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#areaimport-modal">Import Area</button>
+								<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#areaimport-modal">Import Moje/Area</button>
 
 							</ol>
 						</div>
-						<h4 class="page-title">Area Master</h4>
+						<h4 class="page-title">Moje/Area Master</h4>
 					</div>
 				</div>
 			</div>
@@ -200,8 +200,8 @@
 										<tr>
 
 											<th>#</th>
-											<th>Area Name</th>
-											<th>Area Code</th>
+											<th>Moje/Area Name</th>
+											<th>Moje/Area Code</th>
 											<th>Create Date</th>
 											<th>Status</th>
 
@@ -248,7 +248,7 @@
 			dataType: "json",
 			success: function(data) {
 				$("#areaedit-modal #edit_area_id").val(data.id);
-				$('#areaedit-modal #city').val(data.city_id);
+				$('#areaedit-modal #city').val(data.subdistrict_id);
 				$('#areaedit-modal #name').val(data.name);
 				$('#areaedit-modal #area_code').val(data.area_code);
 				$("#areaedit-modal #area_status").val(data.status);

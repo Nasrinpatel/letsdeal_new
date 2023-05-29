@@ -1,12 +1,12 @@
 <?php
-class Area_model extends CI_model{
+class Subdistrict_model extends CI_model{
 
 	public $db_name;
 
 	public function __construct()
 	{
 		parent::__construct();
-		$this->db_name = 'tb_area_master';
+		$this->db_name = 'tb_sub_district_master';
 	}
 
 	function all()
@@ -17,6 +17,10 @@ class Area_model extends CI_model{
 	function saverecords($formArray)
 	{
 		 $this->db->insert($this->db_name,$formArray);
+		 $last_id = $this->db->insert_id();
+		 if($formArray['is_default']==1){
+			$this->db->update($this->db_name,['is_default'=>0],['is_default'=>1,'id !=' => $last_id]);
+		 }
 		 return true;
 	}
 	function delete($id)
@@ -25,17 +29,14 @@ class Area_model extends CI_model{
 		$this->db->delete($this->db_name);
 		return true;
 	}
-	function getArea($id)
+	function getSubdistrict($id)
 	{
 		$data = $this->db->where('id',$id)->get($this->db_name)->row();
 		return $data;
 	}
-	function getCity(){
-		$data = $this->db->get('tb_city_master')->result_array();
-		return $data;
-	}
-	function getSubdistrict(){
-		$data = $this->db->get('tb_sub_district_master')->result_array();
+	
+	function getDistrict(){
+		$data = $this->db->get('tb_district_master')->result_array();
 		return $data;
 	}
 	
@@ -43,11 +44,15 @@ class Area_model extends CI_model{
 	{
 		$this->db->where('id',$id);
 		$this->db->update($this->db_name,$formArray);
+		if($formArray['is_default']==1){
+			$this->db->update($this->db_name,['is_default'=>0],['is_default'=>1,'id !=' => $id]);
+		 }
 		return true;
 	}
-	//import excel for Area
+	
+	//import excel 
 	public function insert_batch($data){
-		$this->db->insert_batch('tb_area_master',$data);
+		$this->db->insert_batch('tb_sub_district_master',$data);
 		if($this->db->affected_rows()>0)
 		{
 			return 1;
@@ -56,7 +61,5 @@ class Area_model extends CI_model{
 			return 0;
 		}
 	}
-	
-	
 	
 }
