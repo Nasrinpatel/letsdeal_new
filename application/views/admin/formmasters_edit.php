@@ -1,3 +1,13 @@
+			<!-- Multi Question add -->
+		<style>
+			#questions{
+				max-height: 300px;
+				overflow-y: scroll;
+				overflow-x: hidden;
+			}
+				
+		</style>
+			
 			<!-- ============================================================== -->
 			<!-- Start Page Content here -->
 			<!-- ============================================================== -->

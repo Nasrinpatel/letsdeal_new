@@ -198,6 +198,29 @@
 																						<input type="date" class="form-control" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
 																					<?php } elseif ($que['question_answer_inputtype'] == 'Textarea') { ?>
 																						<textarea class="form-control" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>"><?= ($answers['options']) ? array_keys($answers['options'][0])[0] : '' ?></textarea>
+																						<?php } elseif ($que['question_answer_inputtype'] == 'Multitextbox') {
+																							$i = 0; ?>
+																							<div id="options">
+																								<?php
+																								foreach ($answers['options'] as $option) { ?>
+																									<div class="row">
+																										<div class="col-lg-6">
+																											<div class="mb-3">
+																												<input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]" id="option" value="<?= array_keys($option)[0] ?>">
+																											</div>
+																										</div>
+
+																										<div class="col-lg-2">
+																											<?php if ($i == 0) { ?>
+																												<a class="btn btn-success waves-effect waves-light add-button-textbox" data-name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>[]">Add </a>
+																											<?php } else { ?>
+																												<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+																											<?php } ?>
+																										</div>
+																									</div>
+																								<?php $i++;
+																								} ?>
+																							</div>
 																					<?php } elseif ($que['question_answer_inputtype'] == 'File') { ?>
 																						<input type="file" class="form-control" id="userName1" name="answer_<?= $phase['id'] ?>_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
 																						<!-- <?php if (!empty($artist['artist']->press_kit)) { ?>

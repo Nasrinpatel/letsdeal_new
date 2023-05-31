@@ -1,5 +1,5 @@
-<!-- Import excel City modal -->
-<div class="modal fade" id="cityimport-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<!-- Import excel district modal -->
+<div class="modal fade" id="districtimport-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-light">
@@ -7,12 +7,13 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 			</div>
 			<div class="modal-body p-4">
-				<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/City/city_spreadsheet_import'; ?>" enctype="multipart/form-data">
+				<form method="post" id="store-procat" action="<?php echo base_url() . 'admin/District/district_spreadsheet_import'; ?>" enctype="multipart/form-data">
 					<div class="mb-3">
 						<label for="state" class="form-label">Select State</label>
 						<select class="form-select" name="state_id" id="state">
+
 							<option value="">Select State</option>
-							<?php foreach ($states as $sta) { ?>
+							<?php foreach ($state as $sta) { ?>
 								<option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
 							<?php } ?>
 						</select>
@@ -21,7 +22,7 @@
 					</div>
 					<div class="mb-3">
 						<!-- <input type="hidden" name="id" value="<?= $this->uri->segment(3) ?>"> -->
-						<label for="name" class="form-label">Import Sub-District/City</label>
+						<label for="name" class="form-label">Import State</label>
 						<input type="file" name="upload_file" class="form-control" id="upload_file" required="">
 					</div>
 
@@ -33,8 +34,10 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
+
+
 <!--Add Modal -->
-<div class="modal fade" id="city-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="district-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-light">
@@ -42,12 +45,15 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 			</div>
 			<div class="modal-body p-4">
-				<form method="post" id="store-ci" action="<?php echo base_url() . 'admin/city/store'; ?>">
+				<form method="post" id="store-dist" action="<?php echo base_url() . 'admin/District/store'; ?>">
+
+
 					<div class="mb-3">
 						<label for="state" class="form-label">Select State</label>
 						<select class="form-select" name="state_id" id="state">
+
 							<option value="">Select State</option>
-							<?php foreach ($states as $sta) { ?>
+							<?php foreach ($state as $sta) { ?>
 								<option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
 							<?php } ?>
 						</select>
@@ -55,9 +61,9 @@
 
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label">Sub-District/City Name</label>
-						<input type="text" class="form-control" name="name" id="name" placeholder="Enter city name">
-						<?= form_error('name')  ?>
+						<label for="name" class="form-label">District Name</label>
+						<input type="text" class="form-control" name="name" id="name" placeholder="Enter district name">
+						<?= form_error('name')  ?>	
 					</div>
 					<div class="mb-3">
 						<label for="is_default" class="form-label">Is Default</label>
@@ -67,9 +73,10 @@
 							<option value="0">No</option>
 						</select>
 					</div>
+
 					<div class="mb-3">
-						<label for="city_status" class="form-label">Status</label>
-						<select class="form-select" name="status" id="city_status">
+						<label for="posi_status" class="form-label">Status</label>
+						<select class="form-select" name="status" id="posi_status">
 							<option selected="">Select Status</option>
 							<option value="1" selected>Active</option>
 							<option value="0">Inactive</option>
@@ -86,30 +93,30 @@
 </div><!-- /.modal -->
 
 <!-- Edit Modal -->
-<div class="modal fade" id="cityedit-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="districtedit-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header bg-light">
-				<h4 class="modal-title" id="myCenterModalLabel2">Edit Sub-District/City</h4>
+				<h4 class="modal-title" id="myCenterModalLabel2">Edit District</h4>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
 			</div>
 			<div class="modal-body p-4">
-				<form method="post" id="update_city" action="#">
-					<input type="hidden" name="id" id="edit_city_id" />
+				<form method="post" id="update_district" action="#">
+					<input type="hidden" name="id" id="edit_dist_id" />
 					<div class="mb-3">
 						<label for="state" class="form-label">Select State</label>
 						<select class="form-select" name="state_id" id="state">
-							<option value="">Select State</option>
-							<?php foreach ($states as $sta) { ?>
+							<?php
+							foreach ($state as $sta) { ?>
 								<option value="<?= $sta['id'] ?>"><?= $sta['name'] ?></option>
-							<?php } ?>
+							<?php }
+							?>
 						</select>
-						<span style="color: red;"><?= form_error('state_id') ?></span>
-
 					</div>
+
 					<div class="mb-3">
-						<label for="name" class="form-label">Sub-District/City Name</label>
-						<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter city name">
+						<label for="name" class="form-label">District Name</label>
+						<input type="text" class="form-control" name="name" id="name" value="" placeholder="Enter District name">
 						<?= form_error('name')  ?>
 					</div>
 					<div class="mb-3">
@@ -121,14 +128,13 @@
 						</select>
 					</div>
 					<div class="mb-3">
-						<label for="city_status" class="form-label">Status</label>
-						<select class="form-select" name="status" id="city_status">
+						<label for="district_status" class="form-label">Status</label>
+						<select class="form-select" name="status" id="district_status">
 							<option selected="">Select Status</option>
 							<option value="1">Active</option>
 							<option value="0">Inactive</option>
 						</select>
 					</div>
-
 					<div class="text-end">
 						<button type="submit" class="btn btn-success waves-effect waves-light">Save</button>
 					</div>
@@ -151,12 +157,12 @@
 							<ol class="breadcrumb m-0">
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 									<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
-								<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#city-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
-								<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#cityimport-modal">Import Sub-District/City</button>
+								<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#district-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
+								<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#districtimport-modal">Import district</button>
 
 							</ol>
 						</div>
-						<h4 class="page-title">Sub-District/City Master</h4>
+						<h4 class="page-title">District Master</h4>
 					</div>
 				</div>
 			</div>
@@ -187,7 +193,7 @@
 							</div>
 							<div class="row mb-2">
 								<!-- <div class="col-sm-8">
-										<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#city-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
+										<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#district-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
 									</div> -->
 								<div class="col-sm-4">
 									<div class="text-sm-end mt-2 mt-sm-0">
@@ -199,12 +205,13 @@
 							</div>
 
 							<div class="table-responsive">
-								<table class="table table-centered table-nowrap table-striped" id="city_datatable">
+								<table class="table table-centered table-nowrap table-striped" id="district_datatable">
 									<thead>
 										<tr>
 
 											<th>#</th>
-											<th>Sub-District/City Name</th>
+											<!-- <th>state Name</th> -->
+											<th>District Name</th>
 											<th>Is Default</th>
 											<th>Create Date</th>
 											<th>Status</th>
@@ -228,24 +235,9 @@
 	</div> <!-- content -->
 </div>
 <script>
-	// var table = $('#city_datatable').DataTable({
-	// 	responsive: true,
-	// 	ajax: "<?php echo base_url('admin/City/all'); ?>",
-	// 	"columnDefs": [{
-	// 		"targets": 4,
-	// 		"createdCell": function(td, cellData, rowData, row, col) {
-	// 			if (rowData[4] == '1') {
-	// 				// $(td).css('background-color', 'green')
-	// 				$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-	// 			} else if (rowData[4] == '0') {
-	// 				$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-	// 			}
-	// 		}
-	// 	}, ]
-	// });
-	var table = $('#city_datatable').DataTable({
+	var table = $('#district_datatable').DataTable({
 		responsive: true,
-		ajax: "<?php echo base_url('admin/City/all'); ?>",
+		ajax: "<?php echo base_url('admin/District/all'); ?>",
 		"columnDefs": [{
 				"targets": 2,
 				"createdCell": function(td, cellData, rowData, row, col) {
@@ -269,26 +261,32 @@
 			},
 		]
 	});
+
 	$(document).on('click', ".edit-btn", function() {
 		var id = $(this).attr('data-id');
 		$.ajax({
-			url: '<?php echo base_url() ?>admin/City/edit/' + id,
+			url: '<?php echo base_url() ?>admin/District/edit/' + id,
 			type: "POST",
 			dataType: "json",
 			success: function(data) {
-				$("#cityedit-modal #edit_city_id").val(data.id);
-				$('#cityedit-modal #state').val(data.state_id);
-				$('#cityedit-modal #name').val(data.name);
-				$('#cityedit-modal #is_default').val(data.is_default);
-				$("#cityedit-modal #city_status").val(data.status);
+				$("#districtedit-modal #edit_dist_id").val(data.id);
+				$('#districtedit-modal #name').val(data.name);
+				$('#districtedit-modal #district').val(data.state_id);
+				$('#districtedit-modal #is_default').val(data.is_default);
+				$("#districtedit-modal #district_status").val(data.status);
+
+
+
+
+				
 			}
 		});
 	});
-	$("#update_city").submit(function(o) {
+	$("#update_district").submit(function(o) {
 		o.preventDefault();
-		var id = $('#edit_city_id').val();
+		var id = $('#edit_dist_id').val();
 		$.ajax({
-			url: '<?php echo base_url() ?>admin/City/update/' + id,
+			url: '<?php echo base_url() ?>admin/District/update/' + id,
 			type: "POST",
 			data: $(this).serialize(),
 			dataType: "json",
@@ -300,7 +298,7 @@
 		});
 
 	});
-	$('#store-ci').validate({
+	$('#store-dist').validate({
 		rules: {
 			name: "required",
 			is_default: "required",

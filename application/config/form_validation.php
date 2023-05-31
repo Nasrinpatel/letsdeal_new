@@ -42,8 +42,8 @@ $config = array(
 			'rules' => 'required'
 		)
 	),
-	//City Import
-	'city_import_excel' => array(
+	//District Import
+	'district_import_excel' => array(
 		array(
 			'field' => 'state_id',
 			'label' => 'Please Select State',
@@ -51,20 +51,33 @@ $config = array(
 		),
 		array(
 			'field' => 'name',
-			'label' => 'Please enter City Name',
+			'label' => 'Please enter District Name',
 			'rules' => 'required'
 		)
 	),
-	//Area Import
-	'area_import_excel' => array(
+	//Sub-District/City Import
+	'subdistrict_import_excel' => array(
 		array(
-			'field' => 'city_id',
-			'label' => 'Please Select City',
+			'field' => 'district_id',
+			'label' => 'Please Select District',
 			'rules' => 'required'
 		),
 		array(
 			'field' => 'name',
-			'label' => 'Please enter Area Name',
+			'label' => 'Please enter Sub-District/City Name',
+			'rules' => 'required'
+		)
+	),
+	//Moje/Area Import
+	'area_import_excel' => array(
+		array(
+			'field' => 'subdistrict_id',
+			'label' => 'Please Select Sub-District/City',
+			'rules' => 'required'
+		),
+		array(
+			'field' => 'name',
+			'label' => 'Please enter Moje/Area Name',
 			'rules' => 'required'
 		),
 		array(
