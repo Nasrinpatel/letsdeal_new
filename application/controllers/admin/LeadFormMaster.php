@@ -54,14 +54,14 @@ class LeadFormMaster extends CI_Controller {
     }
     public function store()
     {
-        $this->form_validation->set_rules('question_ids', 'Question','required');
+        $this->form_validation->set_rules('question_ids[]', 'Question','required');
         $this->form_validation->set_rules('pro_master_id', 'Master','required');
         $this->form_validation->set_rules('status', 'Status','required');
         if ($this->form_validation->run() == false) {
             $this->add();
         } else {
             $formArray = array();
-            $formArray['question_ids'] = $this->input->post('question_ids');
+            $formArray['question_ids'] = implode(',',$this->input->post('question_ids'));
             $formArray['pro_master_id'] = $this->input->post('pro_master_id');
             $formArray['status'] = $this->input->post('status');
 
@@ -89,7 +89,7 @@ class LeadFormMaster extends CI_Controller {
 
     public function update($id)
     {
-        $this->form_validation->set_rules('question_ids', 'Question','required');
+        $this->form_validation->set_rules('question_ids[]', 'Question','required');
         $this->form_validation->set_rules('pro_master_id', 'Master','required');
         $this->form_validation->set_rules('status', 'Status','required');
 
@@ -97,7 +97,7 @@ class LeadFormMaster extends CI_Controller {
             $this->edit($id);
         }else{
             $formArray = array();
-            $formArray['question_ids'] = $this->input->post('question_ids');
+            $formArray['question_ids'] = implode(',',$this->input->post('question_ids'));
             $formArray['pro_master_id'] = $this->input->post('pro_master_id');
             $formArray['status'] = $this->input->post('status');
 

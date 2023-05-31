@@ -570,4 +570,20 @@ class Leadmaster_model extends CI_model{
 		$data = $this->db->where('id',$id)->get('tb_lead_master')->row();
 		return $data;
 	}
+
+    //fetch Question
+    function getQuestions($master_id)
+    {
+        $this->db->where('pro_master_id', $master_id);
+        $data = $this->db->get('tb_leadform_master')->row();
+        $question_list = [];
+        if ($data != null) {
+            $question_ids = explode(',', $data->question_ids);
+            if (!empty($question_ids)) {
+                $this->db->where_in('id', $question_ids);
+                $question_list = $this->db->get('tb_question_master')->result_array();
+            }
+        }
+        return $question_list;
+    }
 }

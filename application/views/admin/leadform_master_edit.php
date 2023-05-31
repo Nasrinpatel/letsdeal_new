@@ -41,21 +41,36 @@
                                     </div>
                                 </div>
 
-                                <div id="questions">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="mb-3">
-                                                    <label for="question" class="form-label">Select Question</label>
-                                                    <select class="form-select select2" name="question_ids" id="question">
-                                                        <option value="">Select Question</option>
-                                                        <?php foreach ($question as $q) : ?>
-                                                            <option value="<?php echo $q['id']; ?>" <?= ($leadform->question_ids == $q['id']) ? 'selected' : '' ?>><?php echo $q['question']; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <a class="btn btn-success waves-effect waves-light add-button" style="margin-bottom: 20px;">Add Question</a>
+                                    </div>
+                                </div>
+
+                                <div class="sequence_box" id="questions">
+                                    <?php $questions = explode(',', $leadform->question_ids);
+                                        for ($i = 0; $i < count($questions); $i++) { ?>
+                                        <div class="sequence">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="mb-3">
+                                                        <label for="question" class="form-label">Select Question</label>
+                                                        <select class="form-select select2" name="question_ids[]" id="question">
+                                                            <option value="">Select Question</option>
+                                                            <?php foreach ($question as $q) : ?>
+                                                                <option value="<?php echo $q['id']; ?>" <?= ($questions[$i] == $q['id']) ? 'selected' : '' ?>><?php echo $q['question']; ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-1">
+                                                    <label class="form-label" style='width:100%'>&nbsp;</label>
+                                                        <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
                                                 </div>
                                             </div>
                                         </div>
-                                    <span style="color: red;"><?= form_error('question_ids') ?></span>
+                                        <?php } ?>
+                                        <?= form_error('question_ids[]') ?>
                                 </div>
 
                                 <div class="row">
@@ -87,3 +102,38 @@
         </div> <!-- container -->
     </div> <!-- content -->
 </div>
+
+<script>
+    $(document).ready(function() {
+
+        $(".add-button").click(function() {
+            // create a new select element
+            var newSelect = $("<div class='row question'>" +
+                "<div class='col-lg-6'>" +
+                "<div class='mb-3'>" +
+                "<label for='question' class='form-label'>Select Question</label>" +
+                "<select class='form-select select2' name='question_ids[]' id='question'>" +
+                "<option value=''>Select Question</option>" +
+                "<?php foreach ($question as $q) : ?>" +
+                "<option value='<?php echo $q['id']; ?>'><?php echo $q['question']; ?></option>" +
+                "<?php endforeach; ?>" +
+                "</select>" +
+                "</div>" +
+                "</div>" +
+                "<div class='col-lg-1'>" +
+                "<label class='form-label' style='width:100%'>&nbsp;</label>" +
+                "<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>" +
+                "</div>" +
+                "</div>");
+            $("#questions").append(newSelect);
+        });
+        $(document).on('click', '.remove-button', function() {
+            // remove the select element with the id 'question'
+            $(this).parent().parent('div').remove();
+        });
+
+        $(".sequence_box").sortable({ tolerance: 'pointer' });
+        $('.sequence').css("cursor","move");
+
+    });
+</script>

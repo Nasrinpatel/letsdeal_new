@@ -10,3 +10,6 @@ Date:26-05-23
 ALTER TABLE `tb_lead_master`
   DROP `budget_type`,
   DROP `single_budget`;
+
+Date : 30-05-23
+ALTER TABLE `tb_leadform_master` CHANGE `question_ids` `question_ids` VARCHAR(255) NOT NULL;

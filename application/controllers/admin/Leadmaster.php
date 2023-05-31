@@ -499,12 +499,8 @@ class Leadmaster extends CI_Controller
 
     public function get_questions(){
         $master_id = $_POST['master_id'];
-        $value['parameter'] = array('pro_master_id' => $master_id);
-        $data['question'] = $this->common->getDataByParam('tb_leadform_master',$value);
-        foreach ($data['question'] as $key => $value){
-            $data['question'][$key] = $this->db->where_in('id',$value['question_ids'])->get('tb_question_master')->row_array();
-        }
-//        $data['questions'] = $this->leadmaster->getQuestions($master_id);
+        $data['question'] = $this->leadmaster->getQuestions($master_id);
+
         $html ='<div class="row">
                   <div class="col-12">
                    <form method="post" id="store-question" action="'.base_url('/admin/Leadmaster/store_question').'">

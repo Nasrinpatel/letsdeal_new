@@ -3,8 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/formmasters_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/formmasters_add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/formmasters_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/formmasters_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_edit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +117,10 @@
       <workItem from="1684814644154" duration="18244000" />
       <workItem from="1684902391128" duration="19454000" />
       <workItem from="1684989966228" duration="8067000" />
-      <workItem from="1685074596175" duration="10436000" />
+      <workItem from="1685074596175" duration="15761000" />
+      <workItem from="1685171623917" duration="389000" />
+      <workItem from="1685361106987" duration="6115000" />
+      <workItem from="1685506388814" duration="2920000" />
     </task>
     <servers />
   </component>

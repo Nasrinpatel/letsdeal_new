@@ -131,9 +131,15 @@
 													</div>
 												<?php } ?>
 											</div> -->
-											<div id="questions">
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <a class="btn btn-success waves-effect waves-light add-button" style="margin-bottom: 20px;">Add Question</a>
+                                                </div>
+                                            </div>
+											<div class="sequence_box" id="questions">
 												<?php $questions = explode(',', $forms->question_ids);
 												for ($i = 0; $i < count($questions); $i++) { ?>
+                                                <div class="sequence">
 													<div class="row">
 														<div class="col-lg-6">
 															<div class="mb-3">
@@ -148,13 +154,10 @@
 														</div>
 														<div class="col-lg-1">
 															<label class="form-label" style='width:100%'>&nbsp;</label>
-															<?php if ($i == 0) { ?>
-																<a class="btn btn-success waves-effect waves-light add-button">Add </a>
-															<?php } else { ?>
-																<a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
-															<?php } ?>
+                                                            <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
 														</div>
 													</div>
+                                                </div>
 												<?php } ?>
 												<?= form_error('question_ids[]') ?>
 											</div>
@@ -248,5 +251,7 @@
 						$(this).parent().parent('div').remove();
 					});
 
+                    $(".sequence_box").sortable({ tolerance: 'pointer' });
+                    $('.sequence').css("cursor","move");
 				});
 			</script>

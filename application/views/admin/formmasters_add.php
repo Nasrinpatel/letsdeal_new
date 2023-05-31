@@ -1,12 +1,4 @@
-		<style>
-			#questions{
-				max-height: 300px;
-				overflow-y: scroll;
-				overflow-x: hidden;
-			}
-				
-		</style>
-		<!-- ============================================================== -->
+	<!-- ============================================================== -->
 			<!-- Start Page Content here -->
 			<!-- ============================================================== -->
 			<!--Add Modal -->
@@ -104,7 +96,6 @@
 													<?php } ?>
 													<span style="color: red;"><?= form_error('category_ids[]') ?></span>
 												</div>
-
 											</div>
 
 											<div class="row">
@@ -121,7 +112,6 @@
 																		<div class="form-check form-check-inline">
 																			<input type="checkbox" name="sub_category_ids[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>" multiple>
 																			<!-- <input type="checkbox" name="checkbox[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>"> -->
-
 																			<label class="form-check-label" for="<?php echo $subcatchk->name; ?>"><?php echo $subcatchk->name; ?></label>
 																		</div>
 																	<?php } ?>
@@ -133,45 +123,46 @@
 													</div>
 												</div>
 											</div>
-
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="mb-3">
 														<label for="phase" class="form-label">Select Phase</label>
-
 														<select class="form-select" name="phase_id" id="phase">
 															<option value="">Select Phase</option>
 															<?php foreach ($phase as $ph) : ?>
-
 																<option value="<?php echo $ph['id']; ?>"><?php echo $ph['name']; ?></option>
 															<?php endforeach; ?>
 														</select>
 														<span style="color: red;"><?= form_error('phase_id') ?></span>
 													</div>
-
 												</div>
-
 											</div>
-											<div id="questions">
-												<div class="row">
-													<div class="col-lg-6">
-														<div class="mb-3">
-															<label for="question" class="form-label">Select Question</label>
-															<!-- <select class="form-select" name="id" id="question"> -->
-															<select class="form-select select2" name="question_ids[]" id="question">
-																<option value="">Select Question</option>
-																<?php foreach ($question as $q) : ?>
-																	<option value="<?php echo $q['id']; ?>"><?php echo $q['question']; ?></option>
-																<?php endforeach; ?>
-															</select>
-															<span style="color: red;"><?= form_error('question_ids[]') ?></span>
-														</div>
-													</div>
-													<div class="col-lg-1">
-														<label class="form-label" style='width:100%'>&nbsp;</label>
-														<a class="btn btn-success waves-effect waves-light add-button">Add </a>
-													</div>
-												</div>
+                                            <div class="row fixed">
+                                                <div class="col-lg-3">
+                                                    <a class="btn btn-success waves-effect waves-light add-button" style="margin-bottom: 20px;">Add Question</a>
+                                                </div>
+                                            </div>
+											<div class="sequence_box" id="questions">
+                                                <div class="sequence">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="mb-3">
+                                                                <label for="question" class="form-label">Select Question</label>
+                                                                <select class="form-select select2" name="question_ids[]" id="question">
+                                                                    <option value="">Select Question</option>
+                                                                    <?php foreach ($question as $q) : ?>
+                                                                        <option value="<?php echo $q['id']; ?>"><?php echo $q['question']; ?></option>
+                                                                    <?php endforeach; ?>
+                                                                </select>
+                                                                <span style="color: red;"><?= form_error('question_ids[]') ?></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class='col-lg-1'>
+                                                            <label class='form-label' style='width:100%'>&nbsp;</label>
+                                                            <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
 											</div>
 											<div class="row">
 												<div class="col-lg-6">
@@ -202,6 +193,11 @@
 					</div> <!-- container -->
 				</div> <!-- content -->
 			</div>
+    <style>
+        .fixed{
+           
+        }
+    </style>
 
 			<script>
 				$(document).ready(function() {
@@ -258,5 +254,7 @@
 						$(this).parent().parent('div').remove();
 					});
 
+                    $(".sequence_box").sortable({ tolerance: 'pointer' });
+                    $('.sequence').css("cursor","move");
 				});
 			</script>
