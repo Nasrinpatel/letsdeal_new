@@ -34,9 +34,11 @@ class Customermaster extends CI_Controller
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 			$staff_data = $this->db->get_where('tbl_staff_master', array('id' => $value['assigned_id']))->row();
 			$agent_data = $this->db->get_where('tb_agent_master', array('id' => $value['agent_id']))->row();
-			$button = '<a href="' . base_url('admin/customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
-			<a href="' . base_url('admin/customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
-			<a href="' . base_url('admin/customermaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+
+			$button = '<a href="' . base_url('admin/Customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/Customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/Customermaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+
 			$result['data'][] = array(
 				$i++,
 				($value['agent_id'] == '' || $value['inquiry_type'] == 'direct') ? '-' : $agent_data->first_name . ' ' . $agent_data->last_name . ' ' . (($agent_data->nick_name == "") ? '' : '(' . $agent_data->nick_name . ')'),

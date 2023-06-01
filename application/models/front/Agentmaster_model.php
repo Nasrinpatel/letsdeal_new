@@ -60,18 +60,26 @@ class Agentmaster_model extends CI_model{
 		$data = $this->db->get('tb_property_subcategory')->result_array();
 		return $data;
 	}
-	function getCityByState($state_id)
-	{
-		$this->db->where('state_id', $state_id);
-		$data = $this->db->get('tb_city_master')->result_array();
-		return $data;
-	}
-	function getAreaByCity($city_id)
-	{
-		$this->db->where('city_id', $city_id);
-		$data = $this->db->get('tb_area_master')->result_array();
-		return $data;
-	}
+    function getDistrictByState($state_id)
+    {
+        $this->db->where('state_id', $state_id);
+        $data = $this->db->get('tb_district_master')->result_array();
+        return $data;
+    }
+
+    function getSubDistrictByDistrict($district_id)
+    {
+        $this->db->where('district_id', $district_id);
+        $data = $this->db->get('tb_sub_district_master')->result_array();
+        return $data;
+    }
+
+    function getAreaBySubDistrict($area_id)
+    {
+        $this->db->where('subdistrict_id', $area_id);
+        $data = $this->db->get('tb_area_master')->result_array();
+        return $data;
+    }
 	function getCategory(){
 		$data = $this->db->get('tb_property_category')->result_array();
 		return $data;

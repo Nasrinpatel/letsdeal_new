@@ -138,7 +138,7 @@
 												</div>
 											</div>
                                             <div class="row fixed">
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-6">
                                                     <a class="btn btn-success waves-effect waves-light add-button" style="margin-bottom: 20px;">Add Question</a>
                                                 </div>
                                             </div>
@@ -195,7 +195,7 @@
 			</div>
     <style>
         .fixed{
-           
+            position: sticky;
         }
     </style>
 

@@ -40,7 +40,7 @@
 							</div>
 
 							<div class="table-responsive">
-								<table class="table table-centered table-nowrap table-striped" id="formmaster_datatable">
+								<table class="table table-centered table-nowrap table-striped" id="customer_master_datatable">
 									<thead>
 										<tr>
 											<th>#</th>
@@ -136,7 +136,7 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <script>
-	var table = $('#formmaster_datatable').DataTable({
+	var table = $('#customer_master_datatable').DataTable({
 		responsive: true,
 		ajax: "<?php echo base_url('admin/Customermaster/all'); ?>",
 		"columnDefs": [{

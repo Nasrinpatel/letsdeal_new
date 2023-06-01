@@ -329,31 +329,37 @@
                         </div>
 					</div>
 
-					<div class="row">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="district_id" class="form-label">Select District</label>
+                            <select class="form-select" name="district_id" id="district_id">
+                                <option value="">Select District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('district_id') ?></span>
+                        </div>
+                    </div>
 
-						<div class="mb-3">
-							<label for="city_id" class="form-label">Select City</label>
-							<select class="form-select" name="city_id" id="city_id">
-								<option value="">Select City</option>
-							</select>
-							<span style="color: red;"><?= form_error('city_id') ?></span>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="sub_district_id" class="form-label">Select Sub District</label>
+                            <select class="form-select" name="sub_district_id" id="sub_district_id">
+                                <option value="">Select Sub District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('sub_district_id') ?></span>
+                        </div>
+                    </div>
 
-						</div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="area_id" class="form-label">Select Moje / Area</label>
+                            <select class="form-select" name="area_id" id="area_id">
+                                <option value="">Select Area</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('area_id') ?></span>
+                        </div>
+                    </div>
 
-					</div>
-					<div class="row">
-
-						<div class="mb-3">
-							<label for="area_id" class="form-label">Select Area</label>
-							<select class="form-select" name="area_id" id="area_id">
-								<option value="">Select Area</option>
-							</select>
-							<span style="color: red;"><?= form_error('area_id') ?></span>
-
-						</div>
-
-					</div>
-					<div class="mb-3">
+                    <div class="mb-3">
 						<label for="city_status" class="form-label">Status</label>
 						<select class="form-select" name="status" id="specialistarea_status">
 							<option selected="">Select Status</option>
@@ -395,36 +401,40 @@
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('state_id') ?></span>
-
-
 						</div>
 					</div>
 
-					<div class="row">
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="district_id" class="form-label">Select District</label>
+                            <select class="form-select" name="district_id" id="district_id">
+                                <option value="">Select District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('district_id') ?></span>
+                        </div>
+                    </div>
 
-						<div class="mb-3">
-							<label for="city_id" class="form-label">Select City</label>
-							<select class="form-select" name="city_id" id="city_id">
-								<option value="">Select City</option>
-							</select>
-							<span style="color: red;"><?= form_error('city_id') ?></span>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="sub_district_id" class="form-label">Select Sub District</label>
+                            <select class="form-select" name="sub_district_id" id="sub_district_id">
+                                <option value="">Select Sub District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('sub_district_id') ?></span>
+                        </div>
+                    </div>
 
-						</div>
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="area_id" class="form-label">Select Moje / Area</label>
+                            <select class="form-select" name="area_id" id="area_id">
+                                <option value="">Select Area</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('area_id') ?></span>
+                        </div>
+                    </div>
 
-					</div>
-					<div class="row">
-
-						<div class="mb-3">
-							<label for="area_id" class="form-label">Select Area</label>
-							<select class="form-select" name="area_id" id="area_id">
-								<option value="">Select Area</option>
-							</select>
-							<span style="color: red;"><?= form_error('area_id') ?></span>
-
-						</div>
-
-					</div>
-					<div class="mb-3">
+                    <div class="mb-3">
 						<label for="city_status" class="form-label">Status</label>
 						<select class="form-select" name="status" id="specialistarea_status">
 							<option selected="">Select Status</option>
@@ -432,6 +442,7 @@
 							<option value="0">Inactive</option>
 						</select>
 					</div>
+
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="text-end">
@@ -446,8 +457,6 @@
 	</div><!-- /.modal-dialog -->
 </div>
 
-
-
 <!-- reminders add -->
 <div class="modal fade" id="agent-reminders-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered">
@@ -459,15 +468,7 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-reminders" action="<?php echo base_url() . 'admin/Agentmaster/store_reminders'; ?>">
 					<input type="hidden" name="agent_id" value="<?= $agent->id ?>">
-					<!-- <div class="row">
-						<div class="col-md-12">
-							<div class="mb-3">
-								<label for="billing-reminder-name" class="form-label">Rreminder Name</label>
-								<input class="form-control" type="text" placeholder="Enter  name" name="name" id="billing-reminder-name" />
-							</div>
-						</div>
 
-					</div>  -->
 					<div class="row">
 						<div class="col-md-12">
 							<div class="mb-3">
@@ -487,14 +488,11 @@
 					</div> <!-- end row -->
 					<div class="row">
 						<div class="col-md-12">
-
-
 							<div class="mb-3">
 								<label for="date_time" class="form-label">Date </label>
 								<input class="form-control" id="date_time" type="datetime-local" name="date_time">
 							</div>
 						</div>
-
 					</div> <!-- end row -->
 
 					<div class="row">
@@ -590,8 +588,6 @@
 						</div>
 					</div>
 
-
-
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -659,14 +655,11 @@
 					</div> <!-- end row -->
 					<div class="row">
 						<div class="col-md-12">
-
-
 							<div class="mb-3">
 								<label for="date_time" class="form-label">Date </label>
 								<input class="form-control" id="date_time" type="datetime-local" name="date_time">
 							</div>
 						</div>
-
 					</div> <!-- end row -->
 
 					<div class="row">
@@ -1503,7 +1496,8 @@
 																				<tr>
 																					<th>#</th>
 																					<th>State</th>
-																					<th>City</th>
+																					<th>District</th>
+																					<th>Sub District</th>
 																					<th>Area</th>
 																					<th>Create Date</th>
 																					<th>Status</th>
@@ -1996,7 +1990,7 @@
 					var state_id = $(this).val();
 					if (state_id != '') {
 						$.ajax({
-							url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
+							url: '<?php echo base_url() . "admin/Agentmaster/getDistrictByState"; ?>',
 							type: 'post',
 							data: {
 								state_id: state_id
@@ -2004,25 +1998,24 @@
 							dataType: 'json',
 							success: function(response) {
 								var len = response.length;
-								$("#store-specialistarea #city_id").empty();
-								$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+								$("#store-specialistarea #district_id").empty();
+								$("#store-specialistarea #district_id").append("<option value=''>Select District</option>");
 								for (var i = 0; i < len; i++) {
 									var id = response[i]['id'];
 									var name = response[i]['name'];
 									var is_default = response[i]['is_default'];
-									$("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
-
+									$("#store-specialistarea #district_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
 								}
 							}
 						});
 					} else {
-						$("#store-specialistarea #city_id").empty();
+                        $("#store-specialistarea #district_id").html("<option value=''>Select District</option>");
 					}
 				});
 				$('#agent-specialistarea-modal').on('shown.bs.modal', function(e) {
 					$('#agent-specialistarea-modal #state_id').trigger('change');
 					setTimeout(function() {
-						$('#agent-specialistarea-modal #city_id').trigger('change');
+						$('#agent-specialistarea-modal #district_id').trigger('change');
 					}, 250);
 				});
 			});
@@ -2032,7 +2025,7 @@
 					var state_id = $(this).val();
 					if (state_id != '') {
 						$.ajax({
-							url: '<?php echo base_url() . "admin/Agentmaster/getCityByState"; ?>',
+							url: '<?php echo base_url() . "admin/Agentmaster/getDistrictByState"; ?>',
 							type: 'post',
 							data: {
 								state_id: state_id
@@ -2040,74 +2033,137 @@
 							dataType: 'json',
 							success: function(response) {
 								var len = response.length;
-								$("#edit-agent-specialistarea-modal #city_id").empty();
-								$("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+								$("#edit-agent-specialistarea-modal #district_id").empty();
+								$("#store-specialistarea #district_id").append("<option value=''>Select District</option>");
 								for (var i = 0; i < len; i++) {
 									var id = response[i]['id'];
 									var name = response[i]['name'];
-									$("#edit-agent-specialistarea-modal #city_id").append("<option value='" + id + "'>" + name + "</option>");
+									$("#edit-agent-specialistarea-modal #district_id").append("<option value='" + id + "'>" + name + "</option>");
 								}
 							}
 						});
 					} else {
-						$("#edit-agent-specialistarea-modal #city_id").empty();
+						$("#edit-agent-specialistarea-modal #district_id").html("<option value=''>Select District</option>");
 					}
 				});
 			});
 			//on city change fetch area
-			$(document).on('change', '#agent-specialistarea-modal #city_id', function() {
-				var city_id = $(this).val();
-				if (city_id != '') {
+			$(document).on('change', '#agent-specialistarea-modal #district_id', function() {
+				var district_id = $(this).val();
+				if (district_id != '') {
 					$.ajax({
-						url: '<?php echo base_url() . "admin/Agentmaster/getAreaByCity"; ?>',
+						url: '<?php echo base_url() . "admin/Agentmaster/getSubDistrictByDistrict"; ?>',
 						type: 'post',
 						data: {
-							city_id: city_id
+                            district_id: district_id
 						},
 						dataType: 'json',
 						success: function(response) {
 							var len = response.length;
-							$("#store-specialistarea #area_id").empty();
-							$("#store-specialistarea #area_id").append("<option value=''>Select Area</option>");
+							$("#store-specialistarea #sub_district_id").empty();
+							$("#store-specialistarea #sub_district_id").append("<option value=''>Select Sub District</option>");
 							for (var i = 0; i < len; i++) {
 								var id = response[i]['id'];
 								var name = response[i]['name'];
-								$("#store-specialistarea #area_id").append("<option value='" + id + "'>" + name + "</option>");
+								$("#store-specialistarea #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
 							}
 						}
 					});
 				} else {
-					$("#store-specialistarea #area_id").empty();
+					$("#store-specialistarea #sub_district_id").html("<option value=''>Select Sub District</option>");
 				}
 			});
+            $('#agent-specialistarea-modal').on('shown.bs.modal', function(e) {
+                $('#agent-specialistarea-modal #district_id').trigger('change');
+                setTimeout(function() {
+                    $('#agent-specialistarea-modal #sub_district_id').trigger('change');
+                }, 250);
+            });
 			$(document).ready(function() {
-				$('#edit-agent-specialistarea-modal #city_id').change(function() {
+				$('#edit-agent-specialistarea-modal #district_id').change(function() {
 					debugger;
-					var city_id = $(this).val();
-					if (city_id != '') {
+					var district_id = $(this).val();
+					if (district_id != '') {
 						$.ajax({
-							url: '<?php echo base_url() . "admin/Agentmaster/getAreaByCity"; ?>',
+							url: '<?php echo base_url() . "admin/Agentmaster/getSubDistrictByDistrict"; ?>',
 							type: 'post',
 							data: {
-								city_id: city_id
+                                district_id: district_id
 							},
 							dataType: 'json',
 							success: function(response) {
 								var len = response.length;
-								$("#edit-agent-specialistarea-modal #area_id").empty();
-								$("#edit-agent-specialistarea-modal #area_id").append("<option value=''>Select Area</option>");
+								$("#edit-agent-specialistarea-modal #sub_district_id").empty();
+								$("#edit-agent-specialistarea-modal #sub_district_id").append("<option value=''>Select Sub District</option>");
 								for (var i = 0; i < len; i++) {
 									var id = response[i]['id'];
 									var name = response[i]['name'];
-									$("#edit-agent-specialistarea-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+									$("#edit-agent-specialistarea-modal #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
 								}
 							}
 						});
 					} else {
-						$("#edit-agent-specialistarea-modal #area_id").empty();
+                        $("#store-specialistarea #sub_district_id").html("<option value=''>Select Sub District</option>");
 					}
 				});
 			});
+            //on state change fetch city
+            $(document).ready(function() {
+                $(document).on('change', '#agent-specialistarea-modal #sub_district_id', function() {
+                    var sub_district_id = $(this).val();
+                    if (sub_district_id != '') {
+                        $.ajax({
+                            url: '<?php echo base_url() . "admin/Agentmaster/getAreaBySubDistrict"; ?>',
+                            type: 'post',
+                            data: {
+                                sub_district_id: sub_district_id
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                var len = response.length;
+                                $("#store-specialistarea #area_id").empty();
+                                $("#store-specialistarea #area_id").append("<option value=''>Select Moje / Area</option>");
+                                for (var i = 0; i < len; i++) {
+                                    var id = response[i]['id'];
+                                    var name = response[i]['name'];
+                                    var is_default = response[i]['is_default'];
+                                    $("#store-specialistarea #area_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
+                                }
+                            }
+                        });
+                    } else {
+                        $("#store-specialistarea #area_id").html("<option value=''>Select Moje / Area</option>");
+                    }
+                });
+            });
+            $(document).ready(function() {
+                $('#edit-agent-specialistarea-modal #sub_district_id').change(function() {
+                    debugger;
+                    var sub_district_id = $(this).val();
+                    if (sub_district_id != '') {
+                        $.ajax({
+                            url: '<?php echo base_url() . "admin/Agentmaster/getAreaBySubDistrict"; ?>',
+                            type: 'post',
+                            data: {
+                                sub_district_id: sub_district_id
+                            },
+                            dataType: 'json',
+                            success: function(response) {
+                                var len = response.length;
+                                $("#edit-agent-specialistarea-modal #area_id").empty();
+                                $("#store-specialistarea #area_id").append("<option value=''>Select Moje / Area</option>");
+                                for (var i = 0; i < len; i++) {
+                                    var id = response[i]['id'];
+                                    var name = response[i]['name'];
+                                    $("#edit-agent-specialistarea-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+                                }
+                            }
+                        });
+                    } else {
+                        $("#edit-agent-specialistarea-modal #area_id").html("<option value=''>Select Moje / Area</option>");
+                    }
+                });
+            });
 			var specialistarea_table = $('#agent_specialistarea_datatable').DataTable({
 				responsive: true,
 				ajax: "<?php echo base_url('admin/Agentmaster/all_specialistarea/' . $agent->id); ?>",
@@ -2136,11 +2192,11 @@
 						targets: 6
 					},
 					{
-						"targets": 5,
+						"targets": 6,
 						"createdCell": function(td, cellData, rowData, row, col) {
-							if (rowData[5] == '1') {
+							if (rowData[6] == '1') {
 								$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-							} else if (rowData[5] == '0') {
+							} else if (rowData[6] == '0') {
 								$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 							}
 						}
@@ -2183,12 +2239,15 @@
 						success: function(data) {
 							$("#edit-agent-specialistarea-modal #specialistarea_id").val(data.id);
 							$('#edit-agent-specialistarea-modal #state_id').val(data.state_id).trigger('change');
-							setTimeout(function() {
-								$('#edit-agent-specialistarea-modal #city_id').val(data.city_id).trigger('change');
-								setTimeout(function() {
-									$('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');
-								}, 250);
-							}, 250);
+                            setTimeout(function () {
+                                $('#edit-agent-specialistarea-modal #district_id').val(data.district_id).trigger('change');
+                                setTimeout(function () {
+                                    $('#edit-agent-specialistarea-modal #sub_district_id').val(data.sub_district_id).trigger('change');
+                                    setTimeout(function () {
+                                        $('#edit-agent-specialistarea-modal #area_id').val(data.area_id).trigger('change');
+                                    },250);
+                                },250);
+                            },250);
 							$("#edit-agent-specialistarea-modal #specialistarea_status").val(data.status);
 						}
 					});

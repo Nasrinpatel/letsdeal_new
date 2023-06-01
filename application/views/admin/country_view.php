@@ -106,7 +106,7 @@
 							<ol class="breadcrumb m-0">
 								<!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 									<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
-								<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#country-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
+								<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#country-modal" style="margin-right: 10px;"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
 								<button type="button" class="btn btn-info waves-effect waves-light import-excel-button" data-bs-toggle="modal" data-bs-target="#countryimport-modal">Import Country</button>
 
 							</ol>

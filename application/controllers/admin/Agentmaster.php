@@ -441,7 +441,8 @@ class Agentmaster extends CI_Controller
 		$i = 1;
 		foreach ($specialistarea as $value) {
 			$state_data = $this->db->get_where('tb_state_master', array('id' => $value['state_id']))->row();
-			$city_data = $this->db->get_where('tb_city_master', array('id' => $value['city_id']))->row();
+            $district_data = $this->db->get_where('tb_district_master', array('id' => $value['district_id']))->row();
+            $sub_district_data = $this->db->get_where('tb_sub_district_master', array('id' => $value['sub_district_id']))->row();
 			$area_data = $this->db->get_where('tb_area_master', array('id' => $value['area_id']))->row();
 
 			$button = '<a href="' . base_url('admin/agentmaster/edit_specialistarea/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-specialistarea-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
@@ -449,7 +450,8 @@ class Agentmaster extends CI_Controller
 			$result['data'][] = array(
 				$i++,
 				$state_data->name,
-				$city_data->name,
+                $district_data->name,
+                $sub_district_data->name,
 				(($area_data != null) ? $area_data->name : ''),
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
@@ -464,7 +466,8 @@ class Agentmaster extends CI_Controller
 		$formArray = array();
 		$formArray['agent_id'] = $this->input->post('agent_id');
 		$formArray['state_id'] = $this->input->post('state_id');
-		$formArray['city_id'] = $this->input->post('city_id');
+        $formArray['district_id'] = $this->input->post('district_id');
+        $formArray['sub_district_id'] = $this->input->post('sub_district_id');
 		$formArray['area_id'] = $this->input->post('area_id');
 
 		$formArray['status'] = $this->input->post('status');
@@ -477,19 +480,27 @@ class Agentmaster extends CI_Controller
 			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
 		}
 	}
-	//Specialist Area state city 
-	public function getCityByState()
+	//Specialist Area state to district
+	public function getDistrictByState()
 	{
 		$state_id = $this->input->post('state_id');
-		$cities = $this->agentmaster->getCityByState($state_id);
-		echo json_encode($cities);
+		$district = $this->agentmaster->getDistrictByState($state_id);
+		echo json_encode($district);
 	}
-	public function getAreaByCity()
-	{
-		$city_id = $this->input->post('city_id');
-		$cities = $this->agentmaster->getAreaByCity($city_id);
-		echo json_encode($cities);
-	}
+    // Area Interested -> district to sub district
+    public function getSubDistrictByDistrict()
+    {
+        $district_id = $this->input->post('district_id');
+        $sub_district_id = $this->agentmaster->getSubDistrictByDistrict($district_id);
+        echo json_encode($sub_district_id);
+    }
+    // Area Interested -> sub district to area
+    public function getAreaBySubDistrict()
+    {
+        $sub_district_id = $this->input->post('sub_district_id');
+        $area_id = $this->agentmaster->getAreaBySubDistrict($sub_district_id);
+        echo json_encode($area_id);
+    }
 	//Specialist Area edit
 	public function edit_specialistarea($id)
 	{
@@ -502,7 +513,8 @@ class Agentmaster extends CI_Controller
 		$formArray = array();
 		$formArray['agent_id'] = $this->input->post('agent_id');
 		$formArray['state_id'] = $this->input->post('state_id');
-		$formArray['city_id'] = $this->input->post('city_id');
+		$formArray['district_id'] = $this->input->post('district_id');
+		$formArray['sub_district_id'] = $this->input->post('sub_district_id');
 		$formArray['area_id'] = $this->input->post('area_id');
 		$formArray['status'] = $this->input->post('status');
 

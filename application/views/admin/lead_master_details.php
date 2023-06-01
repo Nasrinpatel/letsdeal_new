@@ -242,7 +242,8 @@
                                                                 <tr>
                                                                     <th>#</th>
                                                                     <th>State</th>
-                                                                    <th>City</th>
+                                                                    <th>District</th>
+                                                                    <th>Sub District</th>
                                                                     <th>Area</th>
                                                                     <th>Create Date</th>
                                                                     <th>Status</th>
@@ -299,38 +300,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <label class="form-label">Budget</label>
-                                            <div class="col-md-2">
-                                                <div class="mb-3">
-                                                    <input class="form-check-input" type="radio" id="single" name="budget_type" <?= $lead['budget_type'] == 'single' ? 'checked' : ''; ?> value="single">
-                                                    <label class="form-check-label" for="single">Single</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="mb-3">
-                                                    <input class="form-check-input" type="radio" id="range" name="budget_type" <?= $lead['budget_type'] == 'range' ? 'checked' : ''; ?> value="range">
-                                                    <label class="form-check-label" for="range">Range</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row single_area" style="display: none;">
-                                            <div class="col-lg-5">
-                                                <div class="mb-3">
-                                                    <input type="text" class="form-control" name="single_budget" placeholder="Budget" value="<?= $lead['single_budget'] ?>">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row range_area" style="display: none;">
+                                        <div class="row range_area">
+                                            <label class="form-label">Budget <span class="text-danger"> *</span></label>
                                             <div class="col-range">
                                                 <div class="mb-3">
                                                     <input type="text" class="form-control" name="from_budget" placeholder="From" value="<?= $lead['from_budget'] ?>">
                                                 </div>
+                                                <span style="color: red;"><?= form_error('from_budget') ?></span>
                                             </div>
                                             <div class="col-range">
                                                 <div class="mb-3">
                                                     <input type="text" class="form-control" name="to_budget" placeholder="To" value="<?= $lead['to_budget'] ?>">
                                                 </div>
+                                                <span style="color: red;"><?= form_error('to_budget') ?></span>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -338,129 +320,129 @@
                                                 <div class="mb-3">
                                                     <label for="question" class="form-label">Questions</label>
                                                     <div class="sequence_box">
-                                                    <?php foreach($questions as $que){
-                                                        $answers = json_decode($que['answers'], true);
-                                                        $answer_ids = json_decode($que['answer_ids'], true);
-                                                        $que['question_answer_inputtype'] = $answers['answer_type']; ?>
-                                                        <div class="sequence">
-                                                        <h5><?= $que['question'] ?></h5>
-                                                        <input type="hidden" name="question[]" value="<?= $que['question'] ?>">
-                                                        <input type="hidden" name="question_id[]" value="<?= $que['question_id'] ?>">
-                                                        <input type="hidden" name="answer_type_<?= $que['question_id'] ?>" value="<?= $que['question_answer_inputtype'] ?>">
-                                                        <?php
-                                                        foreach ($answers['options'] as $option) { ?>
-                                                            <input type="hidden" name="answer_options_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-                                                        <?php }
-                                                        foreach ($answer_ids['options'] as $option) { ?>
-                                                            <input type="hidden" name="answer_option_ids_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
-                                                        <?php } ?>
-                                                        <?php if ($que['question_answer_inputtype'] == 'Textbox') { ?>
-                                                            <input type="text" name="answer_<?= $que['question_id'] ?>" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Dropdown') { ?>
-                                                            <select class="form-select" name="answer<?= $que['question_id'] ?>">
-                                                                <option>Select Option</option>
-                                                                <?php $i = 0;
+                                                        <?php foreach($questions as $que){
+                                                            $answers = json_decode($que['answers'], true);
+                                                            $answer_ids = json_decode($que['answer_ids'], true);
+                                                            $que['question_answer_inputtype'] = $answers['answer_type']; ?>
+                                                            <div class="sequence">
+                                                                <h5><?= $que['question'] ?></h5>
+                                                                <input type="hidden" name="question[]" value="<?= $que['question'] ?>">
+                                                                <input type="hidden" name="question_id[]" value="<?= $que['question_id'] ?>">
+                                                                <input type="hidden" name="answer_type_<?= $que['question_id'] ?>" value="<?= $que['question_answer_inputtype'] ?>">
+                                                                <?php
                                                                 foreach ($answers['options'] as $option) { ?>
-                                                                    <option value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'selected' : '') ?>><?= array_keys($option)[0] ?></option>
-                                                                    <?php $i++;
-                                                                } ?>
-                                                            </select>
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Checkbox') {
-                                                            $i = 0;
-                                                            foreach ($answers['options'] as $option) { ?>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="checkbox" id="userName1" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
-                                                                    <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
-                                                                </div>
-                                                                <?php $i++;
-                                                            }
-                                                        }
-                                                        elseif ($que['question_answer_inputtype'] == 'Radio') {
-                                                            $i = 0;
-                                                            foreach ($answers['options'] as $option) { ?>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
-                                                                    <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
-                                                                </div>
-                                                                <?php $i++;
-                                                            }
-                                                        }
-                                                        elseif ($que['question_answer_inputtype'] == 'Date') { ?>
-                                                            <input type="date" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Textarea') { ?>
-                                                            <textarea class="form-control" id="userName1" name="answer_<?= $que['question_id'] ?>"><?= ($answers['options']) ? array_keys($answers['options'][0])[0] : '' ?></textarea>
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'File') { ?>
-                                                            <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Number') { ?>
-                                                            <input type="number" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Phone') { ?>
-                                                            <input type="tel" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Email') { ?>
-                                                            <input type="email" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Link') { ?>
-                                                            <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Image') { ?>
-                                                            <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="image/*">
-                                                            <a class="btn btn-primary mt-1" href="<?= base_url('uploads/lead/') . array_keys($answers['options'][0])[0] ?>" target="_blank">View Old File</a>
-                                                            <input type="hidden" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Video 360') { ?>
-                                                            <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="video/*" value="<?= array_keys($answers['options'][0])[0] ?>">
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Google Map') { ?>
-                                                            <div class="row">
-                                                                <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>"></div>
-                                                                <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_'.$que['id'].'[]" value="<?= array_keys($answers['options'][1])[0] ?>"></div>
-                                                            </div>
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Image Gallery') { ?>
-                                                            <input class="image_gallery" name="answer_<?= $que['question_id'] ?>[]" type="file" multiple>
-                                                            <div class="row mt-3">
-                                                                <?php foreach ($answers['options'] as $option) { ?>
-                                                                    <div class="col-md-3">
-                                                                        <div class="image-area">
-                                                                            <a class="remove-image remove-button" href="#" onclick="return false;" style="display: inline;">&#215;</a>
-                                                                            <img src="<?= base_url('uploads/lead/') . array_keys($option)[0] ?>" class="img-fluid">
-                                                                            <input type="hidden" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                    <input type="hidden" name="answer_options_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                <?php }
+                                                                foreach ($answer_ids['options'] as $option) { ?>
+                                                                    <input type="hidden" name="answer_option_ids_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                <?php } ?>
+                                                                <?php if ($que['question_answer_inputtype'] == 'Textbox') { ?>
+                                                                    <input type="text" name="answer_<?= $que['question_id'] ?>" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Dropdown') { ?>
+                                                                    <select class="form-select" name="answer<?= $que['question_id'] ?>">
+                                                                        <option>Select Option</option>
+                                                                        <?php $i = 0;
+                                                                        foreach ($answers['options'] as $option) { ?>
+                                                                            <option value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'selected' : '') ?>><?= array_keys($option)[0] ?></option>
+                                                                            <?php $i++;
+                                                                        } ?>
+                                                                    </select>
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Checkbox') {
+                                                                    $i = 0;
+                                                                    foreach ($answers['options'] as $option) { ?>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="checkbox" id="userName1" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
+                                                                            <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
                                                                         </div>
+                                                                        <?php $i++;
+                                                                    }
+                                                                }
+                                                                elseif ($que['question_answer_inputtype'] == 'Radio') {
+                                                                    $i = 0;
+                                                                    foreach ($answers['options'] as $option) { ?>
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input class="form-check-input" type="radio" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answer_ids['options'][$i])[0] ?>" <?= ((array_values($answer_ids['options'][$i])[0] == 1) ? 'checked' : '') ?>>
+                                                                            <label class="form-check-label" for="userName1"><?= array_keys($option)[0] ?></label><br>
+                                                                        </div>
+                                                                        <?php $i++;
+                                                                    }
+                                                                }
+                                                                elseif ($que['question_answer_inputtype'] == 'Date') { ?>
+                                                                    <input type="date" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Textarea') { ?>
+                                                                    <textarea class="form-control" id="userName1" name="answer_<?= $que['question_id'] ?>"><?= ($answers['options']) ? array_keys($answers['options'][0])[0] : '' ?></textarea>
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'File') { ?>
+                                                                    <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Number') { ?>
+                                                                    <input type="number" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Phone') { ?>
+                                                                    <input type="tel" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Email') { ?>
+                                                                    <input type="email" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Link') { ?>
+                                                                    <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Image') { ?>
+                                                                    <input type="file" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="image/*">
+                                                                    <a class="btn btn-primary mt-1" href="<?= base_url('uploads/lead/') . array_keys($answers['options'][0])[0] ?>" target="_blank">View Old File</a>
+                                                                    <input type="hidden" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Video 360') { ?>
+                                                                    <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" id="userName1" name="answer_<?= $que['question_id'] ?>" accept="video/*" value="<?= array_keys($answers['options'][0])[0] ?>">
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Google Map') { ?>
+                                                                    <div class="row">
+                                                                        <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($answers['options'][0])[0] ?>"></div>
+                                                                        <div class="col-md-6"><input type="text" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_'.$que['id'].'[]" value="<?= array_keys($answers['options'][1])[0] ?>"></div>
+                                                                    </div>
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Image Gallery') { ?>
+                                                                    <input class="image_gallery" name="answer_<?= $que['question_id'] ?>[]" type="file" multiple>
+                                                                    <div class="row mt-3">
+                                                                        <?php foreach ($answers['options'] as $option) { ?>
+                                                                            <div class="col-md-3">
+                                                                                <div class="image-area">
+                                                                                    <a class="remove-image remove-button" href="#" onclick="return false;" style="display: inline;">&#215;</a>
+                                                                                    <img src="<?= base_url('uploads/lead/') . array_keys($option)[0] ?>" class="img-fluid">
+                                                                                    <input type="hidden" name="answer_<?= $que['question_id'] ?>[]" value="<?= array_keys($option)[0] ?>">
+                                                                                </div>
+                                                                            </div>
+                                                                        <?php } ?>
+                                                                    </div>
+                                                                <?php }
+                                                                elseif ($que['question_answer_inputtype'] == 'Video Gallery') { ?>
+                                                                    <div id="videogallery">
+                                                                        <?php $i = 0;
+                                                                        foreach ($answers['options'] as $option) {  ?>
+                                                                            <div class="row">
+                                                                                <div class="col-lg-10">
+                                                                                    <div class="mb-3">
+                                                                                        <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($option)[0] ?>" id="videogallery">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-lg-2">
+                                                                                    <?php if ($i == 0) { ?>
+                                                                                        <a class="btn btn-success waves-effect waves-light edit-button">Add </a>
+                                                                                    <?php } else { ?>
+                                                                                        <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
+                                                                                    <?php } ?>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php $i++;
+                                                                        } ?>
                                                                     </div>
                                                                 <?php } ?>
                                                             </div>
-                                                        <?php }
-                                                        elseif ($que['question_answer_inputtype'] == 'Video Gallery') { ?>
-                                                            <div id="videogallery">
-                                                                <?php $i = 0;
-                                                                foreach ($answers['options'] as $option) {  ?>
-                                                                    <div class="row">
-                                                                        <div class="col-lg-10">
-                                                                            <div class="mb-3">
-                                                                                <input type="url" class="form-control <?= ($que['is_require'] == 1) ? 'required' : '' ?>" name="answer_<?= $que['question_id'] ?>" value="<?= array_keys($option)[0] ?>" id="videogallery">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-lg-2">
-                                                                            <?php if ($i == 0) { ?>
-                                                                                <a class="btn btn-success waves-effect waves-light edit-button">Add </a>
-                                                                            <?php } else { ?>
-                                                                                <a class='btn btn-danger remove-button'><i class='fa fa-trash'></i></a>
-                                                                            <?php } ?>
-                                                                        </div>
-                                                                    </div>
-                                                                    <?php $i++;
-                                                                } ?>
-                                                            </div>
                                                         <?php } ?>
-                                                        </div>
-                                                    <?php } ?>
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -702,17 +684,27 @@
 
                     <div class="row">
                         <div class="mb-3">
-                            <label for="city_id" class="form-label">Select City</label>
-                            <select class="form-select" name="city_id" id="city_id">
-                                <option value="">Select City</option>
+                            <label for="district_id" class="form-label">Select District</label>
+                            <select class="form-select" name="district_id" id="district_id">
+                                <option value="">Select District</option>
                             </select>
-                            <span style="color: red;"><?= form_error('city_id') ?></span>
+                            <span style="color: red;"><?= form_error('district_id') ?></span>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="mb-3">
-                            <label for="area_id" class="form-label">Select Area</label>
+                            <label for="sub_district_id" class="form-label">Select Sub District</label>
+                            <select class="form-select" name="sub_district_id" id="sub_district_id">
+                                <option value="">Select Sub District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('sub_district_id') ?></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="area_id" class="form-label">Select Moje / Area</label>
                             <select class="form-select" name="area_id" id="area_id">
                                 <option value="">Select Area</option>
                             </select>
@@ -767,17 +759,27 @@
 
                     <div class="row">
                         <div class="mb-3">
-                            <label for="city_id" class="form-label">Select City</label>
-                            <select class="form-select" name="city_id" id="city_id">
-                                <option value="">Select City</option>
+                            <label for="district_id" class="form-label">Select District</label>
+                            <select class="form-select" name="district_id" id="district_id">
+                                <option value="">Select District</option>
                             </select>
-                            <span style="color: red;"><?= form_error('city_id') ?></span>
+                            <span style="color: red;"><?= form_error('district_id') ?></span>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="mb-3">
-                            <label for="area_id" class="form-label">Select Area</label>
+                            <label for="sub_district_id" class="form-label">Select Sub District</label>
+                            <select class="form-select" name="sub_district_id" id="sub_district_id">
+                                <option value="">Select Sub District</option>
+                            </select>
+                            <span style="color: red;"><?= form_error('sub_district_id') ?></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="area_id" class="form-label">Select Moje / Area</label>
                             <select class="form-select" name="area_id" id="area_id">
                                 <option value="">Select Area</option>
                             </select>
@@ -1372,23 +1374,23 @@
                 targets: 6
             },
             {
-                "targets": 5,
+                "targets": 6,
                 "createdCell": function(td, cellData, rowData, row, col) {
-                    if (rowData[5] == '1') {
+                    if (rowData[6] == '1') {
                         $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                    } else if (rowData[5] == '0') {
+                    } else if (rowData[6] == '0') {
                         $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                     }
                 }
             },
         ]
     });
-    //on state change fetch city
+    //on state change fetch district
     $(document).on('change','#add-area-modal #state_id',function() {
         var state_id = $(this).val();
         if (state_id != '') {
             $.ajax({
-                url: '<?php echo base_url() . "admin/Leadmaster/getCityByState"; ?>',
+                url: '<?php echo base_url() . "admin/Leadmaster/getDistrictByState"; ?>',
                 type: 'post',
                 data: {
                     state_id: state_id
@@ -1396,69 +1398,74 @@
                 dataType: 'json',
                 success: function(response) {
                     var len = response.length;
-                    $("#store-specialistarea #city_id").empty();
-                    $("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
+                    $("#store-specialistarea #district_id").empty();
+                    $("#store-specialistarea #district_id").append("<option value=''>Select District</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
-                        $("#store-specialistarea #city_id").append("<option value='" + id + "'>" + name + "</option>");
+                        var is_default = response[i]['is_default'];
+                        $("#store-specialistarea #district_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
                     }
                 }
             });
         } else {
-            $("#store-specialistarea #city_id").empty();
+            $("#store-specialistarea #district_id").html("<option value=''>Select District</option>");
         }
-    });
-    $(document).ready(function() {
-        $('#edit-area-modal #state_id').change(function() {
-            debugger;
-            var state_id = $(this).val();
-            if (state_id != '') {
-                $.ajax({
-                    url: '<?php echo base_url() . "admin/Leadmaster/getCityByState"; ?>',
-                    type: 'post',
-                    data: {
-                        state_id: state_id
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var len = response.length;
-                        $("#edit-area-modal #city_id").empty();
-                        $("#store-specialistarea #city_id").append("<option value=''>Select City</option>");
-                        for (var i = 0; i < len; i++) {
-                            var id = response[i]['id'];
-                            var name = response[i]['name'];
-                            var is_default = response[i]['is_default'];
-                            $("#store-specialistarea #city_id").append("<option value='" + id + "' " + ((is_default == 1) ? 'selected' : '') + ">" + name + "</option>");
-                        }
-                    }
-                });
-            } else {
-                $("#edit-area-modal #city_id").empty();
-            }
-        });
     });
     $('#add-area-modal').on('shown.bs.modal', function(e) {
         $('#add-area-modal #state_id').trigger('change');
         setTimeout(function() {
-            $('#add-area-modal #city_id').trigger('change');
+            $('#add-area-modal #district_id').trigger('change');
         }, 250);
     });
-    //on city change fetch area
-    $(document).on('change','#add-area-modal #city_id',function() {
-        var city_id = $(this).val();
-        if (city_id != '') {
+    //on district change fetch sub district
+    $(document).on('change','#add-area-modal #district_id',function() {
+        var district_id = $(this).val();
+        if (district_id != '') {
             $.ajax({
-                url: '<?php echo base_url() . "admin/Leadmaster/getAreaByCity"; ?>',
+                url: '<?php echo base_url() . "admin/Leadmaster/getSubDistrictByDistrict"; ?>',
                 type: 'post',
                 data: {
-                    city_id: city_id
+                    district_id: district_id
+                },
+                dataType: 'json',
+                success: function(response) {
+                    var len = response.length;
+                    $("#store-specialistarea #sub_district_id").empty();
+                    $("#store-specialistarea #sub_district_id").append("<option value=''>Select Sub District</option>");
+                    for (var i = 0; i < len; i++) {
+                        var id = response[i]['id'];
+                        var name = response[i]['name'];
+                        $("#store-specialistarea #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
+                    }
+                }
+            });
+        } else {
+            $("#store-specialistarea #sub_district_id").html("<option value=''>Select Sub District</option>");
+        }
+    });
+    $('#add-area-modal').on('shown.bs.modal', function(e) {
+        $('#add-area-modal #district_id').trigger('change');
+        setTimeout(function() {
+            $('#add-area-modal #sub_district_id').trigger('change');
+        }, 250);
+    });
+
+    //on sub district change fetch area
+    $(document).on('change','#add-area-modal #sub_district_id',function() {
+        var sub_district_id = $(this).val();
+        if (sub_district_id != '') {
+            $.ajax({
+                url: '<?php echo base_url() . "admin/Leadmaster/getAreaBySubDistrict"; ?>',
+                type: 'post',
+                data: {
+                    sub_district_id: sub_district_id
                 },
                 dataType: 'json',
                 success: function(response) {
                     var len = response.length;
                     $("#store-specialistarea #area_id").empty();
-                    $("#store-specialistarea #area_id").append("<option value=''>Select Area</option>");
+                    $("#store-specialistarea #area_id").append("<option value=''>Select Moje / Area</option>");
                     for (var i = 0; i < len; i++) {
                         var id = response[i]['id'];
                         var name = response[i]['name'];
@@ -1467,43 +1474,16 @@
                 }
             });
         } else {
-            $("#store-specialistarea #area_id").empty();
+            $("#store-specialistarea #area_id").html("<option value=''>Select Moje / Area</option>");
         }
-    });
-    $(document).ready(function() {
-        $('#edit-area-modal #city_id').change(function() {
-            debugger;
-            var city_id = $(this).val();
-            if (city_id != '') {
-                $.ajax({
-                    url: '<?php echo base_url() . "admin/Leadmaster/getAreaByCity"; ?>',
-                    type: 'post',
-                    data: {
-                        city_id: city_id
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        var len = response.length;
-                        $("#edit-area-modal #area_id").empty();
-                        $("#edit-area-modal #area_id").append("<option value=''>Select Area</option>");
-                        for (var i = 0; i < len; i++) {
-                            var id = response[i]['id'];
-                            var name = response[i]['name'];
-                            $("#edit-area-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
-                        }
-                    }
-                });
-            } else {
-                $("#edit-area-modal #area_id").empty();
-            }
-        });
     });
 
     //add specialist Area
     $("#store-specialistarea").validate({
         rules: {
             state_id: "required",
-            city_id: "required",
+            district_id: "required",
+            sub_district_id: "required",
             area_id: "required",
             status: "required"
         },
@@ -1516,22 +1496,103 @@
                 data: $(form).serialize(),
                 dataType: "json",
                 success: function(response) {
-                    if(response.success != ''){
-                        $('.btn-close').trigger('click');
-                        $("#store-specialistarea").trigger("reset");
-                        success_message('', response.message);
-                        specialistarea_table.ajax.reload(null, false);
-                    }
-                    if(response.error != ''){
-                        var html = '';
-                        html += '<span style="color: red;">'+response.message+'</span>';
-                        console.log(html);
-                        $('.error_msg').html(html);
-                    }
+                    $('.btn-close').trigger('click');
+                    $("#store-specialistarea").trigger("reset");
+                    success_message('', response.message);
+                    var specialistarea_table = $('#area_interested_datatable').DataTable();
+                    specialistarea_table.ajax.reload(null, false);
                 }
             });
         }
     });
+
+    $(document).ready(function() {
+        $('#edit-area-modal #state_id').change(function() {
+            debugger;
+            var state_id = $(this).val();
+            if (state_id != '') {
+                $.ajax({
+                    url: '<?php echo base_url() . "admin/Leadmaster/getDistrictByState"; ?>',
+                    type: 'post',
+                    data: {
+                        state_id: state_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var len = response.length;
+                        $("#edit-area-modal #district_id").empty();
+                        $("#store-specialistarea #district_id").append("<option value=''>Select District</option>");
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var name = response[i]['name'];
+                            $("#edit-area-modal #district_id").append("<option value='" + id + "'>" + name + "</option>");
+                        }
+                    }
+                });
+            } else {
+                $("#store-specialistarea #district_id").html("<option value=''>Select District</option>");
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#edit-area-modal #district_id').change(function() {
+            debugger;
+            var district_id = $(this).val();
+            if (district_id != '') {
+                $.ajax({
+                    url: '<?php echo base_url() . "admin/Leadmaster/getSubDistrictByDistrict"; ?>',
+                    type: 'post',
+                    data: {
+                        district_id: district_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var len = response.length;
+                        $("#edit-area-modal #sub_district_id").empty();
+                        $("#edit-area-modal #sub_district_id").append("<option value=''>Select Sub District</option>");
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var name = response[i]['name'];
+                            $("#edit-area-modal #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
+                        }
+                    }
+                });
+            } else {
+                $("#edit-area-modal #sub_district_id").html("<option value=''>Select Sub District</option>");
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#edit-area-modal #sub_district_id').change(function() {
+            debugger;
+            var sub_district_id = $(this).val();
+            if (sub_district_id != '') {
+                $.ajax({
+                    url: '<?php echo base_url() . "admin/Leadmaster/getAreaBySubDistrict"; ?>',
+                    type: 'post',
+                    data: {
+                        sub_district_id: sub_district_id
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        var len = response.length;
+                        $("#edit-area-modal #area_id").empty();
+                        $("#edit-area-modal #area_id").append("<option value=''>Select Moje / Area</option>");
+                        for (var i = 0; i < len; i++) {
+                            var id = response[i]['id'];
+                            var name = response[i]['name'];
+                            $("#edit-area-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+                        }
+                    }
+                });
+            } else {
+                $("#edit-area-modal #area_id").html("<option value=''>Select Moje / Area</option>");
+            }
+        });
+    });
+
     $(document).ready(function() {
         //edit specialist Area
         $(document).on('click', "#area_interested_datatable .edit-btn", function() {
@@ -1541,43 +1602,21 @@
                 type: "POST",
                 dataType: "json",
                 success: function(data) {
-                    $("#edit-area-modal #lead_id").val(data.id);
+                    $("#edit-area-modal #specialistarea_id").val(data.id);
                     $('#edit-area-modal #state_id').val(data.state_id).trigger('change');
                     setTimeout(function () {
-                        $('#edit-area-modal #city_id').val(data.city_id).trigger('change');
+                        $('#edit-area-modal #district_id').val(data.district_id).trigger('change');
                         setTimeout(function () {
-                            $('#edit-area-modal #area_id').val(data.area_id).trigger('change');
+                            $('#edit-area-modal #sub_district_id').val(data.sub_district_id).trigger('change');
+                            setTimeout(function () {
+                                $('#edit-area-modal #area_id').val(data.area_id).trigger('change');
+                            },250);
                         },250);
                     },250);
                     $("#edit-area-modal #specialistarea_status").val(data.status);
                 }
             });
         });
-    });
-    //update specialist Area
-    $("#update-specialistarea").validate({
-        rules: {
-            state_id: "required",
-            city_id: "required",
-            area_id: "required",
-            status: "required"
-        },
-        submitHandler: function(form, e) {
-            e.preventDefault();
-            var url = $(form).attr("action");
-            var id = $('#edit-agent-specialistarea-modal #specialistarea_id').val();
-            $.ajax({
-                url: url + '/' + id,
-                type: "POST",
-                data: $(form).serialize(),
-                dataType: "json",
-                success: function(response) {
-                    $('.btn-close').trigger('click');
-                    success_message('', response.message);
-                    specialistarea_table.ajax.reload(null, false);
-                }
-            });
-        }
     });
 
 

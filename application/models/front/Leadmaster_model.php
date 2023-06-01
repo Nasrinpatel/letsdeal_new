@@ -393,16 +393,23 @@ class Leadmaster_model extends CI_model{
         return $data;
     }
 
-    function getCityByState($state_id)
+    function getDistrictByState($state_id)
     {
         $this->db->where('state_id', $state_id);
-        $data = $this->db->get('tb_city_master')->result_array();
+        $data = $this->db->get('tb_district_master')->result_array();
         return $data;
     }
 
-    function getAreaByCity($city_id)
+    function getSubDistrictByDistrict($district_id)
     {
-        $this->db->where('city_id', $city_id);
+        $this->db->where('district_id', $district_id);
+        $data = $this->db->get('tb_sub_district_master')->result_array();
+        return $data;
+    }
+
+    function getAreaBySubDistrict($area_id)
+    {
+        $this->db->where('subdistrict_id', $area_id);
         $data = $this->db->get('tb_area_master')->result_array();
         return $data;
     }
@@ -561,7 +568,8 @@ class Leadmaster_model extends CI_model{
     function count_area($data){
         $query = $this->db->where('lead_id',$data['lead_id'])
             ->where('state_id',$data['state_id'])
-            ->where('city_id',$data['city_id'])
+            ->where('district_id',$data['district_id'])
+            ->where('sub_district_id',$data['sub_district_id'])
             ->where('area_id',$data['area_id'])
             ->get('tb_lead_area_interested');
         return $query->num_rows();
