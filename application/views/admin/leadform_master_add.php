@@ -22,6 +22,9 @@
                         <div class="card-body">
                             <form method="post" action="<?php echo base_url() . 'admin/LeadFormMaster/store'; ?>">
                                 <div class="row">
+                                    <span class="error_msg" style="color: red;"></span>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="property_master" class="form-label">Select Master<span class="text-danger"> *</span></label>

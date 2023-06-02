@@ -65,14 +65,24 @@ class LeadFormMaster extends CI_Controller {
             $formArray['pro_master_id'] = $this->input->post('pro_master_id');
             $formArray['status'] = $this->input->post('status');
 
-            $response = $this->leadform->saverecords($formArray);
+            $record = $this->leadform->count_master($formArray['pro_master_id']);
 
-            if ($response == true) {
-                $this->session->set_flashdata('success', 'Lead Form Master Added Successfully.');
-            } else {
-                $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+            if($record == '0'){
+                $response = $this->leadform->saverecords($formArray);
+
+                if ($response == true) {
+                    $this->session->set_flashdata('success', 'Lead Form Master Added Successfully.');
+                } else {
+                    $this->session->set_flashdata('error', 'Something went wrong. Please try again');
+                }
+                return redirect('admin/LeadFormMaster/');
+            }else{
+                echo "<script>
+                        $('.error_msg').html(response.message);
+                     </script>";
+                $this->session->set_flashdata('error', 'Master already exists.');
+                return redirect('admin/LeadFormMaster/');
             }
-            return redirect('admin/LeadFormMaster/');
         }
     }
 

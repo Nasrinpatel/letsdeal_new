@@ -45,5 +45,11 @@ class LeadFormMaster_model extends CI_model{
         $data = $this->db->where('id',$id)->get('tb_leadform_master')->row();
         return $data;
     }
+
+    function count_master($data){
+        $query = $this->db->where('pro_master_id',$data)
+            ->get('tb_leadform_master');
+        return $query->num_rows();
+    }
 }
 ?>
