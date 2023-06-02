@@ -337,4 +337,14 @@ class Agentmaster_model extends CI_model{
 		$data = $this->db->get_where('tb_remindertype_master',['model_type'=>$type])->result_array();
 		return $data;
 	}
+
+    function count_area($data){
+        $query = $this->db->where('agent_id',$data['agent_id'])
+            ->where('state_id',$data['state_id'])
+            ->where('district_id',$data['district_id'])
+            ->where('sub_district_id',$data['sub_district_id'])
+            ->where('area_id',$data['area_id'])
+            ->get('tb_agent_specialist_area');
+        return $query->num_rows();
+    }
 }

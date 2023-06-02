@@ -469,16 +469,20 @@ class Agentmaster extends CI_Controller
         $formArray['district_id'] = $this->input->post('district_id');
         $formArray['sub_district_id'] = $this->input->post('sub_district_id');
 		$formArray['area_id'] = $this->input->post('area_id');
-
 		$formArray['status'] = $this->input->post('status');
 
-		$response = $this->agentmaster->save_specialistarea_records($formArray);
+        $record = $this->agentmaster->count_area($formArray);
 
-		if ($response == true) {
-			echo json_encode(array('success' => true, 'message' => 'Specialist for Added Successfully.'));
-		} else {
-			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
-		}
+        if($record == '0'){
+            $response = $this->agentmaster->save_specialistarea_records($formArray);
+            if ($response == true) {
+                echo json_encode(array('success' => true, 'message' => 'Specialist for Added Successfully.'));
+            } else {
+                echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+            }
+        }else{
+            echo json_encode(array('error' => true, 'message' => 'Specialist Area already exists.'));
+        }
 	}
 	//Specialist Area state to district
 	public function getDistrictByState()

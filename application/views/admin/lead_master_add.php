@@ -427,6 +427,7 @@
             <div class="modal-body p-4">
                 <form method="post" id="store-specialistarea" action="<?php echo base_url() . 'admin/Leadmaster/store_area_interested'; ?>">
                     <input type="hidden" name="lead_id" id="lead_id" value="">
+                    <div class="row error_msg"></div>
                     <div class="row">
                         <div class="mb-3">
                             <label for="state_id" class="form-label">Select State</label>
@@ -985,11 +986,16 @@
                 data: $(form).serialize(),
                 dataType: "json",
                 success: function(response) {
-                    $('.btn-close').trigger('click');
-                    $("#store-specialistarea").trigger("reset");
-                    success_message('', response.message);
-                    var specialistarea_table = $('#area_interested_datatable').DataTable();
-                    specialistarea_table.ajax.reload(null, false);
+                    if(response.success == true){
+                        $('.btn-close').trigger('click');
+                        $("#store-specialistarea").trigger("reset");
+                        success_message('', response.message);
+                        var specialistarea_table = $('#area_interested_datatable').DataTable();
+                        specialistarea_table.ajax.reload(null, false);
+                    }
+                    if(response.error == true){
+                        $('.error_msg').html('<span style="color: red;">'+response.message+'</span>');
+                    }
                 }
             });
         }

@@ -80,7 +80,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -148,9 +148,6 @@
 							</div>
 						</div>
 					</div> <!-- end row -->
-
-
-
 					<div class="row">
 						<div class="col-12">
 							<div class="mb-3">
@@ -171,7 +168,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -180,9 +177,6 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
-
-
-
 
 <!-- Specialistfor add -->
 <div class="modal fade" id="agent-specialistfor-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -234,7 +228,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -264,12 +258,10 @@
 								<?php } ?>
 							</select>
 							<span style="color: red;"><?= form_error('pro_category_id') ?></span>
-
 						</div>
 					</div>
 
 					<div class="row">
-
 						<div class="mb-3">
 							<label for="pro_subcategory_id" class="form-label">Select Sub Category</label>
 							<select class="form-select" name="pro_subcategory_id" id="pro_subcategory_id">
@@ -292,7 +284,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -301,8 +293,6 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div>
-
-
 
 
 <!-- Specialistarea add -->
@@ -316,7 +306,8 @@
 			<div class="modal-body p-4">
 				<form method="post" id="store-specialistarea" action="<?php echo base_url() . 'admin/Agentmaster/store_specialistarea'; ?>">
 					<input type="hidden" name="agent_id" value="<?= $agent->id ?>">
-					<div class="row">
+					<div class="row error_msg"></div>
+                    <div class="row">
 						<div class="mb-3">
 							<label for="state_id" class="form-label">Select State</label>
 							<select class="form-select" name="state_id" id="state_id">
@@ -371,7 +362,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -447,7 +438,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -608,7 +599,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -773,7 +764,7 @@
 						<div class="col-lg-12">
 							<div class="text-end">
 								<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--								<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 							</div>
 						</div>
 					</div>
@@ -819,7 +810,7 @@
 							<div class="col-lg-12">
 								<div class="text-end">
 									<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-									<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--									<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 								</div>
 							</div>
 						</div>
@@ -860,7 +851,7 @@
 							<div class="col-lg-12">
 								<div class="text-end">
 									<button type="submit" class="btn btn-success waves-effect waves-light">Submit</button>
-									<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>
+<!--									<button type="button" class="btn btn-danger waves-effect waves-light" onclick="Custombox.close();">Cancel</button>-->
 								</div>
 							</div>
 						</div>
@@ -2206,9 +2197,10 @@
 			//add specialist Area
 			$("#store-specialistarea").validate({
 				rules: {
-					// first_name: "required",
-					// last_name: "required",
-
+                    state_id: "required",
+                    district_id: "required",
+                    sub_district_id: "required",
+                    area_id: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {
@@ -2220,10 +2212,15 @@
 						data: $(form).serialize(),
 						dataType: "json",
 						success: function(response) {
-							$('.btn-close').trigger('click');
-							$("#store-specialistarea").trigger("reset");
-							success_message('', response.message);
-							specialistarea_table.ajax.reload(null, false);
+                            if(response.success == true){
+                                $('.btn-close').trigger('click');
+                                $("#store-specialistarea").trigger("reset");
+                                success_message('', response.message);
+                                specialistarea_table.ajax.reload(null, false);
+                            }
+                            if(response.error == true){
+                                $('.error_msg').html('<span style="color: red;">'+response.message+'</span>');
+                            }
 						}
 					});
 				}
@@ -2256,7 +2253,10 @@
 			//update specialist Area
 			$("#update-specialistarea").validate({
 				rules: {
-
+				    state_id: "required",
+                    district_id: "required",
+                    sub_district_id: "required",
+                    area_id: "required",
 					status: "required"
 				},
 				submitHandler: function(form, e) {

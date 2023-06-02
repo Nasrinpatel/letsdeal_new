@@ -3,23 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/front/Agentmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Agentmaster_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/agent_master_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/agent_master_details.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/agent_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/agent_master_edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/area_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/area_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/country_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/country_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/customer_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/customer_master_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/district_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/district_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/formmasters_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/formmasters_add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_add.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_details.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/state_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/state_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/subdistrict_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/subdistrict_view.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +120,8 @@
       <workItem from="1685171623917" duration="389000" />
       <workItem from="1685361106987" duration="6115000" />
       <workItem from="1685506388814" duration="17253000" />
-      <workItem from="1685592898009" duration="17025000" />
+      <workItem from="1685592898009" duration="17413000" />
+      <workItem from="1685679964786" duration="4600000" />
     </task>
     <servers />
   </component>
