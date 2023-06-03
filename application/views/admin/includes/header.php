@@ -291,7 +291,13 @@
 							</a>
 
 						</li>
+						<li>
 
+							<a class="nav-link" href="<?= base_url('admin/Leadmaster') ?>" id="topnav-dashboard">
+								<i class="fas fa-clipboard-list me-1"></i>Lead
+							</a>
+
+						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fas fa-building me-1"></i> Manage Properties<div class="arrow-down"></div>
@@ -360,14 +366,13 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle arrow-none" href="#" id="topnav-apps" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="fas fa-handshake me-1"></i>Partnerships & Prospects<div class="arrow-down"></div>
+								<i class="fas fa-handshake me-1"></i>Associate Master<div class="arrow-down"></div>
 							</a>
 							<div class="dropdown-menu" aria-labelledby="topnav-apps">
 
 
 								<a href="<?= base_url('admin/Customermaster') ?>" class="dropdown-item"><i class="fas fa-users me-1"></i> Customer Master</a>
 								<a href="<?= base_url('admin/Agentmaster') ?>" class="dropdown-item"><i class="fas fa-handshake me-1"></i> Channel Partner</a>
-								<a href="<?= base_url('admin/Leadmaster') ?>" class="dropdown-item"><i class="fas fa-user-check me-1"></i> Lead</a>
 							</div>
 
 						</li>
