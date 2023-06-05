@@ -77,9 +77,6 @@ class LeadFormMaster extends CI_Controller {
                 }
                 return redirect('admin/LeadFormMaster/');
             }else{
-                echo "<script>
-                        $('.error_msg').html(response.message);
-                     </script>";
                 $this->session->set_flashdata('error', 'Master already exists.');
                 return redirect('admin/LeadFormMaster/');
             }

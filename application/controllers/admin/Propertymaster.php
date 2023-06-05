@@ -15,15 +15,17 @@ class Propertymaster extends CI_Controller
 
 	public function index()
 	{
-		$data['page_name'] = 'property_master_view';
-		// $data['subcategory'] = $this->promast->all();
-
 		$data['customers'] = $this->promast->getCustomer();
 		$data['master'] = $this->promast->getPromaster();
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
-		// $data['subcategory'] = $this->promast->getSubcategoryByCategory();
 
+        if(!empty($_POST)){
+            $filter = $_POST;
+
+        }
+
+        $data['page_name'] = 'property_master_view';
 		$this->load->view('admin/index', $data);
 	}
 	public function getSubcategoryByCategory()
@@ -35,12 +37,36 @@ class Propertymaster extends CI_Controller
 
 	public function all()
 	{
-		$promasters = $this->promast->all();
-		$result = array('data' => []);
-		//$result = array();
+        if(!empty($_POST)){
+            $filter = $_POST;
+            $record['like']=array();
+            //category filter
+            if(!empty($filter['category'])){
+                array_push($record['like'],array('pro_category_id'=>$filter['category']));
+            }else{
+                $filter['category'] = null;
+            }
+            //subcategory filter
+            if(!empty($filter['subcategory'])){
+                array_push($record['like'],array('pro_subcategory_id'=>$filter['subcategory']));
+            }else{
+                $filter['subcategory'] = null;
+            }
+            if(!empty($filter['from_date']) && !empty($filter['to_date'])){
+//                $record['between']=array();
+                $from = date("Y-m-d", strtotime($filter['from_date']));
+                $to = date("Y-m-d", strtotime($filter['to_date']));
+                $record['between'] = array(array('created_date' => $from),array('created_date' => $to));
+            }
+            $promasters = $this->common->getDataByParam('tb_property_master',$record);
+            echo "<pre>"; print_r($promasters); exit;
+        }else{
+            $promasters = $this->promast->all();
+            $result = array('data' => []);
+        }
+
 		$i = 1;
 		foreach ($promasters as $value) {
-
 			$master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
 			$category_data = $this->db->get_where('tb_property_category', array('id' => $value['pro_category_id']))->row();
 			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
@@ -61,6 +87,7 @@ class Propertymaster extends CI_Controller
 
 			);
 		}
+
 		echo json_encode($result);
 	}
 	public function get_questions()

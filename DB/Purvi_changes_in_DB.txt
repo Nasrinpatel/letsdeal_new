@@ -16,7 +16,7 @@ ALTER TABLE `tb_leadform_master` CHANGE `question_ids` `question_ids` VARCHAR(25
 
 Date : 01-06-23
 ALTER TABLE `tb_area_master` CHANGE `area_code` `area_code` VARCHAR(30) NOT NULL;
-ALTER TABLE `tb_lead_area_interested` CHANGE `d_id` `district_id` INT(11) NOT NULL;
+ALTER TABLE `tb_lead_area_interested` CHANGE `city_id` `district_id` INT(11) NOT NULL;
 ALTER TABLE `tb_lead_area_interested` ADD `sub_district_id` INT NOT NULL AFTER `district_id`;
 
 ALTER TABLE `tb_agent_specialist_area` CHANGE `city_id` `district_id` INT(11) NOT NULL;

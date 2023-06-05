@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/LeadFormMaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/LeadFormMaster_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_addreminder.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_addreminder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_view.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +120,10 @@
       <workItem from="1685361106987" duration="6115000" />
       <workItem from="1685506388814" duration="17253000" />
       <workItem from="1685592898009" duration="17413000" />
-      <workItem from="1685679964786" duration="5810000" />
+      <workItem from="1685679964786" duration="11765000" />
+      <workItem from="1685765726958" duration="121000" />
+      <workItem from="1685768789910" duration="14711000" />
+      <workItem from="1685938827264" duration="4822000" />
     </task>
     <servers />
   </component>

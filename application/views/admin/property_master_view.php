@@ -1,15 +1,10 @@
 	<!-- ============================================================== -->
 	<!-- Start Page Content here -->
 	<!-- ============================================================== -->
-
-
-
 	<div class="content-page">
 		<div class="content">
-
 			<!-- Start Content-->
 			<div class="container-fluid">
-
 				<!-- start page title -->
 				<div class="row">
 					<div class="col-12">
@@ -27,8 +22,6 @@
 					</div>
 				</div>
 				<!-- end page title -->
-
-
 				<div class="row">
 					<div class="col-12">
 						<div class="card">
@@ -51,24 +44,44 @@
 										<?php } ?>
 									</div>
 								</div>
-								<div class="row mb-2">
-									<!-- <div class="col-sm-8">
-										<button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#propertysubcategory-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
-									</div> -->
-									<div class="col-sm-4">
-										<div class="text-sm-end mt-2 mt-sm-0">
-											<!-- <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog"></i></button>
-											<button type="button" class="btn btn-light mb-2 me-1">Import</button>
-											<button type="button" class="btn btn-light mb-2">Export</button> -->
-										</div>
-									</div><!-- end col-->
-								</div>
-
-								<div class="table-responsive">
+                                <div class="filter-box">
+                                    <form method="post" action="<?= base_url('admin/Propertymaster/all') ?>">
+                                        <div class="row" style="margin-bottom: 10px;">
+                                            <label class="col-4 col-xl-1 col-form-label">From Date :</label>
+                                            <div class="col-8 col-xl-3">
+                                                <input type="date" class="form-control" name="from_date" id="from_date" placeholder="From Date">
+                                            </div>
+                                            <label class="col-4 col-xl-1 col-form-label">To Date :</label>
+                                            <div class="col-8 col-xl-3">
+                                                <input type="date" class="form-control" name="to_date" id="to_date" placeholder="To Date">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <label class="col-4 col-xl-1 col-form-label">Category :</label>
+                                            <div class="col-8 col-xl-3">
+                                                <select class="js-example-basic-multiple category" name="category" id="property_category">
+                                                    <option value="">Select Category</option>
+                                                    <?php foreach ($category as $row) { ?>
+                                                        <option value="<?= $row['id'] ?>" <?php echo set_select('category', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <label class="col-4 col-xl-1">Sub Category :</label>
+                                            <div class="col-8 col-xl-3">
+                                                <select class="js-example-basic-multiple subcategory" name="subcategory" id="property_subcategory">
+                                                    <option value="">Select Sub Category</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-8 col-xl-3">
+                                                <button type="submit" class="btn btn-success waves-effect waves-light">Filter</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+								<div class="table-responsive" style="margin-top: 20px">
 									<table class="table table-centered table-nowrap table-striped" id="promaster_datatable">
 										<thead>
 											<tr>
-
 												<th>#</th>
 												<th>Master Name</th>
 												<th>Category</th>
@@ -80,19 +93,80 @@
 										</thead>
 									</table>
 								</div>
-
-
-
 							</div> <!-- end card-body-->
 						</div> <!-- end card-->
 					</div> <!-- end col -->
 				</div>
 				<!-- end row -->
-
 			</div> <!-- container -->
-
 		</div> <!-- content -->
 	</div>
+    <style>
+        .filter-box{
+            border:1px solid #aaa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .filter span{
+            width:190px;
+        }
+        .filter option{
+            width:174px;
+        }
+        .select2-container .select2-selection--multiple .select2-selection__choice{
+            color:black;
+        }
+        .filter label{
+            display: inherit;
+        }
+        .filterTable td{
+            padding:10px;
+        }
+        span.label.label-info {
+            border: 1px solid #6c757d;
+            padding: 3px;
+            font-size: 12px;
+        }
+    </style>
+    <script>
+        $(document).ready(function() {
+            $('.category').select2({
+                placeholder: "Select Category",
+                width:'100%',
+                theme: "bootstrap-5"
+            });
+            $('.subcategory').select2({
+                placeholder: "Select Sub Category",
+                width:'100%',
+                theme: "bootstrap-5"
+            });
+            $('#property_category').change(function() {
+                var categoryId = $(this).val();
+                if (categoryId != '') {
+                    $.ajax({
+                        url: '<?php echo base_url() . "admin/propertymaster/getSubcategoryByCategory"; ?>',
+                        type: 'post',
+                        data: {
+                            property_category_id: categoryId
+                        },
+                        dataType: 'json',
+                        success: function(response) {
+                            var len = response.length;
+                            // debugger;
+                            $("#property_subcategory").empty();
+                            for (var i = 0; i < len; i++) {
+                                var id = response[i]['id'];
+                                var name = response[i]['name'];
+                                $("#property_subcategory").append("<option value='" + id + "'>" + name + "</option>");
+                            }
+                        }
+                    });
+                } else {
+                    $("#property_subcategory").empty();
+                }
+            });
+        });
+    </script>
 	<script>
 		var table = $('#promaster_datatable').DataTable({
 

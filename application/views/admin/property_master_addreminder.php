@@ -210,19 +210,14 @@
 									</select>
 								</div>
 							</div>
-
-
 						</div> <!-- end row -->
 						<div class="row">
 							<div class="col-md-12">
-
-
 								<div class="mb-3">
 									<label for="date_time" class="form-label">Date </label>
 									<input class="form-control" id="date_time" type="datetime-local" name="date_time">
 								</div>
 							</div>
-
 						</div> <!-- end row -->
 
 						<div class="row">
