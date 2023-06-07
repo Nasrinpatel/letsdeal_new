@@ -32,6 +32,7 @@ class Agentmaster extends CI_Controller
 			$staff_data = $this->db->get_where('tbl_staff_master', array('id' => $value['assigned_id']))->row();
 			$button = '<a href="' . base_url('admin/agentmaster/agentDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/agentmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/agentmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
 			<a href="' . base_url('admin/agentmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -143,6 +144,17 @@ class Agentmaster extends CI_Controller
 		$this->load->view('admin/index', $data);
 	}
 
+	//reminders master
+    public function addreminder($id)
+    {
+
+        $data['agent_id'] = $id;
+        $data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
+		
+
+        $data['page_name'] = 'agentmaster_addreminder';
+        $this->load->view('admin/index', $data);
+    }
 	//Channel Partner
 	public function store()
 	{
