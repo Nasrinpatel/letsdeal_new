@@ -482,6 +482,11 @@ class Leadmaster extends CI_Controller
 //        $data['lead'] = $this->leadmaster->getLeadMaster($id);
         $data['lead_id'] = $id;
         $data['remtype'] = $this->leadmaster->getReminderType('Lead');
+        $data['lead'] = $this->leadmaster->getLeadMaster($id);
+        $data['customer'] = $this->db->where_in('id',$data['lead']['customer_id'])->get('tb_customer_master')->row_array();
+        $data['source_data'] = $this->db->where_in('id',$data['customer']['source_id'])->get('tb_source_master')->row_array();
+        $data['position_data'] = $this->db->where_in('id',$data['customer']['position_id'])->get('tb_position_master')->row_array();
+        $data['lead_stage'] = $this->db->select('name')->where_in('id',$data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
 //        $data['property'] = $this->leadmaster->getPropertymaster($id);
         $data['page_name'] = 'lead_master_addreminder';
         $this->load->view('admin/index', $data);

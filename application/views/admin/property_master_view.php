@@ -45,7 +45,7 @@
 									</div>
 								</div>
                                 <div class="filter-box">
-                                    <form method="post" action="<?= base_url('admin/Propertymaster/all') ?>">
+                                    <form id="filter_property" method="post" action="<?= base_url('admin/Propertymaster/all') ?>">
                                         <div class="row" style="margin-bottom: 10px;">
                                             <label class="col-4 col-xl-1 col-form-label">From Date :</label>
                                             <div class="col-8 col-xl-3">
@@ -169,7 +169,6 @@
     </script>
 	<script>
 		var table = $('#promaster_datatable').DataTable({
-
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertymaster/all'); ?>",
 			"columnDefs": [{
@@ -182,8 +181,7 @@
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
-
 			}, ]
-
 		});
+
 	</script>

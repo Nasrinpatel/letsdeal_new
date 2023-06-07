@@ -53,18 +53,14 @@ class Propertymaster extends CI_Controller
                 $filter['subcategory'] = null;
             }
             if(!empty($filter['from_date']) && !empty($filter['to_date'])){
-//                $record['between']=array();
                 $from = date("Y-m-d", strtotime($filter['from_date']));
                 $to = date("Y-m-d", strtotime($filter['to_date']));
-                $record['between'] = array(array('created_date' => $from),array('created_date' => $to));
             }
-            $promasters = $this->common->getDataByParam('tb_property_master',$record);
-            echo "<pre>"; print_r($promasters); exit;
+            $promasters = $this->promast->filter('tb_property_master',$record,$from,$to);
         }else{
             $promasters = $this->promast->all();
-            $result = array('data' => []);
         }
-
+        $result = array('data' => []);
 		$i = 1;
 		foreach ($promasters as $value) {
 			$master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
@@ -84,7 +80,6 @@ class Propertymaster extends CI_Controller
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
 				$button,
-
 			);
 		}
 
@@ -475,7 +470,32 @@ class Propertymaster extends CI_Controller
 	{
 		//$data['remtype'] = $this->promast->getReminderType();
 		$data['remtype'] = $this->promast->getReminderType('Property');
+//        $propertymaster = $this->promast->getPropertymaster($id);
 		$data['property'] = $this->promast->getPropertymaster($id);
+        $propertymaster = $this->promast->getPropertymaster($id);
+        $data = array();
+        $data['property'] = $propertymaster;
+        $data['customer_id'] = explode(',', $propertymaster->customer_id);
+        if (!empty($propertymaster->customer_id)) {
+            foreach ($data['customer_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $customer = $this->common->getDataById('tb_customer_master', $record);
+                $data['customer_id'][$key] = $customer['first_name'] . ' ' . $customer['last_name'];
+            }
+            $data['customer'] = implode(', ', $data['customer_id']);
+        }
+        $data['agent_id'] = explode(',', $propertymaster->agent_id);
+        if (!empty($propertymaster->agent_id)) {
+            foreach ($data['agent_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $agent = $this->common->getDataById('tb_agent_master', $record);
+                $data['agent_id'][$key] = $agent['first_name'] . ' ' . $agent['last_name'];
+            }
+            $data['agent'] = implode(', ', $data['agent_id']);
+        }
+        $data['remtype'] = $this->promast->getReminderType('Property');
 		$data['page_name'] = 'property_master_addreminder';
 		$this->load->view('admin/index', $data);
 	}
