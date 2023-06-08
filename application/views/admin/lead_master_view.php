@@ -43,7 +43,6 @@
                                 <table class="table table-centered table-nowrap table-striped" id="leadmaster_datatable">
                                     <thead>
                                     <tr>
-                                        
                                         <th>#</th>
                                         <th>Customer</th>
                                         <th>Channel Partner</th>
@@ -73,7 +72,7 @@
         "columnDefs": [
             {
                 "targets": 9,
-                "createdCell": function(td, cellData, rowData, row, col) {
+                "createdCell": function (td, cellData, rowData, row, col) {
                     // console.log(rowData);
                     if (rowData[9] == '1') {
                         $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
@@ -81,7 +80,7 @@
                         $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                     }
                 }
-            },
+            }
         ]
     });
 

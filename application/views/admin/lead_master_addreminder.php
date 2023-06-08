@@ -358,34 +358,6 @@
                                     </div>
                                 </div>
 
-                                <?php if(!empty($customer['email'])) { ?>
-                                    <div class="col-md-3">
-                                        <p class="mt-2 mb-1 text-muted">Email</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-gmail font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $customer['email'] ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-
-                                <?php if(!empty($customer['company_name'])) { ?>
-                                    <div class="col-md-3">
-                                        <p class="mt-2 mb-1 text-muted">Company</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-office-building font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $customer['company_name'] ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-
                                 <div class="col-md-3">
                                     <p class="mt-2 mb-1 text-muted">Source</p>
                                     <div class="d-flex align-items-start">
@@ -398,20 +370,6 @@
                                     </div>
                                 </div>
 
-                                <?php if(!empty($position_data['name'])) { ?>
-                                    <div class="col-md-3">
-                                        <p class="mt-2 mb-1 text-muted">Position</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-badge-account font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $position_data['name'] ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-
                                 <div class="col-md-3">
                                     <p class="mt-2 mb-1 text-muted">Lead Stage</p>
                                     <div class="d-flex align-items-start">
@@ -419,6 +377,58 @@
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
                                                 <?= $lead_stage['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <p class="mt-2 mb-1 text-muted">Master</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-alpha-m-box font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $master['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php if(!empty($property)) { ?>
+                                <div class="col-md-3">
+                                    <p class="mt-2 mb-1 text-muted">Property</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-office-building-outline font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $property ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+
+                                <?php if(!empty($area)) { ?>
+                                <div class="col-md-3">
+                                    <p class="mt-2 mb-1 text-muted">Area</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-google-maps font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $area ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php } ?>
+
+                                <div class="col-md-3">
+                                    <p class="mt-2 mb-1 text-muted">Budget</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-cash font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $lead['from_budget'] .'-'. $lead['to_budget'] ?>
                                             </h5>
                                         </div>
                                     </div>

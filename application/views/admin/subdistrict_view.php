@@ -268,14 +268,9 @@
 			success: function(data) {
 				$("#subdistrictedit-modal #edit_dist_id").val(data.id);
 				$('#subdistrictedit-modal #name').val(data.name);
-				$('#subdistrictedit-modal #subdistrict').val(data.district_id);
+				$('#subdistrictedit-modal #district').val(data.district_id);
 				$('#subdistrictedit-modal #is_default').val(data.is_default);
 				$("#subdistrictedit-modal #subdistrict_status").val(data.status);
-
-
-
-
-				
 			}
 		});
 	});
@@ -298,6 +293,7 @@
 	$('#store-dist').validate({
 		rules: {
 			name: "required",
+            district_id: "required",
 			is_default: "required",
 			status: "required"
 		},

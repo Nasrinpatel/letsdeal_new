@@ -48,11 +48,13 @@ class Subdistrict extends CI_Controller
 	{
 
 		$this->form_validation->set_rules('name', 'Sub district Name', 'required');
+		$this->form_validation->set_rules('district_id', 'District', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->index();
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['district_id'] = $this->input->post('district_id');
 			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 

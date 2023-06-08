@@ -183,5 +183,32 @@
 				}
 			}, ]
 		});
-
+        $("#filter_property").validate({
+            submitHandler: function(form, e) {
+                e.preventDefault();
+                var url = $(form).attr("action");
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: $(form).serialize(),
+                    dataType: "json",
+                    success: function(response) {
+                        $('#promaster_datatable').DataTable({
+                            responsive: true,
+                            ajax:response,
+                            "columnDefs": [{
+                                "targets": 5,
+                                "createdCell": function(td, cellData, rowData, row, col) {
+                                    if (rowData[5] == '1') {
+                                        $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+                                    } else if (rowData[5] == '0') {
+                                        $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+                                    }
+                                }
+                            }, ]
+                        });
+                    }
+                });
+            }
+        });
 	</script>

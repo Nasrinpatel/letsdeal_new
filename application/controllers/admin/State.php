@@ -47,12 +47,14 @@ class State extends CI_Controller
 	public function store()
 	{
 
+		$this->form_validation->set_rules('country_id', 'Country', 'required');
 		$this->form_validation->set_rules('name', 'State Name', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->index();
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['country_id'] = $this->input->post('country_id');
 			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 

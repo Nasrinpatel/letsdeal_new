@@ -48,11 +48,13 @@ class District extends CI_Controller
 	{
 
 		$this->form_validation->set_rules('name', 'District Name', 'required');
+		$this->form_validation->set_rules('state_id', 'State', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->index();
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['state_id'] = $this->input->post('state_id');
 			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 

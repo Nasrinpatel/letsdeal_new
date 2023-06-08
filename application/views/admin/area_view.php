@@ -212,7 +212,6 @@
 								</table>
 							</div>
 
-
 						</div> <!-- end card-body-->
 					</div> <!-- end card-->
 				</div> <!-- end col -->
@@ -248,7 +247,7 @@
 			dataType: "json",
 			success: function(data) {
 				$("#areaedit-modal #edit_area_id").val(data.id);
-				$('#areaedit-modal #city').val(data.subdistrict_id);
+				$('#areaedit-modal #area').val(data.subdistrict_id);
 				$('#areaedit-modal #name').val(data.name);
 				$('#areaedit-modal #area_code').val(data.area_code);
 				$("#areaedit-modal #area_status").val(data.status);
@@ -274,6 +273,7 @@
 	$('#store-area').validate({
 		rules: {
 			name: "required",
+            subdistrict_id: "required",
 			area_code: "required",
 			status: "required"
 		},
