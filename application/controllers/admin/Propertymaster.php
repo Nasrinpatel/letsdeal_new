@@ -37,6 +37,7 @@ class Propertymaster extends CI_Controller
 
 	public function all()
 	{
+	    //for filter property
         if(!empty($_POST)){
             $filter = $_POST;
             $record['like']=array();
@@ -82,7 +83,6 @@ class Propertymaster extends CI_Controller
 				$button,
 			);
 		}
-
 		echo json_encode($result);
 	}
 	public function get_questions()

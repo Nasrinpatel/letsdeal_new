@@ -131,19 +131,18 @@
                             <div class="table-responsive">
                                 <table class="table table-centered table-nowrap table-striped" id="leadmaster_datatable">
                                     <thead>
-                                        <tr>
-
-                                            <th>#</th>
-                                            <th>Customer</th>
-                                            <th>Channel Partner</th>
-                                            <th>Master</th>
-                                            <th>Lead Stage</th>
-                                            <th>Property</th>
-                                            <th>Area</th>
-                                            <th>Budget</th>
-                                            <th>Status</th>
-                                            <th style="width: 85px;">Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Customer</th>
+                                        <th>Channel Partner</th>
+                                        <th>Master</th>
+                                        <th>Lead Stage</th>
+                                        <th>Property</th>
+                                        <th>Area</th>
+                                        <th>Budget</th>
+                                        <th>Status</th>
+                                        <th style="width: 85px;">Action</th>
+                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -158,20 +157,20 @@
 <script>
     var table = $('#leadmaster_datatable').DataTable({
         responsive: true,
-        ajax: {
-            url: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>"
-        },
-        "columnDefs": [{
-            "targets": 9,
-            "createdCell": function(td, cellData, rowData, row, col) {
-                // console.log(rowData);
-                if (rowData[9] == '1') {
-                    $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                } else if (rowData[9] == '0') {
-                    $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+        ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
+        "columnDefs": [
+            {
+                "targets": 9,
+                "createdCell": function (td, cellData, rowData, row, col) {
+                    // console.log(rowData);
+                    if (rowData[9] == '1') {
+                        $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
+                    } else if (rowData[9] == '0') {
+                        $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
+                    }
                 }
             }
-        }, ]
+        ]
     });
 
     $('#search_form').submit(function(e) {

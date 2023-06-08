@@ -268,6 +268,7 @@
 			success: function(data) {
 				$("#stateedit-modal #edit_sta_id").val(data.id);
 				$('#stateedit-modal #name').val(data.name);
+				$('#stateedit-modal #country').val(data.country_id);
 				$('#stateedit-modal #state').val(data.country_id);
 				$('#stateedit-modal #is_default').val(data.is_default);
 				$("#stateedit-modal #state_status").val(data.status);
@@ -293,6 +294,7 @@
 	$('#store-sta').validate({
 		rules: {
 			name: "required",
+            country_id: "required",
 			is_default: "required",
 			status: "required"
 		},

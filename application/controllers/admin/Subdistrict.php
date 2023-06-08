@@ -48,6 +48,7 @@ class Subdistrict extends CI_Controller
 	{
 
 		$this->form_validation->set_rules('name', 'Sub district Name', 'required');
+		$this->form_validation->set_rules('district_id', 'District', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->index();
 		} else {

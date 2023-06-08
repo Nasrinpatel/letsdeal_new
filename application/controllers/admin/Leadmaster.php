@@ -90,7 +90,7 @@ class Leadmaster extends CI_Controller
         //$result = array();
         $i = 1;
         foreach ($lead as $value) {
-            $customer_data = $this->db->select('first_name','last_name')->where_in('id',$value['customer_id'])->get('tb_customer_master')->row_array();
+            $customer_data = $this->db->where_in('id',$value['customer_id'])->get('tb_customer_master')->row_array();
 
             //channel partner data
             $agent_id = $this->db->select('agent_id')->where_in('customer_id',$value['customer_id'])->get('tb_customer_agent')->result_array();
@@ -487,7 +487,29 @@ class Leadmaster extends CI_Controller
         $data['source_data'] = $this->db->where_in('id',$data['customer']['source_id'])->get('tb_source_master')->row_array();
         $data['position_data'] = $this->db->where_in('id',$data['customer']['position_id'])->get('tb_position_master')->row_array();
         $data['lead_stage'] = $this->db->select('name')->where_in('id',$data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
-//        $data['property'] = $this->leadmaster->getPropertymaster($id);
+        //master data
+        $data['master'] = $this->db->where_in('id',$data['lead']['pro_master_id'])->get('tb_master')->row_array();
+        //property data
+        $record['parameter'] = array('lead_id' => $id);
+        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested',$record);
+        foreach ($data['property_data'] as $k => $v){
+            $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+        }
+        foreach ($property_data as $key => $val){
+            $property[$key] = $val['name'];
+        }
+        $data['property'] = implode(',',$property);
+        //area data
+        $value['parameter'] = array('lead_id' => $id);
+        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested',$value);
+        foreach ($data['area_data'] as $k => $v){
+            $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+        }
+        foreach ($area_data as $key => $val){
+            $area[$key] = $val['name'];
+        }
+        $data['area'] = implode(',',$area);
+
         $data['page_name'] = 'lead_master_addreminder';
         $this->load->view('admin/index', $data);
     }

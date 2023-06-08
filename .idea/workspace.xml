@@ -2,15 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/District.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/District.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/Propertymaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Propertymaster_model.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/State.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/State.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Subdistrict.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Subdistrict.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/area_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/area_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/district_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/district_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_addreminder.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addreminder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_addreminder.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_addreminder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_edit.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_view.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/state_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/state_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/subdistrict_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/subdistrict_view.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +130,9 @@
       <workItem from="1685679964786" duration="11765000" />
       <workItem from="1685765726958" duration="121000" />
       <workItem from="1685768789910" duration="14711000" />
-      <workItem from="1685938827264" duration="16099000" />
+      <workItem from="1685938827264" duration="18011000" />
+      <workItem from="1686032124133" duration="12435000" />
+      <workItem from="1686111214181" duration="13625000" />
     </task>
     <servers />
   </component>
