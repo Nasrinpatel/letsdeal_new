@@ -40,21 +40,22 @@ class Leadmaster extends CI_Controller
     }
 
     //filter  data
-    public function search_lead()
-    {
+    // public function search_lead()
+    // {
        
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
-        $master = $this->input->post('master');
-        $lead_stage = $this->input->post('lead_stage');
-        $property = $this->input->post('property');
-        $area = $this->input->post('area');
-        $budget = $this->input->post('budget');
+    //     $start_date = $this->input->post('start_date');
+    //     $end_date = $this->input->post('end_date');
+    //     $master = $this->input->post('master');
+    //     $lead_stage = $this->input->post('lead_stage');
+    //     $property = $this->input->post('property');
+    //     $area = $this->input->post('area');
+    //     $budget = $this->input->post('budget');
 
-        $results = $this->leadmaster->searchData($start_date, $end_date, $master, $lead_stage, $property, $area, $budget);
+    //     $results = $this->leadmaster->searchData($start_date, $end_date, $master, $lead_stage, $property, $area, $budget);
 
-        echo json_encode($results);
-    }
+    //     echo json_encode($results);
+    // }
+    //filter  data
     public function set_filter(){
         $this->session->set_userdata('start_date',$this->input->post('start_date'));
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
@@ -65,6 +66,7 @@ class Leadmaster extends CI_Controller
         $this->session->set_userdata('budget',$this->input->post('budget'));
         echo 'true';
     }
+     //Reset filter  data
     public function reset_filter(){               
         $this->session->unset_userdata('start_date');
         $this->session->unset_userdata('end_date');
