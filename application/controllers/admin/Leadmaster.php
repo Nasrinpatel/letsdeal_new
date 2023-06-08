@@ -15,6 +15,12 @@ class Leadmaster extends CI_Controller
     public function index()
     {
         $data['page_name'] = 'lead_master_view';
+        $data['master'] = $this->leadmaster->getPromaster();
+        $data['all_leadstage'] = $this->leadmaster->getLeadStage();
+        $data['category'] = $this->leadmaster->getCategory();
+       // $data['area'] = $this->leadmaster->getArea();
+         $data['sub_category'] = $this->leadmaster->getSubCategory();
+        $data['area'] = $this->leadmaster->getArealist();
         $this->load->view('admin/index', $data);
     }
 
@@ -33,9 +39,53 @@ class Leadmaster extends CI_Controller
         $this->load->view('admin/index', $data);
     }
 
+    //filter  data
+    public function search_lead()
+    {
+       
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $master = $this->input->post('master');
+        $lead_stage = $this->input->post('lead_stage');
+        $property = $this->input->post('property');
+        $area = $this->input->post('area');
+        $budget = $this->input->post('budget');
+
+        $results = $this->leadmaster->searchData($start_date, $end_date, $master, $lead_stage, $property, $area, $budget);
+
+        echo json_encode($results);
+    }
+    public function set_filter(){
+        $this->session->set_userdata('start_date',$this->input->post('start_date'));
+        $this->session->set_userdata('end_date',$this->input->post('end_date'));
+        $this->session->set_userdata('master',$this->input->post('master'));
+        $this->session->set_userdata('lead_stage',$this->input->post('lead_stage'));
+        $this->session->set_userdata('property',$this->input->post('property'));
+        $this->session->set_userdata('area',$this->input->post('area'));
+        $this->session->set_userdata('budget',$this->input->post('budget'));
+        echo 'true';
+    }
+    public function reset_filter(){               
+        $this->session->unset_userdata('start_date');
+        $this->session->unset_userdata('end_date');
+        $this->session->unset_userdata('master');
+        $this->session->unset_userdata('lead_stage');
+        $this->session->unset_userdata('property');
+        $this->session->unset_userdata('area');
+        $this->session->unset_userdata('budget');
+        echo 'true';
+    }
     public function all_lead()
     {
-        $lead = $this->leadmaster->all();
+        $search_params=[];        
+        $search_params['start_date'] = $this->session->userdata('start_date');
+        $search_params['end_date'] = $this->session->userdata('end_date');
+        $search_params['master'] = $this->session->userdata('master');
+        $search_params['lead_stage'] = $this->session->userdata('lead_stage');
+        $search_params['property'] = $this->session->userdata('property');
+        $search_params['area'] = $this->session->userdata('area');
+        $search_params['budget'] = $this->session->userdata('budget');
+        $lead = $this->leadmaster->all($search_params);
         $result = array('data' => []);
         //$result = array();
         $i = 1;

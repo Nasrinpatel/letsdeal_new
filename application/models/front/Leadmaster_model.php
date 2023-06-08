@@ -133,11 +133,70 @@ class Leadmaster_model extends CI_model{
         return true;
     }
 
-    function all(){
+    function all($search_params=[]){
+        if (!empty($search_params)) {
+			if (isset($search_params['start_date']) && !empty($search_params['start_date'])) {
+				$start_date = $search_params['start_date'];
+				$this->db->where('tb_lead_master.created_date >=', $start_date);
+			}
+			if (isset($search_params['end_date']) && !empty($search_params['end_date'])) {
+				$end_date = $search_params['end_date'];
+				$this->db->where('tb_lead_master.created_date <=', $end_date);
+			}
+			if(isset($search_params['master']) && !empty($search_params['master'])){                
+				$this->db->where('tb_lead_master.pro_master_id', $search_params['master']);
+			}
+			if(isset($search_params['lead_stage']) && !empty($search_params['lead_stage'])){
+				$this->db->where('tb_lead_master.lead_stage_id', $search_params['lead_stage']);
+			}
+            if(isset($search_params['property']) && !empty($search_params['property'])){
+                $this->db->join('tb_lead_property_interested','tb_lead_property_interested.lead_id=tb_lead_master.id','left');
+                $this->db->select(['tb_lead_master.*','tb_lead_property_interested.pro_subcategory_id']);
+                $this->db->where('tb_lead_property_interested.pro_subcategory_id',$search_params['property']);
+            }
+            if(isset($search_params['area']) && !empty($search_params['area'])){
+                $this->db->join('tb_lead_area_interested','tb_lead_area_interested.lead_id=tb_lead_master.id','left');
+                $this->db->select(['tb_lead_master.*','tb_lead_area_interested.area_id']);
+                $this->db->where('tb_lead_area_interested.area_id',$search_params['area']);
+            }
+           
+            if (isset($search_params['budget']) && !empty($search_params['budget'])) {
+                $budget = $search_params['budget'];
+                $this->db->where('tb_lead_master.from_budget <=', $budget);
+                $this->db->where('tb_lead_master.to_budget >=', $budget);
+            }
+		}
         $data = $this->db->get($this->db_name)->result_array();
         return $data;
     }
 
+    //filter data
+    public function searchLeads($startDate, $endDate, $master, $leadStage, $property, $area, $budget)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_lead_master');
+
+        //for area
+        $this->db->join('area_master', 'tb_lead_area_interested.area_id = area_master.area_id', 'left');
+
+         //for master
+        $this->db->join('tb_master', 'tb_master.pro_master_id = tb_lead_master.pro_master_id', 'left');
+
+        //for stage
+        $this->db->join('tb_lead_stage', 'tb_lead_stage.lead_stage_id = tb_lead_master.lead_stage_id', 'left');
+
+
+        $this->db->where('start_date >=', $startDate);
+        $this->db->where('end_date <=', $endDate);
+        $this->db->where('tb_master.pro_master_id', $master);
+        $this->db->where('tb_lead_stage.name', $leadStage);
+        $this->db->where('pro_subcategory_id', $property);
+        $this->db->where('area_master.name', $area);
+        $this->db->where('budget', $budget);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
     function updaterecords($id,$formArray)
     {
         $d = [];
@@ -378,6 +437,15 @@ class Leadmaster_model extends CI_model{
 
     function getCategory(){
         $data = $this->db->get('tb_property_category')->result_array();
+        return $data;
+    }
+    function getSubCategory(){
+        $data = $this->db->get('tb_property_subcategory')->result_array();
+        return $data;
+    }
+
+    function getArealist(){
+        $data = $this->db->get('tb_area_master')->result_array();
         return $data;
     }
 
