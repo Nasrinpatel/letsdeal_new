@@ -53,6 +53,7 @@ class District extends CI_Controller
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['state_id'] = $this->input->post('state_id');
 			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 

@@ -53,6 +53,7 @@ class Subdistrict extends CI_Controller
 		} else {
 			$formArray = array();
 			$formArray['name'] = $this->input->post('name');
+			$formArray['district_id'] = $this->input->post('district_id');
 			$formArray['is_default'] = $this->input->post('is_default');
 			$formArray['status'] = $this->input->post('status');
 

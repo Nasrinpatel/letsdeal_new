@@ -132,15 +132,15 @@ class Leadmaster_model extends CI_model{
         }
         return true;
     }
-
+  //Filter Lead Data
     function all($search_params=[]){
         if (!empty($search_params)) {
 			if (isset($search_params['start_date']) && !empty($search_params['start_date'])) {
-				$start_date = $search_params['start_date'];
+				$start_date = date('Y-m-d H:i:s',strtotime($search_params['start_date']));
 				$this->db->where('tb_lead_master.created_date >=', $start_date);
 			}
 			if (isset($search_params['end_date']) && !empty($search_params['end_date'])) {
-				$end_date = $search_params['end_date'];
+				$end_date = date('Y-m-d H:i:s',strtotime($search_params['end_date'].' 23:59:59'));
 				$this->db->where('tb_lead_master.created_date <=', $end_date);
 			}
 			if(isset($search_params['master']) && !empty($search_params['master'])){                
@@ -171,32 +171,32 @@ class Leadmaster_model extends CI_model{
     }
 
     //filter data
-    public function searchLeads($startDate, $endDate, $master, $leadStage, $property, $area, $budget)
-    {
-        $this->db->select('*');
-        $this->db->from('tb_lead_master');
+    // public function searchLeads($startDate, $endDate, $master, $leadStage, $property, $area, $budget)
+    // {
+    //     $this->db->select('*');
+    //     $this->db->from('tb_lead_master');
 
-        //for area
-        $this->db->join('area_master', 'tb_lead_area_interested.area_id = area_master.area_id', 'left');
+    //     //for area
+    //     $this->db->join('area_master', 'tb_lead_area_interested.area_id = area_master.area_id', 'left');
 
-         //for master
-        $this->db->join('tb_master', 'tb_master.pro_master_id = tb_lead_master.pro_master_id', 'left');
+    //      //for master
+    //     $this->db->join('tb_master', 'tb_master.pro_master_id = tb_lead_master.pro_master_id', 'left');
 
-        //for stage
-        $this->db->join('tb_lead_stage', 'tb_lead_stage.lead_stage_id = tb_lead_master.lead_stage_id', 'left');
+    //     //for stage
+    //     $this->db->join('tb_lead_stage', 'tb_lead_stage.lead_stage_id = tb_lead_master.lead_stage_id', 'left');
 
 
-        $this->db->where('start_date >=', $startDate);
-        $this->db->where('end_date <=', $endDate);
-        $this->db->where('tb_master.pro_master_id', $master);
-        $this->db->where('tb_lead_stage.name', $leadStage);
-        $this->db->where('pro_subcategory_id', $property);
-        $this->db->where('area_master.name', $area);
-        $this->db->where('budget', $budget);
-        $query = $this->db->get();
+    //     $this->db->where('start_date >=', $startDate);
+    //     $this->db->where('end_date <=', $endDate);
+    //     $this->db->where('tb_master.pro_master_id', $master);
+    //     $this->db->where('tb_lead_stage.name', $leadStage);
+    //     $this->db->where('pro_subcategory_id', $property);
+    //     $this->db->where('area_master.name', $area);
+    //     $this->db->where('budget', $budget);
+    //     $query = $this->db->get();
 
-        return $query->result();
-    }
+    //     return $query->result();
+    // }
     function updaterecords($id,$formArray)
     {
         $d = [];
