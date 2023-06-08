@@ -335,87 +335,94 @@
                     <div class="card">
                         <div class="card-body">
                         <div class="row">
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Name</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-account font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
+                            <div class="col-md-4">
+                                <!-- start due date -->
+                                <p class="mt-2 mb-1 text-muted">Name</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $customer->first_name . ' ' . $customer->last_name ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <!-- end due date -->
+                            </div>
+                            <div class="col-md-4">
+                                <!-- start due date -->
+                                <p class="mt-2 mb-1 text-muted">Phone</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-phone font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $customer->phone ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <!-- end due date -->
+                            </div>
+                            <!-- end col -->
+                            <?php if(!empty($customer->email)) { ?>
+                            <div class="col-md-4">
+                                <!-- start due date -->
+                                <p class="mt-2 mb-1 text-muted">Email</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-gmail font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $customer->email ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <!-- end due date -->
+                            </div>
+                            <?php } ?>
 
-												<?= $agent->first_name . ' ' . $agent->last_name . ' ' . (($agent->nick_name == "") ? '' : '(' . $agent->nick_name . ')') ?>
-											</h5>
-										</div>
-									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Mobile</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-phone font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $agent->phone ?>
-											</h5>
-										</div>
-									</div>
-									<!-- end due date -->
-								</div>
-								<!-- end col -->
+                            <?php if(!empty($customer->email)) { ?>
+                            <div class="col-md-4">
+                                <!-- start due date -->
+                                <p class="mt-2 mb-1 text-muted">Company</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-office-building font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $customer->company_name ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <!-- end due date -->
+                            </div>
+                            <?php } ?>
 
-								<div class="col-md-4">
+                            <?php if(!empty($position_data->name)) { ?>
+                            <div class="col-md-4">
 									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Email</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-gmail font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $agent->email ?>
-											</h5>
-										</div>
-									</div>
+                                <p class="mt-2 mb-1 text-muted">Position</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-badge-account font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $position_data->name ?>
+                                        </h5>
+                                    </div>
+                                </div>
 									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Company</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-office-building font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $agent->company_name ?>
-											</h5>
-										</div>
-									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Source</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-newspaper font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $source->name ?>
-											</h5>
-										</div>
-									</div>
-									<!-- end due date -->
-								</div>
-								<div class="col-md-4">
-									<!-- start due date -->
-									<p class="mt-2 mb-1 text-muted">Position</p>
-									<div class="d-flex align-items-start">
-										<i class="mdi mdi-badge-account font-18 text-success me-1"></i>
-										<div class="w-100">
-											<h5 class="mt-1 font-size-14">
-												<?= $position_data->name ?>
-											</h5>
-										</div>
-									</div>
-									<!-- end due date -->
-								</div>
+                            </div>
+                            <?php } ?>
+
+                            <div class="col-md-4">
+                                <!-- start due date -->
+                                <p class="mt-2 mb-1 text-muted">Source</p>
+                                <div class="d-flex align-items-start">
+                                    <i class="mdi mdi-newspaper font-18 text-success me-1"></i>
+                                    <div class="w-100">
+                                        <h5 class="mt-1 font-size-14">
+                                            <?= $source->name ?>
+                                        </h5>
+                                    </div>
+                                </div>
+                                <!-- end due date -->
+                            </div>
 								<div class="col-md-4">
 									<!-- start due date -->
 									<p class="mt-2 mb-1 text-muted">Team Name</p>
@@ -424,9 +431,6 @@
 										<div class="w-100">
 											<h5 class="mt-1 font-size-14">
 												<?= ($staff != null) ? $staff->first_name . ' ' . $staff->last_name : ' - ' ?>
-
-
-
 											</h5>
 										</div>
 									</div>

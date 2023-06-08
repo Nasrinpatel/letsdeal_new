@@ -449,8 +449,14 @@ class Customermaster extends CI_Controller
     {
 //        $data['lead'] = $this->leadmaster->getLeadMaster($id);
         $data['customer_id'] = $id;
+        $data['customer'] = $this->customermaster->getCustomer($id);
+        $data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
+        $data['position'] = $this->customermaster->getPosition();
+        $data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
+        $data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
 		
         $data['remtype'] = $this->customermaster->getReminderType('Customer');
+
 //        $data['property'] = $this->leadmaster->getPropertymaster($id);
         $data['page_name'] = 'customermaster_addreminder';
         $this->load->view('admin/index', $data);

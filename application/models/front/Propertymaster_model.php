@@ -10,11 +10,27 @@ class Propertymaster_model extends CI_model
 		$this->db_name = 'tb_property_master';
 	}
 
-	function all()
-	{
-		$data = $this->db->get($this->db_name)->result_array();
-		return $data;
-	}
+    function all($search_params=[])
+    {
+        if (!empty($search_params)) {
+            if (isset($search_params['start_date']) && !empty($search_params['start_date'])) {
+                $start_date = $search_params['start_date'];
+                $this->db->where('tb_property_master.created_date >=', $start_date);
+            }
+            if (isset($search_params['end_date']) && !empty($search_params['end_date'])) {
+                $end_date = $search_params['end_date'];
+                $this->db->where('tb_property_master.created_date <=', $end_date);
+            }
+            if(isset($search_params['property_category']) && !empty($search_params['property_category'])){
+                $this->db->where('tb_property_master.pro_category_id', $search_params['property_category']);
+            }
+            if(isset($search_params['property_subcategory']) && !empty($search_params['property_subcategory'])){
+                $this->db->where('tb_property_master.pro_subcategory_id', $search_params['property_subcategory']);
+            }
+        }
+        $data = $this->db->get($this->db_name)->result_array();
+        return $data;
+    }
 	function saverecords($formArray)
 	{
 		$d = [];
@@ -549,21 +565,5 @@ class Propertymaster_model extends CI_model
 		$data = $this->db->get_where('tb_remindertype_master', ['model_type' => $type])->result_array();
 		return $data;
 	}
-
-	function filter($table,$post,$from,$to){
-        $fields = $post['fields'] ?? array("*");
-        $param = implode(',',$fields);
-
-        $this->db->select($param);
-        if(isset($post['like']) && $post['like'] != ''){
-            foreach ($post['like'] as $value){
-                $this->db->like(array_keys($value)[0], array_values($value)[0],'both');
-            }
-        }
-        $this->db->where("created_date BETWEEN '$from' AND '$to'");
-        $query = $this->db->get($table);
-//        echo $this->db->last_query(); exit;
-        return $query->result_array();
-    }
 
 }

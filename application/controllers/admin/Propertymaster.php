@@ -20,11 +20,6 @@ class Propertymaster extends CI_Controller
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
 
-        if(!empty($_POST)){
-            $filter = $_POST;
-
-        }
-
         $data['page_name'] = 'property_master_view';
 		$this->load->view('admin/index', $data);
 	}
@@ -35,32 +30,42 @@ class Propertymaster extends CI_Controller
 		echo json_encode($subcategories);
 	}
 
+    //filter  data
+    public function search_lead()
+    {
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $property_category = $this->input->post('property_category');
+        $property_subcategory = $this->input->post('property_subcategory');
+
+        $results = $this->promast->searchData($start_date, $end_date, $property_category, $property_subcategory);
+
+        echo json_encode($results);
+    }
+    public function set_filter(){
+        $this->session->set_userdata('start_date',$this->input->post('start_date'));
+        $this->session->set_userdata('end_date',$this->input->post('end_date'));
+        $this->session->set_userdata('property_category',$this->input->post('property_category'));
+        $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
+        echo 'true';
+    }
+    public function reset_filter(){
+        $this->session->unset_userdata('start_date');
+        $this->session->unset_userdata('end_date');
+        $this->session->unset_userdata('property_category');
+        $this->session->unset_userdata('property_subcategory');
+        echo 'true';
+    }
+
 	public function all()
 	{
-	    //for filter property
-        if(!empty($_POST)){
-            $filter = $_POST;
-            $record['like']=array();
-            //category filter
-            if(!empty($filter['category'])){
-                array_push($record['like'],array('pro_category_id'=>$filter['category']));
-            }else{
-                $filter['category'] = null;
-            }
-            //subcategory filter
-            if(!empty($filter['subcategory'])){
-                array_push($record['like'],array('pro_subcategory_id'=>$filter['subcategory']));
-            }else{
-                $filter['subcategory'] = null;
-            }
-            if(!empty($filter['from_date']) && !empty($filter['to_date'])){
-                $from = date("Y-m-d", strtotime($filter['from_date']));
-                $to = date("Y-m-d", strtotime($filter['to_date']));
-            }
-            $promasters = $this->promast->filter('tb_property_master',$record,$from,$to);
-        }else{
-            $promasters = $this->promast->all();
-        }
+        $search_params=[];
+        $search_params['start_date'] = $this->session->userdata('start_date');
+        $search_params['end_date'] = $this->session->userdata('end_date');
+        $search_params['property_category'] = $this->session->userdata('property_category');
+        $search_params['property_subcategory'] = $this->session->userdata('property_subcategory');
+
+        $promasters = $this->promast->all($search_params);
         $result = array('data' => []);
 		$i = 1;
 		foreach ($promasters as $value) {

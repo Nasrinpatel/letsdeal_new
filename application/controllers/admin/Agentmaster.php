@@ -149,8 +149,14 @@ class Agentmaster extends CI_Controller
     {
 
         $data['agent_id'] = $id;
+        $data['agent'] = $this->agentmaster->getAgent($id);
         $data['remtype'] = $this->agentmaster->getReminderType('Channel Partner');
-		
+        $data['source'] = $this->agentmaster->getSource();
+        $data['position'] = $this->agentmaster->getPosition();
+        $data['staff'] = $this->agentmaster->getStaff();
+        $data['position_data'] = $this->agentmaster->getPositionByID($data['agent']->position_id);
+        $data['staff_data'] = $this->agentmaster->getStaffByID($data['agent']->assigned_id);
+        $data['source_data'] = $this->agentmaster->getSourceByID($data['agent']->source_id);
 
         $data['page_name'] = 'agentmaster_addreminder';
         $this->load->view('admin/index', $data);
@@ -684,8 +690,6 @@ class Agentmaster extends CI_Controller
 			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
 		}
 	}
-
-
 
 	public function delete_reminders($id, $agent_id)
 	{

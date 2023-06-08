@@ -21,6 +21,52 @@
 						</div>
 					</div>
 				</div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row justify-content-between">
+                                        <form id="search_form" method="post">
+                                            <div class="row" style="margin-bottom: 10px;">
+                                                <label class="col-4 col-xl-1 col-form-label">Start Date :</label>
+                                                <div class="col-8 col-xl-3">
+                                                    <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date">
+                                                </div>
+                                                <label class="col-4 col-xl-1 col-form-label">End Date :</label>
+                                                <div class="col-8 col-xl-3">
+                                                    <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <label class="col-4 col-xl-1 col-form-label">Category :</label>
+                                                <div class="col-8 col-xl-3">
+                                                    <select class="js-example-basic-multiple category" name="category" id="property_category">
+                                                        <option value="">Select Category</option>
+                                                        <?php foreach ($category as $row) { ?>
+                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('category', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <label class="col-4 col-xl-1">Sub Category :</label>
+                                                <div class="col-8 col-xl-3">
+                                                    <select class="js-example-basic-multiple subcategory" name="subcategory" id="property_subcategory">
+                                                        <option value="">Select Sub Category</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-8 col-xl-3">
+                                                    <input type="submit" class="btn btn-success waves-effect waves-light me-1" value="SEARCH">
+                                                    <input type="reset" class="btn btn-danger waves-effect waves-light" value="RESET" id="reset_btn">
+                                                </div>
+                                            </div>
+                                        </form>
+                                </div>
+
+                            </div>
+                            <!-- end row -->
+                        </div>
+                    </div>
+                    <!-- end card -->
+                </div>
 				<!-- end page title -->
 				<div class="row">
 					<div class="col-12">
@@ -44,40 +90,6 @@
 										<?php } ?>
 									</div>
 								</div>
-                                <div class="filter-box">
-                                    <form id="filter_property" method="post" action="<?= base_url('admin/Propertymaster/all') ?>">
-                                        <div class="row" style="margin-bottom: 10px;">
-                                            <label class="col-4 col-xl-1 col-form-label">From Date :</label>
-                                            <div class="col-8 col-xl-3">
-                                                <input type="date" class="form-control" name="from_date" id="from_date" placeholder="From Date">
-                                            </div>
-                                            <label class="col-4 col-xl-1 col-form-label">To Date :</label>
-                                            <div class="col-8 col-xl-3">
-                                                <input type="date" class="form-control" name="to_date" id="to_date" placeholder="To Date">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <label class="col-4 col-xl-1 col-form-label">Category :</label>
-                                            <div class="col-8 col-xl-3">
-                                                <select class="js-example-basic-multiple category" name="category" id="property_category">
-                                                    <option value="">Select Category</option>
-                                                    <?php foreach ($category as $row) { ?>
-                                                        <option value="<?= $row['id'] ?>" <?php echo set_select('category', $row['name']); ?>><?= $row['name'] ?> </option>
-                                                    <?php } ?>
-                                                </select>
-                                            </div>
-                                            <label class="col-4 col-xl-1">Sub Category :</label>
-                                            <div class="col-8 col-xl-3">
-                                                <select class="js-example-basic-multiple subcategory" name="subcategory" id="property_subcategory">
-                                                    <option value="">Select Sub Category</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-8 col-xl-3">
-                                                <button type="submit" class="btn btn-success waves-effect waves-light">Filter</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
 								<div class="table-responsive" style="margin-top: 20px">
 									<table class="table table-centered table-nowrap table-striped" id="promaster_datatable">
 										<thead>
@@ -183,32 +195,32 @@
 				}
 			}, ]
 		});
-        $("#filter_property").validate({
-            submitHandler: function(form, e) {
-                e.preventDefault();
-                var url = $(form).attr("action");
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: $(form).serialize(),
-                    dataType: "json",
-                    success: function(response) {
-                        $('#promaster_datatable').DataTable({
-                            responsive: true,
-                            ajax:response,
-                            "columnDefs": [{
-                                "targets": 5,
-                                "createdCell": function(td, cellData, rowData, row, col) {
-                                    if (rowData[5] == '1') {
-                                        $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                                    } else if (rowData[5] == '0') {
-                                        $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
-                                    }
-                                }
-                            }, ]
-                        });
-                    }
-                });
-            }
+        $('#search_form').submit(function(e) {
+            e.preventDefault();
+            var filterData = {
+                "start_date": $('#start_date').val(),
+                "end_date": $('#end_date').val(),
+                "property_category": $('#property_category').val(),
+                "property_subcategory": $('#property_subcategory').val()
+            };
+            $.ajax({
+                type: "post",
+                url: "<?php echo base_url('admin/Propertymaster/set_filter'); ?>",
+                data: filterData,
+                success: function(response) {
+                    table.ajax.reload();
+                }
+            });
+        });
+        $('#reset_btn').click(function() {
+            $.ajax({
+                type: "post",
+                url: "<?php echo base_url('admin/Propertymaster/reset_filter'); ?>",
+                success: function(response) {
+                    $("#property_category").val('').trigger('change');
+                    $("#property_subcategory").val('').trigger('change');
+                    table.ajax.reload();
+                }
+            });
         });
 	</script>
