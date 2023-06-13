@@ -27,6 +27,20 @@ class Propertymaster_model extends CI_model
             if(isset($search_params['property_subcategory']) && !empty($search_params['property_subcategory'])){
                 $this->db->where('tb_property_master.pro_subcategory_id', $search_params['property_subcategory']);
             }
+            if (isset($search_params['budget']) && !empty($search_params['budget'])) {
+                $budget = $search_params['budget'];
+                $this->db->where('tb_property_master.from_budget <=', $budget);
+                $this->db->where('tb_property_master.to_budget >=', $budget);
+            }
+            if(isset($search_params['stage']) && !empty($search_params['stage'])){
+                $this->db->where('tb_property_master.property_stage_id', $search_params['stage']);
+            }
+            if(isset($search_params['master']) && !empty($search_params['master'])){
+                $this->db->where('tb_property_master.pro_master_id', $search_params['master']);
+            }
+            if(isset($search_params['area']) && !empty($search_params['area'])){
+                $this->db->where('tb_property_master.area_id', $search_params['area']);
+            }
         }
         $data = $this->db->get($this->db_name)->result_array();
         return $data;
@@ -46,7 +60,15 @@ class Propertymaster_model extends CI_model
 		$d['pro_master_id'] = $formArray['pro_master_id'];
 		$d['pro_category_id'] = $formArray['pro_category_id'];
 		$d['pro_subcategory_id'] = $formArray['pro_subcategory_id'];
+		$d['property_stage_id'] = $formArray['property_stage_id'];
+		$d['from_budget'] = $formArray['from_budget'];
+		$d['to_budget'] = $formArray['to_budget'];
+		$d['state_id'] = $formArray['state_id'];
+		$d['district_id'] = $formArray['district_id'];
+		$d['sub_district_id'] = $formArray['sub_district_id'];
+		$d['area_id'] = $formArray['area_id'];
 		$d['status'] = $formArray['status'];
+
 		$this->db->insert($this->db_name, $d);
 		$property_id = $this->db->insert_id();
 
@@ -224,7 +246,6 @@ class Propertymaster_model extends CI_model
 	}
 	function updaterecords($id, $formArray)
 	{
-
 		$d = [];
 		$d['customer_id'] = $formArray['customer_id'];
 		$d['agent_id'] = $formArray['agent_id'];
@@ -237,6 +258,13 @@ class Propertymaster_model extends CI_model
 		$d['pro_master_id'] = $formArray['pro_master_id'];
 		$d['pro_category_id'] = $formArray['pro_category_id'];
 		$d['pro_subcategory_id'] = $formArray['pro_subcategory_id'];
+		$d['property_stage_id'] = $formArray['property_stage_id'];
+		$d['from_budget'] = $formArray['from_budget'];
+		$d['to_budget'] = $formArray['to_budget'];
+        $d['state_id'] = $formArray['state_id'];
+        $d['district_id'] = $formArray['district_id'];
+        $d['sub_district_id'] = $formArray['sub_district_id'];
+        $d['area_id'] = $formArray['area_id'];
 		$d['status'] = $formArray['status'];
 
 		//update property master
@@ -555,15 +583,51 @@ class Propertymaster_model extends CI_model
 		return false;
 	}
 
-
-	// function getReminderType(){
-	// 	$data = $this->db->get('tb_remindertype_master')->result_array();
-	// 	return $data;
-	// }
 	function getReminderType($type)
 	{
 		$data = $this->db->get_where('tb_remindertype_master', ['model_type' => $type])->result_array();
 		return $data;
 	}
+
+    function getPropertyStage(){
+        $data = $this->db->get('tb_property_stage')->result_array();
+        return $data;
+    }
+
+    function getState(){
+        $data = $this->db->get('tb_state_master')->result_array();
+        return $data;
+    }
+
+    function getMaster(){
+        $data = $this->db->get('tb_master')->result_array();
+        return $data;
+    }
+
+    function getArea(){
+        $data = $this->db->get('tb_area_master')->result_array();
+        return $data;
+    }
+
+    function getDistrictByState($state_id)
+    {
+        $this->db->where('state_id', $state_id);
+        $data = $this->db->get('tb_district_master')->result_array();
+        return $data;
+    }
+
+    function getSubDistrictByDistrict($district_id)
+    {
+        $this->db->where('district_id', $district_id);
+        $data = $this->db->get('tb_sub_district_master')->result_array();
+        return $data;
+    }
+
+    function getAreaBySubDistrict($area_id)
+    {
+        $this->db->where('subdistrict_id', $area_id);
+        $data = $this->db->get('tb_area_master')->result_array();
+        return $data;
+    }
 
 }

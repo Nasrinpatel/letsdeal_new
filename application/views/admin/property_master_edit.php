@@ -339,6 +339,83 @@
 													</div>
 												</div>
 											</div>
+
+                                            <div class="row" style="margin-top: 10px;">
+                                                <div class="col-md-6">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Property Stage<span class="text-danger"> *</span></label>
+                                                        <select data-toggle="select2" class="form-control select2" name="property_stage_id" data-width="100%">
+                                                            <option value="">Select Stage</option>
+                                                            <?php foreach ($all_propertystage as $stage) { ?>
+                                                                <option value="<?= $stage['id'] ?>" <?= ($property->property_stage_id == $stage['id']) ? 'selected' : '' ?>><?= $stage['name'] ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                        <span style="color: red;"><?= form_error('property_stage_id') ?></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Budget <span class="text-danger"> *</span></label>
+                                                        <input type="text" class="form-control" name="from_budget" placeholder="From" value="<?= $property->from_budget ?>">
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('from_budget') ?></span>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3" style="margin-top: 8px;">
+                                                        <label class="form-label"> </label>
+                                                        <input type="text" class="form-control" name="to_budget" placeholder="To" value="<?= $property->to_budget ?>">
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('to_budget') ?></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">State <span class="text-danger"> *</span></label>
+                                                        <select class="form-select" name="state_id" id="state_id">
+                                                            <option value="">Select State</option>
+                                                            <?php foreach ($states as $sta) { ?>
+                                                                <option value="<?= $sta['id'] ?>" <?= ($sta['id'] == $property->state_id) ? 'selected' : '' ?>><?= $sta['name'] ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('state_id') ?></span>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">District <span class="text-danger"> *</span></label>
+                                                        <select class="form-select" name="district_id" id="district_id">
+                                                            <option value="">Select District</option>
+                                                        </select>
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('district_id') ?></span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Sub District <span class="text-danger"> *</span></label>
+                                                        <select class="form-select" name="sub_district_id" id="sub_district_id">
+                                                            <option value="">Select Sub District</option>
+                                                        </select>
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('sub_district_id') ?></span>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <div class="mb-3">
+                                                        <label class="form-label">Moje / Area <span class="text-danger"> *</span></label>
+                                                        <select class="form-select" name="area_id" id="area_id">
+                                                            <option value="">Select Moje / Area</option>
+                                                        </select>
+                                                    </div>
+                                                    <span style="color: red;"><?= form_error('area_id') ?></span>
+                                                </div>
+                                            </div>
+
 											<div class="row">
 												<div class="col-lg-6">
 													<div class="mb-3">
@@ -505,10 +582,6 @@
 
 					$('input[name=customeragent]').trigger('change');
 				});
-
-
-
-
 				// $('#store-promas').validate({
 				// 	rules: {
 				// 		property_category_id: "required",
@@ -519,4 +592,89 @@
 				// 		name: "Please Enter Name"
 				// 	}
 				// });
+                $(document).ready(function() {
+                    $('#state_id').change(function() {
+                        var state_id = $(this).val();
+                        if (state_id != '') {
+                            $.ajax({
+                                url: '<?php echo base_url() . "admin/Propertymaster/getDistrictByState"; ?>',
+                                type: 'post',
+                                data: {
+                                    state_id: state_id
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    var len = response.length;
+                                    $("#district_id").empty();
+                                    $("#district_id").append("<option value=''>Select District</option>");
+                                    for (var i = 0; i < len; i++) {
+                                        var id = response[i]['id'];
+                                        var name = response[i]['name'];
+                                        $("#district_id").append("<option value='" + id + "'>" + name + "</option>");
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#district_id").html("<option value=''>Select District</option>");
+                        }
+                    });
+                });
+
+                $(document).ready(function() {
+                    $('#edit-area-modal #district_id').change(function() {
+                        debugger;
+                        var district_id = $(this).val();
+                        if (district_id != '') {
+                            $.ajax({
+                                url: '<?php echo base_url() . "admin/Propertymaster/getSubDistrictByDistrict"; ?>',
+                                type: 'post',
+                                data: {
+                                    district_id: district_id
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    var len = response.length;
+                                    $("#edit-area-modal #sub_district_id").empty();
+                                    $("#edit-area-modal #sub_district_id").append("<option value=''>Select Sub District</option>");
+                                    for (var i = 0; i < len; i++) {
+                                        var id = response[i]['id'];
+                                        var name = response[i]['name'];
+                                        $("#edit-area-modal #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#edit-area-modal #sub_district_id").html("<option value=''>Select Sub District</option>");
+                        }
+                    });
+                });
+
+                $(document).ready(function() {
+                    $('#edit-area-modal #sub_district_id').change(function() {
+                        debugger;
+                        var sub_district_id = $(this).val();
+                        if (sub_district_id != '') {
+                            $.ajax({
+                                url: '<?php echo base_url() . "admin/Propertymaster/getAreaBySubDistrict"; ?>',
+                                type: 'post',
+                                data: {
+                                    sub_district_id: sub_district_id
+                                },
+                                dataType: 'json',
+                                success: function(response) {
+                                    var len = response.length;
+                                    $("#edit-area-modal #area_id").empty();
+                                    $("#edit-area-modal #area_id").append("<option value=''>Select Moje / Area</option>");
+                                    for (var i = 0; i < len; i++) {
+                                        var id = response[i]['id'];
+                                        var name = response[i]['name'];
+                                        $("#edit-area-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+                                    }
+                                }
+                            });
+                        } else {
+                            $("#edit-area-modal #area_id").html("<option value=''>Select Moje / Area</option>");
+                        }
+                    });
+                });
 			</script>

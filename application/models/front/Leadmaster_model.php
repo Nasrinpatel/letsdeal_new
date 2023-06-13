@@ -662,4 +662,17 @@ class Leadmaster_model extends CI_model{
         }
         return $question_list;
     }
+
+    function all_property_suggestion($id){
+        $data = $this->db->where('lead_id',$id)->get('tb_lead_property_interested')->result_array();
+        foreach ($data as $key => $value){
+            $property_data[$key] = $this->db->where_in('id',$value['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+        }
+        $alldata = array();
+        foreach ($property_data as $k => $v){
+            $a = $this->db->where_in('pro_subcategory_id',$v['id'])->get('tb_property_master')->result_array();
+            array_push($alldata,$a);
+        }
+        return $alldata;
+    }
 }

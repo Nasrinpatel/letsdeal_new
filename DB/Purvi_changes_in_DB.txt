@@ -21,3 +21,13 @@ ALTER TABLE `tb_lead_area_interested` ADD `sub_district_id` INT NOT NULL AFTER `
 
 ALTER TABLE `tb_agent_specialist_area` CHANGE `city_id` `district_id` INT(11) NOT NULL;
 ALTER TABLE `tb_agent_specialist_area` ADD `sub_district_id` INT NOT NULL AFTER `district_id`;
+
+Date : 08-06-23
+ALTER TABLE `tb_property_master` ADD `lead_stage_id` INT NOT NULL AFTER `pro_subcategory_id`, ADD `from_budget` FLOAT NOT NULL AFTER `lead_stage_id`, ADD `to_budget` FLOAT NOT NULL AFTER `from_budget`;
+
+Date : 09-06-23
+CREATE TABLE `letsdeal_db`.`tb_property_stage` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `status` INT NOT NULL , `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_date` TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `tb_property_master` CHANGE `lead_stage_id` `property_stage_id` INT(11) NOT NULL;
+
+Date : 13-06-23
+ALTER TABLE `tb_property_master` ADD `state_id` INT NOT NULL AFTER `to_budget`, ADD `district_id` INT NOT NULL AFTER `state_id`, ADD `sub_district_id` INT NOT NULL AFTER `district_id`, ADD `area_id` INT NOT NULL AFTER `sub_district_id`;

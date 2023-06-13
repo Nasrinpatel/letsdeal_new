@@ -29,17 +29,39 @@
                                         <form id="search_form" method="post">
                                             <div class="row" style="margin-bottom: 10px;">
                                                 <label class="col-4 col-xl-1 col-form-label">Start Date :</label>
-                                                <div class="col-8 col-xl-3">
+                                                <div class="col-8 col-xl-2">
                                                     <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date">
                                                 </div>
                                                 <label class="col-4 col-xl-1 col-form-label">End Date :</label>
-                                                <div class="col-8 col-xl-3">
+                                                <div class="col-8 col-xl-2">
                                                     <input type="date" class="form-control" name="end_date" id="end_date" placeholder="End Date">
+                                                </div>
+                                                <label class="col-4 col-xl-1 col-form-label">Budget :</label>
+                                                <div class="col-8 col-xl-2">
+                                                    <input type="text" class="form-control" name="budget" id="budget" placeholder="Budget">
+                                                </div>
+                                                <label class="col-4 col-xl-1">Property Stage :</label>
+                                                <div class="col-8 col-xl-2">
+                                                    <select class="js-example-basic-multiple stage" name="stage" id="stage">
+                                                        <option value="">Select Stage</option>
+                                                        <?php foreach ($stage as $row) { ?>
+                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('category', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                        <?php } ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <label class="col-4 col-xl-1 col-form-label">Master :</label>
+                                                <div class="col-8 col-xl-2">
+                                                    <select class="js-example-basic-multiple master" name="master" id="master">
+                                                        <option value="">Select Master</option>
+                                                        <?php foreach ($master as $row) { ?>
+                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('master', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
                                                 <label class="col-4 col-xl-1 col-form-label">Category :</label>
-                                                <div class="col-8 col-xl-3">
+                                                <div class="col-8 col-xl-2">
                                                     <select class="js-example-basic-multiple category" name="category" id="property_category">
                                                         <option value="">Select Category</option>
                                                         <?php foreach ($category as $row) { ?>
@@ -48,12 +70,21 @@
                                                     </select>
                                                 </div>
                                                 <label class="col-4 col-xl-1">Sub Category :</label>
-                                                <div class="col-8 col-xl-3">
+                                                <div class="col-8 col-xl-2">
                                                     <select class="js-example-basic-multiple subcategory" name="subcategory" id="property_subcategory">
                                                         <option value="">Select Sub Category</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-8 col-xl-3">
+                                                <label class="col-4 col-xl-1 col-form-label">Moje / Area :</label>
+                                                <div class="col-8 col-xl-2">
+                                                    <select class="js-example-basic-multiple area" name="area" id="area">
+                                                        <option value="">Select Area</option>
+                                                        <?php foreach ($area as $row) { ?>
+                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('area', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-8 col-xl-3" style="margin: 10px;">
                                                     <input type="submit" class="btn btn-success waves-effect waves-light me-1" value="SEARCH">
                                                     <input type="reset" class="btn btn-danger waves-effect waves-light" value="RESET" id="reset_btn">
                                                 </div>
@@ -95,9 +126,13 @@
 										<thead>
 											<tr>
 												<th>#</th>
+                                                <th>Customer / Channel Partner</th>
 												<th>Master Name</th>
 												<th>Category</th>
 												<th>Sub Category</th>
+												<th>Property Stage</th>
+												<th>Budget</th>
+                                                <th>Area</th>
 												<th>Create Date</th>
 												<th>Status</th>
 												<th style="width: 85px;">Action</th>
@@ -142,6 +177,21 @@
     </style>
     <script>
         $(document).ready(function() {
+            $('.master').select2({
+                placeholder: "Select Master",
+                width:'100%',
+                theme: "bootstrap-5"
+            });
+            $('.area').select2({
+                placeholder: "Select Area",
+                width:'100%',
+                theme: "bootstrap-5"
+            });
+            $('.stage').select2({
+                placeholder: "Select Stage",
+                width:'100%',
+                theme: "bootstrap-5"
+            });
             $('.category').select2({
                 placeholder: "Select Category",
                 width:'100%',
@@ -184,12 +234,11 @@
 			responsive: true,
 			ajax: "<?php echo base_url('admin/Propertymaster/all'); ?>",
 			"columnDefs": [{
-				"targets": 5,
+				"targets": 9,
 				"createdCell": function(td, cellData, rowData, row, col) {
-					if (rowData[5] == '1') {
-
+					if (rowData[8] == '1') {
 						$(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-					} else if (rowData[5] == '0') {
+					} else if (rowData[8] == '0') {
 						$(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
 					}
 				}
@@ -201,7 +250,10 @@
                 "start_date": $('#start_date').val(),
                 "end_date": $('#end_date').val(),
                 "property_category": $('#property_category').val(),
-                "property_subcategory": $('#property_subcategory').val()
+                "budget": $('#budget').val(),
+                "stage": $('#stage').val(),
+                "area": $('#area').val(),
+                "master": $('#master').val(),
             };
             $.ajax({
                 type: "post",
@@ -219,6 +271,9 @@
                 success: function(response) {
                     $("#property_category").val('').trigger('change');
                     $("#property_subcategory").val('').trigger('change');
+                    $("#master").val('').trigger('change');
+                    $("#area").val('').trigger('change');
+                    $("#stage").val('').trigger('change');
                     table.ajax.reload();
                 }
             });

@@ -19,6 +19,9 @@ class Propertymaster extends CI_Controller
 		$data['master'] = $this->promast->getPromaster();
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
+        $data['stage'] = $this->promast->getPropertyStage();
+        $data['master'] = $this->promast->getMaster();
+        $data['area'] = $this->promast->getArea();
 
         $data['page_name'] = 'property_master_view';
 		$this->load->view('admin/index', $data);
@@ -30,6 +33,28 @@ class Propertymaster extends CI_Controller
 		echo json_encode($subcategories);
 	}
 
+    // state to district
+    public function getDistrictByState()
+    {
+        $state_id = $this->input->post('state_id');
+        $district = $this->promast->getDistrictByState($state_id);
+        echo json_encode($district);
+    }
+    // district to sub district
+    public function getSubDistrictByDistrict()
+    {
+        $district_id = $this->input->post('district_id');
+        $sub_district_id = $this->promast->getSubDistrictByDistrict($district_id);
+        echo json_encode($sub_district_id);
+    }
+    // sub district to area
+    public function getAreaBySubDistrict()
+    {
+        $sub_district_id = $this->input->post('sub_district_id');
+        $area_id = $this->promast->getAreaBySubDistrict($sub_district_id);
+        echo json_encode($area_id);
+    }
+
     //filter  data
     public function search_lead()
     {
@@ -37,8 +62,12 @@ class Propertymaster extends CI_Controller
         $end_date = $this->input->post('end_date');
         $property_category = $this->input->post('property_category');
         $property_subcategory = $this->input->post('property_subcategory');
+        $budget = $this->input->post('budget');
+        $stage = $this->input->post('stage');
+        $master = $this->input->post('master');
+        $area = $this->input->post('area');
 
-        $results = $this->promast->searchData($start_date, $end_date, $property_category, $property_subcategory);
+        $results = $this->promast->searchData($start_date, $end_date, $property_category, $property_subcategory, $budget, $stage, $master,$area);
 
         echo json_encode($results);
     }
@@ -47,6 +76,10 @@ class Propertymaster extends CI_Controller
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
         $this->session->set_userdata('property_category',$this->input->post('property_category'));
         $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
+        $this->session->set_userdata('budget',$this->input->post('budget'));
+        $this->session->set_userdata('stage',$this->input->post('stage'));
+        $this->session->set_userdata('master',$this->input->post('master'));
+        $this->session->set_userdata('area',$this->input->post('area'));
         echo 'true';
     }
     public function reset_filter(){
@@ -54,6 +87,10 @@ class Propertymaster extends CI_Controller
         $this->session->unset_userdata('end_date');
         $this->session->unset_userdata('property_category');
         $this->session->unset_userdata('property_subcategory');
+        $this->session->unset_userdata('budget');
+        $this->session->unset_userdata('stage');
+        $this->session->unset_userdata('master');
+        $this->session->unset_userdata('area');
         echo 'true';
     }
 
@@ -64,6 +101,10 @@ class Propertymaster extends CI_Controller
         $search_params['end_date'] = $this->session->userdata('end_date');
         $search_params['property_category'] = $this->session->userdata('property_category');
         $search_params['property_subcategory'] = $this->session->userdata('property_subcategory');
+        $search_params['budget'] = $this->session->userdata('budget');
+        $search_params['stage'] = $this->session->userdata('stage');
+        $search_params['master'] = $this->session->userdata('master');
+        $search_params['area'] = $this->session->userdata('area');
 
         $promasters = $this->promast->all($search_params);
         $result = array('data' => []);
@@ -72,17 +113,46 @@ class Propertymaster extends CI_Controller
 			$master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
 			$category_data = $this->db->get_where('tb_property_category', array('id' => $value['pro_category_id']))->row();
 			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
+            $stage_data = $this->db->select('name')->where_in('id',$value['property_stage_id'])->get('tb_property_stage')->row_array();
+            $area = $this->db->select('name')->where_in('id',$value['area_id'])->get('tb_area_master')->row_array();
 
-			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+            if(!empty($value['customer_id'])){
+                $customer = explode(',', $value['customer_id']);
+                $customer_name = [];
+                for($j=0;$j<count($customer);$j++){
+                    $customer_name[$j] = $this->db->where_in('id',$customer[$j])->get('tb_customer_master')->row_array();
+                }
+                $name = [];
+                foreach ($customer_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+            if(!empty($value['agent_id'])){
+                $agent = explode(',', $value['customer_id']);
+                $agent_name = [];
+                for($j=0;$j<count($agent);$j++){
+                    $agent_name[$j] = $this->db->where_in('id',$agent[$j])->get('tb_agent_master')->row_array();
+                }
+                $name = [];
+                foreach ($agent_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+
+            $button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
 			$result['data'][] = array(
 				$i++,
+                implode(',',$name),
 				$master_data->name,
 				$category_data->name,
 				$subcategory_data->name,
+                $stage_data['name'],
+                $value['from_budget'].'-'.$value['to_budget'],
+                $area['name'],
 				date('d M Y h:i:s a', strtotime($value['created_date'])),
 				$value['status'],
 				$button,
@@ -257,7 +327,8 @@ class Propertymaster extends CI_Controller
 		$data['master'] = $this->promast->getPromaster();
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
-
+        $data['propertystage'] = $this->promast->getPropertyStage();
+        $data['states'] = $this->promast->getState();
 		//for fetch category
 		// $query = $this->db->get_where('tb_property_category', array('status' => '1'));
 		// $data['categorychk'] = $query->result();
@@ -275,6 +346,13 @@ class Propertymaster extends CI_Controller
 		$this->form_validation->set_rules('pro_master_id', 'Property Master', 'required');
 		$this->form_validation->set_rules('pro_category_id', 'Property Category', 'required');
 		$this->form_validation->set_rules('pro_subcategory_id', 'Property Sub Category', 'required');
+		$this->form_validation->set_rules('property_stage_id', 'Property Stage', 'required');
+		$this->form_validation->set_rules('from_budget', 'From Budget', 'required');
+		$this->form_validation->set_rules('to_budget', 'To Budget', 'required');
+		$this->form_validation->set_rules('state_id', 'State', 'required');
+		$this->form_validation->set_rules('district_id', 'District', 'required');
+		$this->form_validation->set_rules('sub_district_id', 'Sub District', 'required');
+		$this->form_validation->set_rules('area_id', 'Area', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->add();
@@ -317,7 +395,10 @@ class Propertymaster extends CI_Controller
 		$data['phases'] = $this->db->get_where('tb_phase_master', ['status' => 1])->result_array();
 		$data['customer_id'] = explode(',', $propertymaster->customer_id);
 		$data['agent_id'] = explode(',', $propertymaster->agent_id);
-		$data['page_name'] = 'property_master_edit';
+        $data['all_propertystage'] = $this->promast->getPropertyStage();
+        $data['lead_stage'] = $this->db->select('name')->where_in('id',$data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
+        $data['states'] = $this->promast->getState();
+        $data['page_name'] = 'property_master_edit';
 		$this->load->view('admin/index', $data);
 	}
 
@@ -352,8 +433,13 @@ class Propertymaster extends CI_Controller
 		$data['category'] = $this->promast->getCategory();
 		$data['subcategory'] = $this->promast->getSubcategory();
 		$data['phases'] = $this->db->get_where('tb_phase_master', ['status' => 1])->result_array();
+        $data['property_stage'] = $this->db->select('name')->where_in('id',$propertymaster->property_stage_id)->get('tb_property_stage')->row_array();
+        $data['state'] = $this->db->select('name')->where_in('id',$propertymaster->state_id)->get('tb_state_master')->row_array();
+        $data['district'] = $this->db->select('name')->where_in('id',$propertymaster->district_id)->get('tb_district_master')->row_array();
+        $data['subdistrict'] = $this->db->select('name')->where_in('id',$propertymaster->sub_district_id)->get('tb_sub_district_master')->row_array();
+        $data['area'] = $this->db->select('name')->where_in('id',$propertymaster->area_id)->get('tb_area_master')->row_array();
 
-		$data['page_name'] = 'property_master_details';
+        $data['page_name'] = 'property_master_details';
 		$this->load->view('admin/index', $data);
 	}
 
@@ -362,6 +448,13 @@ class Propertymaster extends CI_Controller
 		$this->form_validation->set_rules('pro_master_id', 'Property Master', 'required');
 		$this->form_validation->set_rules('pro_category_id', 'Property Category', 'required');
 		$this->form_validation->set_rules('pro_subcategory_id', 'Property Sub Category', 'required');
+        $this->form_validation->set_rules('property_stage_id', 'Property Stage', 'required');
+        $this->form_validation->set_rules('from_budget', 'From Budget', 'required');
+        $this->form_validation->set_rules('to_budget', 'To Budget', 'required');
+        $this->form_validation->set_rules('state_id', 'State', 'required');
+        $this->form_validation->set_rules('district_id', 'District', 'required');
+        $this->form_validation->set_rules('sub_district_id', 'Sub District', 'required');
+        $this->form_validation->set_rules('area_id', 'Area', 'required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
 
 		if ($this->form_validation->run() == false) {
@@ -501,7 +594,14 @@ class Propertymaster extends CI_Controller
             $data['agent'] = implode(', ', $data['agent_id']);
         }
         $data['remtype'] = $this->promast->getReminderType('Property');
-		$data['page_name'] = 'property_master_addreminder';
+        $data['property_stage'] = $this->db->select('name')->where_in('id',$propertymaster->property_stage_id)->get('tb_property_stage')->row_array();
+        $data['state'] = $this->db->select('name')->where_in('id',$propertymaster->state_id)->get('tb_state_master')->row_array();
+        $data['district'] = $this->db->select('name')->where_in('id',$propertymaster->district_id)->get('tb_district_master')->row_array();
+        $data['subdistrict'] = $this->db->select('name')->where_in('id',$propertymaster->sub_district_id)->get('tb_sub_district_master')->row_array();
+        $data['area'] = $this->db->select('name')->where_in('id',$propertymaster->area_id)->get('tb_area_master')->row_array();
+
+
+        $data['page_name'] = 'property_master_addreminder';
 		$this->load->view('admin/index', $data);
 	}
 	public function store_reminders()
