@@ -57,80 +57,29 @@
                                 <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
                             </ol>
                         </div>
-                        <h4 class="page-title">Lead</h4>
+                        <h4 class="page-title">Lead Feedback</h4>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="row justify-content-between">
                                 <div class="col-auto">
-                                    <form class="d-flex flex-wrap align-items-center" id="search_form">
+                                    <form class="d-flex flex-wrap align-items-center" id="lead_feedback_form">
                                         <div class="me-sm-3 mb-3">
-                                            <label for="status-select" class="col-form-label">Start Date:</label>
-                                            <input type="date" class="form-control" name="start_date" id="start_date" value="<?= $this->session->userdata('start_date') ?>" placeholder="Start Date">
-                                        </div>
-                                        <div class="me-sm-3 mb-3">
-                                            <label for="status-select" class="col-form-label">End Date:</label>
-                                            <input type="date" class="form-control" name="end_date" id="end_date" value="<?= $this->session->userdata('end_date') ?>" placeholder="End Date">
-                                        </div>
-                                        <div class="me-sm-3 mb-3">
-                                            <label class="col-form-label">Master:</label>
-                                            <select class="form-select select2" name="pro_master_id" id="master">
-                                                <option value="">Select Master</option>
-                                                <?php foreach ($master as $mas) : ?>
-                                                    <option value="<?php echo $mas['id']; ?>" <?= ($this->session->userdata('master') == $mas['id']) ? 'selected' : '' ?>><?php echo $mas['name']; ?></option>
-                                                <?php endforeach; ?>
+                                            <label class="col-form-label">Lead feedback:</label>
+                                            <select class="form-select select2" name="lead_feedback" id="lead_feedback_select">
+                                                <option value="All">All</option>
+                                                <option value="thumbs_up" <?= ($this->session->userdata('selected_type') == 'thumbs_up')?'selected':'' ?>>Thumbs-up</option>
+                                                <option value="thumbs_down" <?= ($this->session->userdata('selected_type') == 'thumbs_down')?'selected':'' ?>>Thumbs-down</option>
+                                                <option value="not_match" <?= ($this->session->userdata('selected_type') == 'not_match')?'selected':'' ?>>Not match</option>
                                             </select>
-                                        </div>
-
-                                        <div class="me-sm-3 mb-3">
-                                            <label class="col-form-label">Lead Stage:</label>
-                                            <select class="form-select select2" name="lead_stage_id" id="lead_stage">
-                                                <option value="">Select Stage</option>
-                                                <?php foreach ($all_leadstage as $stage) { ?>
-                                                    <option value="<?= $stage['id'] ?>" <?= ($this->session->userdata('lead_stage') == $stage['id']) ? 'selected' : '' ?>><?= $stage['name'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="me-sm-3 mb-3">
-                                            <label class="col-form-label">Property:</label>
-
-                                            <select class="form-select select2" name="pro_subcategory_id" id="property">
-                                                <option value="">Select Property</option>
-                                                <?php foreach ($sub_category as $scat) { ?>
-                                                    <option value="<?= $scat['id'] ?>" <?= ($this->session->userdata('property') == $scat['id']) ? 'selected' : '' ?>><?= $scat['name'] ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="me-sm-3 mb-3">
-                                            <label class="col-form-label">Area:</label>
-
-                                            <select class="form-select select2" name="area_id" id="area">
-                                                <option value="">Select Area</option>
-                                                <?php foreach ($area as $ar) { ?>
-                                                    <option value="<?= $ar['id'] ?>" <?= ($this->session->userdata('area') == $ar['id']) ? 'selected' : '' ?>><?= $ar['name'] ?></option>
-                                                <?php } ?>
-                                            </select>
-
-                                        </div>
-
-                                        <div class="me-sm-3 mb-3">
-                                            <label class="col-form-label">Budget:</label>
-                                            <input type="number" class="form-control" name="budget" id="budget" placeholder="Budget">
-                                        </div>
-                                        <div class="col-auto">
-                                            <div class="text-lg-end my-1 my-lg-0">
-                                                <input type="submit" class="btn btn-success waves-effect waves-light me-1" value="SEARCH">
-                                                <input type="reset" class="btn btn-danger waves-effect waves-light" value="RESET" id="reset_btn">
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                         <!-- end row -->
                     </div>
@@ -186,6 +135,8 @@
                                             <th>Property</th>
                                             <th>Area</th>
                                             <th>Budget</th>
+                                            <th>Feedback</th>
+                                            <th>Reason</th>
                                             <th>Status</th>
                                             <th style="width: 85px;">Action</th>
                                         </tr>
@@ -203,20 +154,43 @@
 <script>
     var table = $('#leadmaster_datatable').DataTable({
         responsive: true,
-        ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
+        ajax: "<?php echo base_url('admin/Leadmaster/all_leadfeedbacklist'); ?>",
         "columnDefs": [{
-            "targets": 9,
+            "targets": 10,
             "createdCell": function(td, cellData, rowData, row, col) {
                 // console.log(rowData);
-                if (rowData[9] == '1') {
+                if (rowData[10] == '1') {
                     $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                } else if (rowData[9] == '0') {
+                } else if (rowData[10] == '0') {
                     $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                 }
             }
         }]
     });
-
+    // Lead feedback select 
+    $('#lead_feedback_select').on('change', function() {
+        var selectedValue = $(this).val();
+        if(selectedValue == "All"){
+            $.ajax({
+                url: "<?php echo base_url('admin/Leadmaster/reset_filter_feedback'); ?>",
+                success: function(response) {
+                    table.ajax.reload();
+                }
+            });
+        }else{
+            var filterData = {
+                "selected_type": selectedValue
+            };
+            $.ajax({
+                type: "post",
+                url: "<?php echo base_url('admin/Leadmaster/set_filter_feedback'); ?>",
+                data: filterData,
+                success: function(response) {
+                    table.ajax.reload();
+                }
+            });
+        }
+    });
     $('#search_form').submit(function(e) {
         e.preventDefault();
         var filterData = {
@@ -250,65 +224,39 @@
             }
         });
     });
-    // $(document).on('click', ".thumbs-up-btn", function(e) {
-    //     e.preventDefault();
-    //     var url = e.currentTarget.getAttribute('href');
-    //     Swal.fire({
-    //         title: 'Are sure?',
-    //         text: "Are you sure you want to hide this record?",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, hide it!'
-    //     }).then((response) => {
-    //         if (response.isConfirmed) {
-    //             $.ajax({
-    //                 type: "post",
-    //                 url: url,
-    //                 data: {
-    //                     thumbs_up: 1
-    //                 },
-    //                 success: function(response) {
-    //                     table.ajax.reload();
-                        
-    //                 }
-    //             });
-    //         }
-    //     })
-    // });
-    $(document).on('click', ".thumbs-up-btn", function(e) {
-    e.preventDefault();
-    var url = e.currentTarget.getAttribute('href');
 
-    Swal.fire({
-        title: 'Are you sure ?',
-        html: '<input type="checkbox" id="redirectCheckbox" /> Are you want to add Reminder ? ',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, hide it!'
-    }).then((response) => {
-        if (response.isConfirmed) {
-            // Check if the checkbox is checked
-            if ($('#redirectCheckbox').is(':checked')) {
-                window.location.href = '<?php echo base_url('admin/Leadmaster/addreminder/id'); ?>';
-            } else {
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    data: {
-                        thumbs_up: 1
-                    },
-                    success: function(response) {
-                        table.ajax.reload();
-                    }
-                });
+    $(document).on('click', ".thumbs-up-btn", function(e) {
+        e.preventDefault();
+        var url = e.currentTarget.getAttribute('href');
+
+        Swal.fire({
+            title: 'Are you sure ?',
+            html: '<input type="checkbox" id="redirectCheckbox" /> Are you want to add Reminder ? ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, hide it!'
+        }).then((response) => {
+            if (response.isConfirmed) {
+                // Check if the checkbox is checked
+                if ($('#redirectCheckbox').is(':checked')) {
+                    window.location.href = '<?php echo base_url('admin/Leadmaster/addreminder/id'); ?>';
+                } else {
+                    $.ajax({
+                        type: "post",
+                        url: url,
+                        data: {
+                            thumbs_up: 1
+                        },
+                        success: function(response) {
+                            table.ajax.reload();
+                        }
+                    });
+                }
             }
-        }
+        });
     });
-});
 
     $(document).on('click', ".thumbs-down-btn", function(e) {
         e.preventDefault();
@@ -329,7 +277,7 @@
                 $('#thumbsdown_reason-modal').modal('hide');
                 table.ajax.reload();
             }
-        });        
+        });
     });
     $(document).on('click', ".not-match-btn", function(e) {
         e.preventDefault();
@@ -349,6 +297,65 @@
                 $('#notmatch_reason-modal').modal('hide');
                 table.ajax.reload();
             }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#lead_feedback_select').on('change', function() {
+            var selectedValue = $(this).val();
+
+
+            $.ajax({
+                url: '<?php echo base_url('admin/Leadfeedbacklist/'); ?>',
+                method: 'POST',
+                data: {
+                    feedback: selectedValue
+                },
+                success: function(response) {
+
+                    console.log(response);
+
+                },
+                error: function(xhr, status, error) {
+
+                    console.log(error);
+                }
+            });
+        });
+        $(document).on('click', ".revert-btn", function(e) {
+            e.preventDefault();
+            var url = e.currentTarget.getAttribute('href');
+            var col = $(this).attr('data-column');
+            var data = {};
+            data[col] = 0;
+            Swal.fire({
+                title: 'Are you sure ?',
+                // html: '<input type="checkbox" id="redirectCheckbox" /> Are you want to add Reminder ? ',
+                text: "Are you sure you want to Revert this record?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Revert it!'
+            }).then((response) => {
+                if (response.isConfirmed) {
+                    // Check if the checkbox is checked
+                    // if ($('#redirectCheckbox').is(':checked')) {
+                    //     window.location.href = '<?php echo base_url('admin/Leadmaster/addreminder/id'); ?>';
+                    // } else {
+                    $.ajax({
+                        type: "post",
+                        url: url,
+                        data: data,
+                        success: function(response) {
+                            table.ajax.reload();
+                            console.log();
+                        }
+
+                    });
+                    // }
+                }
+            });
         });
     });
 </script>

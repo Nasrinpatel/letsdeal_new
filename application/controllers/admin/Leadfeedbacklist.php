@@ -1,29 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Leadmaster extends CI_Controller
+class Leadfeedbacklist extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('front/Leadmaster_model', 'leadmaster');
+        $this->load->model('front/Leadfeedback_model', 'leadmaster');
         $this->load->model('front/Modal_model', 'modal');
         $this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
     }
 
     public function index()
-    {
-        $data['page_name'] = 'lead_master_view';
-        $data['master'] = $this->leadmaster->getPromaster();
-        $data['all_leadstage'] = $this->leadmaster->getLeadStage();
-        $data['category'] = $this->leadmaster->getCategory();
-        // $data['area'] = $this->leadmaster->getArea();
-        $data['sub_category'] = $this->leadmaster->getSubCategory();
-        $data['area'] = $this->leadmaster->getArealist();
-        $this->load->view('admin/index', $data);
-    }
-    public function leadfeedbackview()
     {
         $data['page_name'] = 'lead_feedback_view';
         $data['master'] = $this->leadmaster->getPromaster();
@@ -34,20 +23,21 @@ class Leadmaster extends CI_Controller
         $data['area'] = $this->leadmaster->getArealist();
         $this->load->view('admin/index', $data);
     }
-    public function add()
-    {
-        $data['customers'] = $this->leadmaster->getCustomer();
-        $data['master'] = $this->leadmaster->getPromaster();
-        $data['leadstage'] = $this->leadmaster->getLeadStage();
-        $data['question'] = $this->leadmaster->getQuestion();
-        $data['category'] = $this->leadmaster->getCategory();
-        $data['states'] = $this->leadmaster->getState();
-        foreach ($data['question'] as $key => $value) {
-            $data['question'][$key] = $this->db->where_in('id', $value['question_ids'])->get('tb_question_master')->row_array();
-        }
-        $data['page_name'] = 'lead_master_add';
-        $this->load->view('admin/index', $data);
-    }
+
+    // public function add()
+    // {
+    //     $data['customers'] = $this->leadmaster->getCustomer();
+    //     $data['master'] = $this->leadmaster->getPromaster();
+    //     $data['leadstage'] = $this->leadmaster->getLeadStage();
+    //     $data['question'] = $this->leadmaster->getQuestion();
+    //     $data['category'] = $this->leadmaster->getCategory();
+    //     $data['states'] = $this->leadmaster->getState();
+    //     foreach ($data['question'] as $key => $value) {
+    //         $data['question'][$key] = $this->db->where_in('id', $value['question_ids'])->get('tb_question_master')->row_array();
+    //     }
+    //     $data['page_name'] = 'lead_master_add';
+    //     $this->load->view('admin/index', $data);
+    // }
 
     //filter  data
     // public function search_lead()
@@ -87,18 +77,6 @@ class Leadmaster extends CI_Controller
         $this->session->unset_userdata('property');
         $this->session->unset_userdata('area');
         $this->session->unset_userdata('budget');
-        echo 'true';
-    }
-    //feedback filter  data
-    public function set_filter_feedback()
-    {
-        $this->session->set_userdata('selected_type', $this->input->post('selected_type'));
-        echo 'true';
-    }
-    //feedback Reset filter  data
-    public function reset_filter_feedback()
-    {
-        $this->session->unset_userdata('selected_type');
         echo 'true';
     }
     public function all_lead()
@@ -175,107 +153,6 @@ class Leadmaster extends CI_Controller
                 implode(',', $property),
                 implode(',', $area),
                 $budget,
-                $value['status'],
-                $button
-            );
-        }
-        echo json_encode($result);
-    }
-    public function all_leadfeedbacklist()
-    {
-        $search_params = [];
-        $search_params['selected_type'] = $this->session->userdata('selected_type');
-        $lead = $this->leadmaster->all_feedback($search_params);
-        $result = array('data' => []);
-        //$result = array();
-        $i = 1;
-        foreach ($lead as $value) {
-            $customer_data = $this->db->where_in('id', $value['customer_id'])->get('tb_customer_master')->row_array();
-
-            //channel partner data
-            $agent_id = $this->db->select('agent_id')->where_in('customer_id', $value['customer_id'])->get('tb_customer_agent')->result_array();
-            $agent_data = [];
-            foreach ($agent_id as $key => $v) {
-                $agent_data[$key] = $this->db->where_in('id', $v['agent_id'])->get('tb_agent_master')->row_array();
-            }
-            $agent = [];
-            foreach ($agent_data as $key => $val) {
-                $agent[$key] = $val['first_name'];
-            }
-
-            $master = $this->db->select('name')->where_in('id', $value['pro_master_id'])->get('tb_master')->row_array();
-            $stage_data = $this->db->select('name')->where_in('id', $value['lead_stage_id'])->get('tb_lead_stage')->row_array();
-
-            //property data
-            $property_id = $this->db->select('pro_subcategory_id')->where_in('lead_id', $value['id'])->get('tb_lead_property_interested')->result_array();
-            $property_data = [];
-            foreach ($property_id as $k => $v) {
-                $property_data[$k] = $this->db->select('name')->where_in('id', $v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
-            }
-            $property = [];
-            foreach ($property_data as $key => $val) {
-                $property[$key] = $val['name'];
-            }
-
-            //area data
-            $area_id = $this->db->select('area_id')->where_in('lead_id', $value['id'])->get('tb_lead_area_interested')->result_array();
-            $area_data = [];
-            foreach ($area_id as $k => $v) {
-                $area_data[$k] = $this->db->select('name')->where_in('id', $v['area_id'])->get('tb_area_master')->row_array();
-            }
-            $area = [];
-            foreach ($area_data as $key => $val) {
-                $area[$key] = $val['name'];
-            }
-
-            $budget = $value['from_budget'] . '-' . $value['to_budget'];
-
-          //feedback icons and reason list
-            if ($value['thumbs_up'] == 1) {
-                $col_name = 'thumbs_up';
-                $reason_message = '-';
-                $feedback = '<i class="mdi mdi-thumb-up text-success"></i>';
-            } elseif ($value['thumbs_down'] == 1) {
-                $col_name = 'thumbs_down';
-                $reason_message = $value['thumbsdown_reason'];
-                $feedback = '<i class="mdi mdi-thumb-down text-danger"></i>';
-            } elseif ($value['not_match'] == 1) {
-                $col_name = 'not_match';
-                $reason_message = $value['notmatch_reason'];
-                $feedback = '<i class="mdi mdi-close-circle-outline text-warning"></i>';
-            } else {
-                $reason_message = '';
-                $feedback = '';
-            }
-  // if($value['thumbs_up']==1){
-            //     $col_name='thumbs_up';
-            // }elseif($value['thumbs_down']==1){
-            //     $col_name='thumbs_down';
-            // }elseif($value['not_match']==1){
-            //     $col_name='not_match';
-            // }
-           // $reason_message = ($col_name === 'thumbs_down') ? $value['thumbsdown_reason'] : (($col_name === 'not_match') ? $value['notmatch_reason'] : ($col_name === 'thumbs_up' ? '-' : ''));
-
-            $button = ' <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon revert-btn" data-column="'.$col_name.'"><i class="mdi mdi-file-undo text-primary"></i></a>
-
-            <a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
-			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
-			<a href="' . base_url('admin/Leadmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
-            <a href="' . base_url('admin/Leadmaster/copyRecords/' . $value['id']) . '" class="action-icon"><i class="mdi mdi-content-copy text-primary"></i></a>
-            
-             <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
-
-            $result['data'][] = array(
-                $i++,
-                ucwords($customer_data['first_name'] . ' ' . $customer_data['last_name']),
-                implode(',', $agent),
-                $master['name'],
-                $stage_data['name'],
-                implode(',', $property),
-                implode(',', $area),
-                $budget,
-                $feedback,
-                $reason_message,
                 $value['status'],
                 $button
             );

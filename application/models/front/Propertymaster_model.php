@@ -28,6 +28,9 @@ class Propertymaster_model extends CI_model
                 $this->db->where('tb_property_master.pro_subcategory_id', $search_params['property_subcategory']);
             }
         }
+		$this->db->where('tb_property_master.thumbs_up', 0);
+        $this->db->where('tb_property_master.thumbs_down', 0);
+        $this->db->where('tb_property_master.not_match', 0);
         $data = $this->db->get($this->db_name)->result_array();
         return $data;
     }
@@ -171,6 +174,14 @@ class Propertymaster_model extends CI_model
 
 		return true;
 	}
+	// thumbs up (hide record)
+
+    public function change_column($id,$data)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('tb_property_master', $data);
+        return true;
+    }
 	function delete($id)
 	{
 		$this->db->where('id', $id);

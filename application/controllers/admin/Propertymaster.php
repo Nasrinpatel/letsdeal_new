@@ -76,6 +76,9 @@ class Propertymaster extends CI_Controller
 			$button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-up-btn" > <i class="mdi mdi-thumb-up text-success"></i></a>
+            <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
+            <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
 			$result['data'][] = array(
@@ -90,6 +93,16 @@ class Propertymaster extends CI_Controller
 		}
 		echo json_encode($result);
 	}
+
+
+
+    public function change_column($id)
+    {
+        $data=$_POST;
+        $this->promast->change_column($id,$data);
+        echo "true";
+    }
+
 	public function get_questions()
 	{
 		$mastet_id = $this->input->post('master_id');

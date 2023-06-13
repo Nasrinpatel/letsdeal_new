@@ -1,5 +1,5 @@
 <?php
-class Leadmaster_model extends CI_model
+class Leadfeedback_model extends CI_model
 {
 
     public $db_name;
@@ -174,22 +174,6 @@ class Leadmaster_model extends CI_model
         return $data;
     }
     // thumbs up (hide record)
-    function all_feedback($search_params = [])
-    {
-        if (!empty($search_params)) {
-            if (isset($search_params['selected_type']) && !empty($search_params['selected_type'])) {
-                $selected_type = $search_params['selected_type'];
-                $this->db->where("tb_lead_master.$selected_type", 1);
-            }
-        }
-        $this->db->group_start();
-        $this->db->where('tb_lead_master.thumbs_up', 1);
-        $this->db->or_where('tb_lead_master.thumbs_down', 1);
-        $this->db->or_where('tb_lead_master.not_match', 1);
-        $this->db->group_end();
-        $data = $this->db->get($this->db_name)->result_array();
-        return $data;
-    }
 
     public function change_column($id,$data)
     {
