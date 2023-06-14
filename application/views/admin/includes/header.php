@@ -350,6 +350,7 @@
 								<a href="<?= base_url('admin/ReminderTypeMaster') ?>" class="dropdown-item"><i class="fas fa-bell me-1"></i> Reminder Type Master</a>
 								<a href="<?= base_url('admin/LeadStage') ?>" class="dropdown-item"><i class="fas fa-flag me-1"></i> Lead Stage</a>
 								<a href="<?= base_url('admin/LeadFormMaster') ?>" class="dropdown-item"><i class="fas fa-file-signature me-1"></i> Lead Form Master</a>
+                                <a href="<?= base_url('admin/PropertyStage') ?>" class="dropdown-item"><i class="fas fa-flag me-1"></i>Property Stage</a>
 
 							</div>
 

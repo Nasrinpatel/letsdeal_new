@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="store-stage" action="<?php echo base_url() . 'admin/LeadStage/store'; ?>">
+                <form method="post" id="store-stage" action="<?php echo base_url() . 'admin/PropertyStage/store'; ?>">
 
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
@@ -66,10 +66,8 @@
 </div><!-- /.modal -->
 <div class="content-page">
     <div class="content">
-
         <!-- Start Content-->
         <div class="container-fluid">
-
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
@@ -82,12 +80,11 @@
 
                             </ol>
                         </div>
-                        <h4 class="page-title">Lead Stage</h4>
+                        <h4 class="page-title">Property Stage</h4>
                     </div>
                 </div>
             </div>
             <!-- end page title -->
-
 
             <div class="row">
                 <div class="col-12">
@@ -128,7 +125,6 @@
                                 <table class="table table-centered table-nowrap table-striped" id="stage_datatable">
                                     <thead>
                                     <tr>
-
                                         <th>#</th>
                                         <th>Stage Name</th>
                                         <th>Create Date</th>
@@ -136,25 +132,20 @@
                                         <th style="width: 85px;">Action</th>
                                     </tr>
                                     </thead>
-
                                 </table>
                             </div>
-
-
                         </div> <!-- end card-body-->
                     </div> <!-- end card-->
                 </div> <!-- end col -->
             </div>
             <!-- end row -->
-
         </div> <!-- container -->
-
     </div> <!-- content -->
 </div>
 <script>
     var table = $('#stage_datatable').DataTable({
         responsive: true,
-        ajax: "<?php echo base_url('admin/LeadStage/all'); ?>",
+        ajax: "<?php echo base_url('admin/PropertyStage/all'); ?>",
         "columnDefs": [{
             "targets": 3,
             "createdCell": function(td, cellData, rowData, row, col) {
@@ -171,7 +162,7 @@
     $(document).on('click', ".edit-btn", function() {
         var id = $(this).attr('data-id');
         $.ajax({
-            url: '<?php echo base_url() ?>admin/LeadStage/edit/' + id,
+            url: '<?php echo base_url() ?>admin/PropertyStage/edit/' + id,
             type: "POST",
             dataType: "json",
             success: function(data) {
@@ -202,7 +193,7 @@
             e.preventDefault();
             var id = $('#edit_stage_id').val();
             $.ajax({
-                url: '<?php echo base_url() ?>admin/LeadStage/update/' + id,
+                url: '<?php echo base_url() ?>admin/PropertyStage/update/' + id,
                 type: "POST",
                 data: $(form).serialize(),
                 dataType: "json",

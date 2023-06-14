@@ -164,7 +164,8 @@ class Leadmaster extends CI_Controller
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
 
-             <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+            <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>
+			<a href="' . base_url('admin/Leadmaster/addproperty/' . $value['id']) . '" class="action-icon addproperty-btn"> <i class="mdi mdi-city-variant text-black"></i></a>';
 
             $result['data'][] = array(
                 $i++,
@@ -886,5 +887,59 @@ class Leadmaster extends CI_Controller
         }
 
         return redirect('admin/Leadmaster/');
+    }
+    public function addproperty($id){
+        $data['lead_id'] = $id;
+        $data['lead'] = $this->leadmaster->getLeadMaster($id);
+        $data['customer'] = $this->db->where_in('id',$data['lead']['customer_id'])->get('tb_customer_master')->row_array();
+        $data['source_data'] = $this->db->where_in('id',$data['customer']['source_id'])->get('tb_source_master')->row_array();
+        $data['position_data'] = $this->db->where_in('id',$data['customer']['position_id'])->get('tb_position_master')->row_array();
+        $data['lead_stage'] = $this->db->select('name')->where_in('id',$data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
+        $data['master'] = $this->db->where_in('id',$data['lead']['pro_master_id'])->get('tb_master')->row_array();
+        //property data
+        $record['parameter'] = array('lead_id' => $id);
+        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested',$record);
+        foreach ($data['property_data'] as $k => $v){
+            $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+        }
+        foreach ($property_data as $key => $val){
+            $property[$key] = $val['name'];
+        }
+        $data['property'] = implode(',',$property);
+        //area data
+        $value['parameter'] = array('lead_id' => $id);
+        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested',$value);
+        foreach ($data['area_data'] as $k => $v){
+            $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+        }
+        foreach ($area_data as $key => $val){
+            $area[$key] = $val['name'];
+        }
+        $data['area'] = implode(',',$area);
+        $data['page_name'] = 'lead_master_addproperty';
+        $this->load->view('admin/index', $data);
+    }
+
+    public function all_property_suggestion($id){
+        $properties = $this->leadmaster->all_property_suggestion($id);
+        foreach ($properties as $key => $record){
+            $result = array('data' => []);
+            $i = 1;
+            foreach ($record as $value) {
+                $master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
+                $category_data = $this->db->get_where('tb_property_category', array('id' =>  $value['pro_category_id']))->row();
+                $subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
+
+                $result['data'][] = array(
+                    '0',
+                    $master_data->name,
+                    $category_data->name,
+                    $subcategory_data->name,
+                    date('d M Y h:i:s a', strtotime($value['created_date'])),
+                    $value['status']
+                );
+            }
+        }
+        echo json_encode($result);
     }
 }

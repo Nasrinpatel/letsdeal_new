@@ -261,7 +261,6 @@
 
 									<div class="input-group">
 										<input type="number" class="form-control" name="repeat_every_custom" id="repeat_every_custom" value="0" placeholder="">
-
 									</div>
 									<!-- <?= form_error('cycles') ?> -->
 								</div>
@@ -380,79 +379,158 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                        <?php if ($property->customer_id != '') { ?>
-                                            <div class="col-md-4">
-                                                <!-- start due date -->
-                                                <p class="mt-2 mb-1 text-muted">Customer Name</p>
-                                                <div class="d-flex align-items-start">
-                                                    <i class="mdi mdi-account font-18 text-success me-1"></i>
-                                                    <div class="w-100">
-                                                        <h5 class="mt-1 font-size-14">
-                                                            <?= $customer ?>
-                                                        </h5>
-                                                    </div>
+                                    <?php if ($property->customer_id != '') { ?>
+                                        <div class="col-md-3">
+                                            <!-- start due date -->
+                                            <p class="mt-2 mb-1 text-muted">Customer Name</p>
+                                            <div class="d-flex align-items-start">
+                                                <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                                <div class="w-100">
+                                                    <h5 class="mt-1 font-size-14">
+                                                        <?= $customer ?>
+                                                    </h5>
                                                 </div>
-                                                <!-- end due date -->
                                             </div>
-                                        <?php } elseif ($property->agent_id != '') { ?>
-                                            <div class="col-md-4">
-                                                <!-- start due date -->
-                                                <p class="mt-2 mb-1 text-muted">Agent Name</p>
-                                                <div class="d-flex align-items-start">
-                                                    <i class="mdi mdi-account font-18 text-success me-1"></i>
-                                                    <div class="w-100">
-                                                        <h5 class="mt-1 font-size-14">
+                                            <!-- end due date -->
+                                        </div>
+                                    <?php } elseif ($property->agent_id != '') { ?>
+                                        <div class="col-md-3">
+                                            <!-- start due date -->
+                                            <p class="mt-2 mb-1 text-muted">Agent Name</p>
+                                            <div class="d-flex align-items-start">
+                                                <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                                <div class="w-100">
+                                                    <h5 class="mt-1 font-size-14">
 
-                                                            <?= $agent ?>
-                                                        </h5>
-                                                    </div>
+                                                        <?= $agent ?>
+                                                    </h5>
                                                 </div>
-                                                <!-- end due date -->
                                             </div>
-                                        <?php } ?>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <!-- start due date -->
-                                                <p class="mt-2 mb-1 text-muted">Master</p>
-                                                <div class="d-flex align-items-start">
-                                                    <i class="mdi mdi-check font-18 text-success me-1"></i>
-                                                    <div class="w-100">
-                                                        <h5 class="mt-1 font-size-14">
-                                                            <?= $property->master_name ?>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <!-- end due date -->
-                                            </div>
-                                            <div class="col-md-3">
-                                                <!-- start due date -->
-                                                <p class="mt-2 mb-1 text-muted">Category</p>
-                                                <div class="d-flex align-items-start">
-                                                    <i class="mdi mdi-menu font-18 text-success me-1"></i>
-                                                    <div class="w-100">
-                                                        <h5 class="mt-1 font-size-14">
-                                                            <?= $property->property_category_name ?>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <!-- end due date -->
-                                            </div>
-                                            <!-- end col -->
-                                            <div class="col-md-4">
-                                                <!-- start due date -->
-                                                <p class="mt-2 mb-1 text-muted">Sub Category</p>
-                                                <div class="d-flex align-items-start">
-                                                    <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
-                                                    <div class="w-100">
-                                                        <h5 class="mt-1 font-size-14">
-                                                            <?= $property->property_subcategory_name ?>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <!-- end due date -->
+                                            <!-- end due date -->
+                                        </div>
+                                    <?php } ?>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Master</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-check font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $property->master_name ?>
+                                                </h5>
                                             </div>
                                         </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Category</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-menu font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $property->property_category_name ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <!-- end col -->
 
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Sub Category</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $property->property_subcategory_name ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                </div>
+                                <!-- end form-check-->
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Stage</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-bookmark font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $property_stage['name'] ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Budget</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $property->from_budget .'-'. $property->to_budget ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">State</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $state['name'] ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">District</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $district['name'] ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Sub District</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $subdistrict['name'] ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Moje / Area</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $area['name'] ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
