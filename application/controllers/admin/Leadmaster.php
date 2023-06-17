@@ -1061,7 +1061,8 @@ class Leadmaster extends CI_Controller
                 }
             }
 
-            $button = '<a href="' . base_url('admin/Leadmaster/delete_property_suggestion/' .$id.'/'.$value['property_id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
+            $button = '<a href="' . base_url('admin/Leadmaster/view/' . $value['property_id']) . '" class="action-icon eye-btn view-btn" data-id="' . $value['property_id'] . '" data-bs-toggle="modal" data-bs-target="#property-suggestion-view-modal"><i class="mdi mdi-eye text-info"></i></a>
+            <a href="' . base_url('admin/Leadmaster/delete_property_suggestion/' .$id.'/'.$value['property_id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
             $result['data'][] = array(
                 $i++,
@@ -1079,6 +1080,40 @@ class Leadmaster extends CI_Controller
         }
         echo json_encode($result);
     }
+
+    public function view($property_id)
+    {
+        $propertymaster = $this->leadmaster->getPropertymaster($property_id);
+        $data = array();
+        $data['property_suggest'] = $propertymaster;
+        $data['customer_id'] = explode(',', $propertymaster->customer_id);
+        if (!empty($propertymaster->customer_id)) {
+            foreach ($data['customer_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $customer = $this->common->getDataById('tb_customer_master', $record);
+                $data['customer_id'][$key] = $customer['first_name'] . ' ' . $customer['last_name'];
+            }
+            $data['customer'] = implode(', ', $data['customer_id']);
+        }
+        $data['agent_id'] = explode(',', $propertymaster->agent_id);
+        if (!empty($propertymaster->agent_id)) {
+            foreach ($data['agent_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $agent = $this->common->getDataById('tb_agent_master', $record);
+                $data['agent_id'][$key] = $agent['first_name'] . ' ' . $agent['last_name'];
+            }
+            $data['agent'] = implode(', ', $data['agent_id']);
+        }
+        $data['property_stage'] = $this->db->select('name')->where_in('id',$propertymaster->property_stage_id)->get('tb_property_stage')->row_array();
+        $data['ps_state'] = $this->db->select('name')->where_in('id',$propertymaster->state_id)->get('tb_state_master')->row_array();
+        $data['ps_district'] = $this->db->select('name')->where_in('id',$propertymaster->district_id)->get('tb_district_master')->row_array();
+        $data['ps_subdistrict'] = $this->db->select('name')->where_in('id',$propertymaster->sub_district_id)->get('tb_sub_district_master')->row_array();
+        $data['ps_area'] = $this->db->select('name')->where_in('id',$propertymaster->area_id)->get('tb_area_master')->row_array();
+        echo json_encode($data);
+    }
+
     public function delete_property_suggestion($lead_id,$property_id)
     {
         $response = $this->leadmaster->delete_property_suggestion($lead_id,$property_id);

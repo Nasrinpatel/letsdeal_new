@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Add Property</h4>
+                <h4 class="modal-title" id="myLargeModalLabel">Add Property Suggestion</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -115,6 +115,135 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="property-suggestion-view-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">View Property Suggestion</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 hide_customer">
+                                        <p class="mt-2 mb-1 text-muted">Customer Name</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 customers"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 hide_agent">
+                                        <p class="mt-2 mb-1 text-muted">Agent Name</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 agents"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Master</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-check font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 master_name"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Category</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-menu font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 property_category_name"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Sub Category</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 property_subcategory_name"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Stage</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-bookmark font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 property_stage"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Budget</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 rage_budget"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">State</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 ps_state"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">District</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 ps_district"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Sub District</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 ps_subdistrict"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="mt-2 mb-1 text-muted">Moje / Area</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14 ps_area"></h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -298,6 +427,7 @@
         </div> <!-- container -->
     </div> <!-- content -->
 </div>
+
 <style>
     .mb{
         margin-bottom: 5px;
@@ -453,6 +583,36 @@
                 $("#area").val('').trigger('change');
                 $("#stage").val('').trigger('change');
                 table.ajax.reload();
+            }
+        });
+    });
+
+    $(document).on('click', ".view-btn", function() {
+        var property_id = $(this).attr('data-id');
+        $.ajax({
+            url: '<?php echo base_url() ?>admin/Leadmaster/view/' + property_id,
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                if(data.customer != undefined){
+                    $("#property-suggestion-view-modal .customers").html(data.customer);
+                }else{
+                    $('.hide_customer').css('display','none');
+                }
+                if(data.agent != undefined){
+                    $("#property-suggestion-view-modal .agents").html(data.agent);
+                }else{
+                    $('.hide_agent').css('display','none');
+                }
+                $("#property-suggestion-view-modal .master_name").html(data.property_suggest.master_name);
+                $('#property-suggestion-view-modal .property_category_name').html(data.property_suggest.property_category_name);
+                $('#property-suggestion-view-modal .property_subcategory_name').html(data.property_suggest.property_subcategory_name);
+                $('#property-suggestion-view-modal .property_stage').html(data.property_stage.name);
+                $('#property-suggestion-view-modal .rage_budget').html(data.property_suggest.from_budget);
+                $("#property-suggestion-view-modal .ps_state").html(data.ps_state.name);
+                $("#property-suggestion-view-modal .ps_district").html(data.ps_district.name);
+                $("#property-suggestion-view-modal .ps_subdistrict").html(data.ps_subdistrict.name);
+                $("#property-suggestion-view-modal .ps_area").html(data.ps_area.name);
             }
         });
     });
