@@ -88,16 +88,10 @@
                                                 </div>
                                                 <label class="col-4 col-xl-1">Property Stage :</label>
                                                 <div class="col-8 col-xl-2">
-
-
-
-
-
-												
                                                     <select class="js-example-basic-multiple stage" name="stage" id="stage">
                                                         <option value="">Select Stage</option>
                                                         <?php foreach ($stage as $row) { ?>
-                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('category', $row['name']); ?>><?= $row['name'] ?> </option>
+                                                            <option value="<?= $row['id'] ?>" <?php echo set_select('stage', $row['name']); ?>><?= $row['name'] ?> </option>
                                                         <?php } ?>
                                                     </select>
                                                 </div>

@@ -916,30 +916,178 @@ class Leadmaster extends CI_Controller
             $area[$key] = $val['name'];
         }
         $data['area'] = implode(',',$area);
+        $data['allmaster'] = $this->leadmaster->getMaster();
+        $data['category'] = $this->leadmaster->getCategory();
+        $data['subcategory'] = $this->leadmaster->getSubcategory();
+        $data['propertystage'] = $this->leadmaster->getPropertyStage();
+        $data['states'] = $this->leadmaster->getState();
+        $data['allarea'] = $this->leadmaster->getAreas();
         $data['page_name'] = 'lead_master_addproperty';
         $this->load->view('admin/index', $data);
     }
 
+    public function set_property_filter(){
+        $this->session->set_userdata('start_date',$this->input->post('start_date'));
+        $this->session->set_userdata('end_date',$this->input->post('end_date'));
+        $this->session->set_userdata('property_category',$this->input->post('property_category'));
+        $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
+        $this->session->set_userdata('budget',$this->input->post('budget'));
+        $this->session->set_userdata('stage',$this->input->post('stage'));
+        $this->session->set_userdata('master',$this->input->post('master'));
+        $this->session->set_userdata('area',$this->input->post('area'));
+        echo 'true';
+    }
+    public function reset_property_filter(){
+        $this->session->unset_userdata('start_date');
+        $this->session->unset_userdata('end_date');
+        $this->session->unset_userdata('property_category');
+        $this->session->unset_userdata('property_subcategory');
+        $this->session->unset_userdata('budget');
+        $this->session->unset_userdata('stage');
+        $this->session->unset_userdata('master');
+        $this->session->unset_userdata('area');
+        echo 'true';
+    }
+
     public function all_property_suggestion($id){
-        $properties = $this->leadmaster->all_property_suggestion($id);
+        $search_params=[];
+        $search_params['start_date'] = $this->session->userdata('start_date');
+        $search_params['end_date'] = $this->session->userdata('end_date');
+        $search_params['property_category'] = $this->session->userdata('property_category');
+        $search_params['property_subcategory'] = $this->session->userdata('property_subcategory');
+        $search_params['budget'] = $this->session->userdata('budget');
+        $search_params['stage'] = $this->session->userdata('stage');
+        $search_params['master'] = $this->session->userdata('master');
+        $search_params['area'] = $this->session->userdata('area');
+
+        $properties = $this->leadmaster->all_property_suggestion($id,$search_params);
         foreach ($properties as $key => $record){
             $result = array('data' => []);
-            $i = 1;
             foreach ($record as $value) {
                 $master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
                 $category_data = $this->db->get_where('tb_property_category', array('id' =>  $value['pro_category_id']))->row();
                 $subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
+                $stage_data = $this->db->select('name')->where_in('id',$value['property_stage_id'])->get('tb_property_stage')->row_array();
+                $area = $this->db->select('name')->where_in('id',$value['area_id'])->get('tb_area_master')->row_array();
+
+                if(!empty($value['customer_id'])){
+                    $customer = explode(',', $value['customer_id']);
+                    $customer_name = [];
+                    for($j=0;$j<count($customer);$j++){
+                        $customer_name[$j] = $this->db->where_in('id',$customer[$j])->get('tb_customer_master')->row_array();
+                    }
+                    $name = [];
+                    foreach ($customer_name as $key => $val){
+                        $name[$key] = $val['first_name'].' '.$val['last_name'];
+                    }
+                }
+                if(!empty($value['agent_id'])){
+                    $agent = explode(',', $value['customer_id']);
+                    $agent_name = [];
+                    for($j=0;$j<count($agent);$j++){
+                        $agent_name[$j] = $this->db->where_in('id',$agent[$j])->get('tb_agent_master')->row_array();
+                    }
+                    $name = [];
+                    foreach ($agent_name as $key => $val){
+                        $name[$key] = $val['first_name'].' '.$val['last_name'];
+                    }
+                }
 
                 $result['data'][] = array(
-                    '0',
+                    $value['id'],
+                    implode(',',$name),
                     $master_data->name,
                     $category_data->name,
                     $subcategory_data->name,
+                    $stage_data['name'],
+                    $value['from_budget'].'-'.$value['to_budget'],
+                    $area['name'],
                     date('d M Y h:i:s a', strtotime($value['created_date'])),
                     $value['status']
                 );
             }
         }
         echo json_encode($result);
+    }
+
+    public function store_property_suggestion(){
+        unset($_POST['property_suggestion_datatable_length']);
+        $data = [];
+        foreach ($_POST['property_id'] as $key => $value){
+            $data['lead_id'] = $this->input->post('lead_id');
+            $data['property_id'] = $value;
+            $response = $this->leadmaster->save_property_suggestion($data);
+        }
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Lead Property Added Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+
+    public function all_properties($id)
+    {
+        $properties = $this->leadmaster->all_properties($id);
+        $result = array('data' => []);
+        $i = 1;
+        foreach ($properties as $value) {
+            $property = $this->db->get_where('tb_property_master', array('id' => $value['property_id']))->row();
+            $master_data = $this->db->get_where('tb_master', array('id' => $property->pro_master_id))->row();
+            $category_data = $this->db->get_where('tb_property_category', array('id' => $property->pro_category_id))->row();
+            $subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $property->pro_subcategory_id))->row();
+            $stage_data = $this->db->select('name')->where_in('id',$property->property_stage_id)->get('tb_property_stage')->row_array();
+            $area = $this->db->select('name')->where_in('id',$property->area_id)->get('tb_area_master')->row_array();
+
+            if(!empty($property->customer_id)){
+                $customer = explode(',', $property->customer_id);
+                $customer_name = [];
+                for($j=0;$j<count($customer);$j++){
+                    $customer_name[$j] = $this->db->where_in('id',$customer[$j])->get('tb_customer_master')->row_array();
+                }
+                $name = [];
+                foreach ($customer_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+            if(!empty($property->agent_id)){
+                $agent = explode(',', $property->customer_id);
+                $agent_name = [];
+                for($j=0;$j<count($agent);$j++){
+                    $agent_name[$j] = $this->db->where_in('id',$agent[$j])->get('tb_agent_master')->row_array();
+                }
+                $name = [];
+                foreach ($agent_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+
+            $button = '<a href="' . base_url('admin/Leadmaster/delete_property_suggestion/' .$id.'/'.$value['property_id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
+
+            $result['data'][] = array(
+                $i++,
+                implode(',',$name),
+                $master_data->name,
+                $category_data->name,
+                $subcategory_data->name,
+                $stage_data['name'],
+                $property->from_budget.'-'.$property->to_budget,
+                $area['name'],
+                date('d M Y h:i:s a', strtotime($property->created_date)),
+                $property->status,
+                $button
+            );
+        }
+        echo json_encode($result);
+    }
+    public function delete_property_suggestion($lead_id,$property_id)
+    {
+        $response = $this->leadmaster->delete_property_suggestion($lead_id,$property_id);
+
+        if ($response == true) {
+            $this->session->set_flashdata('success', 'Lead Property Suggestion Deleted Successfully.');
+        } else {
+            $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+        }
+        return redirect('admin/Leadmaster/addproperty/' . $lead_id);
     }
 }

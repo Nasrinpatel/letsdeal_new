@@ -54,23 +54,6 @@ class Propertymaster extends CI_Controller
         $area_id = $this->promast->getAreaBySubDistrict($sub_district_id);
         echo json_encode($area_id);
     }
-
-    //filter  data
-    public function search_lead()
-    {
-        $start_date = $this->input->post('start_date');
-        $end_date = $this->input->post('end_date');
-        $property_category = $this->input->post('property_category');
-        $property_subcategory = $this->input->post('property_subcategory');
-        $budget = $this->input->post('budget');
-        $stage = $this->input->post('stage');
-        $master = $this->input->post('master');
-        $area = $this->input->post('area');
-
-        $results = $this->promast->searchData($start_date, $end_date, $property_category, $property_subcategory, $budget, $stage, $master,$area);
-
-        echo json_encode($results);
-    }
     public function set_filter(){
         $this->session->set_userdata('start_date',$this->input->post('start_date'));
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
