@@ -64,7 +64,7 @@ class Customermaster_model extends CI_model{
 		unset($data['customer_id']);
         // $data = hooks()->apply_filters('before_add_task', $data);
 
-        $this->db->insert('tbl_reminder_master', $data);
+        $this->db->insert('tb_followup_master', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
             return $insert_id;
@@ -124,6 +124,10 @@ class Customermaster_model extends CI_model{
 	
 	function getReminderType($type){
 		$data = $this->db->get_where('tb_remindertype_master',['model_type'=>$type])->result_array();
+		return $data;
+	}
+	function getFollowupType($type){
+		$data = $this->db->get_where('tb_followup_type_master',['model_type'=>$type])->result_array();
 		return $data;
 	}
 	

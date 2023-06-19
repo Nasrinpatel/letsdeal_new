@@ -38,6 +38,7 @@ class Customermaster extends CI_Controller
 			$button = '<a href="' . base_url('admin/Customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/Customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Customermaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Customermaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
 			<a href="' . base_url('admin/Customermaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
 			$result['data'][] = array(
@@ -459,6 +460,22 @@ class Customermaster extends CI_Controller
 
 //        $data['property'] = $this->leadmaster->getPropertymaster($id);
         $data['page_name'] = 'customermaster_addreminder';
+        $this->load->view('admin/index', $data);
+    }
+
+	//reminders master
+    public function addfollowup($id)
+    {
+        $data['customer_id'] = $id;
+        // $data['customer'] = $this->customermaster->getCustomer($id);
+        // $data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
+        // $data['position'] = $this->customermaster->getPosition();
+        // $data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
+        // $data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
+		
+        $data['followuptype'] = $this->customermaster->getFollowupType('Customer');
+
+        $data['page_name'] = 'customermaster_addfollowup';
         $this->load->view('admin/index', $data);
     }
 	//reminders master

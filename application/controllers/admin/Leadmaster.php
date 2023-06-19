@@ -164,8 +164,8 @@ class Leadmaster extends CI_Controller
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
 
-            <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>
-			<a href="' . base_url('admin/Leadmaster/addproperty/' . $value['id']) . '" class="action-icon addproperty-btn"> <i class="mdi mdi-city-variant text-black"></i></a>';
+			<a href="' . base_url('admin/Leadmaster/addproperty/' . $value['id']) . '" class="action-icon addproperty-btn"> <i class="mdi mdi-city-variant text-black"></i></a>
+            <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
             $result['data'][] = array(
                 $i++,
@@ -231,7 +231,7 @@ class Leadmaster extends CI_Controller
 
             $budget = $value['from_budget'] . '-' . $value['to_budget'];
 
-          //feedback icons and reason list
+            //feedback icons and reason list
             if ($value['thumbs_up'] == 1) {
                 $col_name = 'thumbs_up';
                 $reason_message = '-';
@@ -248,16 +248,8 @@ class Leadmaster extends CI_Controller
                 $reason_message = '';
                 $feedback = '';
             }
-  // if($value['thumbs_up']==1){
-            //     $col_name='thumbs_up';
-            // }elseif($value['thumbs_down']==1){
-            //     $col_name='thumbs_down';
-            // }elseif($value['not_match']==1){
-            //     $col_name='not_match';
-            // }
-           // $reason_message = ($col_name === 'thumbs_down') ? $value['thumbsdown_reason'] : (($col_name === 'not_match') ? $value['notmatch_reason'] : ($col_name === 'thumbs_up' ? '-' : ''));
 
-            $button = ' <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon revert-btn" data-column="'.$col_name.'"><i class="mdi mdi-file-undo text-primary"></i></a>
+            $button = '<a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon revert-btn" data-column="' . $col_name . '"><i class="mdi mdi-file-undo text-primary"></i></a>
 
             <a href="' . base_url('admin/Leadmaster/leadDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-warning"></i>
 			<a href="' . base_url('admin/Leadmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-success"></i></a>
@@ -400,8 +392,8 @@ class Leadmaster extends CI_Controller
 
     public function change_column($id)
     {
-        $data=$_POST;
-        $this->leadmaster->change_column($id,$data);
+        $data = $_POST;
+        $this->leadmaster->change_column($id, $data);
         echo "true";
     }
     // public function change_columnn($id)
@@ -888,41 +880,43 @@ class Leadmaster extends CI_Controller
 
         return redirect('admin/Leadmaster/');
     }
-    public function addproperty($id){
+    public function addproperty($id)
+    {
         $data['lead_id'] = $id;
         $data['lead'] = $this->leadmaster->getLeadMaster($id);
-        $data['customer'] = $this->db->where_in('id',$data['lead']['customer_id'])->get('tb_customer_master')->row_array();
-        $data['source_data'] = $this->db->where_in('id',$data['customer']['source_id'])->get('tb_source_master')->row_array();
-        $data['position_data'] = $this->db->where_in('id',$data['customer']['position_id'])->get('tb_position_master')->row_array();
-        $data['lead_stage'] = $this->db->select('name')->where_in('id',$data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
-        $data['master'] = $this->db->where_in('id',$data['lead']['pro_master_id'])->get('tb_master')->row_array();
+        $data['customer'] = $this->db->where_in('id', $data['lead']['customer_id'])->get('tb_customer_master')->row_array();
+        $data['source_data'] = $this->db->where_in('id', $data['customer']['source_id'])->get('tb_source_master')->row_array();
+        $data['position_data'] = $this->db->where_in('id', $data['customer']['position_id'])->get('tb_position_master')->row_array();
+        $data['lead_stage'] = $this->db->select('name')->where_in('id', $data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
+        $data['master'] = $this->db->where_in('id', $data['lead']['pro_master_id'])->get('tb_master')->row_array();
         //property data
         $record['parameter'] = array('lead_id' => $id);
-        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested',$record);
-        foreach ($data['property_data'] as $k => $v){
-            $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested', $record);
+        foreach ($data['property_data'] as $k => $v) {
+            $property_data[$k] = $this->db->select('name')->where_in('id', $v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
         }
-        foreach ($property_data as $key => $val){
+        foreach ($property_data as $key => $val) {
             $property[$key] = $val['name'];
         }
-        $data['property'] = implode(',',$property);
+        $data['property'] = implode(',', $property);
         //area data
         $value['parameter'] = array('lead_id' => $id);
-        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested',$value);
-        foreach ($data['area_data'] as $k => $v){
-            $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested', $value);
+        foreach ($data['area_data'] as $k => $v) {
+            $area_data[$k] = $this->db->select('name')->where_in('id', $v['area_id'])->get('tb_area_master')->row_array();
         }
-        foreach ($area_data as $key => $val){
+        foreach ($area_data as $key => $val) {
             $area[$key] = $val['name'];
         }
-        $data['area'] = implode(',',$area);
+        $data['area'] = implode(',', $area);
         $data['page_name'] = 'lead_master_addproperty';
         $this->load->view('admin/index', $data);
     }
 
-    public function all_property_suggestion($id){
+    public function all_property_suggestion($id)
+    {
         $properties = $this->leadmaster->all_property_suggestion($id);
-        foreach ($properties as $key => $record){
+        foreach ($properties as $key => $record) {
             $result = array('data' => []);
             $i = 1;
             foreach ($record as $value) {

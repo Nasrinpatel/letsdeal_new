@@ -26,6 +26,19 @@ class Propertymaster extends CI_Controller
         $data['page_name'] = 'property_master_view';
 		$this->load->view('admin/index', $data);
 	}
+	public function propertyfeedbackview()
+	{
+		$data['customers'] = $this->promast->getCustomer();
+		$data['master'] = $this->promast->getPromaster();
+		$data['category'] = $this->promast->getCategory();
+		$data['subcategory'] = $this->promast->getSubcategory();
+        $data['stage'] = $this->promast->getPropertyStage();
+        $data['master'] = $this->promast->getMaster();
+        $data['area'] = $this->promast->getArea();
+
+        $data['page_name'] = 'property_feedback_view';
+		$this->load->view('admin/index', $data);
+	}
 	public function getSubcategoryByCategory()
 	{
 		$category_id = $this->input->post('property_category_id');
@@ -93,7 +106,18 @@ class Propertymaster extends CI_Controller
         $this->session->unset_userdata('area');
         echo 'true';
     }
-
+	//feedback filter  data
+	public function set_filter_feedback()
+	{
+		$this->session->set_userdata('selected_type', $this->input->post('selected_type'));
+		echo 'true';
+	}
+	//feedback Reset filter  data
+	public function reset_filter_feedback()
+	{
+		$this->session->unset_userdata('selected_type');
+		echo 'true';
+	}
 	public function all()
 	{
         $search_params=[];
@@ -164,7 +188,86 @@ class Propertymaster extends CI_Controller
 		echo json_encode($result);
 	}
 
+	public function all_propertyfeedbacklist()
+	{
+		
+        $search_params=[];
+		$search_params['selected_type'] = $this->session->userdata('selected_type');
+        $promasters = $this->promast->all_feedback($search_params);
+        $result = array('data' => []);
 
+		$i = 1;
+		foreach ($promasters as $value) {
+			$master_data = $this->db->get_where('tb_master', array('id' => $value['pro_master_id']))->row();
+			$category_data = $this->db->get_where('tb_property_category', array('id' => $value['pro_category_id']))->row();
+			$subcategory_data = $this->db->get_where('tb_property_subcategory', array('id' => $value['pro_subcategory_id']))->row();
+            $stage_data = $this->db->select('name')->where_in('id',$value['property_stage_id'])->get('tb_property_stage')->row_array();
+            $area = $this->db->select('name')->where_in('id',$value['area_id'])->get('tb_area_master')->row_array();
+
+            if(!empty($value['customer_id'])){
+                $customer = explode(',', $value['customer_id']);
+                $customer_name = [];
+                for($j=0;$j<count($customer);$j++){
+                    $customer_name[$j] = $this->db->where_in('id',$customer[$j])->get('tb_customer_master')->row_array();
+                }
+                $name = [];
+                foreach ($customer_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+            if(!empty($value['agent_id'])){
+                $agent = explode(',', $value['customer_id']);
+                $agent_name = [];
+                for($j=0;$j<count($agent);$j++){
+                    $agent_name[$j] = $this->db->where_in('id',$agent[$j])->get('tb_agent_master')->row_array();
+                }
+                $name = [];
+                foreach ($agent_name as $key => $val){
+                    $name[$key] = $val['first_name'].' '.$val['last_name'];
+                }
+            }
+			//feedback icons and reason list
+			if ($value['thumbs_up'] == 1) {
+				$col_name = 'thumbs_up';
+				$reason_message = '-';
+				$feedback = '<i class="mdi mdi-thumb-up text-success"></i>';
+			} elseif ($value['thumbs_down'] == 1) {
+				$col_name = 'thumbs_down';
+				$reason_message = $value['thumbsdown_reason'];
+				$feedback = '<i class="mdi mdi-thumb-down text-danger"></i>';
+			} elseif ($value['not_match'] == 1) {
+				$col_name = 'not_match';
+				$reason_message = $value['notmatch_reason'];
+				$feedback = '<i class="mdi mdi-close-circle-outline text-warning"></i>';
+			} else {
+				$reason_message = '';
+				$feedback = '';
+			}
+            $button = '<a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon revert-btn" data-column="'.$col_name.'"><i class="mdi mdi-file-undo text-primary"></i></a>
+			<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
+			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
+
+			$result['data'][] = array(
+				$i++,
+                implode(',',$name),
+				$master_data->name,
+				$category_data->name,
+				$subcategory_data->name,
+                $stage_data['name'],
+                $value['from_budget'].'-'.$value['to_budget'],
+                $area['name'],
+				
+                $feedback,
+                $reason_message,
+				$value['status'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$button,
+			);
+		}
+		echo json_encode($result);
+	}
 
     public function change_column($id)
     {

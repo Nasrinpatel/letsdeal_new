@@ -55,6 +55,8 @@
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                <a href="<?= base_url('admin/Leadmaster/leadfeedbackview') ?>" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-circle-circle me-1"></i> Feedback List </a>
+
                             </ol>
                         </div>
                         <h4 class="page-title">Lead</h4>
@@ -205,12 +207,12 @@
         responsive: true,
         ajax: "<?php echo base_url('admin/Leadmaster/all_lead'); ?>",
         "columnDefs": [{
-            "targets": 9,
+            "targets": 8,
             "createdCell": function(td, cellData, rowData, row, col) {
                 // console.log(rowData);
-                if (rowData[9] == '1') {
+                if (rowData[8] == '1') {
                     $(td).html('<span class="badge bg-soft-success text-success">Active</span>');
-                } else if (rowData[9] == '0') {
+                } else if (rowData[8] == '0') {
                     $(td).html('<span class="badge bg-soft-danger text-danger">Inactive</span>');
                 }
             }
@@ -250,65 +252,39 @@
             }
         });
     });
-    // $(document).on('click', ".thumbs-up-btn", function(e) {
-    //     e.preventDefault();
-    //     var url = e.currentTarget.getAttribute('href');
-    //     Swal.fire({
-    //         title: 'Are sure?',
-    //         text: "Are you sure you want to hide this record?",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#3085d6',
-    //         cancelButtonColor: '#d33',
-    //         confirmButtonText: 'Yes, hide it!'
-    //     }).then((response) => {
-    //         if (response.isConfirmed) {
-    //             $.ajax({
-    //                 type: "post",
-    //                 url: url,
-    //                 data: {
-    //                     thumbs_up: 1
-    //                 },
-    //                 success: function(response) {
-    //                     table.ajax.reload();
-                        
-    //                 }
-    //             });
-    //         }
-    //     })
-    // });
-    $(document).on('click', ".thumbs-up-btn", function(e) {
-    e.preventDefault();
-    var url = e.currentTarget.getAttribute('href');
 
-    Swal.fire({
-        title: 'Are you sure ?',
-        html: '<input type="checkbox" id="redirectCheckbox" /> Are you want to add Reminder ? ',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, hide it!'
-    }).then((response) => {
-        if (response.isConfirmed) {
-            // Check if the checkbox is checked
-            if ($('#redirectCheckbox').is(':checked')) {
-                window.location.href = '<?php echo base_url('admin/Leadmaster/addreminder/id'); ?>';
-            } else {
-                $.ajax({
-                    type: "post",
-                    url: url,
-                    data: {
-                        thumbs_up: 1
-                    },
-                    success: function(response) {
-                        table.ajax.reload();
-                    }
-                });
+    $(document).on('click', ".thumbs-up-btn", function(e) {
+        e.preventDefault();
+        var url = e.currentTarget.getAttribute('href');
+
+        Swal.fire({
+            title: 'Are you sure ?',
+            html: '<input type="checkbox" id="redirectCheckbox" /> Are you want to add Reminder ? ',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, hide it!'
+        }).then((response) => {
+            if (response.isConfirmed) {
+                // Check if the checkbox is checked
+                if ($('#redirectCheckbox').is(':checked')) {
+                    window.location.href = '<?php echo base_url('admin/Leadmaster/addreminder/id'); ?>';
+                } else {
+                    $.ajax({
+                        type: "post",
+                        url: url,
+                        data: {
+                            thumbs_up: 1
+                        },
+                        success: function(response) {
+                            table.ajax.reload();
+                        }
+                    });
+                }
             }
-        }
+        });
     });
-});
 
     $(document).on('click', ".thumbs-down-btn", function(e) {
         e.preventDefault();
@@ -329,7 +305,7 @@
                 $('#thumbsdown_reason-modal').modal('hide');
                 table.ajax.reload();
             }
-        });        
+        });
     });
     $(document).on('click', ".not-match-btn", function(e) {
         e.preventDefault();

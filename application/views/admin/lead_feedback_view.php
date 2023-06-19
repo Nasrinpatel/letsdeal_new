@@ -54,7 +54,7 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                <!-- <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a> -->
                             </ol>
                         </div>
                         <h4 class="page-title">Lead Feedback</h4>
@@ -72,9 +72,9 @@
                                             <label class="col-form-label">Lead feedback:</label>
                                             <select class="form-select select2" name="lead_feedback" id="lead_feedback_select">
                                                 <option value="All">All</option>
-                                                <option value="thumbs_up" <?= ($this->session->userdata('selected_type') == 'thumbs_up')?'selected':'' ?>>Thumbs-up</option>
-                                                <option value="thumbs_down" <?= ($this->session->userdata('selected_type') == 'thumbs_down')?'selected':'' ?>>Thumbs-down</option>
-                                                <option value="not_match" <?= ($this->session->userdata('selected_type') == 'not_match')?'selected':'' ?>>Not match</option>
+                                                <option value="thumbs_up" <?= ($this->session->userdata('selected_type') == 'thumbs_up') ? 'selected' : '' ?>>Thumbs-up</option>
+                                                <option value="thumbs_down" <?= ($this->session->userdata('selected_type') == 'thumbs_down') ? 'selected' : '' ?>>Thumbs-down</option>
+                                                <option value="not_match" <?= ($this->session->userdata('selected_type') == 'not_match') ? 'selected' : '' ?>>Not match</option>
                                             </select>
                                         </div>
                                     </form>
@@ -170,14 +170,14 @@
     // Lead feedback select 
     $('#lead_feedback_select').on('change', function() {
         var selectedValue = $(this).val();
-        if(selectedValue == "All"){
+        if (selectedValue == "All") {
             $.ajax({
                 url: "<?php echo base_url('admin/Leadmaster/reset_filter_feedback'); ?>",
                 success: function(response) {
                     table.ajax.reload();
                 }
             });
-        }else{
+        } else {
             var filterData = {
                 "selected_type": selectedValue
             };
