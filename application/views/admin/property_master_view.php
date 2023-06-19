@@ -60,6 +60,7 @@
 	                                <!-- <li class="breadcrumb-item"><a href="javascript: void(0);">UBold</a></li>
 									<li class="breadcrumb-item"><a href="javascript: void(0);">CRM</a></li> -->
 	                                <a href="<?= base_url('admin/propertymaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+									<a href="<?= base_url('admin/propertymaster/propertyfeedbackview') ?>" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-circle-circle me-1"></i> Feedback List </a>
 
 								</ol>
 							</div>
