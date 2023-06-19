@@ -672,16 +672,97 @@ class Leadmaster_model extends CI_model
         return $question_list;
     }
 
-    function all_property_suggestion($id){
+    function all_property_suggestion($id,$search_params=[]){
         $data = $this->db->where('lead_id',$id)->get('tb_lead_property_interested')->result_array();
         foreach ($data as $key => $value){
             $property_data[$key] = $this->db->where_in('id',$value['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
         }
         $alldata = array();
         foreach ($property_data as $k => $v){
-            $a = $this->db->where_in('pro_subcategory_id',$v['id'])->get('tb_property_master')->result_array();
+            if (!empty($search_params)) {
+                if (isset($search_params['start_date']) && !empty($search_params['start_date'])) {
+                    $start_date = $search_params['start_date'];
+                    $this->db->where('tb_property_master.created_date >=', $start_date);
+                }
+                if (isset($search_params['end_date']) && !empty($search_params['end_date'])) {
+                    $end_date = $search_params['end_date'];
+                    $this->db->where('tb_property_master.created_date <=', $end_date);
+                }
+                if(isset($search_params['property_category']) && !empty($search_params['property_category'])){
+                    $this->db->where('tb_property_master.pro_category_id', $search_params['property_category']);
+                }
+                if(isset($search_params['property_subcategory']) && !empty($search_params['property_subcategory'])){
+                    $this->db->where('tb_property_master.pro_subcategory_id', $search_params['property_subcategory']);
+                }
+                if (isset($search_params['budget']) && !empty($search_params['budget'])) {
+                    $budget = $search_params['budget'];
+                    $this->db->where('tb_property_master.from_budget <=', $budget);
+                    $this->db->where('tb_property_master.to_budget >=', $budget);
+                }
+                if(isset($search_params['stage']) && !empty($search_params['stage'])){
+                    $this->db->where('tb_property_master.property_stage_id', $search_params['stage']);
+                }
+                if(isset($search_params['master']) && !empty($search_params['master'])){
+                    $this->db->where('tb_property_master.pro_master_id', $search_params['master']);
+                }
+                if(isset($search_params['area']) && !empty($search_params['area'])){
+                    $this->db->where('tb_property_master.area_id', $search_params['area']);
+                }
+            }
+            $a = $this->db->where_in('pro_subcategory_id',$v['id'])
+                          ->where('tb_property_master.thumbs_up', 0)
+                          ->where('tb_property_master.thumbs_down', 0)
+                          ->where('tb_property_master.not_match', 0)
+                          ->get('tb_property_master')
+                          ->result_array();
             array_push($alldata,$a);
         }
         return $alldata;
+    }
+
+    function save_property_suggestion($data)
+    {
+        $response['status'] = $this->db->insert('tb_lead_property_suggestion', $data);
+        $response['id'] = $this->db->insert_id();
+        return $response;
+    }
+    function all_properties($id)
+	{
+		$data = $this->db->where('lead_id',$id)->get('tb_lead_property_suggestion')->result_array();
+		return $data;
+	}
+
+    function delete_property_suggestion($lead_id,$property_id)
+    {
+        $this->db->where('lead_id', $lead_id);
+        $this->db->where('property_id', $property_id);
+        $this->db->delete('tb_lead_property_suggestion');
+        return true;
+    }
+    function getPropertyStage(){
+        $data = $this->db->get('tb_property_stage')->result_array();
+        return $data;
+    }
+
+    function getMaster(){
+        $data = $this->db->get('tb_master')->result_array();
+        return $data;
+    }
+
+    function getAreas(){
+        $data = $this->db->get('tb_area_master')->result_array();
+        return $data;
+    }
+    function getPropertymaster($id)
+    {
+        $this->db->select(['tb_property_master.*,`tb_customer_master`.`first_name` as customer_first_name,`tb_customer_master`.`last_name` as customer_last_name,`tb_agent_master`.`first_name` as agent_first_name,`tb_agent_master`.`last_name` as agent_last_name,`tb_master`.`name` as master_name,`tb_property_category`.`name` as property_category_name,`tb_property_subcategory`.`name` as property_subcategory_name']);
+        $this->db->join('tb_customer_master', 'tb_customer_master.id = tb_property_master.customer_id', 'left');
+        $this->db->join('tb_agent_master', 'tb_agent_master.id = tb_property_master.agent_id', 'left');
+        $this->db->join('tb_master', 'tb_master.id = tb_property_master.pro_master_id', 'left');
+        $this->db->join('tb_property_category', 'tb_property_category.id = tb_property_master.pro_category_id', 'left');
+        $this->db->join('tb_property_subcategory', 'tb_property_subcategory.id = tb_property_master.pro_subcategory_id', 'left');
+
+        $data = $this->db->where('tb_property_master.id', $id)->get('tb_property_master')->row();
+        return $data;
     }
 }

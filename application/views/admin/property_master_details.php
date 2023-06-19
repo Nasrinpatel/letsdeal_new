@@ -23,7 +23,6 @@
 			<!-- end page title -->
 
 			<div class="row">
-
 				<div class="col-xl-12 col-lg-12">
 					<!-- project card -->
 					<div class="card d-block">
@@ -51,7 +50,6 @@
                                             <i class="mdi mdi-account font-18 text-success me-1"></i>
                                             <div class="w-100">
                                                 <h5 class="mt-1 font-size-14">
-
                                                     <?= $agent ?>
                                                 </h5>
                                             </div>

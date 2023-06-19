@@ -29,8 +29,6 @@
 
 <link href="<?= base_url('assets/') ?>libs/fullcalendar/main.min.css" rel="stylesheet" type="text/css" />
 
-
-
 <!-- <link href="<?php echo base_url(); ?>assets/css/select2/select2-bootstrap.min.css" rel="stylesheet"> -->
 <style>
 	label.error {
