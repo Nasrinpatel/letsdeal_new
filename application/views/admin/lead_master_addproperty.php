@@ -259,7 +259,7 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2 addproperty_table" data-bs-toggle="modal" data-bs-target="#lead-property-suggestion-modal" style="margin-right: 5px;">Add Property</button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2 addproperty_table" data-id="<?= $lead_id ?>" data-bs-toggle="modal" data-bs-target="#lead-property-suggestion-modal" style="margin-right: 5px;">Add Property</button>
                                 <a href="<?= base_url('admin/Leadmaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back</a>
                             </ol>
                         </div>
@@ -613,6 +613,19 @@
                 $("#property-suggestion-view-modal .ps_district").html(data.ps_district.name);
                 $("#property-suggestion-view-modal .ps_subdistrict").html(data.ps_subdistrict.name);
                 $("#property-suggestion-view-modal .ps_area").html(data.ps_area.name);
+            }
+        });
+    });
+
+    $(document).on('click', ".addproperty_table", function() {
+        var lead_id = $(this).attr('data-id');
+        let data = {lead_id:lead_id}
+        $.ajax({
+            url: '<?php echo base_url() ?>admin/Leadmaster/set_property_filter',
+            type: "POST",
+            dataType: "json",
+            data: data,
+            success: function(data) {
             }
         });
     });
