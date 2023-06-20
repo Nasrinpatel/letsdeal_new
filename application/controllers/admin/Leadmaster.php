@@ -891,39 +891,56 @@ class Leadmaster extends CI_Controller
         $data['master'] = $this->db->where_in('id', $data['lead']['pro_master_id'])->get('tb_master')->row_array();
         //property data
         $record['parameter'] = array('lead_id' => $id);
-        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested', $record);
-        foreach ($data['property_data'] as $k => $v) {
-            $property_data[$k] = $this->db->select('name')->where_in('id', $v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested',$record);
+        if(!empty($data['property_data'])){
+            foreach ($data['property_data'] as $k => $v){
+                $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+            }
+            foreach ($property_data as $key => $val){
+                $property[$key] = $val['name'];
+            }
+            $data['property'] = implode(',',$property);
         }
-        foreach ($property_data as $key => $val) {
-            $property[$key] = $val['name'];
-        }
-        $data['property'] = implode(',', $property);
         //area data
         $value['parameter'] = array('lead_id' => $id);
-        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested', $value);
-        foreach ($data['area_data'] as $k => $v) {
-            $area_data[$k] = $this->db->select('name')->where_in('id', $v['area_id'])->get('tb_area_master')->row_array();
+        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested',$value);
+        if(!empty($data['area_data'])){
+            foreach ($data['area_data'] as $k => $v){
+                $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+            }
+            foreach ($area_data as $key => $val){
+                $area[$key] = $val['name'];
+            }
+            $data['area'] = implode(',',$area);
         }
-        foreach ($area_data as $key => $val) {
-            $area[$key] = $val['name'];
-        }
-        $data['area'] = implode(',',$area);
         $data['allmaster'] = $this->leadmaster->getMaster();
         $data['category'] = $this->leadmaster->getCategory();
         $data['subcategory'] = $this->leadmaster->getSubcategory();
         $data['propertystage'] = $this->leadmaster->getPropertyStage();
         $data['states'] = $this->leadmaster->getState();
         $data['allarea'] = $this->leadmaster->getAreas();
+
         $data['page_name'] = 'lead_master_addproperty';
         $this->load->view('admin/index', $data);
     }
 
     public function set_property_filter(){
+        if(isset($_POST['lead_id']) && !empty($_POST['lead_id'])){
+            $lead_id = $_POST['lead_id'];
+            $value['parameter'] = array('lead_id' => $lead_id);
+            $property = $this->common->getDataByParam('tb_lead_property_interested',$value);
+            foreach ($property as $key => $value){
+                $category[$key] = $value['pro_category_id'];
+                $subcategory[$key] = $value['pro_subcategory_id'];
+            }
+            $this->session->set_userdata('property_category',$category);
+            $this->session->set_userdata('property_subcategory',$subcategory);
+        }else{
+            $this->session->set_userdata('property_category',$this->input->post('property_category'));
+            $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
+        }
         $this->session->set_userdata('start_date',$this->input->post('start_date'));
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
-        $this->session->set_userdata('property_category',$this->input->post('property_category'));
-        $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
         $this->session->set_userdata('budget',$this->input->post('budget'));
         $this->session->set_userdata('stage',$this->input->post('stage'));
         $this->session->set_userdata('master',$this->input->post('master'));
@@ -953,7 +970,8 @@ class Leadmaster extends CI_Controller
         $search_params['master'] = $this->session->userdata('master');
         $search_params['area'] = $this->session->userdata('area');
 
-        $properties = $this->leadmaster->all_property_suggestion($id,$search_params);
+        $properties = $this->leadmaster->all_property_suggestion($search_params);
+
         foreach ($properties as $key => $record){
             $result = array('data' => []);
             foreach ($record as $value) {

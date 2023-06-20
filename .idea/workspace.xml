@@ -6,7 +6,6 @@
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_addproperty.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addproperty.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_details.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_details.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +130,8 @@
       <workItem from="1686716285160" duration="15538000" />
       <workItem from="1686803113605" duration="21878000" />
       <workItem from="1686889464868" duration="17162000" />
-      <workItem from="1686975239386" duration="11493000" />
+      <workItem from="1686975239386" duration="12236000" />
+      <workItem from="1687149497877" duration="14071000" />
     </task>
     <servers />
   </component>
