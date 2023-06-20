@@ -132,5 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(['front/Modal_model'=>'modal']);
-$autoload['model'] = array(['front/Commonmodel'=>'common']);
+$autoload['model'] = array(['front/Modal_model'=>'modal','front/Commonmodel'=>'common']);
