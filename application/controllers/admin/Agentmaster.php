@@ -714,7 +714,7 @@ class Agentmaster extends CI_Controller
 
 			$type_data = $this->db->get_where('tb_followup_type_master', array('id' => $value['followtype_id']))->row();
 			$button = '<a href="' . base_url('admin/agentmaster/edit_followups/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-followup-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
-			<a href="' . base_url('admin/agentmaster/delete_followups/' . $value['id'] . '/' . $id) . '#customer-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			<a href="' . base_url('admin/agentmaster/delete_followups/' . $value['id'] . '/' . $id) . '#agent-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
 				// $value['type'],
