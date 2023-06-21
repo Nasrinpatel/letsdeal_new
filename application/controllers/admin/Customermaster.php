@@ -8,7 +8,7 @@ class Customermaster extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('front/Customermaster_model', 'customermaster');
-        $this->load->model('front/Commonmodel', 'common');
+		$this->load->model('front/Commonmodel', 'common');
 		// $this->load->model('front/Propertymaster_model', 'propertymaster');
 		$this->form_validation->set_error_delimiters('<div class="bg-red-dark m-1 rounded-sm shadow-xl text-center line-height-xs font-10 py-1 text-uppercase mb-0 font-700">', '</div>');
 	}
@@ -162,7 +162,7 @@ class Customermaster extends CI_Controller
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');		
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
-//		$this->form_validation->set_rules('email', 'Email', 'required');
+		//		$this->form_validation->set_rules('email', 'Email', 'required');
 		// $this->form_validation->set_rules('company_name', 'Company name','required');
 		//$this->form_validation->set_rules('description', 'Description','required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
@@ -193,13 +193,13 @@ class Customermaster extends CI_Controller
 			$response = $this->customermaster->saverecords($formArray);
 
 			if ($response == true) {
-                if(!empty($_POST['agent_id'])){
-                    foreach ($_POST['agent_id'] as $key => $value){
-                        $record['agent_id'] = $value;
-                        $record['customer_id'] = $response['id'];
-                        $insert_agent = $this->customermaster->save_agent_records($record);
-                    }
-                }
+				if (!empty($_POST['agent_id'])) {
+					foreach ($_POST['agent_id'] as $key => $value) {
+						$record['agent_id'] = $value;
+						$record['customer_id'] = $response['id'];
+						$insert_agent = $this->customermaster->save_agent_records($record);
+					}
+				}
 				$this->session->set_flashdata('success', 'Customer Master Added Successfully.');
 			} else {
 				$this->session->set_flashdata('error', 'Something went wrong. Please try again');
@@ -238,16 +238,16 @@ class Customermaster extends CI_Controller
 		$data['source_data'] = $this->customermaster->getSourceByID($data['customer']->source_id);
 		$data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
 		$data['staff_data'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
-        $record['parameter'] = array('id' => $id);
-        $assigned = $this->customermaster->getassigneddata('tb_customer_master',$record);
-        $data['assigned_id'] = explode(',',$assigned['assigned_id']);
-        $value['parameter'] = array('customer_id' => $id);
-        $data['agent_id'] = $this->common->getDataByParam('tb_customer_agent',$value);
-        foreach ($data['agent_id'] as $key => $value){
-            $Data['parameter'] = array('id' => $value['agent_id']);
-            $Data['fields'] = array('id');
-            $data['channelpartner'][$key] = $this->common->getDataById('tb_agent_master',$Data);
-        }
+		$record['parameter'] = array('id' => $id);
+		$assigned = $this->customermaster->getassigneddata('tb_customer_master', $record);
+		$data['assigned_id'] = explode(',', $assigned['assigned_id']);
+		$value['parameter'] = array('customer_id' => $id);
+		$data['agent_id'] = $this->common->getDataByParam('tb_customer_agent', $value);
+		foreach ($data['agent_id'] as $key => $value) {
+			$Data['parameter'] = array('id' => $value['agent_id']);
+			$Data['fields'] = array('id');
+			$data['channelpartner'][$key] = $this->common->getDataById('tb_agent_master', $Data);
+		}
 		$data['page_name'] = 'customer_master_edit';
 		$this->load->view('admin/index', $data);
 	}
@@ -286,16 +286,16 @@ class Customermaster extends CI_Controller
 		// if ($this->input->post('inquiry_type') != 'direct') {
 		// 	$this->form_validation->set_rules('assigned_id[]', 'Assigned', 'required');
 		// }
-        if($this->input->post('inquiry_type') != 'direct'){
-            $this->form_validation->set_rules('agent_id[]', 'Assigned','required');
-        }
+		if ($this->input->post('inquiry_type') != 'direct') {
+			$this->form_validation->set_rules('agent_id[]', 'Assigned', 'required');
+		}
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
-//		$this->form_validation->set_rules('position_id', 'Position', 'required');
+		//		$this->form_validation->set_rules('position_id', 'Position', 'required');
 		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick Name','required');		
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
-//		$this->form_validation->set_rules('email', 'Email', 'required');
+		//		$this->form_validation->set_rules('email', 'Email', 'required');
 		// $this->form_validation->set_rules('company_name', 'Company name','required');
 		// $this->form_validation->set_rules('description', 'Description','required');
 		$this->form_validation->set_rules('status', 'Status', 'required');
@@ -305,7 +305,7 @@ class Customermaster extends CI_Controller
 		} else {
 			$formArray = array();
 			$formArray['inquiry_type'] = $this->input->post('inquiry_type');
-//			$formArray['agent_id'] = $this->input->post('agent_id');
+			//			$formArray['agent_id'] = $this->input->post('agent_id');
 			$formArray['source_id'] = $this->input->post('source_id');
 			if ($formArray['inquiry_type'] == 'direct') {
 				$formArray['assigned_id'] = null;
@@ -314,9 +314,9 @@ class Customermaster extends CI_Controller
 					$formArray['assigned_id'] = implode(',', $this->input->post('assigned_id'));
 				}
 			}
-            // if(!empty($_POST['assigned_id'])){
-            //     $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
-            // }
+			// if(!empty($_POST['assigned_id'])){
+			//     $formArray['assigned_id'] = implode(',',$this->input->post('assigned_id'));
+			// }
 			$formArray['position_id'] = $this->input->post('position_id');
 			$formArray['first_name'] = $this->input->post('first_name');
 			$formArray['last_name'] = $this->input->post('last_name');
@@ -329,18 +329,18 @@ class Customermaster extends CI_Controller
 
 			$response = $this->customermaster->updaterecords($id, $formArray);
 
-            if(!empty($_POST['agent_id'])){
-                $olddata['parameter'] = array('customer_id'=>$id);
-                $oldagent= $this->common->getDataByParam('tb_customer_agent',$olddata);
-                foreach ($oldagent as $key => $value){
-                    $remove = $this->customermaster->delete_agent($value['id']);
-                }
-                foreach ($_POST['agent_id'] as $key => $value){
-                    $record['agent_id'] = $value;
-                    $record['customer_id'] = $id;
-                    $insert_agent = $this->customermaster->save_agent_records($record);
-                }
-            }
+			if (!empty($_POST['agent_id'])) {
+				$olddata['parameter'] = array('customer_id' => $id);
+				$oldagent = $this->common->getDataByParam('tb_customer_agent', $olddata);
+				foreach ($oldagent as $key => $value) {
+					$remove = $this->customermaster->delete_agent($value['id']);
+				}
+				foreach ($_POST['agent_id'] as $key => $value) {
+					$record['agent_id'] = $value;
+					$record['customer_id'] = $id;
+					$insert_agent = $this->customermaster->save_agent_records($record);
+				}
+			}
 			if ($response == true) {
 				$this->session->set_flashdata('success', 'Customer Master Updated Successfully.');
 			} else {
@@ -446,38 +446,23 @@ class Customermaster extends CI_Controller
 		echo json_encode($result);
 	}
 	//reminders master
-    public function addreminder($id)
-    {
-//        $data['lead'] = $this->leadmaster->getLeadMaster($id);
-        $data['customer_id'] = $id;
-        $data['customer'] = $this->customermaster->getCustomer($id);
-        $data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
-        $data['position'] = $this->customermaster->getPosition();
-        $data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
-        $data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
-		
-        $data['remtype'] = $this->customermaster->getReminderType('Customer');
+	public function addreminder($id)
+	{
+		//        $data['lead'] = $this->leadmaster->getLeadMaster($id);
+		$data['customer_id'] = $id;
+		$data['customer'] = $this->customermaster->getCustomer($id);
+		$data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
+		$data['position'] = $this->customermaster->getPosition();
+		$data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
+		$data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
 
-//        $data['property'] = $this->leadmaster->getPropertymaster($id);
-        $data['page_name'] = 'customermaster_addreminder';
-        $this->load->view('admin/index', $data);
-    }
+		$data['remtype'] = $this->customermaster->getReminderType('Customer');
 
-	//reminders master
-    public function addfollowup($id)
-    {
-        $data['customer_id'] = $id;
-        // $data['customer'] = $this->customermaster->getCustomer($id);
-        // $data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
-        // $data['position'] = $this->customermaster->getPosition();
-        // $data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
-        // $data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
-		
-        $data['followuptype'] = $this->customermaster->getFollowupType('Customer');
+		//        $data['property'] = $this->leadmaster->getPropertymaster($id);
+		$data['page_name'] = 'customermaster_addreminder';
+		$this->load->view('admin/index', $data);
+	}
 
-        $data['page_name'] = 'customermaster_addfollowup';
-        $this->load->view('admin/index', $data);
-    }
 	//reminders master
 	public function store_reminders()
 	{
@@ -508,8 +493,6 @@ class Customermaster extends CI_Controller
 			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
 		}
 	}
-
-
 	public function delete_reminders($id, $customer_id)
 	{
 		$response = $this->customermaster->delete_reminders_records($id);
@@ -520,6 +503,92 @@ class Customermaster extends CI_Controller
 			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
 		}
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-reminders');
+	}
+	//Followup
+	public function all_followups($id)
+	{
+		$followups = $this->customermaster->getFollowups($id);
+		$result = array('data' => []);
+		$i = 1;
+		foreach ($followups as $value) {
+
+			$type_data = $this->db->get_where('tb_followup_type_master', array('id' => $value['followtype_id']))->row();
+			$button = '<a href="' . base_url('admin/customermaster/edit_followups/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-customer-followup-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/customermaster/delete_followups/' . $value['id'] . '/' . $id) . '#customer-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$result['data'][] = array(
+				$i++,
+				// $value['type'],
+				// $type_data->name,
+				date('d M Y h:i:s a', strtotime($value['followup_date'])),
+				($value['is_reminder'] == 1)?"yes":"no",
+				($value['reminder_date'] != null)?date('d M Y h:i:s a', strtotime($value['reminder_date'])):"-",
+				$value['description'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$value['status'],
+				$button
+			);
+		}
+		echo json_encode($result);
+	}
+
+	//followup master
+	public function addfollowup($id)
+	{
+		$data['customer_id'] = $id;
+		$data['customer'] = $this->customermaster->getCustomer($id);
+		$data['source'] = $this->customermaster->getSourceByID($data['customer']->source_id);
+		// $data['position'] = $this->customermaster->getPosition();
+		// $data['position_data'] = $this->customermaster->getPositionByID($data['customer']->position_id);
+		$data['staff'] = $this->customermaster->getStaffByID($data['customer']->assigned_id);
+
+		$data['followuptype'] = $this->customermaster->getFollowupType('Customer');
+
+		$data['page_name'] = 'customermaster_addfollowup';
+		$this->load->view('admin/index', $data);
+	}
+	//Followup master
+	public function store_followups()
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'customer';
+		$data['model_id'] = $this->input->post('customer_id');
+		if(!array_key_exists('is_reminder',$data)){
+			$data['reminder_date'] = null;
+		}
+		$response = $this->customermaster->save_followup_records($data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Customer Followup Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+	public function edit_followups($id)
+	{
+		$data = $this->customermaster->getFollowup($id);
+		echo json_encode($data);
+	}
+	public function update_followups($id)
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'customer';
+		$data['model_id'] = $this->input->post('customer_id');
+		$response = $this->customermaster->update_followup_records($id, $data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Customer Followup Updated Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+	public function delete_followups($id, $customer_id)
+	{
+		$response = $this->customermaster->delete_followups_records($id);
+
+		if ($response == true) {
+			$this->session->set_flashdata('success', 'Customer Followup Deleted Successfully.');
+		} else {
+			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+		}
+		return redirect('admin/Customermaster/addfollowup/' . $customer_id);
 	}
 
 	public function delete($id)

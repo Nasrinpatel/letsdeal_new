@@ -33,6 +33,8 @@ class Agentmaster extends CI_Controller
 			$button = '<a href="' . base_url('admin/agentmaster/agentDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/agentmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/agentmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
+
 			<a href="' . base_url('admin/agentmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
 				$i++,
@@ -702,7 +704,93 @@ class Agentmaster extends CI_Controller
 		}
 		return redirect('admin/Agentmaster/edit/' . $agent_id . '#agent-reminders');
 	}
+	//Followup
+	public function all_followups($id)
+	{
+		$followups = $this->agentmaster->getFollowups($id);
+		$result = array('data' => []);
+		$i = 1;
+		foreach ($followups as $value) {
 
+			$type_data = $this->db->get_where('tb_followup_type_master', array('id' => $value['followtype_id']))->row();
+			$button = '<a href="' . base_url('admin/agentmaster/edit_followups/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-agent-followup-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/agentmaster/delete_followups/' . $value['id'] . '/' . $id) . '#customer-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+			$result['data'][] = array(
+				$i++,
+				// $value['type'],
+				// $type_data->name,
+				date('d M Y h:i:s a', strtotime($value['followup_date'])),
+				($value['is_reminder'] == 1)?"yes":"no",
+				($value['reminder_date'] != null)?date('d M Y h:i:s a', strtotime($value['reminder_date'])):"-",
+				$value['description'],
+				date('d M Y h:i:s a', strtotime($value['created_date'])),
+				$value['status'],
+				$button
+			);
+		}
+		echo json_encode($result);
+	}
+
+	//followup master
+	public function addfollowup($id)
+	{
+		$data['agent_id'] = $id;
+        $data['agent'] = $this->agentmaster->getAgent($id);
+		$data['source'] = $this->agentmaster->getSourceByID($data['agent']->source_id);
+		// $data['position'] = $this->agentmaster->getPosition();
+		// $data['position_data'] = $this->agentmaster->getPositionByID($data['customer']->position_id);
+	
+		$data['staff_data'] = $this->agentmaster->getStaffByID($data['agent']->assigned_id);
+		$data['followuptype'] = $this->agentmaster->getFollowupType('Channel Partner');
+
+		$data['page_name'] = 'agentmaster_addfollowup';
+		$this->load->view('admin/index', $data);
+	}
+	
+	//Followup master
+	public function store_followups()
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'Channel Partner';
+		$data['model_id'] = $this->input->post('agent_id');
+		if(!array_key_exists('is_reminder',$data)){
+			$data['reminder_date'] = null;
+		}
+		$response = $this->agentmaster->save_followup_records($data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Channel Partner Followup Added Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+	public function edit_followups($id)
+	{
+		$data = $this->agentmaster->getFollowup($id);
+		echo json_encode($data);
+	}
+	public function update_followups($id)
+	{
+		$data = $this->input->post();
+		$data['model_type'] = 'agent';
+		$data['model_id'] = $this->input->post('agent_id');
+		$response = $this->agentmaster->update_followup_records($id, $data);
+		if ($response == true) {
+			echo json_encode(array('success' => true, 'message' => 'Channel Partner Followup Updated Successfully.'));
+		} else {
+			echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+		}
+	}
+	public function delete_followups($id, $agent_id)
+	{
+		$response = $this->agentmaster->delete_followups_records($id);
+
+		if ($response == true) {
+			$this->session->set_flashdata('success', 'Channel Partner Followup Deleted Successfully.');
+		} else {
+			$this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+		}
+		return redirect('admin/Agentmaster/addfollowup/' . $agent_id);
+	}
 	public function store_ajax()
 	{
 		$formArray = array();

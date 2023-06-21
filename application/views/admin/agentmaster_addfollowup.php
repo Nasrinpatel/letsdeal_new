@@ -1,5 +1,5 @@
 <!-- followup add -->
-<div class="modal fade" id="customer-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="agent-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
@@ -7,8 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="store-followup" action="<?php echo base_url() . 'admin/Customermaster/store_followups'; ?>">
-                    <input type="hidden" name="customer_id" value="<?= $customer_id ?>">
+                <form method="post" id="store-followup" action="<?php echo base_url() . 'admin/Agentmaster/store_followups'; ?>">
+                    <input type="hidden" name="agent_id" value="<?= $agent_id ?>">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -89,7 +89,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id="edit-customer-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit-agent-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
@@ -97,8 +97,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="update-followup" action="<?php echo base_url() . 'admin/Customermaster/update_followups'; ?>">
-                    <input type="hidden" name="customer_id" value="<?= $customer_id ?>">
+                <form method="post" id="update-followup" action="<?php echo base_url() . 'admin/Agentmaster/update_followups'; ?>">
+                    <input type="hidden" name="agent_id" value="<?= $agent_id ?>">
                     <input type="hidden" name="followup_id" id="followup_id">
 
                     <div class="row">
@@ -190,11 +190,11 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-followup-modal" style="margin-right: 5px;">Add Followup</button>
-                                <a href="<?= base_url('admin/Customermaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back</a>
+                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#agent-followup-modal" style="margin-right: 5px;">Add Followup</button>
+                                <a href="<?= base_url('admin/Agentmaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back</a>
                             </ol>
                         </div>
-                        <h4 class="page-title">Customer Followup</h4>
+                        <h4 class="page-title">Channel Partner Followup</h4>
                     </div>
                 </div>
             </div>
@@ -212,7 +212,7 @@
                                         <i class="mdi mdi-account font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= $customer->first_name . ' ' . $customer->last_name ?>
+                                                <?= $agent->first_name . ' ' . $agent->last_name ?>
                                             </h5>
                                         </div>
                                     </div>
@@ -225,14 +225,14 @@
                                         <i class="mdi mdi-phone font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= $customer->phone ?>
+                                                <?= $agent->phone ?>
                                             </h5>
                                         </div>
                                     </div>
                                     <!-- end due date -->
                                 </div>
                                 <!-- end col -->
-                                <?php if (!empty($customer->email)) { ?>
+                                <?php if (!empty($agent->email)) { ?>
                                     <div class="col-md-4">
                                         <!-- start due date -->
                                         <p class="mt-2 mb-1 text-muted">Email</p>
@@ -240,7 +240,7 @@
                                             <i class="mdi mdi-gmail font-18 text-success me-1"></i>
                                             <div class="w-100">
                                                 <h5 class="mt-1 font-size-14">
-                                                    <?= $customer->email ?>
+                                                    <?= $agent->email ?>
                                                 </h5>
                                             </div>
                                         </div>
@@ -248,7 +248,7 @@
                                     </div>
                                 <?php } ?>
 
-                                <?php if (!empty($customer->email)) { ?>
+                                <?php if (!empty($agent->email)) { ?>
                                     <div class="col-md-4">
                                         <!-- start due date -->
                                         <p class="mt-2 mb-1 text-muted">Company</p>
@@ -256,7 +256,7 @@
                                             <i class="mdi mdi-office-building font-18 text-success me-1"></i>
                                             <div class="w-100">
                                                 <h5 class="mt-1 font-size-14">
-                                                    <?= $customer->company_name ?>
+                                                    <?= $agent->company_name ?>
                                                 </h5>
                                             </div>
                                         </div>
@@ -300,7 +300,7 @@
                                         <i class="mdi mdi-account-group font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= ($staff != null) ? $staff->first_name . ' ' . $staff->last_name : ' - ' ?>
+                                                <?= ($staff_data != null) ? $staff_data->first_name . ' ' . $staff_data->last_name : ' - ' ?>
                                             </h5>
                                         </div>
                                     </div>
@@ -339,7 +339,7 @@
                             </div>
 
                             <div class="table-responsive">
-                                <table class="table table-centered table-nowrap table-striped" id="customer_followup_datatable">
+                                <table class="table table-centered table-nowrap table-striped" id="agent_followup_datatable">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -367,9 +367,9 @@
 </div>
 <script>
     //all Followup
-    var followup_table = $('#customer_followup_datatable').DataTable({
+    var followup_table = $('#agent_followup_datatable').DataTable({
         responsive: true,
-        ajax: "<?php echo base_url('admin/Customermaster/all_followups/' . $customer_id); ?>",
+        ajax: "<?php echo base_url('admin/Agentmaster/all_followups/' . $agent_id); ?>",
 
         columnDefs: [{
                 responsivePriority: 1,
@@ -430,23 +430,23 @@
         return dt.toISOString().slice(0, 16);
     }
     //edit followup
-    $(document).on('click', "#customer_followup_datatable .edit-btn", function() {
+    $(document).on('click', "#agent_followup_datatable .edit-btn", function() {
         var id = $(this).attr('data-id');
         $.ajax({
-            url: '<?php echo base_url() ?>admin/Customermaster/edit_followups/' + id,
+            url: '<?php echo base_url() ?>admin/Agentmaster/edit_followups/' + id,
             type: "POST",
             dataType: "json",
             success: function(data) {
                 debugger;
-                $("#edit-customer-followup-modal #followup_id").val(data.id);
-                $('#edit-customer-followup-modal #name').val(data.name);
-                $('#edit-customer-followup-modal #followtype_id').val(data.followtype_id).trigger('change');
-                $('#edit-customer-followup-modal #followup_date').val(data.followup_date);
-                $('#edit-customer-followup-modal #description').val(data.description);
-                $("#edit-customer-followup-modal #followup_status").val(data.status);
-                $("#edit-customer-followup-modal #is_reminder").attr('checked', (data.is_reminder == 1)?true:false);
-                $("#edit-customer-followup-modal #is_reminder").trigger('change');
-                $('#edit-customer-followup-modal #reminder_date').val(data.reminder_date);
+                $("#edit-agent-followup-modal #followup_id").val(data.id);
+                $('#edit-agent-followup-modal #name').val(data.name);
+                $('#edit-agent-followup-modal #followtype_id').val(data.followtype_id).trigger('change');
+                $('#edit-agent-followup-modal #followup_date').val(data.followup_date);
+                $('#edit-agent-followup-modal #description').val(data.description);
+                $("#edit-agent-followup-modal #followup_status").val(data.status);
+                $("#edit-agent-followup-modal #is_reminder").attr('checked', (data.is_reminder == 1)?true:false);
+                $("#edit-agent-followup-modal #is_reminder").trigger('change');
+                $('#edit-agent-followup-modal #reminder_date').val(data.reminder_date);
             }
         });
     });
@@ -462,7 +462,7 @@
         submitHandler: function(form, e) {
             e.preventDefault();
             var url = $(form).attr("action");
-            var id = $('#edit-customer-followup-modal #followup_id').val();
+            var id = $('#edit-agent-followup-modal #followup_id').val();
             $.ajax({
                 url: url + '/' + id,
                 type: "POST",
@@ -477,18 +477,18 @@
         }
     });
 
-    $("#customer-followup-modal #is_reminder").change(function() {
+    $("#agent-followup-modal #is_reminder").change(function() {
         if($(this).is(':checked')){
-            $("#customer-followup-modal #calendar_input_div").show();
+            $("#agent-followup-modal #calendar_input_div").show();
         }else{
-            $("#customer-followup-modal #calendar_input_div").hide();
+            $("#agent-followup-modal #calendar_input_div").hide();
         }
     });
-    $("#edit-customer-followup-modal #is_reminder").change(function() {
+    $("#edit-agent-followup-modal #is_reminder").change(function() {
         if($(this).is(':checked')){
-            $("#edit-customer-followup-modal #calendar_input_div").show();
+            $("#edit-agent-followup-modal #calendar_input_div").show();
         }else{
-            $("#edit-customer-followup-modal #calendar_input_div").hide();
+            $("#edit-agent-followup-modal #calendar_input_div").hide();
         }
     });
 </script>

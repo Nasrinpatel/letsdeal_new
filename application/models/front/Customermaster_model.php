@@ -64,7 +64,7 @@ class Customermaster_model extends CI_model{
 		unset($data['customer_id']);
         // $data = hooks()->apply_filters('before_add_task', $data);
 
-        $this->db->insert('tb_followup_master', $data);
+        $this->db->insert('tbl_reminder_master', $data);
         $insert_id = $this->db->insert_id();
         if ($insert_id) {
             return $insert_id;
@@ -80,12 +80,7 @@ class Customermaster_model extends CI_model{
 		$data = $this->db->get_where('tbl_reminder_master',['id'=>$id])->row();
 		return $data;
 	}
-	function delete_reminders_records($id)
-	{
-		$this->db->where('id', $id);
-		$this->db->delete('tbl_reminder_master');
-		return true;
-	}
+	
 	function update_reminders_records($id,$data)
 	{
 		$data['startdate']    = date('Y-m-d',strtotime($data['startdate']));
@@ -120,17 +115,63 @@ class Customermaster_model extends CI_model{
         }
         return false;
 	}
-	
-	
+	function delete_reminders_records($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tbl_reminder_master');
+		return true;
+	}
 	function getReminderType($type){
 		$data = $this->db->get_where('tb_remindertype_master',['model_type'=>$type])->result_array();
 		return $data;
+	}
+
+	//Followup
+	function save_followup_records($data)
+	{
+		
+		unset($data['customer_id']);
+        // $data = hooks()->apply_filters('before_add_task', $data);
+
+        $this->db->insert('tb_followup_master', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            return $insert_id;
+        }
+        return false;
+
+	}
+	function getFollowups($id){
+		$data = $this->db->get_where('tb_followup_master',['model_type'=>'Customer','model_id'=>$id])->result_array();
+		return $data;
+	}
+	function getFollowup($id){
+		$data = $this->db->get_where('tb_followup_master',['id'=>$id])->row();
+		return $data;
+	}
+	function update_followup_records($id,$data)
+	{
+		
+		unset($data['followup_id']);
+		unset($data['customer_id']);
+        // $data = hooks()->apply_filters('before_add_task', $data);
+		$this->db->where('id',$id);
+		$r=$this->db->update('tb_followup_master',$data);
+        if ($r) {
+            return $r;
+        }
+        return false;
 	}
 	function getFollowupType($type){
 		$data = $this->db->get_where('tb_followup_type_master',['model_type'=>$type])->result_array();
 		return $data;
 	}
-	
+	function delete_followups_records($id)
+	{
+		$this->db->where('id', $id);
+		$this->db->delete('tb_followup_master');
+		return true;
+	}
 	function delete($id)
 	{
 		$this->db->where('id',$id);
