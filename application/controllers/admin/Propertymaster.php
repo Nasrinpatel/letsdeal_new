@@ -152,6 +152,7 @@ class Propertymaster extends CI_Controller
 			<a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-up-btn" > <i class="mdi mdi-thumb-up text-success"></i></a>
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
+            <a href="' . base_url('admin/Propertymaster/lead_in_property/' . $value['id']) . '" class="action-icon" title="property lead"> <i class="mdi mdi-collapse-all-outline text-secondary"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
 			$result['data'][] = array(
@@ -634,7 +635,6 @@ class Propertymaster extends CI_Controller
 		}
 	}
 
-
 	//reminder
 	public function all_reminders($id)
 	{
@@ -699,7 +699,6 @@ class Propertymaster extends CI_Controller
         $data['subdistrict'] = $this->db->select('name')->where_in('id',$propertymaster->sub_district_id)->get('tb_sub_district_master')->row_array();
         $data['area'] = $this->db->select('name')->where_in('id',$propertymaster->area_id)->get('tb_area_master')->row_array();
 
-
         $data['page_name'] = 'property_master_addreminder';
 		$this->load->view('admin/index', $data);
 	}
@@ -733,7 +732,6 @@ class Propertymaster extends CI_Controller
 		}
 	}
 
-
 	public function delete_reminders($id, $property_id)
 	{
 		$response = $this->promast->delete_reminders_records($id);
@@ -745,4 +743,74 @@ class Propertymaster extends CI_Controller
 		}
 		return redirect('admin/Propertymaster/addreminder/' . $property_id . '#property-reminders');
 	}
+
+	public function lead_in_property($id)
+    {
+        $data['property_id'] = $id;
+        $data['page_name'] = 'property_master_leadlist';
+        $this->load->view('admin/index', $data);
+    }
+
+    public function lead_of_property($property_id){
+       $record['parameter'] = array('property_id' => $property_id);
+       $lead = $this->common->getDataByParam('tb_lead_property_suggestion',$record);
+       $result = array('data' => []);
+        $i = 1;
+        foreach ($lead as $value) {
+            $lead_data = $this->db->where_in('id', $value['lead_id'])->get('tb_lead_master')->row_array();
+
+            $customer_data = $this->db->where_in('id', $lead_data['customer_id'])->get('tb_customer_master')->row_array();
+
+            //channel partner data
+            $agent_id = $this->db->select('agent_id')->where_in('customer_id', $lead_data['customer_id'])->get('tb_customer_agent')->result_array();
+            $agent_data = [];
+            foreach ($agent_id as $key => $v) {
+                $agent_data[$key] = $this->db->where_in('id', $v['agent_id'])->get('tb_agent_master')->row_array();
+            }
+            $agent = [];
+            foreach ($agent_data as $key => $val) {
+                $agent[$key] = $val['first_name'];
+            }
+
+            $master = $this->db->select('name')->where_in('id', $lead_data['pro_master_id'])->get('tb_master')->row_array();
+            $stage_data = $this->db->select('name')->where_in('id', $lead_data['lead_stage_id'])->get('tb_lead_stage')->row_array();
+
+            //property data
+            $property_id = $this->db->select('pro_subcategory_id')->where_in('lead_id', $lead_data['id'])->get('tb_lead_property_interested')->result_array();
+            $property_data = [];
+            foreach ($property_id as $k => $v) {
+                $property_data[$k] = $this->db->select('name')->where_in('id', $v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+            }
+            $property = [];
+            foreach ($property_data as $key => $val) {
+                $property[$key] = $val['name'];
+            }
+
+            //area data
+            $area_id = $this->db->select('area_id')->where_in('lead_id', $lead_data['id'])->get('tb_lead_area_interested')->result_array();
+            $area_data = [];
+            foreach ($area_id as $k => $v) {
+                $area_data[$k] = $this->db->select('name')->where_in('id', $v['area_id'])->get('tb_area_master')->row_array();
+            }
+            $area = [];
+            foreach ($area_data as $key => $val) {
+                $area[$key] = $val['name'];
+            }
+
+            $budget = $lead_data['from_budget'] . '-' . $lead_data['to_budget'];
+
+            $result['data'][] = array(
+                $i++,
+                ucwords($customer_data['first_name'] . ' ' . $customer_data['last_name']),
+                implode(',', $agent),
+                $master['name'],
+                $stage_data['name'],
+                implode(',', $property),
+                implode(',', $area),
+                $budget,
+                $lead_data['status']
+            );
+        }
+        echo json_encode($result);
+    }
 }

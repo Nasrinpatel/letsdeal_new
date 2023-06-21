@@ -676,8 +676,6 @@
         });
     });
 
-
-
     //update reminders
     $("#update-reminders").validate({
         rules: {

@@ -684,11 +684,11 @@ class Leadmaster_model extends CI_model
                 $this->db->where('tb_property_master.created_date <=', $end_date);
             }
 
-            if(isset($search_params['property_category']) && !empty($search_params['property_category'])){
-                $this->db->where_in('tb_property_master.pro_category_id', $search_params['property_category']);
+            if(isset($search_params['category']) && !empty($search_params['category'])){
+                $this->db->where_in('tb_property_master.pro_category_id', $search_params['category']);
             }
-            if(isset($search_params['property_subcategory']) && !empty($search_params['property_subcategory'])){
-                $this->db->where_in('tb_property_master.pro_subcategory_id', $search_params['property_subcategory']);
+            if(isset($search_params['subcategory']) && !empty($search_params['subcategory'])){
+                $this->db->where_in('tb_property_master.pro_subcategory_id', $search_params['subcategory']);
             }
 
             if (isset($search_params['budget']) && !empty($search_params['budget'])) {
@@ -721,6 +721,14 @@ class Leadmaster_model extends CI_model
         $response['id'] = $this->db->insert_id();
         return $response;
     }
+
+    function count_property_suggestion($lead_id,$property_id){
+        $query = $this->db->where('lead_id',$lead_id)
+            ->where('property_id',$property_id)
+            ->get('tb_lead_property_suggestion');
+        return $query->num_rows();
+    }
+
     function all_properties($id)
 	{
 		$data = $this->db->where('lead_id',$id)->get('tb_lead_property_suggestion')->result_array();
@@ -760,4 +768,5 @@ class Leadmaster_model extends CI_model
         $data = $this->db->where('tb_property_master.id', $id)->get('tb_property_master')->row();
         return $data;
     }
+
 }
