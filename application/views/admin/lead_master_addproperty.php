@@ -528,8 +528,13 @@
                 data: $(form).serialize(),
                 dataType: "json",
                 success: function(response) {
+                    if(response.success == true){
+                        success_message('', response.message);
+                    }
+                    if(response.error == true){
+                        error_message('', response.message);
+                    }
                     $('.btn-close').trigger('click');
-                    success_message('', response.message);
                     var allproperty = $('#all_property_suggest_datatable').DataTable();
                     allproperty.ajax.reload(null, false);
                 }
@@ -557,7 +562,8 @@
         var filterData = {
             "start_date": $('#start_date').val(),
             "end_date": $('#end_date').val(),
-            "property_category": $('#property_category').val(),
+            "category": $('#property_category').val(),
+            "subcategory": $('#property_subcategory').val(),
             "budget": $('#budget').val(),
             "stage": $('#stage').val(),
             "area": $('#area').val(),
@@ -577,8 +583,8 @@
             type: "post",
             url: "<?php echo base_url('admin/Leadmaster/reset_property_filter'); ?>",
             success: function(response) {
-                $("#property_category").val('').trigger('change');
-                $("#property_subcategory").val('').trigger('change');
+                $("#category").val('').trigger('change');
+                $("#subcategory").val('').trigger('change');
                 $("#master").val('').trigger('change');
                 $("#area").val('').trigger('change');
                 $("#stage").val('').trigger('change');
@@ -620,12 +626,15 @@
     $(document).on('click', ".addproperty_table", function() {
         var lead_id = $(this).attr('data-id');
         let data = {lead_id:lead_id}
+        console.log(data);
         $.ajax({
             url: '<?php echo base_url() ?>admin/Leadmaster/set_property_filter',
             type: "POST",
             dataType: "json",
             data: data,
             success: function(data) {
+                var properties = $('#property_suggestion_datatable').DataTable();
+                properties.ajax.reload(null, false);
             }
         });
     });

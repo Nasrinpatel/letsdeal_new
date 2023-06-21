@@ -54,7 +54,7 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
+                                <a href="<?= base_url('admin/Leadmaster/add') ?>" class="btn btn-danger waves-effect waves-light" style="margin-right: 5px;"><i class="mdi mdi-plus-circle me-1"></i> Add New</a>
                                 <a href="<?= base_url('admin/Leadmaster/leadfeedbackview') ?>" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-circle-circle me-1"></i> Feedback List </a>
 
                             </ol>

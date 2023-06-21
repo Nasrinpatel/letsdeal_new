@@ -933,11 +933,11 @@ class Leadmaster extends CI_Controller
                 $category[$key] = $value['pro_category_id'];
                 $subcategory[$key] = $value['pro_subcategory_id'];
             }
-            $this->session->set_userdata('property_category',$category);
-            $this->session->set_userdata('property_subcategory',$subcategory);
+            $this->session->set_userdata('category',$category);
+            $this->session->set_userdata('subcategory',$subcategory);
         }else{
-            $this->session->set_userdata('property_category',$this->input->post('property_category'));
-            $this->session->set_userdata('property_subcategory',$this->input->post('property_subcategory'));
+            $this->session->set_userdata('category',$this->input->post('category'));
+            $this->session->set_userdata('subcategory',$this->input->post('subcategory'));
         }
         $this->session->set_userdata('start_date',$this->input->post('start_date'));
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
@@ -950,8 +950,8 @@ class Leadmaster extends CI_Controller
     public function reset_property_filter(){
         $this->session->unset_userdata('start_date');
         $this->session->unset_userdata('end_date');
-        $this->session->unset_userdata('property_category');
-        $this->session->unset_userdata('property_subcategory');
+        $this->session->unset_userdata('category');
+        $this->session->unset_userdata('subcategory');
         $this->session->unset_userdata('budget');
         $this->session->unset_userdata('stage');
         $this->session->unset_userdata('master');
@@ -963,8 +963,8 @@ class Leadmaster extends CI_Controller
         $search_params=[];
         $search_params['start_date'] = $this->session->userdata('start_date');
         $search_params['end_date'] = $this->session->userdata('end_date');
-        $search_params['property_category'] = $this->session->userdata('property_category');
-        $search_params['property_subcategory'] = $this->session->userdata('property_subcategory');
+        $search_params['category'] = $this->session->userdata('category');
+        $search_params['subcategory'] = $this->session->userdata('subcategory');
         $search_params['budget'] = $this->session->userdata('budget');
         $search_params['stage'] = $this->session->userdata('stage');
         $search_params['master'] = $this->session->userdata('master');
@@ -1025,14 +1025,19 @@ class Leadmaster extends CI_Controller
         unset($_POST['property_suggestion_datatable_length']);
         $data = [];
         foreach ($_POST['property_id'] as $key => $value){
-            $data['lead_id'] = $this->input->post('lead_id');
-            $data['property_id'] = $value;
-            $response = $this->leadmaster->save_property_suggestion($data);
-        }
-        if ($response == true) {
-            echo json_encode(array('success' => true, 'message' => 'Lead Property Added Successfully.'));
-        } else {
-            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+            $count = $this->leadmaster->count_property_suggestion($_POST['lead_id'],$value);
+            if($count == '0'){
+                $data['lead_id'] = $this->input->post('lead_id');
+                $data['property_id'] = $value;
+                $response = $this->leadmaster->save_property_suggestion($data);
+                if ($response == true) {
+                    echo json_encode(array('success' => true, 'message' => 'Lead Property Added Successfully.'));
+                } else {
+                    echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+                }
+            }else{
+                echo json_encode(array('error' => true, 'message' => 'Property already added.'));
+            }
         }
     }
 
