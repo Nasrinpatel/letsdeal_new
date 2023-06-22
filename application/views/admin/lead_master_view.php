@@ -87,7 +87,6 @@
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
-
                                         <div class="me-sm-3 mb-3">
                                             <label class="col-form-label">Lead Stage:</label>
                                             <select class="form-select select2" name="lead_stage_id" id="lead_stage">
@@ -99,7 +98,6 @@
                                         </div>
                                         <div class="me-sm-3 mb-3">
                                             <label class="col-form-label">Property:</label>
-
                                             <select class="form-select select2" name="pro_subcategory_id" id="property">
                                                 <option value="">Select Property</option>
                                                 <?php foreach ($sub_category as $scat) { ?>
@@ -109,16 +107,13 @@
                                         </div>
                                         <div class="me-sm-3 mb-3">
                                             <label class="col-form-label">Area:</label>
-
                                             <select class="form-select select2" name="area_id" id="area">
                                                 <option value="">Select Area</option>
                                                 <?php foreach ($area as $ar) { ?>
                                                     <option value="<?= $ar['id'] ?>" <?= ($this->session->userdata('area') == $ar['id']) ? 'selected' : '' ?>><?= $ar['name'] ?></option>
                                                 <?php } ?>
                                             </select>
-
                                         </div>
-
                                         <div class="me-sm-3 mb-3">
                                             <label class="col-form-label">Budget:</label>
                                             <input type="number" class="form-control" name="budget" id="budget" placeholder="Budget">
@@ -132,7 +127,6 @@
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                         <!-- end row -->
                     </div>

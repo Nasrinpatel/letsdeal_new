@@ -4,10 +4,7 @@
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_addproperty.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addproperty.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_addreminder.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addreminder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/lead_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/lead_master_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_view.php" afterDir="false" />
     </list>
@@ -137,7 +134,8 @@
       <workItem from="1686975239386" duration="12236000" />
       <workItem from="1687149497877" duration="19613000" />
       <workItem from="1687234308779" duration="9434000" />
-      <workItem from="1687322294629" duration="5747000" />
+      <workItem from="1687322294629" duration="19923000" />
+      <workItem from="1687407572861" duration="353000" />
     </task>
     <servers />
   </component>

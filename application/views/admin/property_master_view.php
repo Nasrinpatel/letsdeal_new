@@ -303,7 +303,6 @@
                 "area": $('#area').val(),
                 "master": $('#master').val(),
             };
-            console.log(filterData);
             $.ajax({
                 type: "post",
                 url: "<?php echo base_url('admin/Propertymaster/set_filter'); ?>",

@@ -496,8 +496,7 @@
                 'orderable': false,
                 'className': 'dt-body-center',
                 'render': function (data, type, full, meta) {
-                    return '<input type="checkbox" id="id_'+data+'[]" name="property_id[]" value="'
-                        + $('<div/>').text(data).html() + '">';
+                    return '<input type="checkbox" id="id_'+ data +'[]" name="property_id[]" value="' + $('<div/>').text(data).html() + '">';
                 }
             },
             {
@@ -599,7 +598,7 @@
             url: '<?php echo base_url() ?>admin/Leadmaster/view/' + property_id,
             type: "POST",
             dataType: "json",
-            success: function(data) {
+            success: functionn(data) {
                 if(data.customer != undefined){
                     $("#property-suggestion-view-modal .customers").html(data.customer);
                 }else{
@@ -623,7 +622,7 @@
         });
     });
 
-    $(document).on('click', ".addproperty_table", function() {
+   /* $(document).on('click', ".addproperty_table", function() {
         var lead_id = $(this).attr('data-id');
         let data = {lead_id:lead_id}
         console.log(data);
@@ -637,6 +636,6 @@
                 properties.ajax.reload(null, false);
             }
         });
-    });
+    });*/
 
 </script>

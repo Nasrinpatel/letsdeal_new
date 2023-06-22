@@ -925,7 +925,7 @@ class Leadmaster extends CI_Controller
     }
 
     public function set_property_filter(){
-        if(isset($_POST['lead_id']) && !empty($_POST['lead_id'])){
+        /*if(isset($_POST['lead_id']) && !empty($_POST['lead_id'])){
             $lead_id = $_POST['lead_id'];
             $value['parameter'] = array('lead_id' => $lead_id);
             $property = $this->common->getDataByParam('tb_lead_property_interested',$value);
@@ -936,9 +936,10 @@ class Leadmaster extends CI_Controller
             $this->session->set_userdata('category',$category);
             $this->session->set_userdata('subcategory',$subcategory);
         }else{
-            $this->session->set_userdata('category',$this->input->post('category'));
-            $this->session->set_userdata('subcategory',$this->input->post('subcategory'));
-        }
+
+        }*/
+        $this->session->set_userdata('category',$this->input->post('category'));
+        $this->session->set_userdata('subcategory',$this->input->post('subcategory'));
         $this->session->set_userdata('start_date',$this->input->post('start_date'));
         $this->session->set_userdata('end_date',$this->input->post('end_date'));
         $this->session->set_userdata('budget',$this->input->post('budget'));
