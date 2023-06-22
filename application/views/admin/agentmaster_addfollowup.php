@@ -307,6 +307,14 @@
                                     <!-- end due date -->
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <?php if ($this->session->flashdata('success')) { ?>
@@ -437,7 +445,6 @@
             type: "POST",
             dataType: "json",
             success: function(data) {
-                debugger;
                 $("#edit-agent-followup-modal #followup_id").val(data.id);
                 $('#edit-agent-followup-modal #name').val(data.name);
                 $('#edit-agent-followup-modal #followtype_id').val(data.followtype_id).trigger('change');

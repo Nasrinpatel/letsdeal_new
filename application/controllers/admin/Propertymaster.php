@@ -153,6 +153,7 @@ class Propertymaster extends CI_Controller
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
             <a href="' . base_url('admin/Propertymaster/lead_in_property/' . $value['id']) . '" class="action-icon" title="property lead"> <i class="mdi mdi-collapse-all-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
 			$result['data'][] = array(
@@ -812,5 +813,120 @@ class Propertymaster extends CI_Controller
             );
         }
         echo json_encode($result);
+    }
+
+    //followup master
+    public function all_followups($id)
+    {
+        $followups = $this->promast->getFollowups($id);
+        $result = array('data' => []);
+        $i = 1;
+        foreach ($followups as $value) {
+
+            $type_data = $this->db->get_where('tb_followup_type_master', array('id' => $value['followtype_id']))->row();
+            $button = '<a href="' . base_url('admin/Propertymaster/edit_followups/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-property-followup-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/Propertymaster/delete_followups/' . $value['id'] . '/' . $id) . '#customer-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+            $result['data'][] = array(
+                $i++,
+                // $value['type'],
+                // $type_data->name,
+                date('d M Y h:i:s a', strtotime($value['followup_date'])),
+                ($value['is_reminder'] == 1)?"yes":"no",
+                ($value['reminder_date'] != null)?date('d M Y h:i:s a', strtotime($value['reminder_date'])):"-",
+                $value['description'],
+                date('d M Y h:i:s a', strtotime($value['created_date'])),
+                $value['status'],
+                $button
+            );
+        }
+        echo json_encode($result);
+    }
+
+    public function addfollowup($id)
+    {
+        $propertymaster = $this->promast->getPropertymaster($id);
+        $data = array();
+        $data['property_id'] = $id;
+        $data['property'] = $propertymaster;
+        $data['followuptype'] = $this->promast->getFollowupType('Property');
+        $data['customer_id'] = explode(',', $propertymaster->customer_id);
+        if (!empty($propertymaster->customer_id)) {
+            foreach ($data['customer_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $customer = $this->common->getDataById('tb_customer_master', $record);
+                $data['customer_id'][$key] = $customer['first_name'] . ' ' . $customer['last_name'];
+            }
+            $data['customer'] = implode(', ', $data['customer_id']);
+        }
+        $data['agent_id'] = explode(',', $propertymaster->agent_id);
+        if (!empty($propertymaster->agent_id)) {
+            foreach ($data['agent_id'] as $key => $value) {
+                $record['parameter'] = array('id' => $value);
+                $record['fields'] = array('first_name', 'last_name');
+                $agent = $this->common->getDataById('tb_agent_master', $record);
+                $data['agent_id'][$key] = $agent['first_name'] . ' ' . $agent['last_name'];
+            }
+            $data['agent'] = implode(', ', $data['agent_id']);
+        }
+        $data['property_stage'] = $this->db->select('name')->where_in('id',$propertymaster->property_stage_id)->get('tb_property_stage')->row_array();
+        $data['state'] = $this->db->select('name')->where_in('id',$propertymaster->state_id)->get('tb_state_master')->row_array();
+        $data['district'] = $this->db->select('name')->where_in('id',$propertymaster->district_id)->get('tb_district_master')->row_array();
+        $data['subdistrict'] = $this->db->select('name')->where_in('id',$propertymaster->sub_district_id)->get('tb_sub_district_master')->row_array();
+        $data['area'] = $this->db->select('name')->where_in('id',$propertymaster->area_id)->get('tb_area_master')->row_array();
+
+        $data['page_name'] = 'property_master_addfollowup';
+        $this->load->view('admin/index', $data);
+    }
+    //Followup master
+    public function store_followups()
+    {
+        $data = $this->input->post();
+        $data['model_type'] = 'property';
+        $data['model_id'] = $this->input->post('property_id');
+        if(!array_key_exists('is_reminder',$data)){
+            $data['reminder_date'] = null;
+        }
+        $response = $this->promast->save_followup_records($data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Property Followup Added Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+    public function edit_followups($id)
+    {
+        $data = $this->promast->getFollowup($id);
+        echo json_encode($data);
+    }
+    public function update_followups($id)
+    {
+        $data = $this->input->post();
+        $data['model_type'] = 'property';
+        $data['model_id'] = $this->input->post('property_id');
+        if(isset($_POST['is_reminder'])){
+            $data['is_reminder'] = $this->input->post('is_reminder');
+            $data['reminder_date'] = $this->input->post('reminder_date');
+        }else{
+            $data['is_reminder'] = '0';
+            $data['reminder_date'] = NULL;
+        }
+        $response = $this->promast->update_followup_records($id, $data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Property Followup Updated Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+    public function delete_followups($id, $property_id)
+    {
+        $response = $this->promast->delete_followups_records($id);
+
+        if ($response == true) {
+            $this->session->set_flashdata('success', 'Property Followup Deleted Successfully.');
+        } else {
+            $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+        }
+        return redirect('admin/Propertymaster/addfollowup/' . $property_id);
     }
 }

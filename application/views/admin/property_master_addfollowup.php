@@ -1,5 +1,5 @@
 <!-- followup add -->
-<div class="modal fade" id="customer-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="property-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
@@ -7,8 +7,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="store-followup" action="<?php echo base_url() . 'admin/Customermaster/store_followups'; ?>">
-                    <input type="hidden" name="customer_id" value="<?= $customer_id ?>">
+                <form method="post" id="store-followup" action="<?php echo base_url() . 'admin/Propertymaster/store_followups'; ?>">
+                    <input type="hidden" name="property_id" value="<?= $property_id ?>">
 
                     <div class="row">
                         <div class="col-md-12">
@@ -16,7 +16,6 @@
                                 <label class="form-label">Followup Type </label>
                                 <select data-toggle="select2" title="followtype_id" class="form-control select2" name="followtype_id" data-width="100%">
                                     <option value="">Select Followup Type</option>
-
                                     <?php foreach ($followuptype as $ft) { ?>
                                         <option value="<?= $ft['id'] ?>"><?= $ft['name'] ?></option>
                                     <?php }
@@ -89,7 +88,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-<div class="modal fade" id="edit-customer-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="edit-property-followup-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header bg-light">
@@ -97,8 +96,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-4">
-                <form method="post" id="update-followup" action="<?php echo base_url() . 'admin/Customermaster/update_followups'; ?>">
-                    <input type="hidden" name="customer_id" value="<?= $customer_id ?>">
+                <form method="post" id="update-followup" action="<?php echo base_url() . 'admin/Propertymaster/update_followups'; ?>">
+                    <input type="hidden" name="property_id" value="<?= $property_id ?>">
                     <input type="hidden" name="followup_id" id="followup_id">
 
                     <div class="row">
@@ -179,22 +178,23 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-
 <div class="content-page">
     <div class="content">
+
         <!-- Start Content-->
         <div class="container-fluid">
+
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
-                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#customer-followup-modal" style="margin-right: 5px;">Add Followup</button>
-                                <a href="<?= base_url('admin/Customermaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back</a>
+                                <button type="button" class="btn btn-danger waves-effect waves-light mb-2" data-bs-toggle="modal" data-bs-target="#property-followup-modal" style="margin-right: 5px;">Add Followup</button>
+                                <a href="<?= base_url('admin/Propertymaster') ?>" class="btn btn-primary waves-effect waves-light mb-2">Back</a>
                             </ol>
                         </div>
-                        <h4 class="page-title">Customer Followup</h4>
+                        <h4 class="page-title">Property Reminder</h4>
                     </div>
                 </div>
             </div>
@@ -205,102 +205,153 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
+                                <?php if ($property->customer_id != '') { ?>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Customer Name</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+                                                    <?= $customer ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                <?php } elseif ($property->agent_id != '') { ?>
+                                    <div class="col-md-3">
+                                        <!-- start due date -->
+                                        <p class="mt-2 mb-1 text-muted">Agent Name</p>
+                                        <div class="d-flex align-items-start">
+                                            <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                            <div class="w-100">
+                                                <h5 class="mt-1 font-size-14">
+
+                                                    <?= $agent ?>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <!-- end due date -->
+                                    </div>
+                                <?php } ?>
+                                <div class="col-md-3">
                                     <!-- start due date -->
-                                    <p class="mt-2 mb-1 text-muted">Name</p>
+                                    <p class="mt-2 mb-1 text-muted">Master</p>
                                     <div class="d-flex align-items-start">
-                                        <i class="mdi mdi-account font-18 text-success me-1"></i>
+                                        <i class="mdi mdi-check font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= $customer->first_name . ' ' . $customer->last_name ?>
+                                                <?= $property->master_name ?>
                                             </h5>
                                         </div>
                                     </div>
                                     <!-- end due date -->
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <!-- start due date -->
-                                    <p class="mt-2 mb-1 text-muted">Phone</p>
+                                    <p class="mt-2 mb-1 text-muted">Category</p>
                                     <div class="d-flex align-items-start">
-                                        <i class="mdi mdi-phone font-18 text-success me-1"></i>
+                                        <i class="mdi mdi-menu font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= $customer->phone ?>
+                                                <?= $property->property_category_name ?>
                                             </h5>
                                         </div>
                                     </div>
                                     <!-- end due date -->
                                 </div>
                                 <!-- end col -->
-                                <?php if (!empty($customer->email)) { ?>
-                                    <div class="col-md-4">
-                                        <!-- start due date -->
-                                        <p class="mt-2 mb-1 text-muted">Email</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-gmail font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $customer->email ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <!-- end due date -->
-                                    </div>
-                                <?php } ?>
 
-                                <?php if (!empty($customer->email)) { ?>
-                                    <div class="col-md-4">
-                                        <!-- start due date -->
-                                        <p class="mt-2 mb-1 text-muted">Company</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-office-building font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $customer->company_name ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <!-- end due date -->
-                                    </div>
-                                <?php } ?>
-
-                                <?php if (!empty($position_data->name)) { ?>
-                                    <div class="col-md-4">
-                                        <!-- start due date -->
-                                        <p class="mt-2 mb-1 text-muted">Position</p>
-                                        <div class="d-flex align-items-start">
-                                            <i class="mdi mdi-badge-account font-18 text-success me-1"></i>
-                                            <div class="w-100">
-                                                <h5 class="mt-1 font-size-14">
-                                                    <?= $position_data->name ?>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                        <!-- end due date -->
-                                    </div>
-                                <?php } ?>
-
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <!-- start due date -->
-                                    <p class="mt-2 mb-1 text-muted">Source</p>
+                                    <p class="mt-2 mb-1 text-muted">Sub Category</p>
                                     <div class="d-flex align-items-start">
-                                        <i class="mdi mdi-newspaper font-18 text-success me-1"></i>
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= $source->name ?>
+                                                <?= $property->property_subcategory_name ?>
                                             </h5>
                                         </div>
                                     </div>
                                     <!-- end due date -->
                                 </div>
-                                <div class="col-md-4">
+                            </div>
+                            <!-- end form-check-->
+                            <div class="row">
+                                <div class="col-md-3">
                                     <!-- start due date -->
-                                    <p class="mt-2 mb-1 text-muted">Team Name</p>
+                                    <p class="mt-2 mb-1 text-muted">Stage</p>
                                     <div class="d-flex align-items-start">
-                                        <i class="mdi mdi-account-group font-18 text-success me-1"></i>
+                                        <i class="mdi mdi-bookmark font-18 text-success me-1"></i>
                                         <div class="w-100">
                                             <h5 class="mt-1 font-size-14">
-                                                <?= ($staff != null) ? $staff->first_name . ' ' . $staff->last_name : ' - ' ?>
+                                                <?= $property_stage['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- end due date -->
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- start due date -->
+                                    <p class="mt-2 mb-1 text-muted">Budget</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $property->from_budget .'-'. $property->to_budget ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- end due date -->
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- start due date -->
+                                    <p class="mt-2 mb-1 text-muted">State</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $state['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- end due date -->
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- start due date -->
+                                    <p class="mt-2 mb-1 text-muted">District</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $district['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- end due date -->
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- start due date -->
+                                    <p class="mt-2 mb-1 text-muted">Sub District</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $subdistrict['name'] ?>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- end due date -->
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- start due date -->
+                                    <p class="mt-2 mb-1 text-muted">Moje / Area</p>
+                                    <div class="d-flex align-items-start">
+                                        <i class="mdi mdi-home-variant font-18 text-success me-1"></i>
+                                        <div class="w-100">
+                                            <h5 class="mt-1 font-size-14">
+                                                <?= $area['name'] ?>
                                             </h5>
                                         </div>
                                     </div>
@@ -312,7 +363,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -333,34 +384,22 @@
                                     <?php } ?>
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <!-- <div class="col-sm-8">
-                                    <button type="button" class="btn btn-danger waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#propertysubcategory-modal"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
-                                </div> -->
-                                <div class="col-sm-4">
-                                    <div class="text-sm-end mt-2 mt-sm-0">
-                                        <!-- <button type="button" class="btn btn-success mb-2 me-1"><i class="mdi mdi-cog"></i></button>
-                                        <button type="button" class="btn btn-light mb-2 me-1">Import</button>
-                                        <button type="button" class="btn btn-light mb-2">Export</button> -->
-                                    </div>
-                                </div><!-- end col-->
-                            </div>
 
                             <div class="table-responsive">
-                                <table class="table table-centered table-nowrap table-striped" id="customer_followup_datatable">
+                                <table class="table table-centered table-nowrap table-striped" id="property_followup_datatable">
                                     <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <!-- <th>Name</th> -->
-                                            <!-- <th>Type</th> -->
-                                            <th>Followup Date</th>
-                                            <th>Is reminder</th>
-                                            <th>Reminder date</th>
-                                            <th>Description</th>
-                                            <th>Create Date</th>
-                                            <th>Status</th>
-                                            <th style="width: 85px;">Action</th>
-                                        </tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <!-- <th>Name</th> -->
+                                        <!-- <th>Type</th> -->
+                                        <th>Followup Date</th>
+                                        <th>Is reminder</th>
+                                        <th>Reminder date</th>
+                                        <th>Description</th>
+                                        <th>Create Date</th>
+                                        <th>Status</th>
+                                        <th style="width: 85px;">Action</th>
+                                    </tr>
                                     </thead>
                                 </table>
                             </div>
@@ -374,14 +413,14 @@
 </div>
 <script>
     //all Followup
-    var followup_table = $('#customer_followup_datatable').DataTable({
+    var followup_table = $('#property_followup_datatable').DataTable({
         responsive: true,
-        ajax: "<?php echo base_url('admin/Customermaster/all_followups/' . $customer_id); ?>",
+        ajax: "<?php echo base_url('admin/Propertymaster/all_followups/' . $property_id); ?>",
 
         columnDefs: [{
-                responsivePriority: 1,
-                targets: 0
-            },
+            responsivePriority: 1,
+            targets: 0
+        },
             {
                 responsivePriority: 2,
                 targets: 3
@@ -437,22 +476,23 @@
         return dt.toISOString().slice(0, 16);
     }
     //edit followup
-    $(document).on('click', "#customer_followup_datatable .edit-btn", function() {
+    $(document).on('click', "#property_followup_datatable .edit-btn", function() {
         var id = $(this).attr('data-id');
         $.ajax({
-            url: '<?php echo base_url() ?>admin/Customermaster/edit_followups/' + id,
+            url: '<?php echo base_url() ?>admin/Propertymaster/edit_followups/' + id,
             type: "POST",
             dataType: "json",
             success: function(data) {
-                $("#edit-customer-followup-modal #followup_id").val(data.id);
-                $('#edit-customer-followup-modal #name').val(data.name);
-                $('#edit-customer-followup-modal #followtype_id').val(data.followtype_id).trigger('change');
-                $('#edit-customer-followup-modal #followup_date').val(data.followup_date);
-                $('#edit-customer-followup-modal #description').val(data.description);
-                $("#edit-customer-followup-modal #followup_status").val(data.status);
-                $("#edit-customer-followup-modal #is_reminder").attr('checked', (data.is_reminder == 1)?true:false);
-                $("#edit-customer-followup-modal #is_reminder").trigger('change');
-                $('#edit-customer-followup-modal #reminder_date').val(data.reminder_date);
+                debugger;
+                $("#edit-property-followup-modal #followup_id").val(data.id);
+                $('#edit-property-followup-modal #name').val(data.name);
+                $('#edit-property-followup-modal #followtype_id').val(data.followtype_id).trigger('change');
+                $('#edit-property-followup-modal #followup_date').val(data.followup_date);
+                $('#edit-property-followup-modal #description').val(data.description);
+                $("#edit-property-followup-modal #followup_status").val(data.status);
+                $("#edit-property-followup-modal #is_reminder").attr('checked', (data.is_reminder == 1)?true:false);
+                $("#edit-property-followup-modal #is_reminder").trigger('change');
+                $('#edit-property-followup-modal #reminder_date').val(data.reminder_date);
             }
         });
     });
@@ -468,7 +508,7 @@
         submitHandler: function(form, e) {
             e.preventDefault();
             var url = $(form).attr("action");
-            var id = $('#edit-customer-followup-modal #followup_id').val();
+            var id = $('#edit-property-followup-modal #followup_id').val();
             $.ajax({
                 url: url + '/' + id,
                 type: "POST",
@@ -483,18 +523,18 @@
         }
     });
 
-    $("#customer-followup-modal #is_reminder").change(function() {
+    $("#property-followup-modal #is_reminder").change(function() {
         if($(this).is(':checked')){
-            $("#customer-followup-modal #calendar_input_div").show();
+            $("#property-followup-modal #calendar_input_div").show();
         }else{
-            $("#customer-followup-modal #calendar_input_div").hide();
+            $("#property-followup-modal #calendar_input_div").hide();
         }
     });
-    $("#edit-customer-followup-modal #is_reminder").change(function() {
+    $("#edit-property-followup-modal #is_reminder").change(function() {
         if($(this).is(':checked')){
-            $("#edit-customer-followup-modal #calendar_input_div").show();
+            $("#edit-property-followup-modal #calendar_input_div").show();
         }else{
-            $("#edit-customer-followup-modal #calendar_input_div").hide();
+            $("#edit-property-followup-modal #calendar_input_div").hide();
         }
     });
 </script>

@@ -771,8 +771,15 @@ class Agentmaster extends CI_Controller
 	public function update_followups($id)
 	{
 		$data = $this->input->post();
-		$data['model_type'] = 'agent';
+		$data['model_type'] = 'Channel Partner';
 		$data['model_id'] = $this->input->post('agent_id');
+        if(isset($_POST['is_reminder'])){
+            $data['is_reminder'] = $this->input->post('is_reminder');
+            $data['reminder_date'] = $this->input->post('reminder_date');
+        }else{
+            $data['is_reminder'] = '0';
+            $data['reminder_date'] = NULL;
+        }
 		$response = $this->agentmaster->update_followup_records($id, $data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Channel Partner Followup Updated Successfully.'));

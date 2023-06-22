@@ -504,6 +504,7 @@ class Customermaster extends CI_Controller
 		}
 		return redirect('admin/Customermaster/edit/' . $customer_id . '#customer-reminders');
 	}
+
 	//Followup
 	public function all_followups($id)
 	{
@@ -572,6 +573,13 @@ class Customermaster extends CI_Controller
 		$data = $this->input->post();
 		$data['model_type'] = 'customer';
 		$data['model_id'] = $this->input->post('customer_id');
+		if(isset($_POST['is_reminder'])){
+            $data['is_reminder'] = $this->input->post('is_reminder');
+            $data['reminder_date'] = $this->input->post('reminder_date');
+        }else{
+            $data['is_reminder'] = '0';
+            $data['reminder_date'] = NULL;
+        }
 		$response = $this->customermaster->update_followup_records($id, $data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Customer Followup Updated Successfully.'));

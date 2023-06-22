@@ -659,4 +659,50 @@ class Propertymaster_model extends CI_model
         return $data;
     }
 
+    //Followup
+    function save_followup_records($data)
+    {
+
+        unset($data['property_id']);
+        // $data = hooks()->apply_filters('before_add_task', $data);
+
+        $this->db->insert('tb_followup_master', $data);
+        $insert_id = $this->db->insert_id();
+        if ($insert_id) {
+            return $insert_id;
+        }
+        return false;
+
+    }
+    function getFollowups($id){
+        $data = $this->db->get_where('tb_followup_master',['model_type'=>'Property','model_id'=>$id])->result_array();
+        return $data;
+    }
+    function getFollowup($id){
+        $data = $this->db->get_where('tb_followup_master',['id'=>$id])->row();
+        return $data;
+    }
+    function update_followup_records($id,$data)
+    {
+
+        unset($data['followup_id']);
+        unset($data['property_id']);
+        // $data = hooks()->apply_filters('before_add_task', $data);
+        $this->db->where('id',$id);
+        $r=$this->db->update('tb_followup_master',$data);
+        if ($r) {
+            return $r;
+        }
+        return false;
+    }
+    function getFollowupType($type){
+        $data = $this->db->get_where('tb_followup_type_master',['model_type'=>$type])->result_array();
+        return $data;
+    }
+    function delete_followups_records($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('tb_followup_master');
+        return true;
+    }
 }

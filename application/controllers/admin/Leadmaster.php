@@ -165,6 +165,7 @@ class Leadmaster extends CI_Controller
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
 
 			<a href="' . base_url('admin/Leadmaster/addproperty/' . $value['id']) . '" class="action-icon addproperty-btn"> <i class="mdi mdi-city-variant text-black"></i></a>
+            <a href="' . base_url('admin/Leadmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
             <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
             $result['data'][] = array(
@@ -1141,5 +1142,123 @@ class Leadmaster extends CI_Controller
             $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
         }
         return redirect('admin/Leadmaster/addproperty/' . $lead_id);
+    }
+
+    //followup master
+    public function all_followups($id)
+    {
+        $followups = $this->leadmaster->getFollowups($id);
+        $result = array('data' => []);
+        $i = 1;
+        foreach ($followups as $value) {
+
+            $type_data = $this->db->get_where('tb_followup_type_master', array('id' => $value['followtype_id']))->row();
+            $button = '<a href="' . base_url('admin/Leadmaster/edit_followups/' . $value['id']) . '" class="action-icon edit-btn" data-id="' . $value['id'] . '" data-bs-toggle="modal" data-bs-target="#edit-lead-followup-modal"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
+			<a href="' . base_url('admin/Leadmaster/delete_followups/' . $value['id'] . '/' . $id) . '#customer-followups" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
+            $result['data'][] = array(
+                $i++,
+                // $value['type'],
+                // $type_data->name,
+                date('d M Y h:i:s a', strtotime($value['followup_date'])),
+                ($value['is_reminder'] == 1)?"yes":"no",
+                ($value['reminder_date'] != null)?date('d M Y h:i:s a', strtotime($value['reminder_date'])):"-",
+                $value['description'],
+                date('d M Y h:i:s a', strtotime($value['created_date'])),
+                $value['status'],
+                $button
+            );
+        }
+        echo json_encode($result);
+    }
+
+    public function addfollowup($id)
+    {
+        $data['lead_id'] = $id;
+        $data['lead'] = $this->leadmaster->getLeadMaster($id);
+        $data['customer'] = $this->db->where_in('id', $data['lead']['customer_id'])->get('tb_customer_master')->row_array();
+        $data['source_data'] = $this->db->where_in('id', $data['customer']['source_id'])->get('tb_source_master')->row_array();
+        $data['position_data'] = $this->db->where_in('id', $data['customer']['position_id'])->get('tb_position_master')->row_array();
+        $data['lead_stage'] = $this->db->select('name')->where_in('id', $data['lead']['lead_stage_id'])->get('tb_lead_stage')->row_array();
+        $data['master'] = $this->db->where_in('id', $data['lead']['pro_master_id'])->get('tb_master')->row_array();
+        //property data
+        $record['parameter'] = array('lead_id' => $id);
+        $data['property_data'] = $this->common->getDataByParam('tb_lead_property_interested',$record);
+        if(!empty($data['property_data'])){
+            foreach ($data['property_data'] as $k => $v){
+                $property_data[$k] = $this->db->select('name')->where_in('id',$v['pro_subcategory_id'])->get('tb_property_subcategory')->row_array();
+            }
+            foreach ($property_data as $key => $val){
+                $property[$key] = $val['name'];
+            }
+            $data['property'] = implode(',',$property);
+        }
+        //area data
+        $value['parameter'] = array('lead_id' => $id);
+        $data['area_data'] = $this->common->getDataByParam('tb_lead_area_interested',$value);
+        if(!empty($data['area_data'])){
+            foreach ($data['area_data'] as $k => $v){
+                $area_data[$k] = $this->db->select('name')->where_in('id',$v['area_id'])->get('tb_area_master')->row_array();
+            }
+            foreach ($area_data as $key => $val){
+                $area[$key] = $val['name'];
+            }
+            $data['area'] = implode(',',$area);
+        }
+        $data['followuptype'] = $this->leadmaster->getFollowupType('Lead');
+
+        $data['page_name'] = 'lead_master_addfollowup';
+        $this->load->view('admin/index', $data);
+    }
+
+    //Followup master
+    public function store_followups()
+    {
+        $data = $this->input->post();
+        $data['model_type'] = 'lead';
+        $data['model_id'] = $this->input->post('lead_id');
+        if(!array_key_exists('is_reminder',$data)){
+            $data['reminder_date'] = null;
+        }
+        $response = $this->leadmaster->save_followup_records($data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Lead Followup Added Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+    public function edit_followups($id)
+    {
+        $data = $this->leadmaster->getFollowup($id);
+        echo json_encode($data);
+    }
+    public function update_followups($id)
+    {
+        $data = $this->input->post();
+        $data['model_type'] = 'lead';
+        $data['model_id'] = $this->input->post('lead_id');
+        if(isset($_POST['is_reminder'])){
+            $data['is_reminder'] = $this->input->post('is_reminder');
+            $data['reminder_date'] = $this->input->post('reminder_date');
+        }else{
+            $data['is_reminder'] = '0';
+            $data['reminder_date'] = NULL;
+        }
+        $response = $this->leadmaster->update_followup_records($id, $data);
+        if ($response == true) {
+            echo json_encode(array('success' => true, 'message' => 'Lead Followup Updated Successfully.'));
+        } else {
+            echo json_encode(array('success' => false, 'message' => 'Something went wrong. Please try again'));
+        }
+    }
+    public function delete_followups($id, $customer_id)
+    {
+        $response = $this->leadmaster->delete_followups_records($id);
+
+        if ($response == true) {
+            $this->session->set_flashdata('success', 'Lead Followup Deleted Successfully.');
+        } else {
+            $this->sesssion->set_flashdata('error', 'Something went wrong. Please try again');
+        }
+        return redirect('admin/Leadmaster/addfollowup/' . $customer_id);
     }
 }
