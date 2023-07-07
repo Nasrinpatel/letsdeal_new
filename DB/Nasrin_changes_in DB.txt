@@ -10,3 +10,6 @@ ALTER TABLE `tbl_reminder_master` ADD `beforeday` INT(10) NOT NULL AFTER `custom
 
 29/05/23
 ALTER TABLE `tb_city_master` CHANGE `state_id` `sub_district_id` INT(11) NOT NULL;
+
+28/06/23
+ALTER TABLE `tbl_reminder_master` CHANGE `status` `status` INT(11) NOT NULL DEFAULT '1';
