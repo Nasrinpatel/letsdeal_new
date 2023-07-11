@@ -35,6 +35,41 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Category<span class="text-danger"> *</span></label>
+                                    <div class="form-check form-check-pink mb-1">
+                                        <?php foreach ($categorychk as $catchk) { ?>
+                                            <input type="checkbox" name="category_ids[]" value="<?php echo $catchk->id; ?>" class="form-check-input category" multiple><?php echo $catchk->name; ?><br>
+                                            <!-- <input type="checkbox" name="checkbox[]" value="<?php echo $catchk->id; ?>" class="form-check-input category">  -->
+                                        <?php } ?>
+                                        <span style="color: red;"><?= form_error('category_ids[]') ?></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-10">
+                                        <div class="mb-3">
+                                            <label class="form-label">Sub Category:</label>
+                                            <div class="row">
+                                                <?php foreach ($categorychk as $catchk) { ?>
+                                                    <div class="form-check-inline mb-1 subcategory-container" id="category-<?= $catchk->id ?>">
+                                                        <label class="form-label me-3 text-decoration-underline text-blue" for="formControlReadonly"><?= $catchk->name ?></label>
+                                                        <?php
+                                                        $subcategorychk = $this->db->get_where('tb_property_subcategory', array('property_category_id' => $catchk->id, 'status' => '1'))->result();
+                                                        foreach ($subcategorychk as $subcatchk) { ?>
+                                                            <div class="form-check form-check-inline">
+                                                                <input type="checkbox" name="sub_category_ids[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>" multiple>
+                                                                <!-- <input type="checkbox" name="checkbox[]" value="<?php echo $subcatchk->id; ?>" class="form-check-input subcategory" data-category="<?php echo $subcatchk->property_category_id; ?>"> -->
+                                                                <label class="form-check-label" for="<?php echo $subcatchk->name; ?>"><?php echo $subcatchk->name; ?></label>
+                                                            </div>
+                                                        <?php } ?>
+                                                    </div>
+                                                <?php } ?>
+                                                <span style="color: red;"><?= form_error('sub_category_ids') ?></span>
+                                                <div class="alert alert-danger" id="no-cat" style="display:none">Please Select Category</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-3">
                                         <a class="btn btn-success waves-effect waves-light add-button" style="margin-bottom: 20px;">Add Question</a>
@@ -94,6 +129,31 @@
 
 <script>
     $(document).ready(function() {
+        var subcategoryContainer = $('.subcategory-container');
+
+        $('.category').change(function() {
+            // Get the ID of the checked category
+            var id = $(this).val();
+            // Show the selected subcategories and hide the others
+            subcategoryContainer.hide();
+
+            var checkedCategory = $('.category:checked');
+            checkedCategory.each(function(index, item) {
+                // Select the subcategories that belong to the checked category
+                var subcategories = $('#category-' + item.value);
+                subcategories.show();
+            });
+
+            if (checkedCategory.length == 0) {
+                $('#no-cat').show();
+            } else {
+                $('#no-cat').hide();
+            }
+
+        });
+        //triger change event on page load
+        $('.category').trigger('change');
+
         $(".add-button").click(function() {
             // create a new select element
             var newSelect = $("<div class='row question'>" +

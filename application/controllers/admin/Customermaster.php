@@ -38,7 +38,7 @@ class Customermaster extends CI_Controller
 			$button = '<a href="' . base_url('admin/Customermaster/customerDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/Customermaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Customermaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
-			<a href="' . base_url('admin/Customermaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Customermaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-run text-secondary"></i></a>
 			<a href="' . base_url('admin/Customermaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
 			$result['data'][] = array(

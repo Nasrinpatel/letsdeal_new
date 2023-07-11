@@ -31,3 +31,6 @@ ALTER TABLE `tb_property_master` CHANGE `lead_stage_id` `property_stage_id` INT(
 
 Date : 13-06-23
 ALTER TABLE `tb_property_master` ADD `state_id` INT NOT NULL AFTER `to_budget`, ADD `district_id` INT NOT NULL AFTER `state_id`, ADD `sub_district_id` INT NOT NULL AFTER `district_id`, ADD `area_id` INT NOT NULL AFTER `sub_district_id`;
+
+Date : 11-07-23
+ALTER TABLE `tb_leadform_master` ADD `category_ids` VARCHAR(100) NOT NULL AFTER `pro_master_id`, ADD `sub_category_ids` VARCHAR(100) NOT NULL AFTER `category_ids`;

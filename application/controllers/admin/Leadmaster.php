@@ -165,7 +165,7 @@ class Leadmaster extends CI_Controller
             <a href="' . base_url('admin/Leadmaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
 
 			<a href="' . base_url('admin/Leadmaster/addproperty/' . $value['id']) . '" class="action-icon addproperty-btn"> <i class="mdi mdi-city-variant text-black"></i></a>
-            <a href="' . base_url('admin/Leadmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
+            <a href="' . base_url('admin/Leadmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-run text-secondary"></i></a>
             <a href="' . base_url('admin/Leadmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 
             $result['data'][] = array(

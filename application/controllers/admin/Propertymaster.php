@@ -145,7 +145,6 @@ class Propertymaster extends CI_Controller
                     $name[$key] = $val['first_name'].' '.$val['last_name'];
                 }
             }
-
             $button = '<a href="' . base_url('admin/Propertymaster/propertyDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/Propertymaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/Propertymaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
@@ -153,7 +152,7 @@ class Propertymaster extends CI_Controller
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon thumbs-down-btn"> <i class="mdi mdi-thumb-down text-danger"></i></a>
             <a href="' . base_url('admin/Propertymaster/change_column/' . $value['id']) . '" class="action-icon not-match-btn"> <i class="mdi mdi-close text-warning"></i></a>
             <a href="' . base_url('admin/Propertymaster/lead_in_property/' . $value['id']) . '" class="action-icon" title="property lead"> <i class="mdi mdi-collapse-all-outline text-secondary"></i></a>
-			<a href="' . base_url('admin/Propertymaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/Propertymaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-run text-secondary"></i></a>
 			<a href="' . base_url('admin/Propertymaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i>';
 
 			$result['data'][] = array(
@@ -201,7 +200,7 @@ class Propertymaster extends CI_Controller
                 }
             }
             if(!empty($value['agent_id'])){
-                $agent = explode(',', $value['customer_id']);
+                $agent = explode(',', $value['agent_id']);
                 $agent_name = [];
                 for($j=0;$j<count($agent);$j++){
                     $agent_name[$j] = $this->db->where_in('id',$agent[$j])->get('tb_agent_master')->row_array();

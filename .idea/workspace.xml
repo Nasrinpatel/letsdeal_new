@@ -2,17 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aac91bac-8df4-4890-a8a6-b6167136d884" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/application/views/admin/lead_master_addfollowup.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/views/admin/property_master_addfollowup.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" beforeDir="false" afterPath="$PROJECT_DIR$/DB/Purvi_changes_in_DB.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Agentmaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Customermaster.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/LeadFormMaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Leadmaster.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/admin/Propertymaster.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Leadmaster_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/models/front/Propertymaster_model.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/models/front/Propertymaster_model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/agentmaster_addfollowup.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/agentmaster_addfollowup.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/admin/customermaster_addfollowup.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/customermaster_addfollowup.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_add.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/leadform_master_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/leadform_master_view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/admin/property_master_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/admin/property_master_edit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +141,18 @@
       <workItem from="1687149497877" duration="19613000" />
       <workItem from="1687234308779" duration="9434000" />
       <workItem from="1687322294629" duration="19923000" />
-      <workItem from="1687407572861" duration="16162000" />
+      <workItem from="1687407572861" duration="16897000" />
+      <workItem from="1687432561361" duration="16000" />
+      <workItem from="1687582000311" duration="784000" />
+      <workItem from="1687582804035" duration="7639000" />
+      <workItem from="1688373651485" duration="4220000" />
+      <workItem from="1688705964585" duration="4138000" />
+      <workItem from="1688729189289" duration="2056000" />
+      <workItem from="1688789874661" duration="55000" />
+      <workItem from="1688793979507" duration="367000" />
+      <workItem from="1688962752763" duration="783000" />
+      <workItem from="1688966335077" duration="5109000" />
+      <workItem from="1689049249542" duration="3913000" />
     </task>
     <servers />
   </component>

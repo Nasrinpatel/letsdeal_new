@@ -30,10 +30,11 @@ class Agentmaster extends CI_Controller
 			$source_data = $this->db->get_where('tb_source_master', array('id' => $value['source_id']))->row();
 			$position_data = $this->db->get_where('tb_position_master', array('id' => $value['position_id']))->row();
 			$staff_data = $this->db->get_where('tbl_staff_master', array('id' => $value['assigned_id']))->row();
+
 			$button = '<a href="' . base_url('admin/agentmaster/agentDetails/' . $value['id']) . '" class="action-icon eye-btn"> <i class="mdi mdi-eye text-info"></i>
 			<a href="' . base_url('admin/agentmaster/edit/' . $value['id']) . '" class="action-icon edit-btn"><i class="mdi mdi-square-edit-outline text-warning"></i></a>
 			<a href="' . base_url('admin/agentmaster/addreminder/' . $value['id']) . '" class="action-icon addreminder-btn"><i class="mdi mdi-calendar-clock-outline text-secondary"></i></a>
-			<a href="' . base_url('admin/agentmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-clock-outline text-secondary"></i></a>
+			<a href="' . base_url('admin/agentmaster/addfollowup/' . $value['id']) . '" class="action-icon addfollowup-btn"><i class="mdi mdi-run text-secondary"></i></a>
 
 			<a href="' . base_url('admin/agentmaster/delete/' . $value['id']) . '" class="action-icon delete-btn"> <i class="mdi mdi-delete text-danger"></i></a>';
 			$result['data'][] = array(
@@ -168,7 +169,7 @@ class Agentmaster extends CI_Controller
 	{
 		$this->form_validation->set_rules('source_id', 'Source', 'required');
 //		$this->form_validation->set_rules('position_id', 'Position', 'required');
-		$this->form_validation->set_rules('first_name', 'First name', 'requir0ed');
+		$this->form_validation->set_rules('first_name', 'First name', 'required');
 		$this->form_validation->set_rules('last_name', 'Last name', 'required');
 		//$this->form_validation->set_rules('nick_name', 'Nick name','required');	
 		$this->form_validation->set_rules('phone', 'Phone', 'required');

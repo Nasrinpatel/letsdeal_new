@@ -621,7 +621,7 @@
                 });
 
                 $(document).ready(function() {
-                    $('#edit-area-modal #district_id').change(function() {
+                    $('#district_id').change(function() {
                         debugger;
                         var district_id = $(this).val();
                         if (district_id != '') {
@@ -634,23 +634,23 @@
                                 dataType: 'json',
                                 success: function(response) {
                                     var len = response.length;
-                                    $("#edit-area-modal #sub_district_id").empty();
-                                    $("#edit-area-modal #sub_district_id").append("<option value=''>Select Sub District</option>");
+                                    $("#sub_district_id").empty();
+                                    $("#sub_district_id").append("<option value=''>Select Sub District</option>");
                                     for (var i = 0; i < len; i++) {
                                         var id = response[i]['id'];
                                         var name = response[i]['name'];
-                                        $("#edit-area-modal #sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
+                                        $("#sub_district_id").append("<option value='" + id + "'>" + name + "</option>");
                                     }
                                 }
                             });
                         } else {
-                            $("#edit-area-modal #sub_district_id").html("<option value=''>Select Sub District</option>");
+                            $("#sub_district_id").html("<option value=''>Select Sub District</option>");
                         }
                     });
                 });
 
                 $(document).ready(function() {
-                    $('#edit-area-modal #sub_district_id').change(function() {
+                    $('#sub_district_id').change(function() {
                         debugger;
                         var sub_district_id = $(this).val();
                         if (sub_district_id != '') {
@@ -663,17 +663,17 @@
                                 dataType: 'json',
                                 success: function(response) {
                                     var len = response.length;
-                                    $("#edit-area-modal #area_id").empty();
-                                    $("#edit-area-modal #area_id").append("<option value=''>Select Moje / Area</option>");
+                                    $("#area_id").empty();
+                                    $("#area_id").append("<option value=''>Select Moje / Area</option>");
                                     for (var i = 0; i < len; i++) {
                                         var id = response[i]['id'];
                                         var name = response[i]['name'];
-                                        $("#edit-area-modal #area_id").append("<option value='" + id + "'>" + name + "</option>");
+                                        $("#area_id").append("<option value='" + id + "'>" + name + "</option>");
                                     }
                                 }
                             });
                         } else {
-                            $("#edit-area-modal #area_id").html("<option value=''>Select Moje / Area</option>");
+                            $("#area_id").html("<option value=''>Select Moje / Area</option>");
                         }
                     });
                 });
