@@ -35,20 +35,36 @@
                                         <p class="text-muted">Reminder Category
                                         </p>
                                         <div class="external-event bg-success" data-class="bg-success">
-                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Customer
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Customer Reminder
                                         </div>
                                         <div class="external-event bg-info" data-class="bg-info">
-                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Property
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Property Reminder
                                         </div>
                                         <div class="external-event bg-warning" data-class="bg-warning">
                                             <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Channel Partner
                                         </div>
                                         <div class="external-event bg-danger" data-class="bg-danger">
-                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Lead
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Lead Reminder
                                         </div>
                                     </div>
 
-
+                                    <div id="external-events">
+                                        <br>
+                                        <p class="text-muted">Followup Category
+                                        </p>
+                                        <div class="external-event" style="background-color: magenta;" data-class="magenta">
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Customer Followup
+                                        </div>
+                                        <div class="external-event" style="background-color: olive;" data-class="olive">
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Property Followup
+                                        </div>
+                                        <div class="external-event" style="background-color: teal;" data-class="teal">
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Channel Partner
+                                        </div>
+                                        <div class="external-event" style="background-color: lime;" data-class="lime">
+                                            <i class="mdi mdi-checkbox-blank-circle me-2 vertical-middle"></i>Lead Followup
+                                        </div>
+                                    </div>
 
 
                                 </div> <!-- end col-->
@@ -72,7 +88,7 @@
                                 <div class="modal-body px-4 pb-4 pt-0">
                                     <form class="needs-validation" name="event-form" id="form-event" novalidate>
                                         <div class="row">
-                                            <div class="">
+                                            <div id="reminder" style="display:none">
                                                 <h4 class="font-13 text-muted text-uppercase">Reminder Type</h4>
                                                 <p class="mb-3" id="remider_type"></p>
 
@@ -84,13 +100,26 @@
 
                                                 <!-- <h4 class="font-13 text-muted text-uppercase mb-1">Model :</h4>
                                                 <p class="mb-3" id="model_id"></p> -->
+                                            </div>
+                                            <div id="followup" style="display:none">
+                                                <h4 class="font-13 text-muted text-uppercase">Followup Type</h4>
+                                                <p class="mb-3" id="followup_type"></p>
+
+                                                <h4 class="font-13 text-muted text-uppercase mb-1">Date and time :</h4>
+                                                <p class="mb-3" id="followup_date"></p>
 
 
+                                                <!-- <h4 class="font-13 text-muted text-uppercase mb-1">Model :</h4>
+                                                <p class="mb-3" id="model_id"></p> -->
                                             </div>
                                             <div class="row mt-2">
                                                 <div class="col-md-6 col-4">
                                                     <!-- <button type="button" class="btn btn-danger"
 															id="btn-delete-event">Delete</button> -->
+
+                                                    <div id="status-button-container">
+                                                        <button type="button" class="btn btn-success" id="btn-complete-event" data-event-id="" data-event-type="" data-modal-id="" data-modal-type="" data-status="0">Complete</button>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6 col-8 text-end">
                                                     <!-- <button type="button" class="btn btn-light me-1"
@@ -153,7 +182,33 @@
                 hour12: true
             });
             var formated_startdatetime = day + '-' + month + '-' + year + ' ' + time;
-            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type + " Reminder Details"), this.$modal.show(), this.$selectedEvent = e.event, l("#remider_type").html(this.$selectedEvent.title), l("#date-time").html(formated_startdatetime), l("#priority").html(this.$selectedEvent.extendedProps.priority), l("#btn-save-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id), l("#btn-save-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type)
+            this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text(e.event.extendedProps.type + " Details"), this.$modal.show(), this.$selectedEvent = e.event
+            if (e.event.extendedProps.event_type == "reminder") {
+                l("#reminder").show();
+                l("#followup").hide();
+                l("#remider_type").html(this.$selectedEvent.title);
+                l("#date-time").html(formated_startdatetime);
+                l("#priority").html(this.$selectedEvent.extendedProps.priority);
+                l("#btn-save-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id);
+                l("#btn-save-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type);
+                l("#btn-complete-event").attr("data-event-id", this.$selectedEvent.id);
+                l("#btn-complete-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id);
+                l("#btn-complete-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type);
+                l("#btn-complete-event").attr("data-event-type", this.$selectedEvent.extendedProps.event_type);
+            }
+            if (e.event.extendedProps.event_type == "followup") {
+                l("#followup").show();
+                l("#reminder").hide();
+                l("#followup_type").html(this.$selectedEvent.title);
+                l("#followup_date").html(formated_startdatetime);
+                l("#btn-save-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id);
+                l("#btn-save-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type);
+                l("#btn-complete-event").attr("data-event-id", this.$selectedEvent.id);
+                l("#btn-complete-event").attr("data-modal-id", this.$selectedEvent.extendedProps.model_id);
+                l("#btn-complete-event").attr("data-modal-type", this.$selectedEvent.extendedProps.type);
+                l("#btn-complete-event").attr("data-event-type", this.$selectedEvent.extendedProps.event_type);
+            }
+
         }, e.prototype.onSelect = function(e) {
             this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
         }, e.prototype.init = function() {
@@ -218,6 +273,7 @@
                     url: encodeURI('<?= base_url('admin/calendar/getAllCalenderEvents') ?>'),
                     type: 'POST'
                 },
+
                 editable: 0,
                 droppable: 0,
                 selectable: !0,
@@ -250,21 +306,63 @@
         "use strict";
         window.jQuery.CalendarApp.init()
     }();
+
+
+    $("#status-button-container").on("click", "#btn-complete-event", function() {
+        var eventId = $(this).data("event-id");
+        var modalId = $(this).data("modal-id");
+        var modalType = $(this).data("modal-type");
+        var type = $(this).data("event-type");
+        var status = $(this).data("status");
+
+        $.ajax({
+            url: encodeURI('<?= base_url('admin/calendar/updateReminderStatus') ?>'),
+            type: "POST",
+            data: {
+                event_id: eventId,
+                event_type: type,
+                status: status
+            },
+            dataType: "json",
+            success: function(response) {  
+                if(response.success == true) {           
+                    var newStatus = (status === 1) ? "completed" : "complete";
+                    var buttonText = (status === 1) ? "Completed" : "Complete";
+                    var btndisb = (status === 1) ? "Completed" : "Complete";
+                    $("#btn-complete-event").data("status", newStatus).text(buttonText);
+                    $("#btn-complete-event").attr("disabled",btndisb);
+                    $("#event-modal").modal('hide');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Error updating reminder status:", error);
+            }
+        });
+    });
 </script>
 
 
 <script>
-//Calendar popup View button redirection
+    //Calendar popup View button redirection
     function redirectToReminderList(data) {
         //    debugger;
         //    console.log(data);
-        if (data.dataset.modalType == 'Customer') {
+        if (data.dataset.modalType == 'Customer Reminder') {
             window.location.href = '<?= base_url() ?>admin/customermaster/customerDetails/' + data.dataset.modalId;
-        } else if (data.dataset.modalType == 'Property') {
+        } else if (data.dataset.modalType == 'Property Reminder') {
             window.location.href = '<?= base_url() ?>admin/Propertymaster/propertyDetails/' + data.dataset.modalId;
-        } else if (data.dataset.modalType == 'Channel Partner') {
+        } else if (data.dataset.modalType == 'Channel Partner Reminder') {
             window.location.href = '<?= base_url() ?>admin/agentmaster/agentDetails/' + data.dataset.modalId;
-        } else if (data.dataset.modalType == 'Lead') {
+        } else if (data.dataset.modalType == 'Lead Reminder') {
+            window.location.href = '<?= base_url() ?>admin/Leadmaster/leadDetails/' + data.dataset.modalId;
+        }
+        if (data.dataset.modalType == 'Customer Followup') {
+            window.location.href = '<?= base_url() ?>admin/customermaster/customerDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Property Followup') {
+            window.location.href = '<?= base_url() ?>admin/Propertymaster/propertyDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Channel Partner Followup') {
+            window.location.href = '<?= base_url() ?>admin/agentmaster/agentDetails/' + data.dataset.modalId;
+        } else if (data.dataset.modalType == 'Lead Followup') {
             window.location.href = '<?= base_url() ?>admin/Leadmaster/leadDetails/' + data.dataset.modalId;
         }
     }

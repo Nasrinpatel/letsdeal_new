@@ -573,13 +573,9 @@ class Customermaster extends CI_Controller
 		$data = $this->input->post();
 		$data['model_type'] = 'customer';
 		$data['model_id'] = $this->input->post('customer_id');
-		if(isset($_POST['is_reminder'])){
-            $data['is_reminder'] = $this->input->post('is_reminder');
-            $data['reminder_date'] = $this->input->post('reminder_date');
-        }else{
-            $data['is_reminder'] = '0';
-            $data['reminder_date'] = NULL;
-        }
+		if(!array_key_exists('is_reminder',$data)){
+			$data['reminder_date'] = null;
+		}
 		$response = $this->customermaster->update_followup_records($id, $data);
 		if ($response == true) {
 			echo json_encode(array('success' => true, 'message' => 'Customer Followup Updated Successfully.'));
